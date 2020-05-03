@@ -6,7 +6,9 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="True"
              mc:Ignorable="d"
-             x:Class="LightScout.MainPage">
+             x:Class="LightScout.MainPage"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="lightPrimary" TargetType="Button">
@@ -44,38 +46,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout>
-        <!-- Place new controls here -->
-        <Grid Margin="10,20,10,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Label Text="Control Panel" 
-                   HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center"/>
-            <Button Text="Spun" Style="{StaticResource lightPrimary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="cp_lv1" Clicked="CPChange"/>
-            <Button Text="Positioned" Style="{StaticResource lightPrimary}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" x:Name="cp_lv2" Clicked="CPChange"/>
-        </Grid>
-        <Grid Margin="10,20,10,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Label Text="Balanced?" 
-                   HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
-            <Button Text="Yes" Style="{StaticResource lightSecondarySelected}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="balanced_opt1" Clicked="BalancedChange"/>
-            <Button Text="No" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" x:Name="balanced_opt2" Clicked="BalancedChange"/>
-        </Grid>
-        <Button Text="Send Data" Clicked="SendTheData"/>
-        <Button Text="Load Data" Clicked="LoadTheData"/>
-        <Label Text="" x:Name="showData"/>
+        <Button Text="See FTC" x:Name="FTCShow" Clicked="FTCShow_Clicked" BackgroundColor="#f57e25" TextColor="White" Margin="10,10,10,0"/>
+        <Button Text="See FRC" x:Name="FRCShow" Clicked="FRCShow_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10"/>
     </StackLayout>
 
 </ContentPage>

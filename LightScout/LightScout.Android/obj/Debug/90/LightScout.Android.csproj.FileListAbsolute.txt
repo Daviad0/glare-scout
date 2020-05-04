@@ -954,3 +954,4 @@ C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\90\stamp\_ResolveLibraryProjectImports.stamp
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\90\res\drawable\ftcicon.png
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\90\res\drawable\frcicon.png
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\90\android\assets\Newtonsoft.Json.dll

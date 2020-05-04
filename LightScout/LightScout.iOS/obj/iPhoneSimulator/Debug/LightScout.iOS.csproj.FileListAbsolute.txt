@@ -89,3 +89,5 @@ C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.iOS\obj\iPhoneSimu
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.iOS\obj\iPhoneSimulator\Debug\CopyFilesToMac\Entitlements.plist.NoneOutput.stamp
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.iOS\obj\iPhoneSimulator\Debug\CopyFilesToMac\Info.plist.NoneOutput.stamp
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.iOS\obj\iPhoneSimulator\Debug\LightScout.iOS.csprojAssemblyReference.cache
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.iOS\bin\iPhoneSimulator\Debug\Newtonsoft.Json.dll
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.iOS\obj\iPhoneSimulator\Debug\CopyFilesToMac\Newtonsoft.Json.dll.ReferenceCopyLocalPaths.stamp

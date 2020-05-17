@@ -47,6 +47,20 @@
     </ContentPage.Resources>
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" >
+            <Grid Padding="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Button Text="&#xea97;" TextColor="#009cd7" IsEnabled="False" x:Name="prevForm" BackgroundColor="White" BorderColor="#009cd7" BorderWidth="2" Clicked="prevForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
+                <Label Text="Team 862" x:Name="teamName"  Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" FontFamily="{StaticResource IconFont}" TextColor="#009cd7"/>
+                <Label Text="Match 5 - Red" x:Name="matchNumber"  Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" FontFamily="{StaticResource IconFont}" TextColor="#009cd7" Opacity="0"/>
+                <Button Text="&#xea98;" TextColor="#009cd7" x:Name="nextForm" BorderColor="#009cd7" BorderWidth="2" BackgroundColor="White" Clicked="nextForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="2"/>
+            </Grid>
             <StackLayout x:Name="nameForm" VerticalOptions="FillAndExpand">
                 <Label Text="First," FontSize="80" HorizontalOptions="Center" Margin="0,20,0,0">
                     <Label.FontFamily>
@@ -125,22 +139,17 @@
                 <Button Text="Reload" Clicked="Button_Clicked"/>
                 
             </StackLayout>
+            <StackLayout x:Name="teleopForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
+                
+            </StackLayout>
+            <StackLayout x:Name="endgameForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
+
+            </StackLayout>
+            <StackLayout x:Name="confirmForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
+
+            </StackLayout>
             <!-- Place new controls here -->
-            <Frame BackgroundColor="#009cd7" VerticalOptions="EndAndExpand" Padding="10" CornerRadius="0">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="60"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="60"/>
-                    </Grid.ColumnDefinitions>
-                    <Button Text="&#xea97;" TextColor="#009cd7" IsEnabled="False" x:Name="prevForm" BackgroundColor="White" Clicked="prevForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
-                    <Label Text="Team 862" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" FontFamily="{StaticResource IconFont}" TextColor="White"/>
-                    <Button Text="&#xea98;" TextColor="#009cd7" x:Name="nextForm" BackgroundColor="White" Clicked="nextForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="2"/>
-                </Grid>
-            </Frame>
+            
         </StackLayout>
         <StackLayout x:Name="overLay" Opacity="1" BackgroundColor="#009cd7" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
             

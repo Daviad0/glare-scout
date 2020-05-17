@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -24,6 +25,7 @@ namespace LightScout
             ControlPanel[0] = false;
             ControlPanel[1] = false;
             BackgroundColor = (Color)converter.ConvertFromInvariantString("#009cd7");
+            
         }
         protected override async void OnAppearing()
         {
@@ -59,6 +61,7 @@ namespace LightScout
             BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
             await overLay.FadeTo(0, 500, Easing.SinOut);
             overLay.IsVisible = false;
+            TextFlipTimer();
         }
         private void CPChange(object sender, EventArgs e)
         {
@@ -137,11 +140,11 @@ namespace LightScout
             nextForm.IsEnabled = true;
             if(CurrentSubPage == 0)
             {
+                prevForm.IsEnabled = false;
                 await autoForm.FadeTo(0, 250);
                 autoForm.IsVisible = false;
                 nameForm.IsVisible = true;
                 await nameForm.FadeTo(1,250);
-                prevForm.IsEnabled = false;
             }
         }
 
@@ -151,12 +154,44 @@ namespace LightScout
             prevForm.IsEnabled = true;
             if (CurrentSubPage == 1)
             {
+                nextForm.IsEnabled = false;
                 await nameForm.FadeTo(0, 250);
                 nameForm.IsVisible = false;
                 autoForm.IsVisible = true;
                 await autoForm.FadeTo(1, 250);
-                nextForm.IsEnabled = false;
+                
             }
+        }
+        private void TextFlipTimer()
+        {
+            bool firstCycle = false;
+            Device.StartTimer(TimeSpan.FromSeconds(7), () =>
+            {
+                Task.Run(async () =>
+                {
+                    if (!firstCycle)
+                    {
+                        matchNumber.TranslateTo(0, -20);
+                        await teamName.TranslateTo(0, 0, 250, Easing.SinIn);
+                        teamName.FadeTo(0, 250, Easing.SinOut);
+                        matchNumber.FadeTo(1, 250, Easing.SinOut);
+                        matchNumber.TranslateTo(0, 0, 250, Easing.SinIn);
+                        await teamName.TranslateTo(0, -20);
+                    }
+                    else
+                    {
+                        teamName.TranslateTo(0, -20);
+                        await matchNumber.TranslateTo(0, 0, 250, Easing.SinIn);
+                        matchNumber.FadeTo(0, 250, Easing.SinOut);
+                        teamName.FadeTo(1, 250, Easing.SinOut);
+                        teamName.TranslateTo(0, 0, 250, Easing.SinIn);
+                        await matchNumber.TranslateTo(0, -20);
+                    }
+                    firstCycle = !firstCycle;
+                    
+                });
+                return true;
+            });
         }
     }
 }

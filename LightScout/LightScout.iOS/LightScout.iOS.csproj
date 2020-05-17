@@ -70,6 +70,7 @@
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <BundleResource Include="Resources\VarelaRound-Regular.ttf" />
+    <BundleResource Include="Resources\icofont.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\frcicon.png.imageset\frcicon.png">

@@ -16,6 +16,7 @@ namespace LightScout
     {
         private static bool[] ControlPanel = new bool[2];
         private static bool Balanced;
+        private int CurrentSubPage;
         public FRCMain()
         {
             var converter = new ColorTypeConverter();
@@ -43,17 +44,21 @@ namespace LightScout
             }*/
             base.OnAppearing();
             
-            progressTimer.ProgressTo(0, 5000, Easing.Linear);
             await Task.Delay(TimeSpan.FromSeconds(1));
             await animatedelement.TranslateTo(TranslationX, TranslationY - 50, 1000, Easing.SinOut);
             HiddenLabel.FadeTo(1, 350);
             HiddenLabelName.FadeTo(1, 350);
             HiddenLabelDetails.FadeTo(1, 350);
-            await Task.Delay(TimeSpan.FromSeconds(2.65));
-            BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
-            await overLay.FadeTo(0, 800);
-            overLay.IsVisible = false;
+            await Task.Delay(TimeSpan.FromSeconds(.5));
+            HiddenButtonGo.FadeTo(1, 500);
 
+        }
+        private async void StartScouting(object sender, EventArgs e)
+        {
+            var converter = new ColorTypeConverter();
+            BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
+            await overLay.FadeTo(0, 500, Easing.SinOut);
+            overLay.IsVisible = false;
         }
         private void CPChange(object sender, EventArgs e)
         {
@@ -115,10 +120,43 @@ namespace LightScout
         {
             showData.Text = DependencyService.Get<DataStore>().LoadData("frctest050220.txt");
         }
+        private void BackToMainMenu(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new MainPage());
+        }
 
         private void Button_Clicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new MainPage());
+        }
+
+
+        private async void prevForm_Clicked(object sender, EventArgs e)
+        {
+            CurrentSubPage--;
+            nextForm.IsEnabled = true;
+            if(CurrentSubPage == 0)
+            {
+                await autoForm.FadeTo(0, 250);
+                autoForm.IsVisible = false;
+                nameForm.IsVisible = true;
+                await nameForm.FadeTo(1,250);
+                prevForm.IsEnabled = false;
+            }
+        }
+
+        private async void nextForm_Clicked(object sender, EventArgs e)
+        {
+            CurrentSubPage++;
+            prevForm.IsEnabled = true;
+            if (CurrentSubPage == 1)
+            {
+                await nameForm.FadeTo(0, 250);
+                nameForm.IsVisible = false;
+                autoForm.IsVisible = true;
+                await autoForm.FadeTo(1, 250);
+                nextForm.IsEnabled = false;
+            }
         }
     }
 }

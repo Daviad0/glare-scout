@@ -47,43 +47,109 @@
     </ContentPage.Resources>
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" >
-            <!-- Place new controls here -->
-            <Grid Margin="10,20,10,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Text="Control Panel" 
+            <StackLayout x:Name="nameForm" VerticalOptions="FillAndExpand">
+                <Label Text="First," FontSize="80" HorizontalOptions="Center" Margin="0,20,0,0">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Varela Round Regular</On>
+                            <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <Label Text="Who should we credit this to?" FontAttributes="Bold" Margin="11,0,0,0" FontSize="20" HorizontalOptions="Center">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Varela Round Regular</On>
+                            <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <Entry Placeholder="Your Amazing Name" x:Name="scoutName" Margin="10,0,10,0" ClearButtonVisibility="WhileEditing" IsTextPredictionEnabled="False" Keyboard="Text" MaxLength="30" ReturnType="Next" HorizontalOptions="CenterAndExpand" >
+                    <Entry.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Varela Round Regular</On>
+                            <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                        </OnPlatform>
+                    </Entry.FontFamily>
+                </Entry>
+
+            </StackLayout>
+            <StackLayout x:Name="autoForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
+                <Grid Margin="10,20,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Control Panel" 
                    HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center"/>
-                <Button Text="Spun" Style="{StaticResource lightPrimary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="cp_lv1" Clicked="CPChange"/>
-                <Button Text="Positioned" Style="{StaticResource lightPrimary}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" x:Name="cp_lv2" Clicked="CPChange"/>
-            </Grid>
-            <Grid Margin="10,20,10,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Text="Balanced?" 
+                    <Button Text="Spun" Style="{StaticResource lightPrimary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="cp_lv1" Clicked="CPChange"/>
+                    <Button Text="Positioned" Style="{StaticResource lightPrimary}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" x:Name="cp_lv2" Clicked="CPChange"/>
+                </Grid>
+                <Grid Margin="10,20,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Balanced?" 
                    HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
-                <Button Text="Yes" Style="{StaticResource lightSecondarySelected}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="balanced_opt1" Clicked="BalancedChange"/>
-                <Button Text="No" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" x:Name="balanced_opt2" Clicked="BalancedChange"/>
-            </Grid>
-            <Entry Placeholder="Scout Name" x:Name="scoutName"/>
-            <Button Text="Send Data" Clicked="SendTheData"/>
-            <Button Text="Load Data" Clicked="LoadTheData"/>
-            <Label Text="" x:Name="showData"/>
-            <Button Text="Reload" Clicked="Button_Clicked"/>
+                    <Button Text="Yes" Style="{StaticResource lightSecondarySelected}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="balanced_opt1" Clicked="BalancedChange"/>
+                    <Button Text="No" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" x:Name="balanced_opt2" Clicked="BalancedChange"/>
+                </Grid>
+                <Grid Margin="10,20,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label />
+                </Grid>
+
+                <Button Text="Send Data" Clicked="SendTheData"/>
+                <Button Text="Load Data" Clicked="LoadTheData"/>
+                <Label Text="" x:Name="showData"/>
+                <Button Text="Reload" Clicked="Button_Clicked"/>
+                
+            </StackLayout>
+            <!-- Place new controls here -->
+            <Frame BackgroundColor="#009cd7" VerticalOptions="EndAndExpand" Padding="10" CornerRadius="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Text="&#xea97;" TextColor="#009cd7" IsEnabled="False" x:Name="prevForm" BackgroundColor="White" Clicked="prevForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
+                    <Label Text="Team 862" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" FontFamily="{StaticResource IconFont}" TextColor="White"/>
+                    <Button Text="&#xea98;" TextColor="#009cd7" x:Name="nextForm" BackgroundColor="White" Clicked="nextForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="2"/>
+                </Grid>
+            </Frame>
         </StackLayout>
         <StackLayout x:Name="overLay" Opacity="1" BackgroundColor="#009cd7" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
-            <Grid VerticalOptions="CenterAndExpand" Margin="0,50,0,0" x:Name="animatedelement">
+            
+            <Label Text="&#xea7b;" FontFamily="{StaticResource IconFont}" TextColor="White" FontSize="30" HorizontalOptions="Start" Margin="10,10,0,0">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="BackToMainMenu"/>
+                </Label.GestureRecognizers>
+            </Label>
+            <Grid VerticalOptions="CenterAndExpand" Margin="0,70,0,0" x:Name="animatedelement">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="200"/>
                     <RowDefinition Height="50"/>
@@ -118,10 +184,13 @@
                         </OnPlatform>
                     </Label.FontFamily>
                 </Label>
+                
 
                 <!--<Button Text="Let's Do This!" BackgroundColor="White" TextColor="#009cd7" CornerRadius="6" FontFamily=""/>-->
             </Grid>
-            <ProgressBar ProgressColor="White" Progress="1" VerticalOptions="End" HeightRequest="5" x:Name="progressTimer"/>
+            <Button Text="Let's Scout!" TextColor="#009cd7" x:Name="HiddenButtonGo" BackgroundColor="White" VerticalOptions="End" HorizontalOptions="CenterAndExpand" Opacity="0" Margin="0,0,0,10" Clicked="StartScouting" WidthRequest="300" CornerRadius="8">
+                
+            </Button>
         </StackLayout>
     </AbsoluteLayout>
 </ContentPage>

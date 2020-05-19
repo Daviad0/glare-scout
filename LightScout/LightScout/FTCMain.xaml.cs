@@ -80,11 +80,11 @@ namespace LightScout
         }
         private void SendTheData(object sender, EventArgs e)
         {
-            DependencyService.Get<DataStore>().SaveData("frctest050220.txt", "Hello Android World! :)");
+            //DependencyService.Get<DataStore>().SaveData("frctest050220.txt", "Hello Android World! :)");
         }
         private void LoadTheData(object sender, EventArgs e)
         {
-            showData.Text = DependencyService.Get<DataStore>().LoadData("frctest050220.txt");
+            //showData.Text = DependencyService.Get<DataStore>().LoadData("frctest050220.txt");
         }
 
         private void Button_Clicked(object sender, EventArgs e)

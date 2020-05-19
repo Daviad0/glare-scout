@@ -47,7 +47,7 @@
     </ContentPage.Resources>
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" >
-            <Grid Padding="10">
+            <Grid Padding="10" BackgroundColor="#009cd7">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
@@ -57,8 +57,8 @@
                     <ColumnDefinition Width="60"/>
                 </Grid.ColumnDefinitions>
                 <Button Text="&#xea97;" TextColor="#009cd7" IsEnabled="False" x:Name="prevForm" BackgroundColor="White" BorderColor="#009cd7" BorderWidth="2" Clicked="prevForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
-                <Label Text="Team 862" x:Name="teamName"  Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" FontFamily="{StaticResource IconFont}" TextColor="#009cd7"/>
-                <Label Text="Match 5 - Red" x:Name="matchNumber"  Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" FontFamily="{StaticResource IconFont}" TextColor="#009cd7" Opacity="0"/>
+                <Label Text="Team 862" x:Name="teamName"  Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" FontFamily="{StaticResource IconFont}" TextColor="White"/>
+                <Label Text="Match 5 - Red" x:Name="matchNumber"  Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" FontFamily="{StaticResource IconFont}" TextColor="White" Opacity="0"/>
                 <Button Text="&#xea98;" TextColor="#009cd7" x:Name="nextForm" BorderColor="#009cd7" BorderWidth="2" BackgroundColor="White" Clicked="nextForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="2"/>
             </Grid>
             <StackLayout x:Name="nameForm" VerticalOptions="FillAndExpand">
@@ -149,6 +149,7 @@
 
             </StackLayout>
             <!-- Place new controls here -->
+            <Button VerticalOptions="End" HorizontalOptions="End" Text="&#xef1b;" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" Margin="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Red" TextColor="White"/>
             
         </StackLayout>
         <StackLayout x:Name="overLay" Opacity="1" BackgroundColor="#009cd7" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">

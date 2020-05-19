@@ -10,7 +10,7 @@ namespace LightScout
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new FRCHome());
+            MainPage = new NavigationPage(new MainPage());
         }
 
         protected override void OnStart()

@@ -112,16 +112,17 @@ namespace LightScout
         private void SendTheData(object sender, EventArgs e)
         {
             var SaveMatch = new TeamMatch();
-            SaveMatch.ClimbBalance = Balanced;
-            SaveMatch.ControlPanelRotation = ControlPanel[0];
-            SaveMatch.ControlPanelPosition = ControlPanel[1];
+            SaveMatch.E_Balanced = Balanced;
+            SaveMatch.T_ControlPanelRotation = ControlPanel[0];
+            SaveMatch.T_ControlPanelPosition = ControlPanel[1];
             SaveMatch.ScoutName = scoutName.Text;
-            var jsontext = JsonConvert.SerializeObject(SaveMatch);
-            DependencyService.Get<DataStore>().SaveData("frctest050220.txt", jsontext);
+            SaveMatch.MatchNumber = 1;
+            SaveMatch.NumCycles = 2;
+            DependencyService.Get<DataStore>().SaveData("frctest051920.txt", SaveMatch);
         }
         private void LoadTheData(object sender, EventArgs e)
         {
-            showData.Text = DependencyService.Get<DataStore>().LoadData("frctest050220.txt");
+            showData.Text = DependencyService.Get<DataStore>().LoadData("frctest051920.txt");
         }
         private void BackToMainMenu(object sender, EventArgs e)
         {
@@ -141,10 +142,30 @@ namespace LightScout
             if(CurrentSubPage == 0)
             {
                 prevForm.IsEnabled = false;
-                await autoForm.FadeTo(0, 250);
+                autoForm.FadeTo(0, 250);
                 autoForm.IsVisible = false;
                 nameForm.IsVisible = true;
-                await nameForm.FadeTo(1,250);
+                nameForm.FadeTo(1,250);
+            }else if (CurrentSubPage == 1)
+            {
+                teleopForm.FadeTo(0, 250);
+                teleopForm.IsVisible = false;
+                autoForm.IsVisible = true;
+                autoForm.FadeTo(1, 250);
+            }
+            else if (CurrentSubPage == 2)
+            {
+                endgameForm.FadeTo(0, 250);
+                endgameForm.IsVisible = false;
+                teleopForm.IsVisible = true;
+                teleopForm.FadeTo(1, 250);
+            }
+            else if (CurrentSubPage == 3)
+            {
+                confirmForm.FadeTo(0, 250);
+                confirmForm.IsVisible = false;
+                endgameForm.IsVisible = true;
+                endgameForm.FadeTo(1, 250);
             }
         }
 
@@ -154,18 +175,38 @@ namespace LightScout
             prevForm.IsEnabled = true;
             if (CurrentSubPage == 1)
             {
-                nextForm.IsEnabled = false;
-                await nameForm.FadeTo(0, 250);
+                nameForm.FadeTo(0, 250);
                 nameForm.IsVisible = false;
                 autoForm.IsVisible = true;
-                await autoForm.FadeTo(1, 250);
+                autoForm.FadeTo(1, 250);
                 
+            }else if(CurrentSubPage == 2)
+            {
+                autoForm.FadeTo(0, 250);
+                autoForm.IsVisible = false;
+                teleopForm.IsVisible = true;
+                teleopForm.FadeTo(1, 250);
+            }
+            else if (CurrentSubPage == 3)
+            {
+                teleopForm.FadeTo(0, 250);
+                teleopForm.IsVisible = false;
+                endgameForm.IsVisible = true;
+                endgameForm.FadeTo(1, 250);
+            }
+            else if (CurrentSubPage == 4)
+            {
+                nextForm.IsEnabled = false;
+                endgameForm.FadeTo(0, 250);
+                endgameForm.IsVisible = false;
+                confirmForm.IsVisible = true;
+                confirmForm.FadeTo(1, 250);
             }
         }
         private void TextFlipTimer()
         {
             bool firstCycle = false;
-            Device.StartTimer(TimeSpan.FromSeconds(7), () =>
+            Device.StartTimer(TimeSpan.FromSeconds(6), () =>
             {
                 Task.Run(async () =>
                 {

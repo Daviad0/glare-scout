@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="LightScout.FRCHome"
+            NavigationPage.HasNavigationBar="False">
+  <!--Pages can be added as references or inline-->
+    <ContentPage Title="Schedule" >
+        <StackLayout>
+            <ListView x:Name="RankList"
+                      IsPullToRefreshEnabled="True"
+                      ItemsSource="{Binding Matches}"
+                      CachingStrategy="RecycleElement"
+                      RowHeight="60"
+                      SelectionMode="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Margin="8">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding MatchNumber}"
+                                       HorizontalOptions="End"
+                                       VerticalOptions="Center"
+                                       Grid.Row="0"
+                                       Grid.Column="0"
+                                       FontSize="Large"
+                                       Margin="10,0,15,0"
+                                       FontAttributes="Bold" x:Name="{Binding MatchNumber, StringFormat='{0}_ranklabel'}"/>
+                                <Grid Grid.Row="0" Grid.Column="1" HorizontalOptions="Start">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="{Binding TeamNumber, StringFormat='Team {0}'}"
+                                           FontAttributes="Bold"
+                                           Grid.Row="0"
+                                           Grid.Column="0"/>
+                                    <Label Text="{Binding TeamName}"
+                                           Grid.Row="1"
+                                           Grid.Column="0"/>
+                                </Grid>
+                                <!--<Button Text="Details"
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        HorizontalOptions="End"
+                                        Margin="0,0,10,0"
+                                        BorderColor="Transparent"
+                                        BackgroundColor="Transparent"
+                                        ClassId="{Binding TeamNumber}"
+                                        Clicked="TeamDetails"/>-->
+
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage>
+    <ContentPage Title="Scouting" ></ContentPage>
+    <ContentPage Title="Settings" ></ContentPage>
+</TabbedPage>

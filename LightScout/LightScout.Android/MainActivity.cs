@@ -18,7 +18,7 @@ namespace LightScout.Droid
         {
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-
+            this.Window.AddFlags(WindowManagerFlags.Fullscreen);
             base.OnCreate(savedInstanceState);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
@@ -26,6 +26,7 @@ namespace LightScout.Droid
             LoadApplication(new App());
             var permissions = new string[] { Manifest.Permission.ReadExternalStorage, Manifest.Permission.WriteExternalStorage };
             ActivityCompat.RequestPermissions(this, permissions, 1);
+            
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

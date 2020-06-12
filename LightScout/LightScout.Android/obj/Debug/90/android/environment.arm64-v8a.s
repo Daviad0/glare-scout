@@ -3,8 +3,8 @@
 	.section	.rodata..L.str.1,"aMS",@progbits,1
 	.type	.L.str.1, @object
 .L.str.1:
-	.asciz	"com.companyname.lightscout"
-	.size	.L.str.1, 27
+	.asciz	"com.team862.lightscout"
+	.size	.L.str.1, 23
 	.section	.data.application_config,"aw",@progbits
 	.type	application_config, @object
 	.p2align	3
@@ -70,7 +70,7 @@ mono_aot_mode_name:
 	.section	.rodata..L.str.8,"aMS",@progbits,1
 	.type	.L.str.8, @object
 .L.str.8:
-	.asciz	"dc3764f7-dc3e-47e5-b449-fd999dc57072"
+	.asciz	"d58f0405-6412-4078-a8a9-9d7e41bbbf0c"
 	.size	.L.str.8, 37
 	.section	.rodata..L.str.9,"aMS",@progbits,1
 	.type	.L.str.9, @object

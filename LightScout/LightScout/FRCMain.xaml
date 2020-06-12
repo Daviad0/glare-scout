@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="LightScout.FRCMain"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="lightPrimary" TargetType="Button">
+                <Setter Property="BorderColor" Value="#2a7afa"/>
+                <Setter Property="BackgroundColor" Value="#ffffff"/>
+                <Setter Property="TextColor" Value="#2a7afa"/>
+                <Setter Property="BorderWidth" Value="2"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="CornerRadius" Value="5"/>
+            </Style>
+            <Style x:Key="lightPrimarySelected" TargetType="Button">
+                <Setter Property="BorderColor" Value="#2a7afa"/>
+                <Setter Property="BackgroundColor" Value="#2a7afa"/>
+                <Setter Property="TextColor" Value="#ffffff"/>
+                <Setter Property="BorderWidth" Value="2"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="CornerRadius" Value="5"/>
+            </Style>
+            <Style x:Key="lightSecondary" TargetType="Button">
+                <Setter Property="BorderColor" Value="#0f3f8c"/>
+                <Setter Property="BackgroundColor" Value="#ffffff"/>
+                <Setter Property="TextColor" Value="#0f3f8c"/>
+                <Setter Property="BorderWidth" Value="2"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="CornerRadius" Value="5"/>
+            </Style>
+            <Style x:Key="lightSecondarySelected" TargetType="Button">
+                <Setter Property="BorderColor" Value="#0f3f8c"/>
+                <Setter Property="BackgroundColor" Value="#0f3f8c"/>
+                <Setter Property="TextColor" Value="#ffffff"/>
+                <Setter Property="BorderWidth" Value="2"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="CornerRadius" Value="5"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <AbsoluteLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" >
+            <Grid Padding="10" BackgroundColor="#009cd7">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Button Text="&#xea97;" TextColor="#009cd7" IsEnabled="False" x:Name="prevForm" BackgroundColor="White" BorderColor="#009cd7" BorderWidth="2" Clicked="prevForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
+                <Label Text="Team 862" x:Name="teamName"  Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" FontFamily="{StaticResource IconFont}" TextColor="White"/>
+                <Label Text="Match 5 - Red" x:Name="matchNumber"  Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" FontFamily="{StaticResource IconFont}" TextColor="White" Opacity="0"/>
+                <Button Text="&#xea98;" TextColor="#009cd7" x:Name="nextForm" BorderColor="#009cd7" BorderWidth="2" BackgroundColor="White" Clicked="nextForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="2"/>
+            </Grid>
+            <StackLayout x:Name="nameForm" VerticalOptions="FillAndExpand">
+                <Label Text="First," FontSize="80" HorizontalOptions="Center" Margin="0,20,0,0">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Varela Round Regular</On>
+                            <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <Label Text="Who should we credit this to?" FontAttributes="Bold" Margin="11,0,0,0" FontSize="20" HorizontalOptions="Center">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Varela Round Regular</On>
+                            <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <Entry Placeholder="Your Amazing Name" x:Name="scoutName" Margin="10,0,10,0" ClearButtonVisibility="WhileEditing" IsTextPredictionEnabled="False" Keyboard="Text" MaxLength="30" ReturnType="Next" HorizontalOptions="CenterAndExpand" >
+                    <Entry.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Varela Round Regular</On>
+                            <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                        </OnPlatform>
+                    </Entry.FontFamily>
+                </Entry>
+
+            </StackLayout>
+            <StackLayout x:Name="autoForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
+                <Grid Margin="10,20,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Control Panel" 
+                   HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center"/>
+                    <Button Text="Spun" Style="{StaticResource lightPrimary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="cp_lv1" Clicked="CPChange"/>
+                    <Button Text="Positioned" Style="{StaticResource lightPrimary}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" x:Name="cp_lv2" Clicked="CPChange"/>
+                </Grid>
+                <Grid Margin="10,20,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Balanced?" 
+                   HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
+                    <Button Text="Yes" Style="{StaticResource lightSecondarySelected}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="balanced_opt1" Clicked="BalancedChange"/>
+                    <Button Text="No" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" x:Name="balanced_opt2" Clicked="BalancedChange"/>
+                </Grid>
+                <Grid Margin="10,20,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label />
+                </Grid>
+
+                <Button Text="Send Data" Clicked="SendTheData"/>
+                <Button Text="Load Data" Clicked="LoadTheData"/>
+                <Label Text="" x:Name="showData"/>
+                <Button Text="Reload" Clicked="Button_Clicked"/>
+                
+            </StackLayout>
+            <StackLayout x:Name="teleopForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
+                
+            </StackLayout>
+            <StackLayout x:Name="endgameForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
+
+            </StackLayout>
+            <StackLayout x:Name="confirmForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
+
+            </StackLayout>
+            <!-- Place new controls here -->
+            <Button VerticalOptions="End" HorizontalOptions="End" Text="&#xef1b;" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" Margin="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Red" TextColor="White"/>
+            
+        </StackLayout>
+        <StackLayout x:Name="overLay" Opacity="1" BackgroundColor="#009cd7" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            
+            <Label Text="&#xea7b;" FontFamily="{StaticResource IconFont}" TextColor="White" FontSize="30" HorizontalOptions="Start" Margin="10,10,0,0">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="BackToMainMenu"/>
+                </Label.GestureRecognizers>
+            </Label>
+            <Grid VerticalOptions="CenterAndExpand" Margin="0,70,0,0" x:Name="animatedelement">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="frcicon.png" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" WidthRequest="250" x:Name="logo" Grid.Row="0" Grid.Column="0"/>
+                <Label Text="Team 862" TextColor="White" x:Name="HiddenLabel" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Opacity="0" Grid.Row="1" Grid.Column="0" FontSize="30" FontAttributes="Bold">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Varela Round Regular</On>
+                            <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <Label Text="Lightning Robotics" TextColor="White" x:Name="HiddenLabelName" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Opacity="0" Grid.Row="2" Grid.Column="0" FontSize="20" FontAttributes="Italic">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Varela Round Regular</On>
+                            <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <Label Text="Match 16 - Red" TextColor="White" x:Name="HiddenLabelDetails" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Opacity="0" Grid.Row="3" Grid.Column="0" FontSize="20" FontAttributes="Italic">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Varela Round Regular</On>
+                            <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                
+
+                <!--<Button Text="Let's Do This!" BackgroundColor="White" TextColor="#009cd7" CornerRadius="6" FontFamily=""/>-->
+            </Grid>
+            <Button Text="Let's Scout!" TextColor="#009cd7" x:Name="HiddenButtonGo" BackgroundColor="White" VerticalOptions="End" HorizontalOptions="CenterAndExpand" Opacity="0" Margin="0,0,0,10" Clicked="StartScouting" WidthRequest="300" CornerRadius="8">
+                
+            </Button>
+        </StackLayout>
+    </AbsoluteLayout>
+</ContentPage>

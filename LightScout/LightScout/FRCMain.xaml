@@ -56,10 +56,14 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="60"/>
                 </Grid.ColumnDefinitions>
+                
+                
                 <Button Text="&#xea97;" TextColor="#009cd7" IsEnabled="False" x:Name="prevForm" BackgroundColor="White" BorderColor="#009cd7" BorderWidth="2" Clicked="prevForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
+                <Button Text="&#xeee4;" TextColor="Tomato" x:Name="exitForm" BackgroundColor="White" BorderColor="#009cd7" BorderWidth="2"  FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0" IsVisible="True" Clicked="BackToMainMenu"/>
                 <Label Text="Team 862" x:Name="teamName"  Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" FontFamily="{StaticResource IconFont}" TextColor="White"/>
                 <Label Text="Match 5 - Red" x:Name="matchNumber"  Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" FontFamily="{StaticResource IconFont}" TextColor="White" Opacity="0"/>
                 <Button Text="&#xea98;" TextColor="#009cd7" x:Name="nextForm" BorderColor="#009cd7" BorderWidth="2" BackgroundColor="White" Clicked="nextForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="2"/>
+                <Button Text="&#xeed8;" TextColor="MediumSeaGreen" x:Name="finishForm" BorderColor="#009cd7" BorderWidth="2" BackgroundColor="White" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="2" IsVisible="False" Clicked="BackToMainMenu"/>
             </Grid>
             <StackLayout x:Name="nameForm" VerticalOptions="FillAndExpand">
                 <Label Text="First," FontSize="80" HorizontalOptions="Center" Margin="0,20,0,0">
@@ -78,7 +82,7 @@
                         </OnPlatform>
                     </Label.FontFamily>
                 </Label>
-                <Entry Placeholder="Your Amazing Name" x:Name="scoutName" Margin="10,0,10,0" ClearButtonVisibility="WhileEditing" IsTextPredictionEnabled="False" Keyboard="Text" MaxLength="30" ReturnType="Next" HorizontalOptions="CenterAndExpand" >
+                <Entry Placeholder="You (The Scouter)" x:Name="scoutName" Margin="10,0,10,0" ClearButtonVisibility="WhileEditing" IsTextPredictionEnabled="False" Keyboard="Text" MaxLength="30" ReturnType="Next" HorizontalOptions="CenterAndExpand" >
                     <Entry.FontFamily>
                         <OnPlatform x:TypeArguments="x:String">
                             <On Platform="iOS">Varela Round Regular</On>
@@ -89,34 +93,26 @@
 
             </StackLayout>
             <StackLayout x:Name="autoForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
-                <Grid Margin="10,20,10,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+                <Grid Margin="10,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
-                    <Label Text="Control Panel" 
-                   HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center"/>
-                    <Button Text="Spun" Style="{StaticResource lightPrimary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="cp_lv1" Clicked="CPChange"/>
-                    <Button Text="Positioned" Style="{StaticResource lightPrimary}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" x:Name="cp_lv2" Clicked="CPChange"/>
+                    <Label Text="Initiation Line" Grid.Column="0" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Button Text="Not Achieved" Clicked="ChangeInitLine" Style="{StaticResource lightPrimary}" Grid.Column="1" x:Name="initLineToggle"/>
+                    
                 </Grid>
-                <Grid Margin="10,20,10,0">
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Text="Balanced?" 
-                   HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
-                    <Button Text="Yes" Style="{StaticResource lightSecondarySelected}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="balanced_opt1" Clicked="BalancedChange"/>
-                    <Button Text="No" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" x:Name="balanced_opt2" Clicked="BalancedChange"/>
+
                 </Grid>
+                
+                
                 <Grid Margin="10,20,10,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -140,16 +136,85 @@
                 
             </StackLayout>
             <StackLayout x:Name="teleopForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
-                
+                <Grid Margin="10,20,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Control Panel" 
+                   HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center"/>
+                    <Button Text="Spun" Style="{StaticResource lightPrimary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="cp_lv1" Clicked="CPChange"/>
+                    <Button Text="Positioned" Style="{StaticResource lightPrimary}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" x:Name="cp_lv2" Clicked="CPChange"/>
+                </Grid>
             </StackLayout>
             <StackLayout x:Name="endgameForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
-
+                <Grid Margin="10,20,10,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Balanced?" 
+                   HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
+                    <Button Text="Yes" Style="{StaticResource lightSecondarySelected}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="balanced_opt1" Clicked="BalancedChange"/>
+                    <Button Text="No" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" x:Name="balanced_opt2" Clicked="BalancedChange"/>
+                </Grid>
             </StackLayout>
             <StackLayout x:Name="confirmForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
-
+                <Label Text="Confirm"/>
             </StackLayout>
             <!-- Place new controls here -->
-            <Button VerticalOptions="End" HorizontalOptions="End" Text="&#xef1b;" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" Margin="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Red" TextColor="White"/>
+            <Button VerticalOptions="End" Clicked="EnableDisabledMenu" HorizontalOptions="End" Text="&#xef1b;" x:Name="enableDisabled" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" Margin="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Red" TextColor="White"/>
+            
+        </StackLayout>
+        <StackLayout x:Name="disabledMenu" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
+            <AbsoluteLayout VerticalOptions="FillAndExpand">
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">
+
+                </StackLayout>
+                <StackLayout BackgroundColor="White" VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".5,.5,.75,.75" AbsoluteLayout.LayoutFlags="All">
+                    <Grid Margin="0,50,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image x:Name="OnSLLight" Source="BlueSLOnG.png" Grid.Column="0" Grid.Row="0" HeightRequest="100"/>
+                        <Image x:Name="OffSLLight" Source="OffSL.png" Grid.Column="0" Grid.Row="0" HeightRequest="100" IsVisible="False"/>
+                    </Grid>
+                    <Label Text="Robot Disabled!" Margin="40,0,40,0" FontSize="30" HorizontalOptions="Center">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Varela Round Regular</On>
+                                <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                    <Label Text="The robot has been disabled for..." Margin="40,0" HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Varela Round Regular</On>
+                                <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                    <Label Text="0s" FontSize="60" TextColor="Red" HorizontalOptions="Center" x:Name="disabledSeconds">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Varela Round Regular</On>
+                                <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                    
+                    <Button Text="Robot Was Re-Enabled" Clicked="DisableDisabledMenu" x:Name="disableDisabled" Margin="30,0,30,50"/>
+                </StackLayout>
+            </AbsoluteLayout>
             
         </StackLayout>
         <StackLayout x:Name="overLay" Opacity="1" BackgroundColor="#009cd7" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">

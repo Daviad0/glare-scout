@@ -1,17 +1,17 @@
 "--cache=/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.4/mtouch-cache"
 "--sim=/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/bin/iPhoneSimulator/Debug/device-builds/iphone 11-13.4/LightScout.iOS.app"
 --executable=LightScout.iOS
- --debug
- --sgen-conc
- --nolink
+--debug
+--sgen-conc
+--nolink
 --sdkroot=/Applications/Xcode.app/Contents/Developer
---sdk=13.4
+--sdk=13.5
 --targetver=8.0
- --aot-options=-O=-float32
- --http-message-handler=NSUrlSessionHandler
- --abi=x86_64
+--aot-options=-O=-float32
+--http-message-handler=NSUrlSessionHandler
+--abi=x86_64
 "--symbollist=/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.4/mtouch-symbols.list"
- --dsym=no
+--dsym=no
 -r=/Users/daviado/Downloads/lightscoutx/LightScout/LightScout/bin/Debug/netstandard2.0/LightScout.dll
 -r=/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/mscorlib.dll
 -r=/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/OpenTK-1.0.dll
@@ -164,6 +164,7 @@
 -r=/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/Facades/System.Xml.XPath.XDocument.dll
 -r=/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/Facades/System.Xml.XPath.XmlDocument.dll
 -r=/Library/Frameworks/Xamarin.iOS.framework/Versions/Current/lib/mono/Xamarin.iOS/Facades/System.Xml.Xsl.Primitives.dll
+-r=/Users/daviado/.nuget/packages/newtonsoft.json/12.0.3/lib/netstandard2.0/Newtonsoft.Json.dll
 -r=/Users/daviado/.nuget/packages/xamarin.essentials/1.3.1/lib/xamarinios10/Xamarin.Essentials.dll
 -r=/Users/daviado/.nuget/packages/xamarin.forms/4.4.0.991265/lib/Xamarin.iOS10/Xamarin.Forms.Core.dll
 -r=/Users/daviado/.nuget/packages/xamarin.forms/4.4.0.991265/lib/Xamarin.iOS10/Xamarin.Forms.Platform.dll
@@ -204,5 +205,5 @@
 -r=/Users/daviado/.nuget/packages/xamarin.forms/4.4.0.991265/lib/Xamarin.iOS10/zh-Hans/Xamarin.Forms.Platform.iOS.resources.dll
 -r=/Users/daviado/.nuget/packages/xamarin.forms/4.4.0.991265/lib/Xamarin.iOS10/zh-Hant/Xamarin.Forms.Platform.iOS.resources.dll
 -r=/Users/daviado/Downloads/lightscoutx/LightScout/LightScout/bin/Debug/netstandard2.0/LightScout.dll
- --target-framework=Xamarin.iOS,v1.0
+--target-framework=Xamarin.iOS,v1.0
 --root-assembly=/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/bin/iPhoneSimulator/Debug/LightScout.iOS.exe

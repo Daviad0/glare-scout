@@ -1,16 +1,27 @@
 ﻿<Properties StartupConfiguration="{82D9F41F-926C-4DEF-B639-44F01D1868A2}|Default">
-  <MonoDevelop.Ide.ItemProperties.LightScout.Android PreferredExecutionTarget="Android.Android_Accelerated_Oreo" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="LightScout/LightScout.iOS/WriteNRead.cs">
+  <MonoDevelop.Ide.ItemProperties.LightScout.Android PreferredExecutionTarget="Android.pixel_2_pie_9_0_-_api_28" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="LightScout/LightScout/FRCMain.xaml">
     <Files>
       <File FileName="LightScout/LightScout.iOS/WriteNRead.cs" Line="1" Column="1" />
+      <File FileName="LightScout/LightScout/FRCHome.xaml" Line="14" Column="27" />
+      <File FileName="LightScout/LightScout/FRCMain.xaml" Line="64" Column="124" />
+      <File FileName="LightScout/LightScout/FRCMain.xaml.cs" Line="172" Column="30" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="LightScout" expanded="True">
-            <Node name="LightScout.iOS" expanded="True">
-              <Node name="WriteNRead.cs" selected="True" />
+            <Node name="LightScout" expanded="True">
+              <Node name="FRCHome.xaml" expanded="True" />
+              <Node name="FRCMain.xaml" expanded="True" selected="True" />
             </Node>
+            <Node name="LightScout.Android" expanded="True">
+              <Node name="Assets" expanded="True" />
+              <Node name="Resources" expanded="True">
+                <Node name="drawable" expanded="True" />
+              </Node>
+            </Node>
+            <Node name="LightScout.iOS" expanded="True" />
           </Node>
         </State>
       </Pad>
@@ -22,5 +33,5 @@
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.ItemProperties.LightScout.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.1A7A464D-97AB-4134-A35C-CFF041AE4894" />
+  <MonoDevelop.Ide.ItemProperties.LightScout.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.B2880CFE-9EF7-41D3-9FC0-8674BF039FB6" />
 </Properties>

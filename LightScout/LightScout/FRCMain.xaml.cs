@@ -18,6 +18,9 @@ namespace LightScout
         private static bool[] ControlPanel = new bool[2];
         private static bool Balanced;
         private int CurrentSubPage;
+        private int DisabledSeconds;
+        private bool CurrentlyDisabled;
+        private bool InitLineAchieved;
         public FRCMain()
         {
             var converter = new ColorTypeConverter();
@@ -129,6 +132,35 @@ namespace LightScout
             Navigation.PushAsync(new MainPage());
         }
 
+        private void EnableDisabledMenu(object sender, EventArgs e)
+        {
+            disabledMenu.IsVisible = true;
+            CurrentlyDisabled = true;
+            DisabledTimer();
+
+        }
+        private void DisableDisabledMenu(object sender, EventArgs e)
+        {
+            
+            CurrentlyDisabled = false;
+            disabledMenu.IsVisible = false;
+            
+
+        }
+        private void ChangeInitLine(object sender, EventArgs e)
+        {
+            InitLineAchieved = !InitLineAchieved;
+            if (InitLineAchieved)
+            {
+                initLineToggle.Style = Resources["lightPrimarySelected"] as Style;
+                initLineToggle.Text = "Achieved";
+            }
+            else
+            {
+                initLineToggle.Style = Resources["lightPrimary"] as Style;
+                initLineToggle.Text = "Not Achieved";
+            }
+        }
         private void Button_Clicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new MainPage());
@@ -139,8 +171,10 @@ namespace LightScout
         {
             CurrentSubPage--;
             nextForm.IsEnabled = true;
-            if(CurrentSubPage == 0)
+            finishForm.IsVisible = false;
+            if (CurrentSubPage == 0)
             {
+                exitForm.IsVisible = true;
                 prevForm.IsEnabled = false;
                 autoForm.FadeTo(0, 250);
                 autoForm.IsVisible = false;
@@ -172,6 +206,7 @@ namespace LightScout
         private async void nextForm_Clicked(object sender, EventArgs e)
         {
             CurrentSubPage++;
+            exitForm.IsVisible = false;
             prevForm.IsEnabled = true;
             if (CurrentSubPage == 1)
             {
@@ -197,11 +232,31 @@ namespace LightScout
             else if (CurrentSubPage == 4)
             {
                 nextForm.IsEnabled = false;
+                finishForm.IsVisible = true;
                 endgameForm.FadeTo(0, 250);
                 endgameForm.IsVisible = false;
                 confirmForm.IsVisible = true;
                 confirmForm.FadeTo(1, 250);
             }
+        }
+        private void DisabledTimer()
+        {
+            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            {
+                
+                if (CurrentlyDisabled)
+                {
+                    OnSLLight.IsVisible = !OnSLLight.IsVisible;
+                    OffSLLight.IsVisible = !OffSLLight.IsVisible;
+                    DisabledSeconds++;
+                    disabledSeconds.Text = DisabledSeconds.ToString() + "s";
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            });
         }
         private void TextFlipTimer()
         {

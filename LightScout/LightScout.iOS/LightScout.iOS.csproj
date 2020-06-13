@@ -128,6 +128,16 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\BlueSLOn.png.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\BlueSLOn.png.imageset\BlueSLOn.png" />
+    <ImageAsset Include="Assets.xcassets\RedSLOn.png.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\RedSLOn.png.imageset\RedSLOn.png" />
+    <ImageAsset Include="Assets.xcassets\OffSL.png.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\OffSL.png.imageset\OffSL.png" />
+    <ImageAsset Include="Assets.xcassets\BlueSLOnG.png.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\BlueSLOnG.png.imageset\BlueSLOnG.png" />
+    <ImageAsset Include="Assets.xcassets\RedSLOnG.png.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\RedSLOnG.png.imageset\RedSLOnG.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -144,8 +154,15 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\LightScout\LightScout.csproj">
-      <Project>{350618E3-1DF3-46B6-A054-87B22ED560BC}</Project>
+      <Project>{D87595B7-2F29-4368-9CDC-E6DF94FC3BA6}</Project>
       <Name>LightScout</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets.xcassets\BlueSLOn.png.imageset\" />
+    <Folder Include="Assets.xcassets\RedSLOn.png.imageset\" />
+    <Folder Include="Assets.xcassets\OffSL.png.imageset\" />
+    <Folder Include="Assets.xcassets\BlueSLOnG.png.imageset\" />
+    <Folder Include="Assets.xcassets\RedSLOnG.png.imageset\" />
   </ItemGroup>
 </Project>

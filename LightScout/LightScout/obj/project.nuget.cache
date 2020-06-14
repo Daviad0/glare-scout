@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "vkurXQ7FPYRb0SIDp6SjxPDbBz/l9OWykeFxaTZ4Gd/7QDN1kDud+AX1qSQ+gh45Xo1jG69Dkd8+VAQIYykP4A==",
+  "dgSpecHash": "wTfvHsAMTbTEXu/nuXPo4J4Dh+BjpoGMv4IIfW0S2q/URn+5zb0BtOETTM3ZoGi8a9wPv7FAGg7YJTmGnsiLnA==",
   "success": true,
   "projectFilePath": "/Users/daviado/Downloads/lightscoutx/LightScout/LightScout/LightScout.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "/usr/local/share/dotnet/sdk/NuGetFallbackFolder/netstandard.library/2.0.3/netstandard.library.2.0.3.nupkg.sha512",
     "/Users/daviado/.nuget/packages/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg.sha512",
     "/Users/daviado/.nuget/packages/system.numerics.vectors/4.5.0/system.numerics.vectors.4.5.0.nupkg.sha512",
+    "/Users/daviado/.nuget/packages/xam.plugin.deviceinfo/4.1.1/xam.plugin.deviceinfo.4.1.1.nupkg.sha512",
     "/Users/daviado/.nuget/packages/xamarin.essentials/1.3.1/xamarin.essentials.1.3.1.nupkg.sha512",
     "/Users/daviado/.nuget/packages/xamarin.forms/4.4.0.991265/xamarin.forms.4.4.0.991265.nupkg.sha512"
   ],

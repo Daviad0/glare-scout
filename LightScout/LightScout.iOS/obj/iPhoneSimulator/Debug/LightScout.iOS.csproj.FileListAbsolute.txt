@@ -237,9 +237,11 @@ C:/Users/djree/source/repos/lightscoutx/LightScout/LightScout.iOS/bin/iPhoneSimu
 C:/Users/djree/source/repos/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/CopyFilesToMac/Newtonsoft.Json.dll.ReferenceCopyLocalPaths.stamp
 >>>>>>> master
 /Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/bin/iPhoneSimulator/Debug/Newtonsoft.Json.dll
-/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11 pro-13.4/ibtool/_BundleResourceWithLogicalName.items
-/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11 pro-13.4/actool/_PartialAppManifest.items
-/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11 pro-13.4/actool/_BundleResourceWithLogicalName.items
-/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11 pro-13.4/coremlc/_PartialAppManifest.items
-/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11 pro-13.4/coremlc/_BundleResourceWithLogicalName.items
-/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11 pro-13.4/optimized/
+/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/bin/iPhoneSimulator/Debug/Plugin.DeviceInfo.dll
+/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/bin/iPhoneSimulator/Debug/Plugin.DeviceInfo.pdb
+/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11 pro max-13.5/ibtool/_BundleResourceWithLogicalName.items
+/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11 pro max-13.5/actool/_PartialAppManifest.items
+/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11 pro max-13.5/actool/_BundleResourceWithLogicalName.items
+/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11 pro max-13.5/coremlc/_PartialAppManifest.items
+/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11 pro max-13.5/coremlc/_BundleResourceWithLogicalName.items
+/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11 pro max-13.5/optimized/

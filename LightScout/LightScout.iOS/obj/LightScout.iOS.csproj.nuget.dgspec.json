@@ -104,6 +104,10 @@
               "target": "Package",
               "version": "[12.0.3, )"
             },
+            "Xam.Plugin.DeviceInfo": {
+              "target": "Package",
+              "version": "[4.1.1, )"
+            },
             "Xamarin.Essentials": {
               "target": "Package",
               "version": "[1.3.1, )"

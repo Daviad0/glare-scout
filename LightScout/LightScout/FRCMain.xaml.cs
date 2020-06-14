@@ -1,5 +1,6 @@
 ﻿using LightScout.Models;
 using Newtonsoft.Json;
+using Plugin.DeviceInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;

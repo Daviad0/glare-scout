@@ -8,7 +8,7 @@
              NavigationPage.HasBackButton="False"
              NavigationPage.HasNavigationBar="False"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-             ios:Page.UseSafeArea="True">
+             ios:Page.UseSafeArea="False">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="lightPrimary" TargetType="Button">
@@ -47,7 +47,7 @@
     </ContentPage.Resources>
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" >
-            <Grid Padding="10" BackgroundColor="#009cd7">
+            <Grid Padding="10" BackgroundColor="#009cd7" ios:Page.UseSafeArea="True">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>

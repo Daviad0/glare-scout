@@ -36,5 +36,10 @@
     <string>Assets.xcassets/AppIcon.appiconset</string>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
+    <key>UIAppFonts</key>
+    <array>
+      <string>icofont.ttf</string>
+      <string>VarelaRound-Regular.ttf</string>
+    </array>
 </dict>
 </plist>

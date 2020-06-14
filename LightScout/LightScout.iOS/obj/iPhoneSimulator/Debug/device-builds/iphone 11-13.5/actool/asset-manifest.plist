@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>com.apple.actool.compilation-results</key>
+	<dict>
+		<key>output-files</key>
+		<array>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/bundle/AppIcon20x20@2x.png</string>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/bundle/AppIcon20x20@3x.png</string>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/bundle/AppIcon29x29@2x.png</string>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/bundle/AppIcon29x29@3x.png</string>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/bundle/AppIcon40x40@2x.png</string>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/bundle/AppIcon40x40@3x.png</string>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/bundle/AppIcon60x60@2x.png</string>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/bundle/AppIcon60x60@3x.png</string>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/bundle/AppIcon20x20~ipad.png</string>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/bundle/AppIcon20x20@2x~ipad.png</string>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/bundle/AppIcon29x29~ipad.png</string>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/bundle/AppIcon29x29@2x~ipad.png</string>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/bundle/AppIcon40x40~ipad.png</string>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/bundle/AppIcon40x40@2x~ipad.png</string>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/bundle/AppIcon76x76~ipad.png</string>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/bundle/AppIcon76x76@2x~ipad.png</string>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/bundle/AppIcon83.5x83.5@2x~ipad.png</string>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/bundle/Assets.car</string>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/partial-info.plist</string>
+		</array>
+	</dict>
+	<key>com.apple.actool.document.warnings</key>
+	<array>
+		<dict>
+			<key>affected-items</key>
+			<array>
+				<string>./BlueSLOnG.png.imageset/[watch][][&lt;=145][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./BlueSLOnG.png.imageset/[watch][][&lt;=145][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./BlueSLOnG.png.imageset/[watch][][&gt;145][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./BlueSLOnG.png.imageset/[watch][][&gt;145][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./BlueSLOnG.png.imageset/[watch][][][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./BlueSLOnG.png.imageset/[watch][][][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./BlueSLOnG.png.imageset/[watch][][][][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./BlueSLOnG.png.imageset/[watch][][][][][][][][][][light][][][][2d][(null)]</string>
+			</array>
+			<key>catalog</key>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/cloned-assets/Assets.xcassets</string>
+			<key>message</key>
+			<string>The image set "BlueSLOnG.png" has 8 unassigned children.</string>
+			<key>type</key>
+			<string>Ambiguous Content</string>
+		</dict>
+		<dict>
+			<key>affected-items</key>
+			<array>
+				<string>./OffSL.png.imageset/[watch][][&lt;=145][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./OffSL.png.imageset/[watch][][&lt;=145][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./OffSL.png.imageset/[watch][][&gt;145][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./OffSL.png.imageset/[watch][][&gt;145][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./OffSL.png.imageset/[watch][][][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./OffSL.png.imageset/[watch][][][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./OffSL.png.imageset/[watch][][][][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./OffSL.png.imageset/[watch][][][][][][][][][][light][][][][2d][(null)]</string>
+			</array>
+			<key>catalog</key>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/cloned-assets/Assets.xcassets</string>
+			<key>message</key>
+			<string>The image set "OffSL.png" has 8 unassigned children.</string>
+			<key>type</key>
+			<string>Ambiguous Content</string>
+		</dict>
+		<dict>
+			<key>affected-items</key>
+			<array>
+				<string>./BlueSLOn.png.imageset/[watch][][&lt;=145][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./BlueSLOn.png.imageset/[watch][][&lt;=145][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./BlueSLOn.png.imageset/[watch][][&gt;145][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./BlueSLOn.png.imageset/[watch][][&gt;145][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./BlueSLOn.png.imageset/[watch][][][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./BlueSLOn.png.imageset/[watch][][][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./BlueSLOn.png.imageset/[watch][][][][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./BlueSLOn.png.imageset/[watch][][][][][][][][][][light][][][][2d][(null)]</string>
+			</array>
+			<key>catalog</key>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/cloned-assets/Assets.xcassets</string>
+			<key>message</key>
+			<string>The image set "BlueSLOn.png" has 8 unassigned children.</string>
+			<key>type</key>
+			<string>Ambiguous Content</string>
+		</dict>
+		<dict>
+			<key>affected-items</key>
+			<array>
+				<string>./RedSLOnG.png.imageset/[watch][][&lt;=145][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./RedSLOnG.png.imageset/[watch][][&lt;=145][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./RedSLOnG.png.imageset/[watch][][&gt;145][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./RedSLOnG.png.imageset/[watch][][&gt;145][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./RedSLOnG.png.imageset/[watch][][][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./RedSLOnG.png.imageset/[watch][][][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./RedSLOnG.png.imageset/[watch][][][][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./RedSLOnG.png.imageset/[watch][][][][][][][][][][light][][][][2d][(null)]</string>
+			</array>
+			<key>catalog</key>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/cloned-assets/Assets.xcassets</string>
+			<key>message</key>
+			<string>The image set "RedSLOnG.png" has 8 unassigned children.</string>
+			<key>type</key>
+			<string>Ambiguous Content</string>
+		</dict>
+		<dict>
+			<key>affected-items</key>
+			<array>
+				<string>./RedSLOn.png.imageset/[watch][][&lt;=145][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./RedSLOn.png.imageset/[watch][][&lt;=145][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./RedSLOn.png.imageset/[watch][][&gt;145][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./RedSLOn.png.imageset/[watch][][&gt;145][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./RedSLOn.png.imageset/[watch][][][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./RedSLOn.png.imageset/[watch][][][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./RedSLOn.png.imageset/[watch][][][][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./RedSLOn.png.imageset/[watch][][][][][][][][][][light][][][][2d][(null)]</string>
+			</array>
+			<key>catalog</key>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/cloned-assets/Assets.xcassets</string>
+			<key>message</key>
+			<string>The image set "RedSLOn.png" has 8 unassigned children.</string>
+			<key>type</key>
+			<string>Ambiguous Content</string>
+		</dict>
+		<dict>
+			<key>affected-items</key>
+			<array>
+				<string>./RedSLOnG.png.imageset/[watch][][&lt;=145][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./RedSLOnG.png.imageset/[watch][][&lt;=145][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./RedSLOnG.png.imageset/[watch][][&gt;145][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./RedSLOnG.png.imageset/[watch][][&gt;145][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./RedSLOnG.png.imageset/[watch][][][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./RedSLOnG.png.imageset/[watch][][][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./RedSLOnG.png.imageset/[watch][][][][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./RedSLOnG.png.imageset/[watch][][][][][][][][][][light][][][][2d][(null)]</string>
+			</array>
+			<key>catalog</key>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/cloned-assets/Assets.xcassets</string>
+			<key>message</key>
+			<string>The image set "RedSLOnG.png" has 8 unassigned children.</string>
+			<key>type</key>
+			<string>Ambiguous Content</string>
+		</dict>
+		<dict>
+			<key>affected-items</key>
+			<array>
+				<string>./RedSLOn.png.imageset/[watch][][&lt;=145][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./RedSLOn.png.imageset/[watch][][&lt;=145][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./RedSLOn.png.imageset/[watch][][&gt;145][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./RedSLOn.png.imageset/[watch][][&gt;145][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./RedSLOn.png.imageset/[watch][][][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./RedSLOn.png.imageset/[watch][][][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./RedSLOn.png.imageset/[watch][][][][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./RedSLOn.png.imageset/[watch][][][][][][][][][][light][][][][2d][(null)]</string>
+			</array>
+			<key>catalog</key>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/cloned-assets/Assets.xcassets</string>
+			<key>message</key>
+			<string>The image set "RedSLOn.png" has 8 unassigned children.</string>
+			<key>type</key>
+			<string>Ambiguous Content</string>
+		</dict>
+		<dict>
+			<key>affected-items</key>
+			<array>
+				<string>./OffSL.png.imageset/[watch][][&lt;=145][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./OffSL.png.imageset/[watch][][&lt;=145][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./OffSL.png.imageset/[watch][][&gt;145][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./OffSL.png.imageset/[watch][][&gt;145][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./OffSL.png.imageset/[watch][][][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./OffSL.png.imageset/[watch][][][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./OffSL.png.imageset/[watch][][][][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./OffSL.png.imageset/[watch][][][][][][][][][][light][][][][2d][(null)]</string>
+			</array>
+			<key>catalog</key>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/cloned-assets/Assets.xcassets</string>
+			<key>message</key>
+			<string>The image set "OffSL.png" has 8 unassigned children.</string>
+			<key>type</key>
+			<string>Ambiguous Content</string>
+		</dict>
+		<dict>
+			<key>affected-items</key>
+			<array>
+				<string>./BlueSLOn.png.imageset/[watch][][&lt;=145][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./BlueSLOn.png.imageset/[watch][][&lt;=145][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./BlueSLOn.png.imageset/[watch][][&gt;145][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./BlueSLOn.png.imageset/[watch][][&gt;145][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./BlueSLOn.png.imageset/[watch][][][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./BlueSLOn.png.imageset/[watch][][][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./BlueSLOn.png.imageset/[watch][][][][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./BlueSLOn.png.imageset/[watch][][][][][][][][][][light][][][][2d][(null)]</string>
+			</array>
+			<key>catalog</key>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/cloned-assets/Assets.xcassets</string>
+			<key>message</key>
+			<string>The image set "BlueSLOn.png" has 8 unassigned children.</string>
+			<key>type</key>
+			<string>Ambiguous Content</string>
+		</dict>
+		<dict>
+			<key>affected-items</key>
+			<array>
+				<string>./BlueSLOnG.png.imageset/[watch][][&lt;=145][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./BlueSLOnG.png.imageset/[watch][][&lt;=145][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./BlueSLOnG.png.imageset/[watch][][&gt;145][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./BlueSLOnG.png.imageset/[watch][][&gt;145][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./BlueSLOnG.png.imageset/[watch][][][2x][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./BlueSLOnG.png.imageset/[watch][][][2x][][][][][][][light][][][][2d][(null)]</string>
+				<string>./BlueSLOnG.png.imageset/[watch][][][][][][][][][][dark][][][][2d][(null)]</string>
+				<string>./BlueSLOnG.png.imageset/[watch][][][][][][][][][][light][][][][2d][(null)]</string>
+			</array>
+			<key>catalog</key>
+			<string>/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/obj/iPhoneSimulator/Debug/device-builds/iphone 11-13.5/actool/cloned-assets/Assets.xcassets</string>
+			<key>message</key>
+			<string>The image set "BlueSLOnG.png" has 8 unassigned children.</string>
+			<key>type</key>
+			<string>Ambiguous Content</string>
+		</dict>
+	</array>
+	<key>com.apple.actool.notices</key>
+	<array>
+		<dict>
+			<key>description</key>
+			<string>Failed to read file attributes for "/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/11"</string>
+			<key>failure-reason</key>
+			<string>No such file or directory</string>
+		</dict>
+		<dict>
+			<key>description</key>
+			<string>Could not get trait set for device iPhone with version 13.5</string>
+		</dict>
+	</array>
+</dict>
+</plist>

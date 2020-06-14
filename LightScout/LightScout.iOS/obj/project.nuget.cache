@@ -1,14 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "bhQ0gJTcJJd8HU2AvREEroUknyHRy3JnpyB8WjcgTUkM78CpQd8KOjq/2HQOYABBfv97osh+wSsijlqz78fY1A==",
+  "dgSpecHash": "KggdRuPJWE0LgcYuy8wVJ2LKA1tJFGtFVWlw0eiF0F1Gki4+n6wlkn/VpzmxEuD829sYpDaU/gB2vWzGaCQYPQ==",
   "success": true,
-  "projectFilePath": "/Users/daviado/Downloads/lightscoutx/LightScout/LightScout.iOS/LightScout.iOS.csproj",
+  "projectFilePath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout.iOS\\LightScout.iOS.csproj",
   "expectedPackageFiles": [
-    "/Users/daviado/.nuget/packages/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg.sha512",
-    "/Users/daviado/.nuget/packages/system.numerics.vectors/4.5.0/system.numerics.vectors.4.5.0.nupkg.sha512",
-    "/Users/daviado/.nuget/packages/xam.plugin.deviceinfo/4.1.1/xam.plugin.deviceinfo.4.1.1.nupkg.sha512",
-    "/Users/daviado/.nuget/packages/xamarin.essentials/1.3.1/xamarin.essentials.1.3.1.nupkg.sha512",
-    "/Users/daviado/.nuget/packages/xamarin.forms/4.4.0.991265/xamarin.forms.4.4.0.991265.nupkg.sha512"
+    "C:\\Users\\djree\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\xam.plugin.deviceinfo\\4.1.1\\xam.plugin.deviceinfo.4.1.1.nupkg.sha512",
+    "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.essentials\\1.3.1\\xamarin.essentials.1.3.1.nupkg.sha512",
+    "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.forms\\4.4.0.991265\\xamarin.forms.4.4.0.991265.nupkg.sha512"
   ],
   "logs": []
 }

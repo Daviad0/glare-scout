@@ -39,3 +39,5 @@ Xamarin.Android.Support.ViewPager
 Xamarin.Essentials
 Xamarin.Forms.Platform.Android
 Xamarin.Forms.Platform
+Plugin.CurrentActivity
+Plugin.DeviceInfo

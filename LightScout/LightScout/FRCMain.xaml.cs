@@ -65,6 +65,7 @@ namespace LightScout
             BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
             await overLay.FadeTo(0, 500, Easing.SinOut);
             overLay.IsVisible = false;
+            ShowToolTip();
             TextFlipTimer();
         }
         private void CPChange(object sender, EventArgs e)
@@ -96,6 +97,12 @@ namespace LightScout
                 }
 
             }
+        }
+        private async void ShowToolTip()
+        {
+            await toolTip.FadeTo(1, 800, Easing.SinOut);
+            await toolTip.FadeTo(1, 2500, Easing.SinOut);
+            await toolTip.FadeTo(0, 800, Easing.SinOut);
         }
         private void BalancedChange(object sender, EventArgs e)
         {
@@ -181,12 +188,14 @@ namespace LightScout
                 autoForm.IsVisible = false;
                 nameForm.IsVisible = true;
                 nameForm.FadeTo(1,250);
+                toolTipLabel.Text = "Ready For Match";
             }else if (CurrentSubPage == 1)
             {
                 teleopForm.FadeTo(0, 250);
                 teleopForm.IsVisible = false;
                 autoForm.IsVisible = true;
                 autoForm.FadeTo(1, 250);
+                toolTipLabel.Text = "Autonomous";
             }
             else if (CurrentSubPage == 2)
             {
@@ -194,6 +203,7 @@ namespace LightScout
                 endgameForm.IsVisible = false;
                 teleopForm.IsVisible = true;
                 teleopForm.FadeTo(1, 250);
+                toolTipLabel.Text = "Tele-Op";
             }
             else if (CurrentSubPage == 3)
             {
@@ -201,7 +211,9 @@ namespace LightScout
                 confirmForm.IsVisible = false;
                 endgameForm.IsVisible = true;
                 endgameForm.FadeTo(1, 250);
+                toolTipLabel.Text = "Endgame";
             }
+            ShowToolTip();
         }
 
         private async void nextForm_Clicked(object sender, EventArgs e)
@@ -215,13 +227,16 @@ namespace LightScout
                 nameForm.IsVisible = false;
                 autoForm.IsVisible = true;
                 autoForm.FadeTo(1, 250);
-                
-            }else if(CurrentSubPage == 2)
+                toolTipLabel.Text = "Autonomous";
+
+            }
+            else if(CurrentSubPage == 2)
             {
                 autoForm.FadeTo(0, 250);
                 autoForm.IsVisible = false;
                 teleopForm.IsVisible = true;
                 teleopForm.FadeTo(1, 250);
+                toolTipLabel.Text = "Tele-Op";
             }
             else if (CurrentSubPage == 3)
             {
@@ -229,6 +244,7 @@ namespace LightScout
                 teleopForm.IsVisible = false;
                 endgameForm.IsVisible = true;
                 endgameForm.FadeTo(1, 250);
+                toolTipLabel.Text = "Endgame";
             }
             else if (CurrentSubPage == 4)
             {
@@ -238,7 +254,9 @@ namespace LightScout
                 endgameForm.IsVisible = false;
                 confirmForm.IsVisible = true;
                 confirmForm.FadeTo(1, 250);
+                toolTipLabel.Text = "Confirm Entry";
             }
+            ShowToolTip();
         }
         private void DisabledTimer()
         {

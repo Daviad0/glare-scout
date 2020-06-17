@@ -47,7 +47,7 @@
     </ContentPage.Resources>
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" >
-            <Grid Padding="10" BackgroundColor="#009cd7" ios:Page.UseSafeArea="True">
+            <Grid Padding="10" BackgroundColor="#2a7afa" ios:Page.UseSafeArea="True">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
@@ -56,14 +56,28 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="60"/>
                 </Grid.ColumnDefinitions>
-                
-                
-                <Button Text="&#xea97;" TextColor="#009cd7" IsEnabled="False" x:Name="prevForm" BackgroundColor="White" BorderColor="#009cd7" BorderWidth="2" Clicked="prevForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
-                <Button Text="&#xeee4;" TextColor="Tomato" x:Name="exitForm" BackgroundColor="White" BorderColor="#009cd7" BorderWidth="2"  FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0" IsVisible="True" Clicked="BackToMainMenu"/>
-                <Label Text="Team 862" x:Name="teamName"  Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" FontFamily="{StaticResource IconFont}" TextColor="White"/>
-                <Label Text="Match 5 - Red" x:Name="matchNumber"  Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" FontFamily="{StaticResource IconFont}" TextColor="White" Opacity="0"/>
-                <Button Text="&#xea98;" TextColor="#009cd7" x:Name="nextForm" BorderColor="#009cd7" BorderWidth="2" BackgroundColor="White" Clicked="nextForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="2"/>
-                <Button Text="&#xeed8;" TextColor="MediumSeaGreen" x:Name="finishForm" BorderColor="#009cd7" BorderWidth="2" BackgroundColor="White" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="2" IsVisible="False" Clicked="BackToMainMenu"/>
+
+
+                <Button Text="&#xea97;" TextColor="#2a7afa" IsEnabled="False" x:Name="prevForm" BackgroundColor="White" BorderColor="#2a7afa" BorderWidth="2" Clicked="prevForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
+                <Button Text="&#xeee4;" TextColor="Red" x:Name="exitForm" BackgroundColor="White" BorderColor="#2a7afa" BorderWidth="2"  FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0" IsVisible="True" Clicked="BackToMainMenu"/>
+                <Label Text="Team 862" x:Name="teamName"  Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" TextColor="White">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Varela Round Regular</On>
+                            <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <Label Text="Match 5 - Red" x:Name="matchNumber"  Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" TextColor="White" Opacity="0">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">Varela Round Regular</On>
+                            <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <Button Text="&#xea98;" TextColor="#2a7afa" x:Name="nextForm" BorderColor="#2a7afa" BorderWidth="2" BackgroundColor="White" Clicked="nextForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="2"/>
+                <Button Text="&#xeed8;" TextColor="MediumSeaGreen" x:Name="finishForm" BorderColor="#2a7afa" BorderWidth="2" BackgroundColor="White" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="2" IsVisible="False" Clicked="BackToMainMenu"/>
             </Grid>
             <StackLayout x:Name="nameForm" VerticalOptions="FillAndExpand">
                 <Label Text="First," FontSize="80" HorizontalOptions="Center" Margin="0,20,0,0">
@@ -171,7 +185,18 @@
                 <Label Text="Confirm"/>
             </StackLayout>
             <!-- Place new controls here -->
-            <Button VerticalOptions="End" Clicked="EnableDisabledMenu" HorizontalOptions="End" Text="&#xef1b;" x:Name="enableDisabled" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" Margin="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Red" TextColor="White"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Frame Grid.Column="0" BackgroundColor="Gray" Padding="5" CornerRadius="5" Margin="20" x:Name="toolTip" Opacity="0">
+                    <Label TextColor="White" Text="Ready for Match" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" x:Name="toolTipLabel"/>
+                </Frame>
+                
+                <Button VerticalOptions="End" Clicked="EnableDisabledMenu" Grid.Column="1" HorizontalOptions="End" Text="&#xef1b;" x:Name="enableDisabled" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" Margin="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Red" TextColor="White"/>
+            </Grid>
+            
             
         </StackLayout>
         <StackLayout x:Name="disabledMenu" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">

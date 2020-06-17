@@ -955,6 +955,7 @@
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/monoandroid71/Plugin.DeviceInfo.dll",
+        "lib/monoandroid71/Plugin.DeviceInfo.dll.mdb",
         "lib/monoandroid71/Plugin.DeviceInfo.pdb",
         "lib/net45/Plugin.DeviceInfo.dll",
         "lib/net45/Plugin.DeviceInfo.pdb",

@@ -128,16 +128,36 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\BlueSLOn.png.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\BlueSLOn.png.imageset\BlueSLOn.png" />
-    <ImageAsset Include="Assets.xcassets\RedSLOn.png.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\RedSLOn.png.imageset\RedSLOn.png" />
-    <ImageAsset Include="Assets.xcassets\OffSL.png.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\OffSL.png.imageset\OffSL.png" />
-    <ImageAsset Include="Assets.xcassets\BlueSLOnG.png.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\BlueSLOnG.png.imageset\BlueSLOnG.png" />
-    <ImageAsset Include="Assets.xcassets\RedSLOnG.png.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\RedSLOnG.png.imageset\RedSLOnG.png" />
+    <ImageAsset Include="Assets.xcassets\BlueSLOn.png.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\BlueSLOn.png.imageset\BlueSLOn.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\RedSLOn.png.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\RedSLOn.png.imageset\RedSLOn.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\OffSL.png.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\OffSL.png.imageset\OffSL.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\BlueSLOnG.png.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\BlueSLOnG.png.imageset\BlueSLOnG.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\RedSLOnG.png.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\RedSLOnG.png.imageset\RedSLOnG.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

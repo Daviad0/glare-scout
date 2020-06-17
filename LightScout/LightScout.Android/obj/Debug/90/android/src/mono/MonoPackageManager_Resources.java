@@ -6,6 +6,8 @@ public class MonoPackageManager_Resources {
 		"FormsViewGroup.dll",
 		"LightScout.dll",
 		"Newtonsoft.Json.dll",
+		"Plugin.CurrentActivity.dll",
+		"Plugin.DeviceInfo.dll",
 		"Xamarin.Android.Arch.Core.Common.dll",
 		"Xamarin.Android.Arch.Core.Runtime.dll",
 		"Xamarin.Android.Arch.Lifecycle.Common.dll",

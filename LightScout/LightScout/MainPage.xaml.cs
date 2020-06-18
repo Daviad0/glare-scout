@@ -38,10 +38,40 @@ namespace LightScout
         {
             var ble = CrossBluetoothLE.Current;
             var adapter = CrossBluetoothLE.Current.Adapter;
-            adapter.DeviceDiscovered += (s, a) =>
+            adapter.DeviceDiscovered += async (s, a) =>
             {
+
                 BluetoothDevices++;
-                BluetoothList.Text = BluetoothDevices.ToString() + " Bluetooth Devices";
+                if (a.Device.Name != null)
+                {
+                    if (a.Device.Name == "David's MacBook Air")
+                    {
+                        BluetoothList.Text = BluetoothList.Text + " ID = " + a.Device.Id.ToString();
+                    }
+                    Console.WriteLine("Name: " + a.Device.Name.ToString() + ", ID: " + a.Device.Id.ToString());
+                    Console.WriteLine("16fd1a9b-f36f-7eab-66b2-499bf4dbb0f2");
+                    if (a.Device.Id.ToString() == "16fd1a9b-f36f-7eab-66b2-499bf4dbb0f2")
+                    {
+                        Console.WriteLine("Attempting to connect to: " + a.Device.Name.ToString());
+                        await adapter.ConnectToDeviceAsync(a.Device);
+
+                    }
+
+                }
+
+
+            };
+            adapter.DeviceConnected += (s, a) =>
+            {
+                Console.WriteLine("Connected to: " + a.Device.Name.ToString());
+            };
+            adapter.DeviceConnectionLost += (s, a) =>
+            {
+                Console.WriteLine("Lost connection to: " + a.Device.Name.ToString());
+            };
+            adapter.DeviceDisconnected += (s, a) =>
+            {
+                Console.WriteLine("Lost connection to: " + a.Device.Name.ToString());
             };
             await adapter.StartScanningForDevicesAsync();
         }

@@ -3,6 +3,7 @@ using Plugin.BLE;
 using Plugin.BLE.Abstractions.EventArgs;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,7 @@ namespace LightScout
         private static bool[] ControlPanel = new bool[2];
         private static bool Balanced;
         private static int BluetoothDevices = 0;
+        private static ObservableCollection<string> Devices = new ObservableCollection<string>();
         public MainPage()
         {
             InitializeComponent();
@@ -37,30 +39,19 @@ namespace LightScout
         }
         private async void CheckBluetooth(object sender, EventArgs e)
         {
-            BindingContext = new BluetoothDeviceViewModel();
-            /*var ble = CrossBluetoothLE.Current;
+            //BindingContext = new BluetoothDeviceViewModel();
+            var ble = CrossBluetoothLE.Current;
             var adapter = CrossBluetoothLE.Current.Adapter;
+            Devices.Clear();
             adapter.DeviceDiscovered += async (s, a) =>
             {
 
                 BluetoothDevices++;
                 if (a.Device.Name != null)
                 {
-                    if (a.Device.Name == "David's MacBook Air")
-                    {
-                        BluetoothList.Text = BluetoothList.Text + " ID = " + a.Device.Id.ToString();
-                    }
-                    Console.WriteLine("Name: " + a.Device.Name.ToString() + ", ID: " + a.Device.Id.ToString());
-                    Console.WriteLine("16fd1a9b-f36f-7eab-66b2-499bf4dbb0f2");
-                    if (a.Device.Id.ToString() == "16fd1a9b-f36f-7eab-66b2-499bf4dbb0f2")
-                    {
-                        Console.WriteLine("Attempting to connect to: " + a.Device.Name.ToString());
-                        await adapter.ConnectToDeviceAsync(a.Device);
-
-                    }
-
+                    Devices.Add(a.Device.Name);
                 }
-
+                listofdevices.ItemsSource = Devices;
 
             };
             adapter.DeviceConnected += (s, a) =>
@@ -75,7 +66,7 @@ namespace LightScout
             {
                 Console.WriteLine("Lost connection to: " + a.Device.Name.ToString());
             };
-            await adapter.StartScanningForDevicesAsync();*/
+            await adapter.StartScanningForDevicesAsync();
         }
         private void AddDevice(object s, DeviceEventArgs a)
         {

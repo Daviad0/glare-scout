@@ -53,6 +53,10 @@
               "target": "Package",
               "version": "[12.0.3, )"
             },
+            "Plugin.BLE": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
             "Xam.Plugin.DeviceInfo": {
               "target": "Package",
               "version": "[4.1.1, )"

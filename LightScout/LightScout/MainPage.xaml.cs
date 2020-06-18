@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Plugin.BLE;
+using Plugin.BLE.Abstractions.EventArgs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -15,6 +17,7 @@ namespace LightScout
     {
         private static bool[] ControlPanel = new bool[2];
         private static bool Balanced;
+        private static int BluetoothDevices = 0;
         public MainPage()
         {
             InitializeComponent();
@@ -30,6 +33,21 @@ namespace LightScout
         private void FRCShow_Clicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new FRCMain());
+        }
+        private async void CheckBluetooth(object sender, EventArgs e)
+        {
+            var ble = CrossBluetoothLE.Current;
+            var adapter = CrossBluetoothLE.Current.Adapter;
+            adapter.DeviceDiscovered += (s, a) =>
+            {
+                BluetoothDevices++;
+                BluetoothList.Text = BluetoothDevices.ToString() + " Bluetooth Devices";
+            };
+            await adapter.StartScanningForDevicesAsync();
+        }
+        private void AddDevice(object s, DeviceEventArgs a)
+        {
+           
         }
     }
 }

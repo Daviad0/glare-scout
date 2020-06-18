@@ -1,4 +1,5 @@
-﻿using Plugin.BLE;
+﻿using LightScout.Models;
+using Plugin.BLE;
 using Plugin.BLE.Abstractions.EventArgs;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,8 @@ namespace LightScout
         }
         private async void CheckBluetooth(object sender, EventArgs e)
         {
-            var ble = CrossBluetoothLE.Current;
+            BindingContext = new BluetoothDeviceViewModel();
+            /*var ble = CrossBluetoothLE.Current;
             var adapter = CrossBluetoothLE.Current.Adapter;
             adapter.DeviceDiscovered += async (s, a) =>
             {
@@ -73,7 +75,7 @@ namespace LightScout
             {
                 Console.WriteLine("Lost connection to: " + a.Device.Name.ToString());
             };
-            await adapter.StartScanningForDevicesAsync();
+            await adapter.StartScanningForDevicesAsync();*/
         }
         private void AddDevice(object s, DeviceEventArgs a)
         {

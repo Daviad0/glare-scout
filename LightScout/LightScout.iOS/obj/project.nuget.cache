@@ -1,16 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "GOAmJhC0ZJrVoUXlom6ceDzk19Ji0QdoYW2pGc2zUCGKy4qBT9OxAsXH6lDzQIky6aUKXihHcRRtzkXw0O/a1g==",
+  "dgSpecHash": "EmS1dDydm37VLrvpahhN8UhyTFMcyyZeFnuu1o4rEi7hFI1E/HMxQMQa6J2vQcx7HFri+TBc3hDjdon5Zmk7zA==",
   "success": true,
   "projectFilePath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout.iOS\\LightScout.iOS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\djree\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\plugin.ble\\2.1.1\\plugin.ble.2.1.1.nupkg.sha512",
-    "C:\\Users\\djree\\.nuget\\packages\\plugin.bluetoothle\\6.3.0.19\\plugin.bluetoothle.6.3.0.19.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
-    "C:\\Users\\djree\\.nuget\\packages\\system.reactive\\4.1.5\\system.reactive.4.1.5.nupkg.sha512",
-    "C:\\Users\\djree\\.nuget\\packages\\system.runtime.interopservices.windowsruntime\\4.3.0\\system.runtime.interopservices.windowsruntime.4.3.0.nupkg.sha512",
-    "C:\\Users\\djree\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.2\\system.threading.tasks.extensions.4.5.2.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\xam.plugin.deviceinfo\\4.1.1\\xam.plugin.deviceinfo.4.1.1.nupkg.sha512",
     "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.essentials\\1.3.1\\xamarin.essentials.1.3.1.nupkg.sha512",
     "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.forms\\4.4.0.991265\\xamarin.forms.4.4.0.991265.nupkg.sha512"

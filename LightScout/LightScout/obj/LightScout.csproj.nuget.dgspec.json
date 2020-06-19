@@ -57,6 +57,10 @@
               "target": "Package",
               "version": "[2.1.1, )"
             },
+            "Plugin.BluetoothLE": {
+              "target": "Package",
+              "version": "[6.3.0.19, )"
+            },
             "Xam.Plugin.DeviceInfo": {
               "target": "Package",
               "version": "[4.1.1, )"

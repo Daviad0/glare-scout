@@ -28,27 +28,7 @@ namespace LightScout.Models
         public async Task Update()
         {
             BluetoothDeviceNames.Clear();
-            var ble = CrossBluetoothLE.Current;
-            var adapter = CrossBluetoothLE.Current.Adapter;
-            adapter.DeviceDiscovered += (s, a) =>
-            {
-
-                BluetoothDeviceNames.Add(a.Device.Name.ToString());
-
-            };
-            adapter.DeviceConnected += (s, a) =>
-            {
-                Console.WriteLine("Connected to: " + a.Device.Name.ToString());
-            };
-            adapter.DeviceConnectionLost += (s, a) =>
-            {
-                Console.WriteLine("Lost connection to: " + a.Device.Name.ToString());
-            };
-            adapter.DeviceDisconnected += (s, a) =>
-            {
-                Console.WriteLine("Lost connection to: " + a.Device.Name.ToString());
-            };
-            await adapter.StartScanningForDevicesAsync();
+            
         }
     }
 }

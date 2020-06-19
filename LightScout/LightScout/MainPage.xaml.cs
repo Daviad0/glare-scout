@@ -1,6 +1,5 @@
 ﻿using LightScout.Models;
-using Plugin.BLE;
-using Plugin.BLE.Abstractions.EventArgs;
+using Plugin.BluetoothLE;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,9 +17,10 @@ namespace LightScout
     public partial class MainPage : ContentPage
     {
         private static bool[] ControlPanel = new bool[2];
+        private static IDevice deviceIWant;
         private static bool Balanced;
         private static int BluetoothDevices = 0;
-        private static ObservableCollection<string> Devices = new ObservableCollection<string>();
+        private static ObservableCollection<IDevice> Devices = new ObservableCollection<IDevice>();
         public MainPage()
         {
             InitializeComponent();
@@ -40,9 +40,14 @@ namespace LightScout
         private async void CheckBluetooth(object sender, EventArgs e)
         {
             //BindingContext = new BluetoothDeviceViewModel();
-            var ble = CrossBluetoothLE.Current;
-            var adapter = CrossBluetoothLE.Current.Adapter;
-            Devices.Clear();
+
+            CrossBleAdapter.Current.Scan().Subscribe(scanResult => {
+                Devices.Add(scanResult.Device);
+                listofdevices.ItemsSource = Devices;
+            });
+
+            
+            /*Devices.Clear();
             adapter.DeviceDiscovered += async (s, a) =>
             {
 
@@ -52,6 +57,7 @@ namespace LightScout
                     Devices.Add(a.Device.Name);
                 }
                 listofdevices.ItemsSource = Devices;
+                deviceIWant = a.Device;
 
             };
             adapter.DeviceConnected += (s, a) =>
@@ -66,11 +72,19 @@ namespace LightScout
             {
                 Console.WriteLine("Lost connection to: " + a.Device.Name.ToString());
             };
-            await adapter.StartScanningForDevicesAsync();
+            await adapter.StartScanningForDevicesAsync();*/
+            
         }
-        private void AddDevice(object s, DeviceEventArgs a)
+
+        private void listofdevices_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-           
+            IDevice selectedDevice = e.Item as IDevice;
+            selectedDevice.Connect();
+            
+            selectedDevice.WhenConnected().Subscribe(t =>
+            {
+                Console.WriteLine("BLE CUSTOM ::: Successfully connected to " + t.Name);
+            });
         }
     }
 }

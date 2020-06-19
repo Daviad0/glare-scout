@@ -49,7 +49,7 @@
         <Button Text="See FTC" x:Name="FTCShow" Clicked="FTCShow_Clicked" BackgroundColor="#f57e25" TextColor="White" Margin="10,10,10,0"/>
         <Button Text="See FRC" x:Name="FRCShow" Clicked="FRCShow_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10"/>
         <Button Text="Test Bluetooth?" Clicked="CheckBluetooth" x:Name="BluetoothFind" BackgroundColor="#009cd7" TextColor="White" Margin="10"/>
-        <ListView x:Name="listofdevices" ItemsSource="{Binding BluetoothDeviceNames}">
+        <ListView BackgroundColor="White" x:Name="listofdevices" ItemsSource="{Binding BluetoothDeviceNames}" ItemTapped="listofdevices_ItemTapped">
             
         </ListView>
     </StackLayout>

@@ -49,16 +49,22 @@ namespace LightScout
                 deviceIWant = a.Device;
                 var services = await deviceIWant.GetServicesAsync();
                 Console.WriteLine("Current Services: " + services.ToString());
+                listofdevices.IsVisible = false;
+                sendDataToBT.IsVisible = true;
             };
             adapter.DeviceConnectionLost += (s, a) =>
             {
                 Console.WriteLine("Lost connection to: " + a.Device.Name.ToString());
                 BluetoothFind.Text = "Disconnected from: " + a.Device.Name.ToString();
+                listofdevices.IsVisible = true;
+                sendDataToBT.IsVisible = false;
             };
             adapter.DeviceDisconnected += (s, a) =>
             {
                 Console.WriteLine("Lost connection to: " + a.Device.Name.ToString());
                 BluetoothFind.Text = "Disconnected from: " + a.Device.Name.ToString();
+                listofdevices.IsVisible = true;
+                sendDataToBT.IsVisible = false;
             };
         }
 
@@ -94,6 +100,16 @@ namespace LightScout
             {
                 await adapter.ConnectToDeviceAsync(selectedDevice);
             }
+        }
+
+        private async void sendDataToBT_Clicked(object sender, EventArgs e)
+        {
+            var servicetosend = await  deviceIWant.GetServiceAsync(Guid.Parse("50dae772-d8aa-4378-9602-792b3e4c198d"));
+            var characteristictosend = await servicetosend.GetCharacteristicAsync(Guid.Parse("50dae772-d8aa-4378-9602-792b3e4c198e"));
+            var stringtoconvert = "Hi!";
+            var bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
+            await characteristictosend.WriteAsync(bytestotransmit);
+            Console.WriteLine(bytestotransmit);
         }
     }
 }

@@ -52,6 +52,7 @@
         <ListView BackgroundColor="White" x:Name="listofdevices" ItemsSource="{Binding BluetoothDeviceNames}" ItemTapped="listofdevices_ItemTapped">
             
         </ListView>
+        <Button Text="Send Data" BackgroundColor="#f57e25" TextColor="White" x:Name="sendDataToBT" Clicked="sendDataToBT_Clicked" IsVisible="False"/>
     </StackLayout>
 
 </ContentPage>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="LightScout.CommsCheck">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label x:Name="currentStatus" Text="Currently not connected :(" HorizontalOptions="Center"/>
+            <Button Text="Get List of Devices" Clicked="CheckBluetooth" x:Name="BluetoothFind" BackgroundColor="#009cd7" TextColor="White" Margin="10"/>
+            <ListView BackgroundColor="White" x:Name="listofdevices" ItemsSource="{Binding BluetoothDeviceNames}" ItemTapped="listofdevices_ItemTapped">
+
+            </ListView>
+            <StackLayout x:Name="sendDataToBT" IsVisible="False">
+                <Grid ColumnDefinitions="*,85">
+                    <Entry Placeholder="Message" Grid.Column="0" x:Name="messageToSEND"/>
+                    <Button Text="Send" BackgroundColor="#f57e25" TextColor="White" Clicked="sendDataToBT_Clicked" IsVisible="False" Grid.Column="1" Margin="10"/>
+                </Grid>
+                <Button Text="Disconnect" BackgroundColor="Red" x:Name="dcFromBT" Clicked="dcFromBT_Clicked"/>
+            </StackLayout>
+            
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

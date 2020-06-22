@@ -44,7 +44,7 @@ namespace LightScout
 
         private void commscheck_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new CommsCheck());
+            Navigation.PushAsync(new BluetoothTest());
         }
     }
 }

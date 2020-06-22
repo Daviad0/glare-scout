@@ -4,10 +4,10 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="LightScout.CommsCheck">
+             x:Class="LightScout.BluetoothTest">
     <ContentPage.Content>
         <StackLayout>
-            <Label x:Name="currentStatus" Text="Currently not connected :(" HorizontalOptions="Center"/>
+            
             <Button Text="Get List of Devices" Clicked="CheckBluetooth" x:Name="BluetoothFind" BackgroundColor="#009cd7" TextColor="White" Margin="10"/>
             <ListView BackgroundColor="White" x:Name="listofdevices" ItemsSource="{Binding BluetoothDeviceNames}" ItemTapped="listofdevices_ItemTapped">
 
@@ -19,8 +19,6 @@
                 </Grid>
                 <Button Text="Disconnect" BackgroundColor="Red" x:Name="dcFromBT" Clicked="dcFromBT_Clicked"/>
             </StackLayout>
-            
-
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

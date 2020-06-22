@@ -13,18 +13,18 @@ using Xamarin.Forms.Xaml;
 namespace LightScout
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CommsCheck : ContentPage
+    public partial class BluetoothTest : ContentPage
     {
         private static IBluetoothLE ble = CrossBluetoothLE.Current;
         private static IAdapter adapter = CrossBluetoothLE.Current.Adapter;
         private static IDevice deviceIWant;
         private static ObservableCollection<IDevice> Devices = new ObservableCollection<IDevice>();
-        public CommsCheck()
+        public BluetoothTest()
         {
             InitializeComponent();
             adapter.DeviceDiscovered += async (s, a) =>
             {
-                
+
                 if (a.Device.Name != null)
                 {
                     Devices.Add(a.Device);
@@ -35,7 +35,7 @@ namespace LightScout
             adapter.DeviceConnected += async (s, a) =>
             {
                 Console.WriteLine("Connected to: " + a.Device.Name.ToString());
-                currentStatus.Text = "Connected to: " + a.Device.Name.ToString();
+                //status.Text = "Connected to: " + a.Device.Name.ToString();
                 deviceIWant = a.Device;
                 listofdevices.IsVisible = false;
                 sendDataToBT.IsVisible = true;
@@ -43,7 +43,7 @@ namespace LightScout
             adapter.DeviceConnectionLost += (s, a) =>
             {
                 Console.WriteLine("Lost connection to: " + a.Device.Name.ToString());
-                currentStatus.Text = "Disconnected from: " + a.Device.Name.ToString();
+                //status.Text = "Disconnected from: " + a.Device.Name.ToString();
                 listofdevices.IsVisible = true;
                 sendDataToBT.IsVisible = false;
                 Devices.Clear();
@@ -51,7 +51,7 @@ namespace LightScout
             adapter.DeviceDisconnected += (s, a) =>
             {
                 Console.WriteLine("Lost connection to: " + a.Device.Name.ToString());
-                currentStatus.Text = "Disconnected from: " + a.Device.Name.ToString();
+                //status.Text = "Disconnected from: " + a.Device.Name.ToString();
                 listofdevices.IsVisible = true;
                 sendDataToBT.IsVisible = false;
                 Devices.Clear();

@@ -72,7 +72,7 @@ namespace LightScout
 
         private void FRCShow_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new FRCMain());
+            Navigation.PushAsync(new FRCMain(deviceIWant));
         }
 
         private void commscheck_Clicked(object sender, EventArgs e)

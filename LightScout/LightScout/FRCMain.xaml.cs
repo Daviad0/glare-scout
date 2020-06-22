@@ -1,8 +1,11 @@
 ﻿using LightScout.Models;
 using Newtonsoft.Json;
+using Plugin.BLE;
+using Plugin.BLE.Abstractions.Contracts;
 using Plugin.DeviceInfo;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -22,14 +25,26 @@ namespace LightScout
         private int DisabledSeconds;
         private bool CurrentlyDisabled;
         private bool InitLineAchieved;
-        public FRCMain()
+        private static IBluetoothLE ble = CrossBluetoothLE.Current;
+        private static IAdapter adapter = CrossBluetoothLE.Current.Adapter;
+        private static IDevice deviceIWant;
+        private static ObservableCollection<IDevice> Devices = new ObservableCollection<IDevice>();
+        private static bool canTransmitData = false;
+        public FRCMain(IDevice passedDevice)
         {
+            adapter.DeviceConnected += async (s, a) =>
+            {
+                Console.WriteLine("Connected to: " + a.Device.Name.ToString());
+                //status.Text = "Connected to: " + a.Device.Name.ToString();
+                canTransmitData = true;
+            };
+            deviceIWant = passedDevice;
             var converter = new ColorTypeConverter();
             InitializeComponent();
             ControlPanel[0] = false;
             ControlPanel[1] = false;
             BackgroundColor = (Color)converter.ConvertFromInvariantString("#009cd7");
-            
+            adapter.ConnectToDeviceAsync(deviceIWant);
         }
         protected override async void OnAppearing()
         {
@@ -138,6 +153,34 @@ namespace LightScout
         private void BackToMainMenu(object sender, EventArgs e)
         {
             Navigation.PushAsync(new MainPage());
+        }
+        private async void ConfirmForm(object sender, EventArgs e)
+        {
+            if (canTransmitData)
+            {
+                var matchtotransmit = new TeamMatch();
+                matchtotransmit.A_InitiationLine = InitLineAchieved;
+                matchtotransmit.E_Balanced = Balanced;
+                matchtotransmit.T_ControlPanelPosition = ControlPanel[1];
+                matchtotransmit.T_ControlPanelPosition = ControlPanel[0];
+                matchtotransmit.ScoutName = scoutName.Text;
+                matchtotransmit.DisabledSeconds = DisabledSeconds;
+                var stringtosend = JsonConvert.SerializeObject(matchtotransmit);
+                Console.WriteLine(stringtosend);
+                var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("50dae772-d8aa-4378-9602-792b3e4c198d"));
+                var characteristictosend = await servicetosend.GetCharacteristicAsync(Guid.Parse("50dae772-d8aa-4378-9602-792b3e4c198e"));
+                var stringtoconvert = stringtosend;
+                var bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
+                await characteristictosend.WriteAsync(bytestotransmit);
+                Console.WriteLine(bytestotransmit);
+
+            }
+            else
+            {
+                Console.WriteLine("Can't connect :(");
+            }
+            Navigation.PushAsync(new MainPage());
+
         }
 
         private void EnableDisabledMenu(object sender, EventArgs e)

@@ -106,12 +106,12 @@ namespace LightScout
 
         private async void sendDataToBT_Clicked(object sender, EventArgs e)
         {
-            var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("50dae772-d8aa-4378-9602-792b3e4c198d"));
+            /*var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("50dae772-d8aa-4378-9602-792b3e4c198d"));
             var characteristictosend = await servicetosend.GetCharacteristicAsync(Guid.Parse("50dae772-d8aa-4378-9602-792b3e4c198e"));
             var stringtoconvert = "Test!";
             var bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
             await characteristictosend.WriteAsync(bytestotransmit);
-            Console.WriteLine(bytestotransmit);
+            Console.WriteLine(bytestotransmit);*/
         }
 
         private void dcFromBT_Clicked(object sender, EventArgs e)

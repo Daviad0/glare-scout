@@ -77,7 +77,7 @@
                     </Label.FontFamily>
                 </Label>
                 <Button Text="&#xea98;" TextColor="#2a7afa" x:Name="nextForm" BorderColor="#2a7afa" BorderWidth="2" BackgroundColor="White" Clicked="nextForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="2"/>
-                <Button Text="&#xeed8;" TextColor="MediumSeaGreen" x:Name="finishForm" BorderColor="#2a7afa" BorderWidth="2" BackgroundColor="White" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="2" IsVisible="False" Clicked="BackToMainMenu"/>
+                <Button Text="&#xeed8;" TextColor="MediumSeaGreen" x:Name="finishForm" BorderColor="#2a7afa" BorderWidth="2" BackgroundColor="White" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="2" IsVisible="False" Clicked="ConfirmForm"/>
             </Grid>
             <StackLayout x:Name="nameForm" VerticalOptions="FillAndExpand">
                 <Label Text="First," FontSize="80" HorizontalOptions="Center" Margin="0,20,0,0">

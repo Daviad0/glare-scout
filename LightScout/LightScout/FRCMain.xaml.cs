@@ -29,7 +29,7 @@ namespace LightScout
         private static IAdapter adapter = CrossBluetoothLE.Current.Adapter;
         private static IDevice deviceIWant;
         private static ObservableCollection<IDevice> Devices = new ObservableCollection<IDevice>();
-        private static bool canTransmitData = false;
+        private static bool canTransmitData = true;
         public FRCMain(IDevice passedDevice)
         {
             adapter.DeviceConnected += async (s, a) =>
@@ -167,8 +167,8 @@ namespace LightScout
                 matchtotransmit.DisabledSeconds = DisabledSeconds;
                 var stringtosend = JsonConvert.SerializeObject(matchtotransmit);
                 Console.WriteLine(stringtosend);
-                var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("50dae772-d8aa-4378-9602-792b3e4c198d"));
-                var characteristictosend = await servicetosend.GetCharacteristicAsync(Guid.Parse("50dae772-d8aa-4378-9602-792b3e4c198e"));
+                var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130000"));
+                var characteristictosend = await servicetosend.GetCharacteristicAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130001"));
                 var stringtoconvert = stringtosend;
                 var bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
                 await characteristictosend.WriteAsync(bytestotransmit);

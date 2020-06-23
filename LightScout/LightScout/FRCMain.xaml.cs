@@ -167,8 +167,10 @@ namespace LightScout
                 matchtotransmit.DisabledSeconds = DisabledSeconds;
                 var stringtosend = JsonConvert.SerializeObject(matchtotransmit);
                 Console.WriteLine(stringtosend);
+                string[] uuidrandomfun = { "6ad0f836b49011eab3de0242ac130001", "6ad0f836b49011eab3de0242ac130002", "6ad0f836b49011eab3de0242ac130003", "6ad0f836b49011eab3de0242ac130004", "6ad0f836b49011eab3de0242ac130005", "6ad0f836b49011eab3de0242ac130006" };
                 var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130000"));
-                var characteristictosend = await servicetosend.GetCharacteristicAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130001"));
+                var randomnumgenerator = new Random();
+                var characteristictosend = await servicetosend.GetCharacteristicAsync(Guid.Parse(uuidrandomfun[randomnumgenerator.Next(0,5)]));
                 var stringtoconvert = stringtosend;
                 var bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
                 await characteristictosend.WriteAsync(bytestotransmit);

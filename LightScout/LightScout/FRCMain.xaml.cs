@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -170,9 +170,13 @@ namespace LightScout
                 string[] uuidrandomfun = { "6ad0f836b49011eab3de0242ac130001", "6ad0f836b49011eab3de0242ac130002", "6ad0f836b49011eab3de0242ac130003", "6ad0f836b49011eab3de0242ac130004", "6ad0f836b49011eab3de0242ac130005", "6ad0f836b49011eab3de0242ac130006" };
                 var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130000"));
                 var randomnumgenerator = new Random();
-                var characteristictosend = await servicetosend.GetCharacteristicAsync(Guid.Parse(uuidrandomfun[randomnumgenerator.Next(0,5)]));
-                var stringtoconvert = stringtosend;
+                string randomuuid = uuidrandomfun[randomnumgenerator.Next(0, 5)];
+                var characteristictosend = await servicetosend.GetCharacteristicAsync(Guid.Parse(randomuuid));
+                var stringtoconvert = "S:"+stringtosend;
                 var bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
+                await characteristictosend.WriteAsync(bytestotransmit);
+                stringtoconvert = "B:"+Battery.ChargeLevel.ToString();
+                bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
                 await characteristictosend.WriteAsync(bytestotransmit);
                 Console.WriteLine(bytestotransmit);
 

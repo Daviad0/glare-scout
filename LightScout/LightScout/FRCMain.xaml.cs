@@ -158,6 +158,7 @@ namespace LightScout
         {
             if (canTransmitData)
             {
+                
                 var matchtotransmit = new TeamMatch();
                 matchtotransmit.A_InitiationLine = InitLineAchieved;
                 matchtotransmit.E_Balanced = Balanced;
@@ -172,6 +173,10 @@ namespace LightScout
                 var randomnumgenerator = new Random();
                 string randomuuid = uuidrandomfun[randomnumgenerator.Next(0, 5)];
                 var characteristictosend = await servicetosend.GetCharacteristicAsync(Guid.Parse(randomuuid));
+                characteristictosend.ValueUpdated += async (s, a) =>
+                {
+                    Console.WriteLine(a.Characteristic.Value);
+                };
                 var stringtoconvert = "S:"+stringtosend;
                 var bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
                 await characteristictosend.WriteAsync(bytestotransmit);
@@ -179,6 +184,7 @@ namespace LightScout
                 bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
                 await characteristictosend.WriteAsync(bytestotransmit);
                 Console.WriteLine(bytestotransmit);
+                
 
             }
             else

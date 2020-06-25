@@ -7,7 +7,9 @@ namespace LightScout.Models
 {
     public class TeamMatch
     {
+        public int MatchID { get; set; }
         public int TeamNumber { get; set; }
+        public string TabletId { get; set; }
         public string TeamName { get; set; }
         public string EventCode { get; set; }
         public int MatchNumber { get; set; }

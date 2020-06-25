@@ -158,8 +158,15 @@ namespace LightScout
         {
             if (canTransmitData)
             {
-                
+                string[] uuidrandomfun = { "6ad0f836b49011eab3de0242ac130001", "6ad0f836b49011eab3de0242ac130002", "6ad0f836b49011eab3de0242ac130003", "6ad0f836b49011eab3de0242ac130004", "6ad0f836b49011eab3de0242ac130005", "6ad0f836b49011eab3de0242ac130006" };
+                string[] tabletidentifiers = { "R1", "R2", "R3", "B1", "B2", "B3" };
+                var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130000"));
+                var randomnumgenerator = new Random();
+                var randomnumber = randomnumgenerator.Next(0, 5);
+                string randomuuid = uuidrandomfun[randomnumber];
                 var matchtotransmit = new TeamMatch();
+                matchtotransmit.TabletId = tabletidentifiers[randomnumber];
+                matchtotransmit.EventCode = "test_env";
                 matchtotransmit.A_InitiationLine = InitLineAchieved;
                 matchtotransmit.E_Balanced = Balanced;
                 matchtotransmit.T_ControlPanelPosition = ControlPanel[1];
@@ -168,10 +175,7 @@ namespace LightScout
                 matchtotransmit.DisabledSeconds = DisabledSeconds;
                 var stringtosend = JsonConvert.SerializeObject(matchtotransmit);
                 Console.WriteLine(stringtosend);
-                string[] uuidrandomfun = { "6ad0f836b49011eab3de0242ac130001", "6ad0f836b49011eab3de0242ac130002", "6ad0f836b49011eab3de0242ac130003", "6ad0f836b49011eab3de0242ac130004", "6ad0f836b49011eab3de0242ac130005", "6ad0f836b49011eab3de0242ac130006" };
-                var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130000"));
-                var randomnumgenerator = new Random();
-                string randomuuid = uuidrandomfun[randomnumgenerator.Next(0, 5)];
+                
                 var characteristictosend = await servicetosend.GetCharacteristicAsync(Guid.Parse(randomuuid));
                 characteristictosend.ValueUpdated += async (s, a) =>
                 {

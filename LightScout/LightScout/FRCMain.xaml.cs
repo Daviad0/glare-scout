@@ -122,18 +122,19 @@ namespace LightScout
         private void BalancedChange(object sender, EventArgs e)
         {
             var converter = new ColorTypeConverter();
-            if (sender == balanced_opt1)
+            if (Balanced)
             {
-                Balanced = true;
-                balanced_opt1.Style = Resources["lightSecondarySelected"] as Style;
-                balanced_opt2.Style = Resources["lightSecondary"] as Style;
+                Balanced = false;
+                balanced_opt1.Style = Resources["lightPrimary"] as Style;
+                balanced_opt1.Text = "Not Balanced";
             }
             else
             {
-                Balanced = false;
-                balanced_opt2.Style = Resources["lightSecondarySelected"] as Style;
-                balanced_opt1.Style = Resources["lightSecondary"] as Style;
+                Balanced = true;
+                balanced_opt1.Style = Resources["lightPrimarySelected"] as Style;
+                balanced_opt1.Text = "Robot Balanced";
             }
+           
         }
         private void SendTheData(object sender, EventArgs e)
         {

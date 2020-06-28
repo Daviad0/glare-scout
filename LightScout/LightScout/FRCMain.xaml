@@ -167,18 +167,14 @@
             </StackLayout>
             <StackLayout x:Name="endgameForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
                 <Grid Margin="10,20,10,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
                     <Label Text="Balanced?" 
                    HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
-                    <Button Text="Yes" Style="{StaticResource lightSecondarySelected}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="balanced_opt1" Clicked="BalancedChange"/>
-                    <Button Text="No" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" x:Name="balanced_opt2" Clicked="BalancedChange"/>
+                    <Button Text="Not Balanced" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="balanced_opt1" Clicked="BalancedChange"/>
+                    
                 </Grid>
             </StackLayout>
             <StackLayout x:Name="confirmForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">

@@ -2,6 +2,7 @@ C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\bin\Debug\netstand
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\bin\Debug\netstandard2.0\LightScout.dll
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\bin\Debug\netstandard2.0\ref\LightScout.dll
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\bin\Debug\netstandard2.0\LightScout.pdb
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\obj\Debug\netstandard2.0\LightScout.csprojAssemblyReference.cache
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\obj\Debug\netstandard2.0\App.xaml.g.cs
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\obj\Debug\netstandard2.0\FRCHome.xaml.g.cs
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\obj\Debug\netstandard2.0\FRCMain.xaml.g.cs
@@ -14,4 +15,3 @@ C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\obj\Debug\netstand
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\obj\Debug\netstandard2.0\LightScout.dll
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\obj\Debug\netstandard2.0\ref\LightScout.dll
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\obj\Debug\netstandard2.0\LightScout.pdb
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\obj\Debug\netstandard2.0\LightScout.csprojAssemblyReference.cache

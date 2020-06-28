@@ -21,6 +21,9 @@ namespace LightScout
     {
         private static bool[] ControlPanel = new bool[2];
         private static bool Balanced;
+        private static bool Climb;
+        private static bool Parked;
+        private static bool Attempted;
         private int CurrentSubPage;
         private int DisabledSeconds;
         private bool CurrentlyDisabled;
@@ -125,16 +128,88 @@ namespace LightScout
             if (Balanced)
             {
                 Balanced = false;
-                balanced_opt1.Style = Resources["lightPrimary"] as Style;
+                balanced_opt1.Style = Resources["lightSecondary"] as Style;
                 balanced_opt1.Text = "Not Balanced";
             }
             else
             {
                 Balanced = true;
-                balanced_opt1.Style = Resources["lightPrimarySelected"] as Style;
+                balanced_opt1.Style = Resources["lightSecondarySelected"] as Style;
                 balanced_opt1.Text = "Robot Balanced";
             }
            
+        }
+        private void ClimbChange(object sender, EventArgs e)
+        {
+            var converter = new ColorTypeConverter();
+            if (Climb)
+            {
+                Climb = false;
+                climb_opt1.Style = Resources["lightSecondary"] as Style;
+                climb_opt1.Text = "Not Successful";
+            }
+            else
+            {
+                Climb = true;
+                climb_opt1.Style = Resources["lightSecondarySelected"] as Style;
+                climb_opt1.Text = "Climb Successful";
+            }
+
+        }
+        private void ParkChange(object sender, EventArgs e)
+        {
+            var converter = new ColorTypeConverter();
+            if (Parked)
+            {
+                Parked = false;
+                park_opt1.Style = Resources["lightSecondary"] as Style;
+                park_opt1.Text = "Did Not Park";
+                balancedMenu.IsEnabled = true;
+                balancedMenu.Opacity = 1;
+                attemptedMenu.IsEnabled = true;
+                attemptedMenu.Opacity = 1;
+                climbMenu.IsEnabled = true;
+                climbMenu.Opacity = 1;
+            }
+            else
+            {
+                Parked = true;
+                park_opt1.Style = Resources["lightSecondarySelected"] as Style;
+                park_opt1.Text = "Successfully Parked";
+                climbMenu.IsEnabled = false;
+                climbMenu.Opacity = 0.35;
+                climb_opt1.Style = Resources["lightSecondary"] as Style;
+                climb_opt1.Text = "Not Attempted";
+                Climb = false;
+                Balanced = false;
+                Attempted = false;
+                attemptedMenu.IsEnabled = false;
+                attemptedMenu.Opacity = 0.35;
+                attempted_opt1.Style = Resources["lightSecondary"] as Style;
+                attempted_opt1.Text = "Not Attempted";
+                balancedMenu.IsEnabled = false;
+                balancedMenu.Opacity = 0.35;
+                balanced_opt1.Style = Resources["lightSecondary"] as Style;
+                balanced_opt1.Text = "Not Attempted";
+            }
+
+        }
+        private void AttempedChange(object sender, EventArgs e)
+        {
+            var converter = new ColorTypeConverter();
+            if (Attempted)
+            {
+                Attempted = false;
+                attempted_opt1.Style = Resources["lightSecondary"] as Style;
+                attempted_opt1.Text = "Not Attemped";
+            }
+            else
+            {
+                Attempted = true;
+                attempted_opt1.Style = Resources["lightSecondarySelected"] as Style;
+                attempted_opt1.Text = "Climb Attempted";
+            }
+
         }
         private void SendTheData(object sender, EventArgs e)
         {
@@ -154,6 +229,12 @@ namespace LightScout
         private void BackToMainMenu(object sender, EventArgs e)
         {
             Navigation.PushAsync(new MainPage());
+        }
+        private async void FlipCard(object sender, EventArgs e)
+        {
+            await cardToFlip.RotateYTo(-90, 200);
+            cardToFlip.RotationY = 90;
+            await cardToFlip.RotateYTo(0, 200);
         }
         private async void ConfirmForm(object sender, EventArgs e)
         {

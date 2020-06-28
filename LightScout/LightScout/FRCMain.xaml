@@ -116,35 +116,54 @@
                     <Button Text="Not Achieved" Clicked="ChangeInitLine" Style="{StaticResource lightPrimary}" Grid.Column="1" x:Name="initLineToggle"/>
                     
                 </Grid>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="70"/>
-                        <RowDefinition Height="70"/>
-                        <RowDefinition Height="70"/>
-                        <RowDefinition Height="70"/>
-                    </Grid.RowDefinitions>
+                <Label Text="Power Cells" HorizontalOptions="Center"/>
+                <Frame BorderColor="Transparent" BackgroundColor="#f2f2f2" CornerRadius="4" Margin="10" x:Name="cardToFlip">
+                    <StackLayout x:Name="cardContent">
+                        <Label Text="Tele-Op Cycle #1" HorizontalOptions="Center" Margin="0,0,0,20"/>
+                        <Grid Margin="5,0,5,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="50"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+                            <Label Text="Scored in Inner" FontSize="10" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" Grid.Column="1" Grid.Row="0" FontSize="20"/>
+                            <Label Text="0 PC" Grid.Column="2" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" Grid.Column="3" Grid.Row="0" FontSize="20"/>
+                            <Label Text="Scored in Outer" FontSize="10" Grid.Column="0" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" Grid.Column="1" Grid.Row="1" FontSize="20"/>
+                            <Label Text="0 PC" Grid.Column="2" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" Grid.Column="3" Grid.Row="1" FontSize="20"/>
+                            <Label Text="Scored in Lower" FontSize="10" Grid.Column="0" Grid.Row="2" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" Grid.Column="1" Grid.Row="2" FontSize="20"/>
+                            <Label Text="0 PC" Grid.Column="2" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" Grid.Column="3" Grid.Row="2" FontSize="20"/>
+                            <Label Text="Shot, but Missed" FontSize="10" Grid.Column="0" Grid.Row="3" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="Red" BorderColor="Red" Grid.Column="1" Grid.Row="3" FontSize="20"/>
+                            <Label Text="0 PC" Grid.Column="2" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="Red" BorderColor="Red" Grid.Column="3" Grid.Row="3" FontSize="20"/>
 
-                </Grid>
-                
-                
-                <Grid Margin="10,20,10,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+                        </Grid>
+                    </StackLayout>
+                   
+                </Frame>
+                <Grid Margin="15, 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="40"/>
                     </Grid.ColumnDefinitions>
-                    <Label />
+                    <Button Style="{StaticResource lightSecondary}" Text="&#xea5c;" HeightRequest="30" FontSize="20" FontFamily="{StaticResource IconFont}" Grid.Column="1"/>
+                    <Button Style="{StaticResource lightSecondary}" Text="&#xea5d;" HeightRequest="30" FontSize="20" FontFamily="{StaticResource IconFont}" Grid.Column="2"/>
                 </Grid>
-
-                <Button Text="Send Data" Clicked="SendTheData"/>
-                <Button Text="Load Data" Clicked="LoadTheData"/>
+                <Button Text="FlipCard" Clicked="FlipCard"/>
                 <Label Text="" x:Name="showData"/>
                 <Button Text="Reload" Clicked="Button_Clicked"/>
                 
@@ -166,7 +185,37 @@
                 </Grid>
             </StackLayout>
             <StackLayout x:Name="endgameForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
-                <Grid Margin="10,20,10,0">
+                <Grid Margin="10,20,10,0" x:Name="parkedMenu">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Robot Parked?" 
+                   HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
+                    <Button Text="Not Parked" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="park_opt1" Clicked="ParkChange"/>
+
+                </Grid>
+                <Grid Margin="10,10,10,0" x:Name="climbMenu">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Climb Successful?" 
+                   HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
+                    <Button Text="Not Successful" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="climb_opt1" Clicked="ClimbChange"/>
+                    
+                </Grid>
+                <Grid Margin="10,10,10,0" x:Name="attemptedMenu">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Climb Attemped?" 
+                   HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
+                    <Button Text="Not Attemped" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="attempted_opt1" Clicked="AttempedChange"/>
+
+                </Grid>
+                <Grid Margin="10,10,10,0" x:Name="balancedMenu">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="200"/>
@@ -174,7 +223,7 @@
                     <Label Text="Balanced?" 
                    HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
                     <Button Text="Not Balanced" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="balanced_opt1" Clicked="BalancedChange"/>
-                    
+
                 </Grid>
             </StackLayout>
             <StackLayout x:Name="confirmForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">

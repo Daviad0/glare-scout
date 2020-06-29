@@ -589,9 +589,9 @@ namespace LightScout
                 var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130000"));
                 var randomnumgenerator = new Random();
                 var randomnumber = randomnumgenerator.Next(0, 5);
-                string randomuuid = uuidrandomfun[randomnumber];
+                string randomuuid = uuidrandomfun[0];
                 var matchtotransmit = new TeamMatch();
-                matchtotransmit.TabletId = tabletidentifiers[randomnumber];
+                matchtotransmit.TabletId = tabletidentifiers[0];
                 matchtotransmit.EventCode = "test_env";
                 matchtotransmit.A_InitiationLine = InitLineAchieved;
                 matchtotransmit.E_Balanced = Balanced;
@@ -616,9 +616,36 @@ namespace LightScout
                 {
                     Console.WriteLine(a.Characteristic.Value);
                 };
+                await characteristictosend.StartUpdatesAsync();
                 var stringtoconvert = "S:"+stringtosend;
                 var bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
-                await characteristictosend.WriteAsync(bytestotransmit);
+                if(bytestotransmit.Length > 480)
+                {
+                    var startidentifier = "MM:2";
+                    var startbytesarray = Encoding.ASCII.GetBytes(startidentifier);
+                    await characteristictosend.WriteAsync(startbytesarray);
+                    if(bytestotransmit.Length > 960)
+                    {
+                        var bytesarray1 = bytestotransmit.Take(480).ToArray();
+                        var bytesarray2 = bytestotransmit.Skip(480).Take(480).ToArray();
+                        var bytesarray3 = bytestotransmit.Skip(960).ToArray();
+                        await characteristictosend.WriteAsync(bytesarray1);
+                        await characteristictosend.WriteAsync(bytesarray2);
+                        await characteristictosend.WriteAsync(bytesarray3);
+                    }
+                    else
+                    {
+                        var bytesarray1 = bytestotransmit.Take(480).ToArray();
+                        var bytesarray2 = bytestotransmit.Skip(480).ToArray();
+                        await characteristictosend.WriteAsync(bytesarray1);
+                        await characteristictosend.WriteAsync(bytesarray2);
+                    }
+                }
+                else
+                {
+                    await characteristictosend.WriteAsync(bytestotransmit);
+                }
+                
                 stringtoconvert = "B:"+Battery.ChargeLevel.ToString();
                 bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
                 await characteristictosend.WriteAsync(bytestotransmit);

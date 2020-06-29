@@ -24,10 +24,17 @@ namespace LightScout
         private static bool Climb;
         private static bool Parked;
         private static bool Attempted;
+        private static int[] PowerCellInner = new int[21];
+        private static int[] PowerCellOuter = new int[21];
+        private static int[] PowerCellLower = new int[21];
+        private static int[] PowerCellMissed = new int[21];
+        private static int NumCycles = 0;
+        private static int CurrentCycle = 1;
         private int CurrentSubPage;
         private int DisabledSeconds;
         private bool CurrentlyDisabled;
         private bool InitLineAchieved;
+        private double[] OriginalCardCoords = { 0, 0 };
         private static IBluetoothLE ble = CrossBluetoothLE.Current;
         private static IAdapter adapter = CrossBluetoothLE.Current.Adapter;
         private static IDevice deviceIWant;
@@ -67,7 +74,8 @@ namespace LightScout
                 Console.WriteLine(ex.ToString());
             }*/
             base.OnAppearing();
-            
+            OriginalCardCoords[0] = cardToFlip.X;
+            OriginalCardCoords[1] = cardToFlip.Y;
             await Task.Delay(TimeSpan.FromSeconds(1));
             await animatedelement.TranslateTo(TranslationX, TranslationY - 50, 1000, Easing.SinOut);
             HiddenLabel.FadeTo(1, 350);
@@ -135,7 +143,7 @@ namespace LightScout
             {
                 Balanced = true;
                 balanced_opt1.Style = Resources["lightSecondarySelected"] as Style;
-                balanced_opt1.Text = "Robot Balanced";
+                balanced_opt1.Text = "Robot(s) Balanced";
             }
            
         }
@@ -147,12 +155,20 @@ namespace LightScout
                 Climb = false;
                 climb_opt1.Style = Resources["lightSecondary"] as Style;
                 climb_opt1.Text = "Not Successful";
+                balancedMenu.IsEnabled = false;
+                balancedMenu.Opacity = 0.35;
+                balanced_opt1.Style = Resources["lightSecondary"] as Style;
+                balanced_opt1.Text = "Did Not Contribute";
             }
             else
             {
                 Climb = true;
                 climb_opt1.Style = Resources["lightSecondarySelected"] as Style;
                 climb_opt1.Text = "Climb Successful";
+                balancedMenu.IsEnabled = true;
+                balancedMenu.Opacity = 1;
+                balanced_opt1.Style = Resources["lightSecondary"] as Style;
+                balanced_opt1.Text = "Not Balanced";
             }
 
         }
@@ -164,12 +180,17 @@ namespace LightScout
                 Parked = false;
                 park_opt1.Style = Resources["lightSecondary"] as Style;
                 park_opt1.Text = "Did Not Park";
-                balancedMenu.IsEnabled = true;
-                balancedMenu.Opacity = 1;
+                balancedMenu.IsEnabled = false;
+                balancedMenu.Opacity = 0.35;
                 attemptedMenu.IsEnabled = true;
                 attemptedMenu.Opacity = 1;
-                climbMenu.IsEnabled = true;
-                climbMenu.Opacity = 1;
+                climbMenu.IsEnabled = false;
+                climbMenu.Opacity = 0.35;
+                if (Attempted)
+                {
+                    climbMenu.IsEnabled = true;
+                    climbMenu.Opacity = 1;
+                }
             }
             else
             {
@@ -182,15 +203,15 @@ namespace LightScout
                 climb_opt1.Text = "Not Attempted";
                 Climb = false;
                 Balanced = false;
-                Attempted = false;
-                attemptedMenu.IsEnabled = false;
-                attemptedMenu.Opacity = 0.35;
-                attempted_opt1.Style = Resources["lightSecondary"] as Style;
-                attempted_opt1.Text = "Not Attempted";
                 balancedMenu.IsEnabled = false;
                 balancedMenu.Opacity = 0.35;
                 balanced_opt1.Style = Resources["lightSecondary"] as Style;
-                balanced_opt1.Text = "Not Attempted";
+                balanced_opt1.Text = "Did Not Contribute";
+                if (Attempted)
+                {
+                    climb_opt1.Style = Resources["lightSecondary"] as Style;
+                    climb_opt1.Text = "Not Successful";
+                }
             }
 
         }
@@ -202,12 +223,30 @@ namespace LightScout
                 Attempted = false;
                 attempted_opt1.Style = Resources["lightSecondary"] as Style;
                 attempted_opt1.Text = "Not Attemped";
+                climb_opt1.Style = Resources["lightSecondary"] as Style;
+                climb_opt1.Text = "Not Attempted";
+                climbMenu.IsEnabled = false;
+                climbMenu.Opacity = 0.35;
+                balancedMenu.IsEnabled = false;
+                balancedMenu.Opacity = 0.35;
+                balanced_opt1.Style = Resources["lightSecondary"] as Style;
+                balanced_opt1.Text = "Did Not Contribute";
             }
             else
             {
+                if (!Parked)
+                {
+                    climbMenu.IsEnabled = true;
+                    climbMenu.Opacity = 1;
+                    balanced_opt1.Style = Resources["lightSecondary"] as Style;
+                    balanced_opt1.Text = "Did Not Contribute";
+                }
+                climb_opt1.Style = Resources["lightSecondary"] as Style;
+                climb_opt1.Text = "Not Successful";
                 Attempted = true;
                 attempted_opt1.Style = Resources["lightSecondarySelected"] as Style;
                 attempted_opt1.Text = "Climb Attempted";
+                
             }
 
         }
@@ -230,11 +269,316 @@ namespace LightScout
         {
             Navigation.PushAsync(new MainPage());
         }
-        private async void FlipCard(object sender, EventArgs e)
+        private async void PowerCellsUp(object sender, EventArgs e)
         {
-            await cardToFlip.RotateYTo(-90, 200);
-            cardToFlip.RotationY = 90;
-            await cardToFlip.RotateYTo(0, 200);
+            var buttonClicked = sender as Button;
+            if(buttonClicked == innerUp)
+            {
+                PowerCellInner[CurrentCycle]++;
+                innerDown.IsEnabled = true;
+                innerAmount.Text = PowerCellInner[CurrentCycle].ToString() + " PC";
+            }
+            else if(buttonClicked == outerUp)
+            {
+                PowerCellOuter[CurrentCycle]++;
+                outerDown.IsEnabled = true;
+                outerAmount.Text = PowerCellOuter[CurrentCycle].ToString() + " PC";
+            }
+            else if(buttonClicked == lowerUp)
+            {
+                PowerCellLower[CurrentCycle]++;
+                lowerDown.IsEnabled = true;
+                lowerAmount.Text = PowerCellLower[CurrentCycle].ToString() + " PC";
+            }
+            else if(buttonClicked == missedUp)
+            {
+                PowerCellMissed[CurrentCycle]++;
+                missedDown.IsEnabled = true;
+                missedAmount.Text = PowerCellMissed[CurrentCycle].ToString() + " PC";
+            }
+            if((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) >= 5)
+            {
+                innerUp.IsEnabled = false;
+                outerUp.IsEnabled = false;
+                lowerUp.IsEnabled = false;
+                missedUp.IsEnabled = false;
+            }
+        }
+        private async void PowerCellsDown(object sender, EventArgs e)
+        {
+            var buttonClicked = sender as Button;
+            if (buttonClicked == innerDown)
+            {
+                PowerCellInner[CurrentCycle]--;
+                if(PowerCellInner[CurrentCycle] <= 0)
+                {
+                    innerDown.IsEnabled = false;
+                }
+                innerAmount.Text = PowerCellInner[CurrentCycle].ToString() + " PC";
+            }
+            else if (buttonClicked == outerDown)
+            {
+                PowerCellOuter[CurrentCycle]--;
+                if (PowerCellOuter[CurrentCycle] <= 0)
+                {
+                    outerDown.IsEnabled = false;
+                }
+                outerAmount.Text = PowerCellOuter[CurrentCycle].ToString() + " PC";
+            }
+            else if (buttonClicked == lowerDown)
+            {
+                PowerCellLower[CurrentCycle]--;
+                if (PowerCellLower[CurrentCycle] <= 0)
+                {
+                    lowerDown.IsEnabled = false;
+                }
+                lowerAmount.Text = PowerCellLower[CurrentCycle].ToString() + " PC";
+            }
+            else if (buttonClicked == missedDown)
+            {
+                PowerCellMissed[CurrentCycle]--;
+                if (PowerCellMissed[CurrentCycle] <= 0)
+                {
+                    missedDown.IsEnabled = false;
+                }
+                missedAmount.Text = PowerCellMissed[CurrentCycle].ToString() + " PC";
+            }
+            innerUp.IsEnabled = true;
+            outerUp.IsEnabled = true;
+            lowerUp.IsEnabled = true;
+            missedUp.IsEnabled = true;
+        }
+        private async void APowerCellsUp(object sender, EventArgs e)
+        {
+            var buttonClicked = sender as Button;
+            if (buttonClicked == AinnerUp)
+            {
+                PowerCellInner[0]++;
+                AinnerDown.IsEnabled = true;
+                AinnerAmount.Text = PowerCellInner[0].ToString() + " PC";
+            }
+            else if (buttonClicked == AouterUp)
+            {
+                PowerCellOuter[0]++;
+                AouterDown.IsEnabled = true;
+                AouterAmount.Text = PowerCellOuter[0].ToString() + " PC";
+            }
+            else if (buttonClicked == AlowerUp)
+            {
+                PowerCellLower[0]++;
+                AlowerDown.IsEnabled = true;
+                AlowerAmount.Text = PowerCellLower[0].ToString() + " PC";
+            }
+            else if (buttonClicked == AmissedUp)
+            {
+                PowerCellMissed[0]++;
+                AmissedDown.IsEnabled = true;
+                AmissedAmount.Text = PowerCellMissed[0].ToString() + " PC";
+            }
+            if ((PowerCellInner[0] + PowerCellLower[0] + PowerCellMissed[0] + PowerCellOuter[0]) >= 15)
+            {
+                AinnerUp.IsEnabled = false;
+                AouterUp.IsEnabled = false;
+                AlowerUp.IsEnabled = false;
+                AmissedUp.IsEnabled = false;
+            }
+        }
+        private async void APowerCellsDown(object sender, EventArgs e)
+        {
+            var buttonClicked = sender as Button;
+            if (buttonClicked == AinnerDown)
+            {
+                PowerCellInner[0]--;
+                if (PowerCellInner[0] <= 0)
+                {
+                    AinnerDown.IsEnabled = false;
+                }
+                AinnerAmount.Text = PowerCellInner[0].ToString() + " PC";
+            }
+            else if (buttonClicked == AouterDown)
+            {
+                PowerCellOuter[0]--;
+                if (PowerCellOuter[0] <= 0)
+                {
+                    AouterDown.IsEnabled = false;
+                }
+                AouterAmount.Text = PowerCellOuter[0].ToString() + " PC";
+            }
+            else if (buttonClicked == AlowerDown)
+            {
+                PowerCellLower[0]--;
+                if (PowerCellLower[0] <= 0)
+                {
+                    AlowerDown.IsEnabled = false;
+                }
+                AlowerAmount.Text = PowerCellLower[0].ToString() + " PC";
+            }
+            else if (buttonClicked == AmissedDown)
+            {
+                PowerCellMissed[0]--;
+                if (PowerCellMissed[0] <= 0)
+                {
+                    AmissedDown.IsEnabled = false;
+                }
+                AmissedAmount.Text = PowerCellMissed[0].ToString() + " PC";
+            }
+            AinnerUp.IsEnabled = true;
+            AouterUp.IsEnabled = true;
+            AlowerUp.IsEnabled = true;
+            AmissedUp.IsEnabled = true;
+        }
+        private async void NextTeleOpCard(object sender, EventArgs e)
+        {
+            if(CurrentCycle < 20)
+            {
+                if(CurrentCycle > NumCycles)
+                {
+                    NumCycles = CurrentCycle;
+                }
+                CurrentCycle++;
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX - 500, cardToFlip.TranslationY, 175, Easing.SinIn);
+                cardToFlip.TranslationX = cardToFlip.TranslationX + 1000;
+                CurrentCycleNumLabel.Text = "Tele-Op Cycle #" + CurrentCycle.ToString();
+                innerAmount.Text = PowerCellInner[CurrentCycle].ToString() + " PC";
+                outerAmount.Text = PowerCellOuter[CurrentCycle].ToString() + " PC";
+                lowerAmount.Text = PowerCellLower[CurrentCycle].ToString() + " PC";
+                missedAmount.Text = PowerCellMissed[CurrentCycle].ToString() + " PC";
+                if (PowerCellMissed[CurrentCycle] <= 0)
+                {
+                    missedDown.IsEnabled = false;
+                }
+                else
+                {
+                    missedDown.IsEnabled = true;
+                }
+                if (PowerCellLower[CurrentCycle] <= 0)
+                {
+                    lowerDown.IsEnabled = false;
+                }
+                else
+                {
+                    lowerDown.IsEnabled = true;
+                }
+                if (PowerCellOuter[CurrentCycle] <= 0)
+                {
+                    outerDown.IsEnabled = false;
+                }
+                else
+                {
+                    outerDown.IsEnabled = true;
+                }
+                if (PowerCellInner[CurrentCycle] <= 0)
+                {
+                    innerDown.IsEnabled = false;
+                }
+                else
+                {
+                    innerDown.IsEnabled = true;
+                }
+                if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) >= 5)
+                {
+                    innerUp.IsEnabled = false;
+                    outerUp.IsEnabled = false;
+                    lowerUp.IsEnabled = false;
+                    missedUp.IsEnabled = false;
+                }
+                else
+                {
+                    innerUp.IsEnabled = true;
+                    outerUp.IsEnabled = true;
+                    lowerUp.IsEnabled = true;
+                    missedUp.IsEnabled = true;
+                }
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX - 500, cardToFlip.TranslationY, 175, Easing.SinOut);
+                cardToFlip.TranslationX = 0;
+                cardToFlip.TranslationY = 0;
+            }
+            else
+            {
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX + 10, cardToFlip.TranslationY, 75, Easing.SinIn);
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX - 20, cardToFlip.TranslationY, 75, Easing.SinIn);
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX + 20, cardToFlip.TranslationY, 75, Easing.SinIn);
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX - 20, cardToFlip.TranslationY, 75, Easing.SinIn);
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX + 10, cardToFlip.TranslationY, 75, Easing.SinIn);
+                cardToFlip.TranslationX = 0;
+                cardToFlip.TranslationY = 0;
+            }
+            
+        }
+        private async void PrevTeleOpCard(object sender, EventArgs e)
+        {
+            if(CurrentCycle > 1)
+            {
+                CurrentCycle--;
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX + 500, cardToFlip.TranslationY, 175, Easing.SinIn);
+                cardToFlip.TranslationX = cardToFlip.TranslationX - 1000;
+                CurrentCycleNumLabel.Text = "Tele-Op Cycle #" + CurrentCycle.ToString();
+                innerAmount.Text = PowerCellInner[CurrentCycle].ToString() + " PC";
+                outerAmount.Text = PowerCellOuter[CurrentCycle].ToString() + " PC";
+                lowerAmount.Text = PowerCellLower[CurrentCycle].ToString() + " PC";
+                missedAmount.Text = PowerCellMissed[CurrentCycle].ToString() + " PC";
+                if (PowerCellMissed[CurrentCycle] <= 0)
+                {
+                    missedDown.IsEnabled = false;
+                }
+                else
+                {
+                    missedDown.IsEnabled = true;
+                }
+                if (PowerCellLower[CurrentCycle] <= 0)
+                {
+                    lowerDown.IsEnabled = false;
+                }
+                else
+                {
+                    lowerDown.IsEnabled = true;
+                }
+                if (PowerCellOuter[CurrentCycle] <= 0)
+                {
+                    outerDown.IsEnabled = false;
+                }
+                else
+                {
+                    outerDown.IsEnabled = true;
+                }
+                if (PowerCellInner[CurrentCycle] <= 0)
+                {
+                    innerDown.IsEnabled = false;
+                }
+                else
+                {
+                    innerDown.IsEnabled = true;
+                }
+                if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) >= 5)
+                {
+                    innerUp.IsEnabled = false;
+                    outerUp.IsEnabled = false;
+                    lowerUp.IsEnabled = false;
+                    missedUp.IsEnabled = false;
+                }
+                else
+                {
+                    innerUp.IsEnabled = true;
+                    outerUp.IsEnabled = true;
+                    lowerUp.IsEnabled = true;
+                    missedUp.IsEnabled = true;
+                }
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX + 500, cardToFlip.TranslationY, 175, Easing.SinOut);
+                cardToFlip.TranslationX = 0;
+                cardToFlip.TranslationY = 0;
+                
+            }
+            else
+            {
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX - 10, cardToFlip.TranslationY, 75, Easing.SinIn);
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX + 20, cardToFlip.TranslationY, 75, Easing.SinIn);
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX - 20, cardToFlip.TranslationY, 75, Easing.SinIn);
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX + 20, cardToFlip.TranslationY, 75, Easing.SinIn);
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX - 10, cardToFlip.TranslationY, 75, Easing.SinIn);
+                cardToFlip.TranslationX = 0;
+                cardToFlip.TranslationY = 0;
+            }
+            
         }
         private async void ConfirmForm(object sender, EventArgs e)
         {
@@ -255,6 +599,15 @@ namespace LightScout
                 matchtotransmit.T_ControlPanelPosition = ControlPanel[0];
                 matchtotransmit.ScoutName = scoutName.Text;
                 matchtotransmit.DisabledSeconds = DisabledSeconds;
+                matchtotransmit.E_ClimbAttempt = Attempted;
+                matchtotransmit.E_ClimbSuccess = Climb;
+                matchtotransmit.E_Park = Parked;
+                matchtotransmit.TeamNumber = 862;
+                matchtotransmit.PowerCellInner = PowerCellInner;
+                matchtotransmit.PowerCellOuter = PowerCellOuter;
+                matchtotransmit.PowerCellLower = PowerCellLower;
+                matchtotransmit.PowerCellMissed = PowerCellMissed;
+                matchtotransmit.NumCycles = NumCycles;
                 var stringtosend = JsonConvert.SerializeObject(matchtotransmit);
                 Console.WriteLine(stringtosend);
                 
@@ -448,6 +801,158 @@ namespace LightScout
                 });
                 return true;
             });
+        }
+
+        private async void SwipeToTeleOpCard(object sender, SwipedEventArgs e)
+        {
+            if(e.Direction == SwipeDirection.Left)
+            {
+                if (CurrentCycle < 20)
+                {
+                    CurrentCycle++;
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX - 500, cardToFlip.TranslationY, 175, Easing.SinIn);
+                    cardToFlip.TranslationX = cardToFlip.TranslationX + 1000;
+                    CurrentCycleNumLabel.Text = "Tele-Op Cycle #" + CurrentCycle.ToString();
+                    innerAmount.Text = PowerCellInner[CurrentCycle].ToString() + " PC";
+                    outerAmount.Text = PowerCellOuter[CurrentCycle].ToString() + " PC";
+                    lowerAmount.Text = PowerCellLower[CurrentCycle].ToString() + " PC";
+                    missedAmount.Text = PowerCellMissed[CurrentCycle].ToString() + " PC";
+                    if (PowerCellMissed[CurrentCycle] <= 0)
+                    {
+                        missedDown.IsEnabled = false;
+                    }
+                    else
+                    {
+                        missedDown.IsEnabled = true;
+                    }
+                    if (PowerCellLower[CurrentCycle] <= 0)
+                    {
+                        lowerDown.IsEnabled = false;
+                    }
+                    else
+                    {
+                        lowerDown.IsEnabled = true;
+                    }
+                    if (PowerCellOuter[CurrentCycle] <= 0)
+                    {
+                        outerDown.IsEnabled = false;
+                    }
+                    else
+                    {
+                        outerDown.IsEnabled = true;
+                    }
+                    if (PowerCellInner[CurrentCycle] <= 0)
+                    {
+                        innerDown.IsEnabled = false;
+                    }
+                    else
+                    {
+                        innerDown.IsEnabled = true;
+                    }
+                    if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) >= 5)
+                    {
+                        innerUp.IsEnabled = false;
+                        outerUp.IsEnabled = false;
+                        lowerUp.IsEnabled = false;
+                        missedUp.IsEnabled = false;
+                    }
+                    else
+                    {
+                        innerUp.IsEnabled = true;
+                        outerUp.IsEnabled = true;
+                        lowerUp.IsEnabled = true;
+                        missedUp.IsEnabled = true;
+                    }
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX - 500, cardToFlip.TranslationY, 175, Easing.SinOut);
+                    cardToFlip.TranslationX = 0;
+                    cardToFlip.TranslationY = 0;
+                }
+                else
+                {
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX + 10, cardToFlip.TranslationY, 75, Easing.SinIn);
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX - 20, cardToFlip.TranslationY, 75, Easing.SinIn);
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX + 20, cardToFlip.TranslationY, 75, Easing.SinIn);
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX - 20, cardToFlip.TranslationY, 75, Easing.SinIn);
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX + 10, cardToFlip.TranslationY, 75, Easing.SinIn);
+                    cardToFlip.TranslationX = 0;
+                    cardToFlip.TranslationY = 0;
+                }
+            }
+            else
+            {
+                if (CurrentCycle > 1)
+                {
+                    CurrentCycle--;
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX + 500, cardToFlip.TranslationY, 175, Easing.SinIn);
+                    cardToFlip.TranslationX = cardToFlip.TranslationX - 1000;
+                    CurrentCycleNumLabel.Text = "Tele-Op Cycle #" + CurrentCycle.ToString();
+                    innerAmount.Text = PowerCellInner[CurrentCycle].ToString() + " PC";
+                    outerAmount.Text = PowerCellOuter[CurrentCycle].ToString() + " PC";
+                    lowerAmount.Text = PowerCellLower[CurrentCycle].ToString() + " PC";
+                    missedAmount.Text = PowerCellMissed[CurrentCycle].ToString() + " PC";
+                    if (PowerCellMissed[CurrentCycle] <= 0)
+                    {
+                        missedDown.IsEnabled = false;
+                    }
+                    else
+                    {
+                        missedDown.IsEnabled = true;
+                    }
+                    if (PowerCellLower[CurrentCycle] <= 0)
+                    {
+                        lowerDown.IsEnabled = false;
+                    }
+                    else
+                    {
+                        lowerDown.IsEnabled = true;
+                    }
+                    if (PowerCellOuter[CurrentCycle] <= 0)
+                    {
+                        outerDown.IsEnabled = false;
+                    }
+                    else
+                    {
+                        outerDown.IsEnabled = true;
+                    }
+                    if (PowerCellInner[CurrentCycle] <= 0)
+                    {
+                        innerDown.IsEnabled = false;
+                    }
+                    else
+                    {
+                        innerDown.IsEnabled = true;
+                    }
+                    if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) >= 5)
+                    {
+                        innerUp.IsEnabled = false;
+                        outerUp.IsEnabled = false;
+                        lowerUp.IsEnabled = false;
+                        missedUp.IsEnabled = false;
+                    }
+                    else
+                    {
+                        innerUp.IsEnabled = true;
+                        outerUp.IsEnabled = true;
+                        lowerUp.IsEnabled = true;
+                        missedUp.IsEnabled = true;
+                    }
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX + 500, cardToFlip.TranslationY, 175, Easing.SinOut);
+                    cardToFlip.TranslationX = 0;
+                    cardToFlip.TranslationY = 0;
+
+                }
+                else
+                {
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX - 10, cardToFlip.TranslationY, 75, Easing.SinIn);
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX + 20, cardToFlip.TranslationY, 75, Easing.SinIn);
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX - 20, cardToFlip.TranslationY, 75, Easing.SinIn);
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX + 20, cardToFlip.TranslationY, 75, Easing.SinIn);
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX - 10, cardToFlip.TranslationY, 75, Easing.SinIn);
+                    cardToFlip.TranslationX = 0;
+                    cardToFlip.TranslationY = 0;
+                }
+            }
+            
         }
     }
 }

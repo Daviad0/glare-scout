@@ -263,7 +263,7 @@ namespace LightScout
         }
         private void LoadTheData(object sender, EventArgs e)
         {
-            showData.Text = DependencyService.Get<DataStore>().LoadData("frctest051920.txt");
+            //showData.Text = DependencyService.Get<DataStore>().LoadData("frctest051920.txt");
         }
         private void BackToMainMenu(object sender, EventArgs e)
         {
@@ -589,9 +589,9 @@ namespace LightScout
                 var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130000"));
                 var randomnumgenerator = new Random();
                 var randomnumber = randomnumgenerator.Next(0, 5);
-                string randomuuid = uuidrandomfun[0];
+                string randomuuid = uuidrandomfun[randomnumber];
                 var matchtotransmit = new TeamMatch();
-                matchtotransmit.TabletId = tabletidentifiers[0];
+                matchtotransmit.TabletId = tabletidentifiers[randomnumber];
                 matchtotransmit.EventCode = "test_env";
                 matchtotransmit.A_InitiationLine = InitLineAchieved;
                 matchtotransmit.E_Balanced = Balanced;
@@ -621,11 +621,12 @@ namespace LightScout
                 var bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
                 if(bytestotransmit.Length > 480)
                 {
-                    var startidentifier = "MM:2";
-                    var startbytesarray = Encoding.ASCII.GetBytes(startidentifier);
-                    await characteristictosend.WriteAsync(startbytesarray);
+                    
                     if(bytestotransmit.Length > 960)
                     {
+                        var startidentifier = "MM:3";
+                        var startbytesarray = Encoding.ASCII.GetBytes(startidentifier);
+                        await characteristictosend.WriteAsync(startbytesarray);
                         var bytesarray1 = bytestotransmit.Take(480).ToArray();
                         var bytesarray2 = bytestotransmit.Skip(480).Take(480).ToArray();
                         var bytesarray3 = bytestotransmit.Skip(960).ToArray();
@@ -635,6 +636,9 @@ namespace LightScout
                     }
                     else
                     {
+                        var startidentifier = "MM:2";
+                        var startbytesarray = Encoding.ASCII.GetBytes(startidentifier);
+                        await characteristictosend.WriteAsync(startbytesarray);
                         var bytesarray1 = bytestotransmit.Take(480).ToArray();
                         var bytesarray2 = bytestotransmit.Skip(480).ToArray();
                         await characteristictosend.WriteAsync(bytesarray1);

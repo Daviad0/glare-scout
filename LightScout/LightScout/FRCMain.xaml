@@ -328,7 +328,7 @@
             </AbsoluteLayout>
             
         </StackLayout>
-        <StackLayout x:Name="overLay" Opacity="1" BackgroundColor="#009cd7" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+        <StackLayout x:Name="overLay" Opacity="1" BackgroundColor="#2a7afa" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
             
             <Label Text="&#xea7b;" FontFamily="{StaticResource IconFont}" TextColor="White" FontSize="30" HorizontalOptions="Start" Margin="10,10,0,0">
                 <Label.GestureRecognizers>
@@ -374,7 +374,7 @@
 
                 <!--<Button Text="Let's Do This!" BackgroundColor="White" TextColor="#009cd7" CornerRadius="6" FontFamily=""/>-->
             </Grid>
-            <Button Text="Let's Scout!" TextColor="#009cd7" x:Name="HiddenButtonGo" BackgroundColor="White" VerticalOptions="End" HorizontalOptions="CenterAndExpand" Opacity="0" Margin="0,0,0,10" Clicked="StartScouting" WidthRequest="300" CornerRadius="8">
+            <Button Text="Let's Scout!" TextColor="#2a7afa" x:Name="HiddenButtonGo" BackgroundColor="White" VerticalOptions="End" HorizontalOptions="CenterAndExpand" Opacity="0" Margin="0,0,0,10" Clicked="StartScouting" WidthRequest="300" CornerRadius="8">
                 
             </Button>
         </StackLayout>

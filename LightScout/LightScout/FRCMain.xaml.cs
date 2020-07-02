@@ -608,6 +608,7 @@ namespace LightScout
                 matchtotransmit.PowerCellLower = PowerCellLower;
                 matchtotransmit.PowerCellMissed = PowerCellMissed;
                 matchtotransmit.NumCycles = NumCycles;
+                matchtotransmit.MatchNumber = 1;
                 var stringtosend = JsonConvert.SerializeObject(matchtotransmit);
                 Console.WriteLine(stringtosend);
                 

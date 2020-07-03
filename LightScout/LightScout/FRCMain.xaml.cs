@@ -19,17 +19,18 @@ namespace LightScout
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FRCMain : ContentPage
     {
-        private static bool[] ControlPanel = new bool[2];
-        private static bool Balanced;
-        private static bool Climb;
-        private static bool Parked;
-        private static bool Attempted;
-        private static int[] PowerCellInner = new int[21];
-        private static int[] PowerCellOuter = new int[21];
-        private static int[] PowerCellLower = new int[21];
-        private static int[] PowerCellMissed = new int[21];
-        private static int NumCycles = 0;
-        private static int CurrentCycle = 1;
+        private bool[] ControlPanel = new bool[2];
+        private bool Balanced;
+        private bool Climb;
+        private bool Parked;
+        private bool Attempted;
+        private int CurrentMatchNum = 1;
+        private int[] PowerCellInner = new int[21];
+        private int[] PowerCellOuter = new int[21];
+        private int[] PowerCellLower = new int[21];
+        private int[] PowerCellMissed = new int[21];
+        private int NumCycles = 0;
+        private int CurrentCycle = 1;
         private int CurrentSubPage;
         private int DisabledSeconds;
         private bool CurrentlyDisabled;
@@ -436,7 +437,8 @@ namespace LightScout
                     NumCycles = CurrentCycle;
                 }
                 CurrentCycle++;
-                await cardToFlip.TranslateTo(cardToFlip.TranslationX - 500, cardToFlip.TranslationY, 175, Easing.CubicIn);
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX + 10, cardToFlip.TranslationY, 175, Easing.CubicIn);
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX - 510, cardToFlip.TranslationY, 175, Easing.CubicIn);
                 cardToFlip.TranslationX = cardToFlip.TranslationX + 1000;
                 CurrentCycleNumLabel.Text = "Tele-Op Cycle #" + CurrentCycle.ToString();
                 innerAmount.Text = PowerCellInner[CurrentCycle].ToString() + " PC";
@@ -489,7 +491,9 @@ namespace LightScout
                     lowerUp.IsEnabled = true;
                     missedUp.IsEnabled = true;
                 }
-                await cardToFlip.TranslateTo(cardToFlip.TranslationX - 500, cardToFlip.TranslationY, 175, Easing.CubicOut);
+
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX - 510, cardToFlip.TranslationY, 175, Easing.CubicOut);
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX + 10, cardToFlip.TranslationY, 175, Easing.CubicOut);
                 cardToFlip.TranslationX = 0;
                 cardToFlip.TranslationY = 0;
             }
@@ -510,7 +514,8 @@ namespace LightScout
             if(CurrentCycle > 1)
             {
                 CurrentCycle--;
-                await cardToFlip.TranslateTo(cardToFlip.TranslationX + 500, cardToFlip.TranslationY, 175, Easing.CubicIn);
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX - 10, cardToFlip.TranslationY, 175, Easing.CubicIn);
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX + 510, cardToFlip.TranslationY, 175, Easing.CubicIn);
                 cardToFlip.TranslationX = cardToFlip.TranslationX - 1000;
                 CurrentCycleNumLabel.Text = "Tele-Op Cycle #" + CurrentCycle.ToString();
                 innerAmount.Text = PowerCellInner[CurrentCycle].ToString() + " PC";
@@ -563,7 +568,8 @@ namespace LightScout
                     lowerUp.IsEnabled = true;
                     missedUp.IsEnabled = true;
                 }
-                await cardToFlip.TranslateTo(cardToFlip.TranslationX + 500, cardToFlip.TranslationY, 175, Easing.CubicOut);
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX + 510, cardToFlip.TranslationY, 175, Easing.CubicOut);
+                await cardToFlip.TranslateTo(cardToFlip.TranslationX - 10, cardToFlip.TranslationY, 175, Easing.CubicOut);
                 cardToFlip.TranslationX = 0;
                 cardToFlip.TranslationY = 0;
                 
@@ -608,7 +614,7 @@ namespace LightScout
                 matchtotransmit.PowerCellLower = PowerCellLower;
                 matchtotransmit.PowerCellMissed = PowerCellMissed;
                 matchtotransmit.NumCycles = NumCycles;
-                matchtotransmit.MatchNumber = 1;
+                matchtotransmit.MatchNumber = CurrentMatchNum;
                 var stringtosend = JsonConvert.SerializeObject(matchtotransmit);
                 Console.WriteLine(stringtosend);
                 
@@ -842,7 +848,8 @@ namespace LightScout
                 if (CurrentCycle < 20)
                 {
                     CurrentCycle++;
-                    await cardToFlip.TranslateTo(cardToFlip.TranslationX - 500, cardToFlip.TranslationY, 175, Easing.CubicIn);
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX + 10, cardToFlip.TranslationY, 175, Easing.CubicOut);
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX - 510, cardToFlip.TranslationY, 175, Easing.CubicOut);
                     cardToFlip.TranslationX = cardToFlip.TranslationX + 1000;
                     CurrentCycleNumLabel.Text = "Tele-Op Cycle #" + CurrentCycle.ToString();
                     innerAmount.Text = PowerCellInner[CurrentCycle].ToString() + " PC";
@@ -895,7 +902,8 @@ namespace LightScout
                         lowerUp.IsEnabled = true;
                         missedUp.IsEnabled = true;
                     }
-                    await cardToFlip.TranslateTo(cardToFlip.TranslationX - 500, cardToFlip.TranslationY, 175, Easing.CubicOut);
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX - 510, cardToFlip.TranslationY, 175, Easing.CubicOut);
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX + 10, cardToFlip.TranslationY, 175, Easing.CubicOut);
                     cardToFlip.TranslationX = 0;
                     cardToFlip.TranslationY = 0;
                 }
@@ -915,7 +923,8 @@ namespace LightScout
                 if (CurrentCycle > 1)
                 {
                     CurrentCycle--;
-                    await cardToFlip.TranslateTo(cardToFlip.TranslationX + 500, cardToFlip.TranslationY, 175, Easing.CubicIn);
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX - 10, cardToFlip.TranslationY, 175, Easing.CubicIn);
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX + 510, cardToFlip.TranslationY, 175, Easing.CubicIn);
                     cardToFlip.TranslationX = cardToFlip.TranslationX - 1000;
                     CurrentCycleNumLabel.Text = "Tele-Op Cycle #" + CurrentCycle.ToString();
                     innerAmount.Text = PowerCellInner[CurrentCycle].ToString() + " PC";
@@ -968,7 +977,8 @@ namespace LightScout
                         lowerUp.IsEnabled = true;
                         missedUp.IsEnabled = true;
                     }
-                    await cardToFlip.TranslateTo(cardToFlip.TranslationX + 500, cardToFlip.TranslationY, 175, Easing.CubicOut);
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX + 510, cardToFlip.TranslationY, 175, Easing.CubicOut);
+                    await cardToFlip.TranslateTo(cardToFlip.TranslationX - 10, cardToFlip.TranslationY, 175, Easing.CubicOut);
                     cardToFlip.TranslationX = 0;
                     cardToFlip.TranslationY = 0;
 
@@ -985,6 +995,13 @@ namespace LightScout
                 }
             }
             
+        }
+
+        private void Stepper_ValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            
+            CurrentMatchNum = (int)e.NewValue;
+            matchNumberStepperLabel.Text = "For testing, match number (" + CurrentMatchNum.ToString() + "):";
         }
     }
 }

@@ -104,6 +104,9 @@
                         </OnPlatform>
                     </Entry.FontFamily>
                 </Entry>
+                <Label Margin="0,20,0,0" Text="For testing, match number (1):" HorizontalOptions="Center" x:Name="matchNumberStepperLabel"/>
+
+                <Stepper Value="1" Minimum="1" Maximum="20" ValueChanged="Stepper_ValueChanged" HorizontalOptions="Center"/>
 
             </StackLayout>
             <StackLayout x:Name="autoForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
@@ -345,7 +348,8 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Image Source="frcicon.png" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" WidthRequest="250" x:Name="logo" Grid.Row="0" Grid.Column="0"/>
+                <Label Text="&#xeebd;" FontFamily="{StaticResource IconFont}" FontSize="80" x:Name="logo" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center"/>
+                <Image Source="frcicon.png" IsVisible="False" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" WidthRequest="250" Grid.Row="0" Grid.Column="0"/>
                 <Label Text="Team 862" TextColor="White" x:Name="HiddenLabel" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Opacity="0" Grid.Row="1" Grid.Column="0" FontSize="30" FontAttributes="Bold">
                     <Label.FontFamily>
                         <OnPlatform x:TypeArguments="x:String">

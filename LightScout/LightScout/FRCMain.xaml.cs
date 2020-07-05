@@ -254,8 +254,8 @@ namespace LightScout
         }
         private void SendTheData(object sender, EventArgs e)
         {
-            
-            
+
+            DependencyService.Get<DataStore>().SaveDummyData("JacksonEvent2020.txt");
             /*var match1 = new TeamMatch();
             match1.MatchNumber = 1;
             match1.TeamNumber = 862;

@@ -288,6 +288,7 @@
             <StackLayout x:Name="confirmForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
                 <Label Text="Confirm"/>
                 <Button Text="Load the Data" Clicked="LoadTheData"/>
+                <Button Text="Send Dummy Data" Clicked="SendTheData"/>
             </StackLayout>
             <!-- Place new controls here -->
             <Grid>

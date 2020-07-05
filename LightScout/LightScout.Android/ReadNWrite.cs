@@ -19,6 +19,79 @@ namespace LightScout.Droid
 {
     public class ReadNWrite : DataStore
     {
+        public void SaveDummyData(string filename)
+        {
+            var docpath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
+            try
+            {
+                System.IO.Directory.CreateDirectory(Path.Combine(docpath, "FRCLightScout"));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            docpath = Path.Combine(docpath, "FRCLightScout");
+            var data = "";
+            var finalPath = Path.Combine(docpath, filename);
+            var DummyDataMatches = new List<TeamMatch>();
+            var match = new TeamMatch();
+            match.MatchNumber = 1;
+            match.TeamNumber = 862;
+            match.PowerCellInner = new int[21];
+            match.PowerCellOuter = new int[21];
+            match.PowerCellLower = new int[21];
+            match.PowerCellMissed = new int[21];
+            DummyDataMatches.Add(match);
+            match = new TeamMatch();
+            match.MatchNumber = 2;
+            match.TeamNumber = 862;
+            match.PowerCellInner = new int[21];
+            match.PowerCellOuter = new int[21];
+            match.PowerCellLower = new int[21];
+            match.PowerCellMissed = new int[21];
+            DummyDataMatches.Add(match);
+            match = new TeamMatch();
+            match.MatchNumber = 3;
+            match.TeamNumber = 862;
+            match.PowerCellInner = new int[21];
+            match.PowerCellOuter = new int[21];
+            match.PowerCellLower = new int[21];
+            match.PowerCellMissed = new int[21];
+            DummyDataMatches.Add(match);
+            match = new TeamMatch();
+            match.MatchNumber = 4;
+            match.TeamNumber = 862;
+            match.PowerCellInner = new int[21];
+            match.PowerCellOuter = new int[21];
+            match.PowerCellLower = new int[21];
+            match.PowerCellMissed = new int[21];
+            DummyDataMatches.Add(match);
+            match = new TeamMatch();
+            match.MatchNumber = 5;
+            match.TeamNumber = 862;
+            match.PowerCellInner = new int[21];
+            match.PowerCellOuter = new int[21];
+            match.PowerCellLower = new int[21];
+            match.PowerCellMissed = new int[21];
+            DummyDataMatches.Add(match);
+            match = new TeamMatch();
+            match.MatchNumber = 6;
+            match.TeamNumber = 862;
+            match.PowerCellInner = new int[21];
+            match.PowerCellOuter = new int[21];
+            match.PowerCellLower = new int[21];
+            match.PowerCellMissed = new int[21];
+            DummyDataMatches.Add(match);
+            data = JsonConvert.SerializeObject(DummyDataMatches);
+            try
+            {
+                System.IO.File.WriteAllText(finalPath, data);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
         public void SaveData(string filename, TeamMatch modeldata)
         {
             

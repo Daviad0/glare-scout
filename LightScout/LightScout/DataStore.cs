@@ -8,6 +8,7 @@ namespace LightScout
     public interface DataStore
     {
         void SaveData(string competitionfile, TeamMatch datatosave);
+        void SaveDummyData(string competitionfile);
         string LoadData(string competitionfile);
     }
 }

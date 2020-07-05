@@ -47,9 +47,13 @@
     </ContentPage.Resources>
     <StackLayout>
         <Button Text="See FTC" x:Name="FTCShow" Clicked="FTCShow_Clicked" BackgroundColor="#f57e25" TextColor="White" Margin="10,10,10,0"/>
+        <ListView x:Name="listOfMatches" ItemTapped="listOfMatches_ItemTapped">
+            
+        </ListView>
         <Button Text="See FRC" x:Name="FRCShow" Clicked="FRCShow_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10"/>
-        <Button Text="Get List of Devices" Clicked="CheckBluetooth" x:Name="BluetoothFind" BackgroundColor="#009cd7" TextColor="White" Margin="10"/>
-        <ListView BackgroundColor="White" x:Name="listofdevices" ItemTapped="listofdevices_ItemTapped">
+        
+        <Button Text="Get List of Devices" Clicked="CheckBluetooth" x:Name="BluetoothFind" BackgroundColor="#009cd7" TextColor="White" Margin="10" IsVisible="False"/>
+        <ListView BackgroundColor="White" x:Name="listofdevices" ItemTapped="listofdevices_ItemTapped" IsVisible="False">
 
         </ListView>
     </StackLayout>

@@ -46,19 +46,16 @@ namespace LightScout.Droid
                 specificmodeltochange.TeamNumber = modeldata.TeamNumber;
 
                 modelstochange.Remove(modelstochange.Where(x => x.TeamNumber == modeldata.TeamNumber && x.MatchNumber == modeldata.MatchNumber).FirstOrDefault());
-                modelstochange.Add(specificmodeltochange);
+                modelstochange.Add(modeldata);
                 modelstochange = modelstochange.OrderBy(x => x.MatchNumber).ToList();
 
                 data = JsonConvert.SerializeObject(modelstochange);
             }
             catch(Exception ex)
             {
-                var createanewlist = new List<TeamMatch>();
-                createanewlist.Add(modeldata);
-                
-                data = JsonConvert.SerializeObject(createanewlist);
+                Console.WriteLine("Cannot find specified match in file system. Aborting...");
             }
-            
+
             try
             {
                 System.IO.File.WriteAllText(finalPath, data);

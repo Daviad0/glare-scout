@@ -1,8 +1,10 @@
 ﻿using LightScout.Models;
+using Newtonsoft.Json;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
+using Plugin.BLE.Abstractions.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,6 +12,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace LightScout
@@ -25,7 +28,12 @@ namespace LightScout
         private static IDevice deviceIWant;
         private static ObservableCollection<IDevice> Devices = new ObservableCollection<IDevice>();
         private static bool Balanced;
+        private List<TeamMatch> listofmatches = new List<TeamMatch>();
+        private List<string> MatchNames = new List<string>();
         private static int BluetoothDevices = 0;
+        private static bool TimerAlreadyCreated = false;
+        private static int timesalive = 0;
+        private static SubmitVIABluetooth bluetoothHandler = new SubmitVIABluetooth();
         
         public MainPage()
         {
@@ -63,6 +71,36 @@ namespace LightScout
                 listofdevices.IsVisible = true;
                 Devices.Clear();
             };
+
+            if (!TimerAlreadyCreated)
+            {
+                Console.WriteLine("Test started :)");
+                Device.StartTimer(TimeSpan.FromMinutes(1), () =>
+                {
+                    timesalive++;
+                    Console.WriteLine("This message has appeared " + timesalive.ToString() + " times. Last ping at " + DateTime.Now.ToShortTimeString());
+                    TimerAlreadyCreated = true;
+                    return true;
+                });
+            }
+
+            /*Device.StartTimer(TimeSpan.FromMinutes(1), () =>
+            {
+                if(deviceIWant != null)
+                {
+                    bluetoothHandler.SubmitBluetooth(adapter, deviceIWant);
+                }
+                
+                return true;
+            });*/
+            var allmatchesraw = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");
+            listofmatches = JsonConvert.DeserializeObject<List<TeamMatch>>(allmatchesraw);
+            foreach(var match in listofmatches)
+            {
+                MatchNames.Add(match.MatchNumber.ToString() + ": " + match.TeamNumber.ToString());
+            }
+            listOfMatches.ItemsSource = MatchNames;
+            
         }
 
         private void FTCShow_Clicked(object sender, EventArgs e)
@@ -73,6 +111,8 @@ namespace LightScout
         private void FRCShow_Clicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new FRCMain(deviceIWant));
+            
+            
         }
 
         private void commscheck_Clicked(object sender, EventArgs e)
@@ -97,10 +137,12 @@ namespace LightScout
             {
                 await adapter.DisconnectDeviceAsync(deviceIWant);
                 await adapter.ConnectToDeviceAsync(selectedDevice);
+                deviceIWant = selectedDevice;
             }
             else
             {
                 await adapter.ConnectToDeviceAsync(selectedDevice);
+                deviceIWant = selectedDevice;
             }
         }
 
@@ -117,6 +159,12 @@ namespace LightScout
         private void dcFromBT_Clicked(object sender, EventArgs e)
         {
             adapter.DisconnectDeviceAsync(deviceIWant);
+        }
+
+        private void listOfMatches_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            Console.WriteLine(listofmatches[e.ItemIndex].TeamNumber.ToString() + "'s match at match #" + listofmatches[e.ItemIndex].MatchNumber.ToString());
+            Navigation.PushAsync(new FRCMain(deviceIWant));
         }
     }
 }

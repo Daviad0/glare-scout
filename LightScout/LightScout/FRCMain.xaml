@@ -59,7 +59,7 @@
 
 
                 <Button Text="&#xea97;" TextColor="#2a7afa" IsEnabled="False" x:Name="prevForm" BackgroundColor="White" BorderColor="#2a7afa" BorderWidth="2" Clicked="prevForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
-                <Button Text="&#xeee4;" TextColor="Red" x:Name="exitForm" BackgroundColor="White" BorderColor="#2a7afa" BorderWidth="2"  FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0" IsVisible="True" Clicked="BackToMainMenu"/>
+                <Button Text="&#xeee4;" TextColor="#2a7afa" x:Name="exitForm" BackgroundColor="White" BorderColor="#2a7afa" BorderWidth="2"  FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0" IsVisible="True" Clicked="BackToMainMenu"/>
                 <Label Text="Team 862" x:Name="teamName"  Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" TextColor="White">
                     <Label.FontFamily>
                         <OnPlatform x:TypeArguments="x:String">
@@ -77,7 +77,7 @@
                     </Label.FontFamily>
                 </Label>
                 <Button Text="&#xea98;" TextColor="#2a7afa" x:Name="nextForm" BorderColor="#2a7afa" BorderWidth="2" BackgroundColor="White" Clicked="nextForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="2"/>
-                <Button Text="&#xeed8;" TextColor="MediumSeaGreen" x:Name="finishForm" BorderColor="#2a7afa" BorderWidth="2" BackgroundColor="White" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="2" IsVisible="False" Clicked="ConfirmForm"/>
+                <Button Text="&#xeed8;" TextColor="#2a7afa" x:Name="finishForm" BorderColor="#2a7afa" BorderWidth="2" BackgroundColor="White" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="2" IsVisible="False" Clicked="ConfirmForm"/>
             </Grid>
             <StackLayout x:Name="nameForm" VerticalOptions="FillAndExpand">
                 <Label Text="First," FontSize="80" HorizontalOptions="Center" Margin="0,20,0,0">
@@ -116,7 +116,7 @@
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
                     <Label Text="Initiation Line" Grid.Column="0" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Button Text="Not Achieved" Clicked="ChangeInitLine" Style="{StaticResource lightPrimary}" Grid.Column="1" x:Name="initLineToggle"/>
+                    <Button Text="Not Achieved" Clicked="ChangeInitLine" Style="{StaticResource lightSecondary}" Grid.Column="1" x:Name="initLineToggle"/>
                     
                 </Grid>
                 <Frame BorderColor="Transparent" BackgroundColor="#f2f2f2" CornerRadius="4" Margin="10">
@@ -136,23 +136,24 @@
                                 <RowDefinition Height="40"/>
                             </Grid.RowDefinitions>
                             <Label Text="Scored in Inner" FontSize="14" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
-                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" Grid.Column="1" Grid.Row="0" FontSize="20" x:Name="AinnerDown" IsEnabled="False" Clicked="APowerCellsDown"/>
+                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="1" Grid.Row="0" FontSize="20" x:Name="AinnerDown" IsEnabled="False" Clicked="APowerCellsDown"/>
                             <Label Text="0 PC" Grid.Column="2" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" x:Name="AinnerAmount"/>
-                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" Grid.Column="3" Grid.Row="0" FontSize="20" x:Name="AinnerUp" Clicked="APowerCellsUp"/>
+                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="3" Grid.Row="0" FontSize="20" x:Name="AinnerUp" Clicked="APowerCellsUp"/>
                             <Label Text="Scored in Outer" FontSize="14" Grid.Column="0" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center"/>
-                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" Grid.Column="1" Grid.Row="1" FontSize="20" x:Name="AouterDown" IsEnabled="False" Clicked="APowerCellsDown"/>
+                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="1" Grid.Row="1" FontSize="20" x:Name="AouterDown" IsEnabled="False" Clicked="APowerCellsDown"/>
                             <Label Text="0 PC" Grid.Column="2" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" x:Name="AouterAmount"/>
-                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" Grid.Column="3" Grid.Row="1" FontSize="20" x:Name="AouterUp" Clicked="APowerCellsUp"/>
+                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="3" Grid.Row="1" FontSize="20" x:Name="AouterUp" Clicked="APowerCellsUp"/>
                             <Label Text="Scored in Lower" FontSize="14" Grid.Column="0" Grid.Row="2" VerticalOptions="Center" HorizontalOptions="Center"/>
-                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" Grid.Column="1" Grid.Row="2" FontSize="20" x:Name="AlowerDown" IsEnabled="False" Clicked="APowerCellsDown"/>
+                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="1" Grid.Row="2" FontSize="20" x:Name="AlowerDown" IsEnabled="False" Clicked="APowerCellsDown"/>
                             <Label Text="0 PC" Grid.Column="2" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" x:Name="AlowerAmount"/>
-                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" Grid.Column="3" Grid.Row="2" FontSize="20" x:Name="AlowerUp" Clicked="APowerCellsUp"/>
+                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="3" Grid.Row="2" FontSize="20" x:Name="AlowerUp" Clicked="APowerCellsUp"/>
                             <Label Text="Shot, but Missed" FontSize="14" Grid.Column="0" Grid.Row="3" VerticalOptions="Center" HorizontalOptions="Center"/>
-                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="Red" BorderColor="Red" Grid.Column="1" Grid.Row="3" FontSize="20" x:Name="AmissedDown" IsEnabled="False" Clicked="APowerCellsDown"/>
+                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="1" Grid.Row="3" FontSize="20" x:Name="AmissedDown" IsEnabled="False" Clicked="APowerCellsDown"/>
                             <Label Text="0 PC" Grid.Column="2" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" x:Name="AmissedAmount"/>
-                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="Red" BorderColor="Red" Grid.Column="3" Grid.Row="3" FontSize="20" x:Name="AmissedUp" Clicked="APowerCellsUp"/>
+                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="3" Grid.Row="3" FontSize="20" x:Name="AmissedUp" Clicked="APowerCellsUp"/>
 
                         </Grid>
+                        
                     </StackLayout>
 
                 </Frame>
@@ -181,22 +182,36 @@
                                 <RowDefinition Height="40"/>
                             </Grid.RowDefinitions>
                             <Label Text="Scored in Inner" FontSize="14" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
-                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" Grid.Column="1" Grid.Row="0" FontSize="20" x:Name="innerDown" IsEnabled="False" Clicked="PowerCellsDown"/>
+                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="1" Grid.Row="0" FontSize="20" x:Name="innerDown" IsEnabled="False" Clicked="PowerCellsDown"/>
                             <Label Text="0 PC" Grid.Column="2" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" x:Name="innerAmount"/>
-                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" Grid.Column="3" Grid.Row="0" FontSize="20" x:Name="innerUp" Clicked="PowerCellsUp"/>
+                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="3" Grid.Row="0" FontSize="20" x:Name="innerUp" Clicked="PowerCellsUp"/>
                             <Label Text="Scored in Outer" FontSize="14" Grid.Column="0" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center"/>
-                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" Grid.Column="1" Grid.Row="1" FontSize="20" x:Name="outerDown" IsEnabled="False" Clicked="PowerCellsDown"/>
+                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="1" Grid.Row="1" FontSize="20" x:Name="outerDown" IsEnabled="False" Clicked="PowerCellsDown"/>
                             <Label Text="0 PC" Grid.Column="2" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" x:Name="outerAmount"/>
-                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" Grid.Column="3" Grid.Row="1" FontSize="20" x:Name="outerUp" Clicked="PowerCellsUp"/>
+                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="3" Grid.Row="1" FontSize="20" x:Name="outerUp" Clicked="PowerCellsUp"/>
                             <Label Text="Scored in Lower" FontSize="14" Grid.Column="0" Grid.Row="2" VerticalOptions="Center" HorizontalOptions="Center"/>
-                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" Grid.Column="1" Grid.Row="2" FontSize="20" x:Name="lowerDown" IsEnabled="False" Clicked="PowerCellsDown"/>
+                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="1" Grid.Row="2" FontSize="20" x:Name="lowerDown" IsEnabled="False" Clicked="PowerCellsDown"/>
                             <Label Text="0 PC" Grid.Column="2" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" x:Name="lowerAmount"/>
-                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" Grid.Column="3" Grid.Row="2" FontSize="20" x:Name="lowerUp" Clicked="PowerCellsUp"/>
+                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="3" Grid.Row="2" FontSize="20" x:Name="lowerUp" Clicked="PowerCellsUp"/>
                             <Label Text="Shot, but Missed" FontSize="14" Grid.Column="0" Grid.Row="3" VerticalOptions="Center" HorizontalOptions="Center"/>
-                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="Red" BorderColor="Red" Grid.Column="1" Grid.Row="3" FontSize="20" x:Name="missedDown" IsEnabled="False" Clicked="PowerCellsDown"/>
+                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="1" Grid.Row="3" FontSize="20" x:Name="missedDown" IsEnabled="False" Clicked="PowerCellsDown"/>
                             <Label Text="0 PC" Grid.Column="2" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" x:Name="missedAmount"/>
-                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="Red" BorderColor="Red" Grid.Column="3" Grid.Row="3" FontSize="20" x:Name="missedUp" Clicked="PowerCellsUp"/>
+                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="3" Grid.Row="3" FontSize="20" x:Name="missedUp" Clicked="PowerCellsUp"/>
 
+                        </Grid>
+                        <Grid HorizontalOptions="Center" Margin="0,15,0,7">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="20"/>
+                            </Grid.ColumnDefinitions>
+                            <BoxView BackgroundColor="#2a7afa" HeightRequest="20" WidthRequest="20" CornerRadius="20" Grid.Column="0" x:Name="pcStock1"/>
+                            <BoxView BackgroundColor="#2a7afa" HeightRequest="20" WidthRequest="20" CornerRadius="20" Grid.Column="1" x:Name="pcStock2"/>
+                            <BoxView BackgroundColor="#2a7afa" HeightRequest="20" WidthRequest="20" CornerRadius="20" Grid.Column="2" x:Name="pcStock3"/>
+                            <BoxView BackgroundColor="#2a7afa" HeightRequest="20" WidthRequest="20" CornerRadius="20" Grid.Column="3" x:Name="pcStock4"/>
+                            <BoxView BackgroundColor="#2a7afa" HeightRequest="20" WidthRequest="20" CornerRadius="20" Grid.Column="4" x:Name="pcStock5"/>
                         </Grid>
                     </StackLayout>
 
@@ -207,8 +222,8 @@
                         <ColumnDefinition Width="40"/>
                         <ColumnDefinition Width="40"/>
                     </Grid.ColumnDefinitions>
-                    <Button Style="{StaticResource lightSecondarySelected}" Text="&#xea5c;" HeightRequest="35" FontSize="20" FontFamily="{StaticResource IconFont}" Grid.Column="1" Clicked="PrevTeleOpCard" Padding="5"/>
-                    <Button Style="{StaticResource lightSecondarySelected}" Text="&#xea5d;" HeightRequest="35" FontSize="20" FontFamily="{StaticResource IconFont}" Grid.Column="2" Clicked="NextTeleOpCard" Padding="5"/>
+                    <Button Style="{StaticResource lightPrimarySelected}" Text="&#xea5c;" HeightRequest="35" FontSize="20" FontFamily="{StaticResource IconFont}" Grid.Column="1" Clicked="PrevTeleOpCard" Padding="5"/>
+                    <Button Style="{StaticResource lightPrimarySelected}" Text="&#xea5d;" HeightRequest="35" FontSize="20" FontFamily="{StaticResource IconFont}" Grid.Column="2" Clicked="NextTeleOpCard" Padding="5"/>
                 </Grid>
                 <Grid Margin="10,20,10,0">
                     <Grid.RowDefinitions>
@@ -223,8 +238,8 @@
 
                     <Label Text="Control Panel" 
                    HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center"/>
-                    <Button Text="Spun" Style="{StaticResource lightPrimary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="cp_lv1" Clicked="CPChange"/>
-                    <Button Text="Positioned" Style="{StaticResource lightPrimary}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" x:Name="cp_lv2" Clicked="CPChange"/>
+                    <Button Text="Spun" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="cp_lv1" Clicked="CPChange"/>
+                    <Button Text="Positioned" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" x:Name="cp_lv2" Clicked="CPChange"/>
                 </Grid>
             </StackLayout>
             <StackLayout x:Name="endgameForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
@@ -272,6 +287,7 @@
             </StackLayout>
             <StackLayout x:Name="confirmForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
                 <Label Text="Confirm"/>
+                <Button Text="Load the Data" Clicked="LoadTheData"/>
             </StackLayout>
             <!-- Place new controls here -->
             <Grid>
@@ -282,8 +298,9 @@
                 <Frame Grid.Column="0" BackgroundColor="Gray" Padding="5" CornerRadius="5" Margin="20" x:Name="toolTip" Opacity="0">
                     <Label TextColor="White" Text="Ready for Match" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" x:Name="toolTipLabel"/>
                 </Frame>
+
+                <Button VerticalOptions="End" Clicked="EnableDisabledMenu" Grid.Column="1" Grid.Row="0" HorizontalOptions="End" Text="&#xef1b;" x:Name="enableDisabled" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" Margin="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="#2a7afa" TextColor="White"/>
                 
-                <Button VerticalOptions="End" Clicked="EnableDisabledMenu" Grid.Column="1" HorizontalOptions="End" Text="&#xef1b;" x:Name="enableDisabled" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" Margin="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Red" TextColor="White"/>
             </Grid>
             
             
@@ -293,7 +310,7 @@
                 <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">
 
                 </StackLayout>
-                <StackLayout BackgroundColor="White" VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".5,.5,.75,.75" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout BackgroundColor="White" VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".6,.6,.8,.8" AbsoluteLayout.LayoutFlags="All">
                     <Grid Margin="0,50,0,10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -317,7 +334,7 @@
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>
-                    <Label Text="0s" FontSize="60" TextColor="Red" HorizontalOptions="Center" x:Name="disabledSeconds">
+                    <Label Text="0s" FontSize="60" TextColor="#0f3f8c" HorizontalOptions="Center" x:Name="disabledSeconds">
                         <Label.FontFamily>
                             <OnPlatform x:TypeArguments="x:String">
                                 <On Platform="iOS">Varela Round Regular</On>

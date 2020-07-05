@@ -32,7 +32,8 @@ namespace LightScout
         private int NumCycles = 0;
         private int CurrentCycle = 1;
         private int CurrentSubPage;
-        private int DisabledSeconds;
+        private double DisabledSeconds;
+        private int StackLightCounter;
         private bool CurrentlyDisabled;
         private bool InitLineAchieved;
         private double[] OriginalCardCoords = { 0, 0 };
@@ -103,11 +104,11 @@ namespace LightScout
                 ControlPanel[0] = !ControlPanel[0];
                 if (ControlPanel[0])
                 {
-                    cp_lv1.Style = Resources["lightPrimarySelected"] as Style;
+                    cp_lv1.Style = Resources["lightSecondarySelected"] as Style;
                 }
                 else
                 {
-                    cp_lv1.Style = Resources["lightPrimary"] as Style;
+                    cp_lv1.Style = Resources["lightSecondary"] as Style;
                 }
 
             }
@@ -116,11 +117,11 @@ namespace LightScout
                 ControlPanel[1] = !ControlPanel[1];
                 if (ControlPanel[1])
                 {
-                    cp_lv2.Style = Resources["lightPrimarySelected"] as Style;
+                    cp_lv2.Style = Resources["lightSecondarySelected"] as Style;
                 }
                 else
                 {
-                    cp_lv2.Style = Resources["lightPrimary"] as Style;
+                    cp_lv2.Style = Resources["lightSecondary"] as Style;
                 }
 
             }
@@ -253,18 +254,61 @@ namespace LightScout
         }
         private void SendTheData(object sender, EventArgs e)
         {
-            var SaveMatch = new TeamMatch();
-            SaveMatch.E_Balanced = Balanced;
-            SaveMatch.T_ControlPanelRotation = ControlPanel[0];
-            SaveMatch.T_ControlPanelPosition = ControlPanel[1];
-            SaveMatch.ScoutName = scoutName.Text;
-            SaveMatch.MatchNumber = 1;
-            SaveMatch.NumCycles = 2;
-            DependencyService.Get<DataStore>().SaveData("frctest051920.txt", SaveMatch);
+            
+            
+            /*var match1 = new TeamMatch();
+            match1.MatchNumber = 1;
+            match1.TeamNumber = 862;
+            match1.PowerCellInner = new int[21];
+            match1.PowerCellOuter = new int[21];
+            match1.PowerCellLower = new int[21];
+            match1.PowerCellMissed = new int[21];
+            var match2 = new TeamMatch();
+            match2.MatchNumber = 2;
+            match2.TeamNumber = 862;
+            match2.PowerCellInner = new int[21];
+            match2.PowerCellOuter = new int[21];
+            match2.PowerCellLower = new int[21];
+            match2.PowerCellMissed = new int[21];
+            var match3 = new TeamMatch();
+            match3.MatchNumber = 3;
+            match3.TeamNumber = 862;
+            match3.PowerCellInner = new int[21];
+            match3.PowerCellOuter = new int[21];
+            match3.PowerCellLower = new int[21];
+            match3.PowerCellMissed = new int[21];
+            var match4 = new TeamMatch();
+            match4.MatchNumber = 4;
+            match4.TeamNumber = 862;
+            match4.PowerCellInner = new int[21];
+            match4.PowerCellOuter = new int[21];
+            match4.PowerCellLower = new int[21];
+            match4.PowerCellMissed = new int[21];
+            var match5 = new TeamMatch();
+            match5.MatchNumber = 5;
+            match5.TeamNumber = 862;
+            match5.PowerCellInner = new int[21];
+            match5.PowerCellOuter = new int[21];
+            match5.PowerCellLower = new int[21];
+            match5.PowerCellMissed = new int[21];
+            var match6 = new TeamMatch();
+            match6.MatchNumber = 6;
+            match6.TeamNumber = 862;
+            match6.PowerCellInner = new int[21];
+            match6.PowerCellOuter = new int[21];
+            match6.PowerCellLower = new int[21];
+            match6.PowerCellMissed = new int[21];
+            var SaveMatches = new List<TeamMatch>();
+            SaveMatches.Add(match1);
+            SaveMatches.Add(match2);
+            SaveMatches.Add(match3);
+            SaveMatches.Add(match4);
+            SaveMatches.Add(match5);
+            SaveMatches.Add(match6);*/
         }
         private void LoadTheData(object sender, EventArgs e)
         {
-            //showData.Text = DependencyService.Get<DataStore>().LoadData("frctest051920.txt");
+            Console.WriteLine(DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt"));
         }
         private void BackToMainMenu(object sender, EventArgs e)
         {
@@ -272,6 +316,11 @@ namespace LightScout
         }
         private async void PowerCellsUp(object sender, EventArgs e)
         {
+            var converter = new ColorTypeConverter();
+            if (CurrentCycle > NumCycles)
+            {
+                NumCycles = CurrentCycle;
+            }
             var buttonClicked = sender as Button;
             if(buttonClicked == innerUp)
             {
@@ -297,16 +346,63 @@ namespace LightScout
                 missedDown.IsEnabled = true;
                 missedAmount.Text = PowerCellMissed[CurrentCycle].ToString() + " PC";
             }
-            if((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) >= 5)
+            if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 5)
             {
                 innerUp.IsEnabled = false;
                 outerUp.IsEnabled = false;
                 lowerUp.IsEnabled = false;
                 missedUp.IsEnabled = false;
+                pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
             }
+            else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 1)
+            {
+                pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+            }
+            else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 2)
+            {
+                pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+            }
+            else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 3)
+            {
+                pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+            }
+            else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 4)
+            {
+                pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+            }
+            else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 0)
+            {
+                pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+            }
+            
         }
         private async void PowerCellsDown(object sender, EventArgs e)
         {
+            var converter = new ColorTypeConverter();
             var buttonClicked = sender as Button;
             if (buttonClicked == innerDown)
             {
@@ -348,9 +444,58 @@ namespace LightScout
             outerUp.IsEnabled = true;
             lowerUp.IsEnabled = true;
             missedUp.IsEnabled = true;
+            if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 0)
+            {
+                pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+            }
+            else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 1)
+            {
+                pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+            }
+            else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 2)
+            {
+                pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+            }
+            else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 3)
+            {
+                pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+            }
+            else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 4)
+            {
+                pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+            }
+            else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 5)
+            {
+                pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+            }
         }
         private async void APowerCellsUp(object sender, EventArgs e)
         {
+            
             var buttonClicked = sender as Button;
             if (buttonClicked == AinnerUp)
             {
@@ -430,12 +575,10 @@ namespace LightScout
         }
         private async void NextTeleOpCard(object sender, EventArgs e)
         {
-            if(CurrentCycle < 20)
+            var converter = new ColorTypeConverter();
+            if (CurrentCycle < 20)
             {
-                if(CurrentCycle > NumCycles)
-                {
-                    NumCycles = CurrentCycle;
-                }
+                
                 CurrentCycle++;
                 await cardToFlip.TranslateTo(cardToFlip.TranslationX + 10, cardToFlip.TranslationY, 175, Easing.CubicIn);
                 await cardToFlip.TranslateTo(cardToFlip.TranslationX - 510, cardToFlip.TranslationY, 175, Easing.CubicIn);
@@ -491,7 +634,53 @@ namespace LightScout
                     lowerUp.IsEnabled = true;
                     missedUp.IsEnabled = true;
                 }
-
+                if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 0)
+                {
+                    pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                    pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                    pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                    pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                    pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                }else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 1)
+                {
+                    pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                    pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                    pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                    pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                }
+                else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 2)
+                {
+                    pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                    pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                    pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                }
+                else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 3)
+                {
+                    pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                    pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                }
+                else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 4)
+                {
+                    pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                }
+                else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 5)
+                {
+                    pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                }
                 await cardToFlip.TranslateTo(cardToFlip.TranslationX - 510, cardToFlip.TranslationY, 175, Easing.CubicOut);
                 await cardToFlip.TranslateTo(cardToFlip.TranslationX + 10, cardToFlip.TranslationY, 175, Easing.CubicOut);
                 cardToFlip.TranslationX = 0;
@@ -511,7 +700,8 @@ namespace LightScout
         }
         private async void PrevTeleOpCard(object sender, EventArgs e)
         {
-            if(CurrentCycle > 1)
+            var converter = new ColorTypeConverter();
+            if (CurrentCycle > 1)
             {
                 CurrentCycle--;
                 await cardToFlip.TranslateTo(cardToFlip.TranslationX - 10, cardToFlip.TranslationY, 175, Easing.CubicIn);
@@ -568,6 +758,54 @@ namespace LightScout
                     lowerUp.IsEnabled = true;
                     missedUp.IsEnabled = true;
                 }
+                if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 0)
+                {
+                    pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                    pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                    pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                    pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                    pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                }
+                else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 1)
+                {
+                    pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                    pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                    pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                    pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                }
+                else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 2)
+                {
+                    pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                    pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                    pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                }
+                else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 3)
+                {
+                    pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                    pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                }
+                else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 4)
+                {
+                    pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                }
+                else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 5)
+                {
+                    pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                }
                 await cardToFlip.TranslateTo(cardToFlip.TranslationX + 510, cardToFlip.TranslationY, 175, Easing.CubicOut);
                 await cardToFlip.TranslateTo(cardToFlip.TranslationX - 10, cardToFlip.TranslationY, 175, Easing.CubicOut);
                 cardToFlip.TranslationX = 0;
@@ -588,86 +826,27 @@ namespace LightScout
         }
         private async void ConfirmForm(object sender, EventArgs e)
         {
-            if (canTransmitData)
-            {
-                string[] uuidrandomfun = { "6ad0f836b49011eab3de0242ac130001", "6ad0f836b49011eab3de0242ac130002", "6ad0f836b49011eab3de0242ac130003", "6ad0f836b49011eab3de0242ac130004", "6ad0f836b49011eab3de0242ac130005", "6ad0f836b49011eab3de0242ac130006" };
-                string[] tabletidentifiers = { "R1", "R2", "R3", "B1", "B2", "B3" };
-                var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130000"));
-                var randomnumgenerator = new Random();
-                var randomnumber = randomnumgenerator.Next(0, 5);
-                string randomuuid = uuidrandomfun[randomnumber];
-                var matchtotransmit = new TeamMatch();
-                matchtotransmit.TabletId = tabletidentifiers[randomnumber];
-                matchtotransmit.EventCode = "test_env";
-                matchtotransmit.A_InitiationLine = InitLineAchieved;
-                matchtotransmit.E_Balanced = Balanced;
-                matchtotransmit.T_ControlPanelPosition = ControlPanel[1];
-                matchtotransmit.T_ControlPanelPosition = ControlPanel[0];
-                matchtotransmit.ScoutName = scoutName.Text;
-                matchtotransmit.DisabledSeconds = DisabledSeconds;
-                matchtotransmit.E_ClimbAttempt = Attempted;
-                matchtotransmit.E_ClimbSuccess = Climb;
-                matchtotransmit.E_Park = Parked;
-                matchtotransmit.TeamNumber = 862;
-                matchtotransmit.PowerCellInner = PowerCellInner;
-                matchtotransmit.PowerCellOuter = PowerCellOuter;
-                matchtotransmit.PowerCellLower = PowerCellLower;
-                matchtotransmit.PowerCellMissed = PowerCellMissed;
-                matchtotransmit.NumCycles = NumCycles;
-                matchtotransmit.MatchNumber = CurrentMatchNum;
-                var stringtosend = JsonConvert.SerializeObject(matchtotransmit);
-                Console.WriteLine(stringtosend);
-                
-                var characteristictosend = await servicetosend.GetCharacteristicAsync(Guid.Parse(randomuuid));
-                characteristictosend.ValueUpdated += async (s, a) =>
-                {
-                    Console.WriteLine(a.Characteristic.Value);
-                };
-                await characteristictosend.StartUpdatesAsync();
-                var stringtoconvert = "S:"+stringtosend;
-                var bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
-                if(bytestotransmit.Length > 480)
-                {
-                    
-                    if(bytestotransmit.Length > 960)
-                    {
-                        var startidentifier = "MM:3";
-                        var startbytesarray = Encoding.ASCII.GetBytes(startidentifier);
-                        await characteristictosend.WriteAsync(startbytesarray);
-                        var bytesarray1 = bytestotransmit.Take(480).ToArray();
-                        var bytesarray2 = bytestotransmit.Skip(480).Take(480).ToArray();
-                        var bytesarray3 = bytestotransmit.Skip(960).ToArray();
-                        await characteristictosend.WriteAsync(bytesarray1);
-                        await characteristictosend.WriteAsync(bytesarray2);
-                        await characteristictosend.WriteAsync(bytesarray3);
-                    }
-                    else
-                    {
-                        var startidentifier = "MM:2";
-                        var startbytesarray = Encoding.ASCII.GetBytes(startidentifier);
-                        await characteristictosend.WriteAsync(startbytesarray);
-                        var bytesarray1 = bytestotransmit.Take(480).ToArray();
-                        var bytesarray2 = bytestotransmit.Skip(480).ToArray();
-                        await characteristictosend.WriteAsync(bytesarray1);
-                        await characteristictosend.WriteAsync(bytesarray2);
-                    }
-                }
-                else
-                {
-                    await characteristictosend.WriteAsync(bytestotransmit);
-                }
-                
-                stringtoconvert = "B:"+Battery.ChargeLevel.ToString();
-                bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
-                await characteristictosend.WriteAsync(bytestotransmit);
-                Console.WriteLine(bytestotransmit);
-                
-
-            }
-            else
-            {
-                Console.WriteLine("Can't connect :(");
-            }
+            var thismatch = new TeamMatch();
+            thismatch.A_InitiationLine = InitLineAchieved;
+            thismatch.DisabledSeconds = (int)Math.Floor(DisabledSeconds);
+            thismatch.EventCode = "test_env";
+            thismatch.E_Balanced = Balanced;
+            thismatch.E_ClimbAttempt = Attempted;
+            thismatch.E_ClimbSuccess = Climb;
+            thismatch.E_Park = Parked;
+            thismatch.MatchNumber = CurrentMatchNum;
+            thismatch.NumCycles = NumCycles;
+            thismatch.PowerCellInner = PowerCellInner;
+            thismatch.PowerCellLower = PowerCellLower;
+            thismatch.PowerCellMissed = PowerCellMissed;
+            thismatch.PowerCellOuter = PowerCellOuter;
+            thismatch.ScoutName = scoutName.Text;
+            thismatch.TabletId = "R1";
+            thismatch.TeamNumber = 862;
+            thismatch.TeamName = "Lightning Robotics";
+            thismatch.T_ControlPanelRotation = ControlPanel[0];
+            thismatch.T_ControlPanelPosition = ControlPanel[1];
+            DependencyService.Get<DataStore>().SaveData("JacksonEvent2020.txt", thismatch);
             Navigation.PushAsync(new MainPage());
 
         }
@@ -692,12 +871,12 @@ namespace LightScout
             InitLineAchieved = !InitLineAchieved;
             if (InitLineAchieved)
             {
-                initLineToggle.Style = Resources["lightPrimarySelected"] as Style;
+                initLineToggle.Style = Resources["lightSecondarySelected"] as Style;
                 initLineToggle.Text = "Achieved";
             }
             else
             {
-                initLineToggle.Style = Resources["lightPrimary"] as Style;
+                initLineToggle.Style = Resources["lightSecondary"] as Style;
                 initLineToggle.Text = "Not Achieved";
             }
         }
@@ -792,15 +971,20 @@ namespace LightScout
         }
         private void DisabledTimer()
         {
-            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            Device.StartTimer(TimeSpan.FromSeconds(.1), () =>
             {
                 
                 if (CurrentlyDisabled)
                 {
-                    OnSLLight.IsVisible = !OnSLLight.IsVisible;
-                    OffSLLight.IsVisible = !OffSLLight.IsVisible;
-                    DisabledSeconds++;
-                    disabledSeconds.Text = DisabledSeconds.ToString() + "s";
+                    StackLightCounter++;
+                    DisabledSeconds += 0.1;
+                    disabledSeconds.Text = ((int)Math.Floor(DisabledSeconds)).ToString() + "s";
+                    if (StackLightCounter % 10 == 0)
+                    {
+                        OnSLLight.IsVisible = !OnSLLight.IsVisible;
+                        OffSLLight.IsVisible = !OffSLLight.IsVisible;
+                    }
+
                     return true;
                 }
                 else
@@ -843,6 +1027,7 @@ namespace LightScout
 
         private async void SwipeToTeleOpCard(object sender, SwipedEventArgs e)
         {
+            var converter = new ColorTypeConverter();
             if(e.Direction == SwipeDirection.Left)
             {
                 if (CurrentCycle < 20)
@@ -901,6 +1086,54 @@ namespace LightScout
                         outerUp.IsEnabled = true;
                         lowerUp.IsEnabled = true;
                         missedUp.IsEnabled = true;
+                    }
+                    if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 0)
+                    {
+                        pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                        pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                        pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                        pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                        pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                    }
+                    else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 1)
+                    {
+                        pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                        pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                        pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                        pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                    }
+                    else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 2)
+                    {
+                        pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                        pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                        pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                    }
+                    else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 3)
+                    {
+                        pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                        pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                    }
+                    else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 4)
+                    {
+                        pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                    }
+                    else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 5)
+                    {
+                        pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
                     }
                     await cardToFlip.TranslateTo(cardToFlip.TranslationX - 510, cardToFlip.TranslationY, 175, Easing.CubicOut);
                     await cardToFlip.TranslateTo(cardToFlip.TranslationX + 10, cardToFlip.TranslationY, 175, Easing.CubicOut);
@@ -976,6 +1209,54 @@ namespace LightScout
                         outerUp.IsEnabled = true;
                         lowerUp.IsEnabled = true;
                         missedUp.IsEnabled = true;
+                    }
+                    if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 0)
+                    {
+                        pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                        pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                        pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                        pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                        pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                    }
+                    else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 1)
+                    {
+                        pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                        pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                        pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                        pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                    }
+                    else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 2)
+                    {
+                        pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                        pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                        pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                    }
+                    else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 3)
+                    {
+                        pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                        pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                    }
+                    else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 4)
+                    {
+                        pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Gold");
+                    }
+                    else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 5)
+                    {
+                        pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                        pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
                     }
                     await cardToFlip.TranslateTo(cardToFlip.TranslationX + 510, cardToFlip.TranslationY, 175, Easing.CubicOut);
                     await cardToFlip.TranslateTo(cardToFlip.TranslationX - 10, cardToFlip.TranslationY, 175, Easing.CubicOut);

@@ -2,18 +2,6 @@
   "images": [
     {
       "scale": "2x",
-      "size": "20x20",
-      "idiom": "iphone",
-      "filename": "Icon40.png"
-    },
-    {
-      "scale": "3x",
-      "size": "20x20",
-      "idiom": "iphone",
-      "filename": "Icon60.png"
-    },
-    {
-      "scale": "2x",
       "size": "29x29",
       "idiom": "iphone",
       "filename": "Icon58.png"
@@ -49,22 +37,10 @@
       "filename": "Icon180.png"
     },
     {
-      "scale": "1x",
-      "size": "20x20",
-      "idiom": "ipad",
-      "filename": "Icon20.png"
-    },
-    {
       "scale": "2x",
       "size": "20x20",
       "idiom": "ipad",
       "filename": "Icon40.png"
-    },
-    {
-      "scale": "1x",
-      "size": "29x29",
-      "idiom": "ipad",
-      "filename": "Icon29.png"
     },
     {
       "scale": "2x",
@@ -103,10 +79,34 @@
       "filename": "Icon167.png"
     },
     {
+      "scale": "2x",
+      "size": "20x20",
+      "idiom": "iphone",
+      "filename": "40.png"
+    },
+    {
+      "scale": "3x",
+      "size": "20x20",
+      "idiom": "iphone",
+      "filename": "60.png"
+    },
+    {
+      "scale": "1x",
+      "size": "20x20",
+      "idiom": "ipad",
+      "filename": "20.png"
+    },
+    {
+      "scale": "1x",
+      "size": "29x29",
+      "idiom": "ipad",
+      "filename": "29.png"
+    },
+    {
       "scale": "1x",
       "size": "1024x1024",
       "idiom": "ios-marketing",
-      "filename": "Icon1024.png"
+      "filename": "appstore.png"
     }
   ],
   "properties": {},

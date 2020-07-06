@@ -182,6 +182,10 @@ namespace LightScout.iOS
             {
                 var beforedata = File.ReadAllText(finalPath);
                 modeltochange = JsonConvert.DeserializeObject<LSConfiguration>(beforedata);
+                if(modeltochange == null)
+                {
+                    modeltochange = new LSConfiguration();
+                }
             }
             catch (Exception ex)
             {

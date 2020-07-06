@@ -1128,6 +1128,7 @@ namespace LightScout
                 catch(Exception ex)
                 {
                     Application.Current.Properties["MatchesSubmitted"] = 1;
+                    DependencyService.Get<DataStore>().SaveConfigurationFile("numMatches", Application.Current.Properties["MatchesSubmitted"]);
                 }
                 
             }

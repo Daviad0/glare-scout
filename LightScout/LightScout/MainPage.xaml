@@ -47,7 +47,7 @@
     </ContentPage.Resources>
     <StackLayout>
         <Button Text="See FTC" x:Name="FTCShow" Clicked="FTCShow_Clicked" BackgroundColor="#f57e25" TextColor="White" Margin="10,10,10,0" IsVisible="False"/>
-        <ListView x:Name="listOfMatches" ItemTapped="listOfMatches_ItemTapped" RowHeight="60">
+        <ListView x:Name="listOfMatches" ItemTapped="listOfMatches_ItemTapped" RowHeight="60" BackgroundColor="White">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

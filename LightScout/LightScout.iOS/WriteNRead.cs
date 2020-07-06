@@ -9,6 +9,7 @@ using LightScout.Models;
 using Newtonsoft.Json;
 using UIKit;
 
+[assembly: Xamarin.Forms.Dependency(typeof(LightScout.iOS.WriteNRead))]
 namespace LightScout.iOS
 {
     public class WriteNRead : DataStore

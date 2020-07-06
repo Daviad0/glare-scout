@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -95,11 +96,7 @@ namespace LightScout
             });*/
             var allmatchesraw = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");
             listofmatches = JsonConvert.DeserializeObject<List<TeamMatch>>(allmatchesraw);
-            foreach(var match in listofmatches)
-            {
-                MatchNames.Add(match.MatchNumber.ToString() + ": " + match.TeamNumber.ToString());
-            }
-            listOfMatches.ItemsSource = MatchNames;
+            listOfMatches.ItemsSource = listofmatches;
             
         }
 
@@ -110,7 +107,7 @@ namespace LightScout
 
         private void FRCShow_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new FRCMain(deviceIWant));
+            Navigation.PushAsync(new FRCMain(new TeamMatch() { PowerCellInner = new int[21], PowerCellOuter = new int[21], PowerCellLower = new int[21], PowerCellMissed = new int[21], MatchNumber = 1, TeamNumber = 862 }));
             
             
         }
@@ -164,7 +161,7 @@ namespace LightScout
         private void listOfMatches_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             Console.WriteLine(listofmatches[e.ItemIndex].TeamNumber.ToString() + "'s match at match #" + listofmatches[e.ItemIndex].MatchNumber.ToString());
-            Navigation.PushAsync(new FRCMain(deviceIWant));
+            Navigation.PushAsync(new FRCMain(listofmatches[e.ItemIndex]));
         }
     }
 }

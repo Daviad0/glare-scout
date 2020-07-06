@@ -106,7 +106,7 @@
                 </Entry>
                 <Label Margin="0,20,0,0" Text="For testing, match number (1):" HorizontalOptions="Center" x:Name="matchNumberStepperLabel"/>
 
-                <Stepper Value="1" Minimum="1" Maximum="20" ValueChanged="Stepper_ValueChanged" HorizontalOptions="Center"/>
+                <Stepper Value="1" Minimum="1" Maximum="20" x:Name="stepper" ValueChanged="Stepper_ValueChanged" HorizontalOptions="Center"/>
 
             </StackLayout>
             <StackLayout x:Name="autoForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">

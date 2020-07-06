@@ -9,6 +9,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using LightScout.Models;
@@ -108,10 +109,10 @@ namespace LightScout.Droid
             docpath = Path.Combine(docpath, "FRCLightScout");
             var data = "";
             var finalPath = Path.Combine(docpath, filename);
-
+            var beforedata = "";
             try
             {
-                var beforedata = File.ReadAllText(finalPath);
+                beforedata = File.ReadAllText(finalPath);
                 var modelstochange = JsonConvert.DeserializeObject<List<TeamMatch>>(beforedata);
                 var specificmodeltochange = modelstochange.Where(x => x.TeamNumber == modeldata.TeamNumber && x.MatchNumber == modeldata.MatchNumber).FirstOrDefault();
 
@@ -121,12 +122,28 @@ namespace LightScout.Droid
                 modelstochange.Remove(modelstochange.Where(x => x.TeamNumber == modeldata.TeamNumber && x.MatchNumber == modeldata.MatchNumber).FirstOrDefault());
                 modelstochange.Add(modeldata);
                 modelstochange = modelstochange.OrderBy(x => x.MatchNumber).ToList();
-
+                
                 data = JsonConvert.SerializeObject(modelstochange);
             }
             catch(Exception ex)
             {
-                Console.WriteLine("Cannot find specified match in file system. Aborting...");
+                Console.WriteLine("Cannot find specified match in file system. Checking source of exception...");
+                try
+                {
+                    var modelstochange = JsonConvert.DeserializeObject<List<TeamMatch>>(beforedata);
+                    modelstochange.Add(modeldata);
+                    modelstochange = modelstochange.OrderBy(x => x.MatchNumber).ToList();
+                    data = JsonConvert.SerializeObject(modelstochange);
+                }
+                catch(Exception exjson)
+                {
+                    var result = LoadData("LSConfiguration.txt");
+                    var createlistofthissize = JsonConvert.DeserializeObject<LSConfiguration>(result).MaxMatches;
+                    List<TeamMatch> newTeamMatchList = new List<TeamMatch>();
+                    newTeamMatchList.Add(modeldata);
+                    data = JsonConvert.SerializeObject(newTeamMatchList);
+                }
+                
             }
 
             try
@@ -142,8 +159,62 @@ namespace LightScout.Droid
         {
             var docpath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, "FRCLightScout");
             var finalPath = Path.Combine(docpath, filename);
-            var result = File.ReadAllText(finalPath);
+            string result = null;
+            try
+            {
+                result = File.ReadAllText(finalPath);
+            }
+            catch(Exception ex)
+            {
+                File.WriteAllText(finalPath, "");
+            }
+            
             return result;
+        }
+        public void SaveConfigurationFile(string configtype, object newvalue)
+        {
+            var docpath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
+            try
+            {
+                System.IO.Directory.CreateDirectory(Path.Combine(docpath, "FRCLightScout"));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            docpath = Path.Combine(docpath, "FRCLightScout");
+            var finalPath = Path.Combine(docpath, "LSConfiguration.txt");
+            var modeltochange = new LSConfiguration();
+            try
+            {
+                var beforedata = File.ReadAllText(finalPath);
+                modeltochange = JsonConvert.DeserializeObject<LSConfiguration>(beforedata);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Cannot find specified match in file system. Creating configuration file...");
+                modeltochange = new LSConfiguration();
+            }
+            switch (configtype)
+            {
+                case "numMatches":
+                    modeltochange.NumberOfMatches = (int)newvalue;
+                    break;
+                case "tabletId":
+                    modeltochange.TabletIdentifier = (string)newvalue;
+                    break;
+                case "maxMatches":
+                    modeltochange.MaxMatches = (int)newvalue;
+                    break;
+            }
+            try
+            {
+                File.WriteAllText(finalPath, JsonConvert.SerializeObject(modeltochange));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
     }
 }

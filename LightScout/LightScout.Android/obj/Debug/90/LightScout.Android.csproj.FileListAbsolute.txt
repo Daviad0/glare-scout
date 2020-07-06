@@ -1,11 +1,3 @@
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\bin\Debug\LightScout.Android.dll
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\bin\Debug\LightScout.Android.pdb
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\bin\Debug\com.team862.lightscout.apk
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\bin\Debug\com.team862.lightscout.aab
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\bin\Debug\com.team862.lightscout-Signed.aab
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\bin\Debug\com.team862.lightscout-Signed.apk
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\bin\Debug\LightScout.dll
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\bin\Debug\LightScout.pdb
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\90\MonoAndroid,Version=v9.0.AssemblyAttributes.cs
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\90\build.props
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\90\adb.props
@@ -39,6 +31,14 @@ C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\90\R.txt
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\90\R.cs.flag
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\90\LightScout.Android.csproj.CoreCompileInputs.cache
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\bin\Debug\LightScout.Android.dll
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\bin\Debug\LightScout.Android.pdb
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\bin\Debug\com.team862.lightscout.apk
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\bin\Debug\com.team862.lightscout.aab
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\bin\Debug\com.team862.lightscout-Signed.aab
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\bin\Debug\com.team862.lightscout-Signed.apk
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\bin\Debug\LightScout.dll
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\bin\Debug\LightScout.pdb
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\90\XamlC.stamp
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\90\LightScout.Android.csproj.CopyComplete
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\90\LightScout.Android.dll

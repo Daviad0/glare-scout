@@ -46,9 +46,37 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <StackLayout>
-        <Button Text="See FTC" x:Name="FTCShow" Clicked="FTCShow_Clicked" BackgroundColor="#f57e25" TextColor="White" Margin="10,10,10,0"/>
-        <ListView x:Name="listOfMatches" ItemTapped="listOfMatches_ItemTapped">
-            
+        <Button Text="See FTC" x:Name="FTCShow" Clicked="FTCShow_Clicked" BackgroundColor="#f57e25" TextColor="White" Margin="10,10,10,0" IsVisible="False"/>
+        <ListView x:Name="listOfMatches" ItemTapped="listOfMatches_ItemTapped" RowHeight="60">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Margin="10,5,10,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label Text="{Binding MatchNumber, StringFormat='Match #{0}'}" Grid.Row="0" VerticalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="{Binding TeamNumber, StringFormat='{0} - '}" VerticalOptions="Center" Grid.Column="0" FontSize="14"/>
+                                    <Label Text="{Binding TeamName, FallbackValue='No Name'}" VerticalOptions="Center" Grid.Column="1" FontSize="14"/>
+                                </Grid>
+                                
+                            </Grid>
+                            <Label FontFamily="{StaticResource IconFont}" FontSize="30" Grid.Column="1" Text="&#xeed8;" HorizontalOptions="End" VerticalOptions="Center"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
         <Button Text="See FRC" x:Name="FRCShow" Clicked="FRCShow_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10"/>
         

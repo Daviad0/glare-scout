@@ -1,7 +1,3 @@
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\bin\Debug\netstandard2.0\LightScout.deps.json
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\bin\Debug\netstandard2.0\LightScout.dll
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\bin\Debug\netstandard2.0\ref\LightScout.dll
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\bin\Debug\netstandard2.0\LightScout.pdb
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\obj\Debug\netstandard2.0\LightScout.csprojAssemblyReference.cache
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\obj\Debug\netstandard2.0\App.xaml.g.cs
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\obj\Debug\netstandard2.0\FRCHome.xaml.g.cs
@@ -11,7 +7,11 @@ C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\obj\Debug\netstand
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\obj\Debug\netstandard2.0\LightScout.csproj.CoreCompileInputs.cache
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\obj\Debug\netstandard2.0\LightScout.AssemblyInfoInputs.cache
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\obj\Debug\netstandard2.0\LightScout.AssemblyInfo.cs
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\obj\Debug\netstandard2.0\XamlC.stamp
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\obj\Debug\netstandard2.0\LightScout.dll
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\obj\Debug\netstandard2.0\ref\LightScout.dll
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\obj\Debug\netstandard2.0\LightScout.pdb
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\bin\Debug\netstandard2.0\LightScout.deps.json
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\bin\Debug\netstandard2.0\LightScout.dll
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\bin\Debug\netstandard2.0\ref\LightScout.dll
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\bin\Debug\netstandard2.0\LightScout.pdb
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout\obj\Debug\netstandard2.0\XamlC.stamp

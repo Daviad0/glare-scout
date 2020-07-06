@@ -10,5 +10,6 @@ namespace LightScout
         void SaveData(string competitionfile, TeamMatch datatosave);
         void SaveDummyData(string competitionfile);
         string LoadData(string competitionfile);
+        void SaveConfigurationFile(string configurationtype, object newvalue);
     }
 }

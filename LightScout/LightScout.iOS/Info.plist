@@ -57,5 +57,7 @@
     <!--Description of the Bluetooth request message (required on iOS 13)-->
     <key>NSBluetoothAlwaysUsageDescription</key>
     <string>Bluwutooth?</string>
+    <key>UIFileSharingEnabled</key>
+    <true/>
 </dict>
 </plist>

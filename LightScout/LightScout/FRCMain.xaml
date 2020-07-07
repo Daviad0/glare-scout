@@ -400,5 +400,26 @@
                 
             </Button>
         </StackLayout>
+        <StackLayout x:Name="submittingFormToBluetooth" Opacity="1" BackgroundColor="#2a7afa" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
+            <Grid VerticalOptions="CenterAndExpand" Margin="0,40,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ActivityIndicator Color="White" IsRunning="True" HeightRequest="80" WidthRequest="80" FlowDirection="RightToLeft" Grid.Row="0" Grid.Column="0"/>
+                <Label Text="Saving to Database..." x:Name="savingMessage" TextColor="White" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Opacity="1" Grid.Row="1" Grid.Column="0" FontSize="30" FontAttributes="Bold">
+                </Label>
+                <Label Text="Do not turn off the device!" TextColor="White" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Opacity="1" Grid.Row="2" Grid.Column="0" FontSize="20" FontAttributes="Italic">
+                </Label>
+
+
+                <!--<Button Text="Let's Do This!" BackgroundColor="White" TextColor="#009cd7" CornerRadius="6" FontFamily=""/>-->
+            </Grid>
+        </StackLayout>
     </AbsoluteLayout>
 </ContentPage>

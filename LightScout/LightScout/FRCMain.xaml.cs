@@ -1091,6 +1091,7 @@ namespace LightScout
         }
         private async void ConfirmForm(object sender, EventArgs e)
         {
+            submittingFormToBluetooth.IsVisible = true;
             var thismatch = new TeamMatch();
             thismatch.A_InitiationLine = InitLineAchieved;
             thismatch.DisabledSeconds = (int)Math.Floor(DisabledSeconds);
@@ -1111,6 +1112,7 @@ namespace LightScout
             thismatch.TeamName = "Lightning Robotics";
             thismatch.T_ControlPanelRotation = ControlPanel[0];
             thismatch.T_ControlPanelPosition = ControlPanel[1];
+            thismatch.ClientSubmitted = true;
             DependencyService.Get<DataStore>().SaveData("JacksonEvent2020.txt", thismatch);
             if (Application.Current.Properties.ContainsKey("MatchesSubmitted"))
             {
@@ -1132,7 +1134,77 @@ namespace LightScout
                 }
                 
             }
-            Navigation.PushAsync(new MainPage());
+            int i = 0;
+            bool taskcompleted = false;
+            if (((int)Application.Current.Properties["MatchesSubmitted"] % 1) == 0)
+            {
+                Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                {
+                    if (!taskcompleted)
+                    {
+                        if (i < 15)
+                        {
+                            i++;
+                            return true;
+                        }
+                        else
+                        {
+                            Navigation.PushAsync(new MainPage());
+                            return false;
+                        }
+
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                });
+                try
+                {
+                    var bluetoothclass = new SubmitVIABluetooth();
+                    await bluetoothclass.SubmitBluetooth();
+                    adapter = CrossBluetoothLE.Current.Adapter;
+                    if(adapter.ConnectedDevices.Count > 0)
+                    {
+                        taskcompleted = true;
+                    }
+                    
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                
+            }
+            else
+            {
+                Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                {
+                    if (!taskcompleted)
+                    {
+                        if (i < 5)
+                        {
+                            i++;
+                            return true;
+                        }
+                        else
+                        {
+                            Navigation.PushAsync(new MainPage());
+                            return false;
+                        }
+
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                });
+            }
+            
+            
+            
 
         }
 

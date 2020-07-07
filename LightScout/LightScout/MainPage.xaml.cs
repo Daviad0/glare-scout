@@ -158,10 +158,34 @@ namespace LightScout
             adapter.DisconnectDeviceAsync(deviceIWant);
         }
 
-        private void listOfMatches_ItemTapped(object sender, ItemTappedEventArgs e)
+        private async void listOfMatches_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             Console.WriteLine(listofmatches[e.ItemIndex].TeamNumber.ToString() + "'s match at match #" + listofmatches[e.ItemIndex].MatchNumber.ToString());
-            Navigation.PushAsync(new FRCMain(listofmatches[e.ItemIndex]));
+            bool answer = true;
+            if (listofmatches[e.ItemIndex].ClientSubmitted)
+            {
+                answer = await DisplayAlert("Match Completed", "This match has already been completed by someone using this tablet, would you still like to continue?", "Continue", "Cancel");
+            }
+            if (answer)
+            {
+                Navigation.PushAsync(new FRCMain(listofmatches[e.ItemIndex]));
+            }
+            else
+            {
+                var listobject = sender as ListView;
+                listobject.SelectedItem = null;
+            }
+            
+        }
+
+        private void MenuItem_Clicked(object sender, EventArgs e)
+        {
+            moreinfoMenu.IsVisible = true;
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            moreinfoMenu.IsVisible = false;
         }
     }
 }

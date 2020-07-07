@@ -30,8 +30,7 @@ namespace LightScout
             {
                 adapter.ConnectToDeviceAsync(a.Device);
             };
-            adapter.ScanTimeout = 10;
-            await adapter.StartScanningForDevicesAsync(new Guid[] { Guid.Parse("6ad0f836b49011eab3de0242ac130000") });
+            await adapter.ConnectToKnownDeviceAsync(Guid.Parse("16FD1A9B-F36F-7EAB-66B2-499BF4DBB0F2"));
         }
         public async void KnownDeviceSubmit(IDevice deviceIWant)
         {

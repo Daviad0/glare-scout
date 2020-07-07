@@ -52,10 +52,6 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <ViewCell.ContextActions>
-                                <MenuItem Clicked="MenuItem_Clicked"
-                                    Text="Summary" />
-                            </ViewCell.ContextActions>
                             <Grid Margin="10,5,10,5">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>

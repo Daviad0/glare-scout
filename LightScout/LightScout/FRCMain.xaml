@@ -207,11 +207,11 @@
                                 <ColumnDefinition Width="20"/>
                                 <ColumnDefinition Width="20"/>
                             </Grid.ColumnDefinitions>
-                            <BoxView BackgroundColor="#2a7afa" HeightRequest="20" WidthRequest="20" CornerRadius="20" Grid.Column="0" x:Name="pcStock1"/>
-                            <BoxView BackgroundColor="#2a7afa" HeightRequest="20" WidthRequest="20" CornerRadius="20" Grid.Column="1" x:Name="pcStock2"/>
-                            <BoxView BackgroundColor="#2a7afa" HeightRequest="20" WidthRequest="20" CornerRadius="20" Grid.Column="2" x:Name="pcStock3"/>
-                            <BoxView BackgroundColor="#2a7afa" HeightRequest="20" WidthRequest="20" CornerRadius="20" Grid.Column="3" x:Name="pcStock4"/>
-                            <BoxView BackgroundColor="#2a7afa" HeightRequest="20" WidthRequest="20" CornerRadius="20" Grid.Column="4" x:Name="pcStock5"/>
+                            <BoxView BackgroundColor="#2a7afa" HeightRequest="20" WidthRequest="20" CornerRadius="10" Grid.Column="0" x:Name="pcStock1"/>
+                            <BoxView BackgroundColor="#2a7afa" HeightRequest="20" WidthRequest="20" CornerRadius="10" Grid.Column="1" x:Name="pcStock2"/>
+                            <BoxView BackgroundColor="#2a7afa" HeightRequest="20" WidthRequest="20" CornerRadius="10" Grid.Column="2" x:Name="pcStock3"/>
+                            <BoxView BackgroundColor="#2a7afa" HeightRequest="20" WidthRequest="20" CornerRadius="10" Grid.Column="3" x:Name="pcStock4"/>
+                            <BoxView BackgroundColor="#2a7afa" HeightRequest="20" WidthRequest="20" CornerRadius="10" Grid.Column="4" x:Name="pcStock5"/>
                         </Grid>
                     </StackLayout>
 

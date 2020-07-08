@@ -1098,14 +1098,14 @@ namespace LightScout
             var continuetosubmission = true;
             endScoutingTime = DateTime.Now;
             TimeSpan amountOfTimeScouting = endScoutingTime - startScoutingTime;
-            if(amountOfTimeScouting > TimeSpan.FromSeconds(150))
+            if(amountOfTimeScouting < TimeSpan.FromSeconds(150))
             {
                 continuetosubmission = await DisplayAlert("You're too fast!", "A match is 150 seconds, and you have scouted this match for " + amountOfTimeScouting.TotalSeconds.ToString() + " seconds! Are you sure you want to submit this match?", "Yes", "I'll Keep Scouting");
             }
             if (continuetosubmission)
             {
                 
-                submittingFormToBluetooth.IsVisible = true;
+                
                 var thismatch = new TeamMatch();
                 thismatch.A_InitiationLine = InitLineAchieved;
                 thismatch.DisabledSeconds = (int)Math.Floor(DisabledSeconds);
@@ -1150,8 +1150,10 @@ namespace LightScout
                 }
                 int i = 0;
                 bool taskcompleted = false;
-                if (((int)Application.Current.Properties["MatchesSubmitted"] % 1) == 0)
+                if (((int)Application.Current.Properties["MatchesSubmitted"] % 3) == 0)
                 {
+                    savingMessage.Text = "Sending through Bluetooth...";
+                    submittingFormToBluetooth.IsVisible = true;
                     Device.StartTimer(TimeSpan.FromSeconds(1), () =>
                     {
                         if (!taskcompleted)
@@ -1212,6 +1214,8 @@ namespace LightScout
                 }
                 else
                 {
+                    savingMessage.Text = "Saving to Database...";
+                    submittingFormToBluetooth.IsVisible = true;
                     Device.StartTimer(TimeSpan.FromSeconds(1), () =>
                     {
                         if (!taskcompleted)
@@ -1230,6 +1234,7 @@ namespace LightScout
                         }
                         else
                         {
+                            Navigation.PushAsync(new MainPage());
                             return false;
                         }
 

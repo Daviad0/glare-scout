@@ -1,4 +1,6 @@
-﻿using Plugin.BLE;
+﻿using LightScout.Models;
+using Newtonsoft.Json;
+using Plugin.BLE;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using System;
@@ -45,7 +47,37 @@ namespace LightScout
         {
             var returnvalue = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");
             var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130000"));
-            var characteristictosend = await servicetosend.GetCharacteristicAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130001"));
+            var uuid = new Guid();
+            var tabletid = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadData("LSConfiguration.txt")).TabletIdentifier;
+            if(tabletid == "R1")
+            {
+                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130001");
+            }
+            else if (tabletid == "R2")
+            {
+                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130002");
+            }
+            else if (tabletid == "R3")
+            {
+                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130003");
+            }
+            else if (tabletid == "B1")
+            {
+                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130004");
+            }
+            else if (tabletid == "B2")
+            {
+                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130005");
+            }
+            else if (tabletid == "B3")
+            {
+                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130006");
+            }
+            else
+            {
+                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130001");
+            }
+            var characteristictosend = await servicetosend.GetCharacteristicAsync(uuid);
             characteristictosend.ValueUpdated += (s, a) =>
             {
                 Console.WriteLine(a.Characteristic.Value);

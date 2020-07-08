@@ -36,6 +36,8 @@ namespace LightScout
         private int StackLightCounter;
         private bool CurrentlyDisabled;
         private bool InitLineAchieved;
+        private DateTime startScoutingTime;
+        private DateTime endScoutingTime;
         private double[] OriginalCardCoords = { 0, 0 };
         private static IBluetoothLE ble = CrossBluetoothLE.Current;
         private static IAdapter adapter = CrossBluetoothLE.Current.Adapter;
@@ -358,6 +360,7 @@ namespace LightScout
             BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
             await overLay.FadeTo(0, 500, Easing.SinOut);
             overLay.IsVisible = false;
+            startScoutingTime = DateTime.Now;
             ShowToolTip();
             TextFlipTimer();
         }
@@ -1091,121 +1094,153 @@ namespace LightScout
         }
         private async void ConfirmForm(object sender, EventArgs e)
         {
-            submittingFormToBluetooth.IsVisible = true;
-            var thismatch = new TeamMatch();
-            thismatch.A_InitiationLine = InitLineAchieved;
-            thismatch.DisabledSeconds = (int)Math.Floor(DisabledSeconds);
-            thismatch.EventCode = "test_env";
-            thismatch.E_Balanced = Balanced;
-            thismatch.E_ClimbAttempt = Attempted;
-            thismatch.E_ClimbSuccess = Climb;
-            thismatch.E_Park = Parked;
-            thismatch.MatchNumber = CurrentMatchNum;
-            thismatch.NumCycles = NumCycles;
-            thismatch.PowerCellInner = PowerCellInner;
-            thismatch.PowerCellLower = PowerCellLower;
-            thismatch.PowerCellMissed = PowerCellMissed;
-            thismatch.PowerCellOuter = PowerCellOuter;
-            thismatch.ScoutName = scoutName.Text;
-            thismatch.TabletId = "R1";
-            thismatch.TeamNumber = 862;
-            thismatch.TeamName = "Lightning Robotics";
-            thismatch.T_ControlPanelRotation = ControlPanel[0];
-            thismatch.T_ControlPanelPosition = ControlPanel[1];
-            thismatch.ClientSubmitted = true;
-            DependencyService.Get<DataStore>().SaveData("JacksonEvent2020.txt", thismatch);
-            if (Application.Current.Properties.ContainsKey("MatchesSubmitted"))
+            finishForm.IsEnabled = false;
+            var continuetosubmission = true;
+            endScoutingTime = DateTime.Now;
+            TimeSpan amountOfTimeScouting = endScoutingTime - startScoutingTime;
+            if(amountOfTimeScouting > TimeSpan.FromSeconds(150))
             {
-                Application.Current.Properties["MatchesSubmitted"] = ((int)Application.Current.Properties["MatchesSubmitted"]) + 1;
-                DependencyService.Get<DataStore>().SaveConfigurationFile("numMatches", Application.Current.Properties["MatchesSubmitted"]);
+                continuetosubmission = await DisplayAlert("You're too fast!", "A match is 150 seconds, and you have scouted this match for " + amountOfTimeScouting.TotalSeconds.ToString() + " seconds! Are you sure you want to submit this match?", "Yes", "I'll Keep Scouting");
             }
-            else
+            if (continuetosubmission)
             {
-                var configurationfile = DependencyService.Get<DataStore>().LoadData("LSConfiguration.txt");
-                try
+                
+                submittingFormToBluetooth.IsVisible = true;
+                var thismatch = new TeamMatch();
+                thismatch.A_InitiationLine = InitLineAchieved;
+                thismatch.DisabledSeconds = (int)Math.Floor(DisabledSeconds);
+                thismatch.EventCode = "test_env";
+                thismatch.E_Balanced = Balanced;
+                thismatch.E_ClimbAttempt = Attempted;
+                thismatch.E_ClimbSuccess = Climb;
+                thismatch.E_Park = Parked;
+                thismatch.MatchNumber = CurrentMatchNum;
+                thismatch.NumCycles = NumCycles;
+                thismatch.PowerCellInner = PowerCellInner;
+                thismatch.PowerCellLower = PowerCellLower;
+                thismatch.PowerCellMissed = PowerCellMissed;
+                thismatch.PowerCellOuter = PowerCellOuter;
+                thismatch.ScoutName = scoutName.Text;
+                thismatch.TabletId = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadData("LSConfiguration.txt")).TabletIdentifier;
+                thismatch.TeamNumber = 862;
+                thismatch.TeamName = "Lightning Robotics";
+                thismatch.T_ControlPanelRotation = ControlPanel[0];
+                thismatch.T_ControlPanelPosition = ControlPanel[1];
+                thismatch.ClientSubmitted = true;
+                DependencyService.Get<DataStore>().SaveData("JacksonEvent2020.txt", thismatch);
+                if (Application.Current.Properties.ContainsKey("MatchesSubmitted"))
                 {
-                    LSConfiguration configFile = JsonConvert.DeserializeObject<LSConfiguration>(configurationfile);
-                    Application.Current.Properties["MatchesSubmitted"] = configFile.NumberOfMatches;
-                }
-                catch(Exception ex)
-                {
-                    Application.Current.Properties["MatchesSubmitted"] = 1;
+                    Application.Current.Properties["MatchesSubmitted"] = ((int)Application.Current.Properties["MatchesSubmitted"]) + 1;
                     DependencyService.Get<DataStore>().SaveConfigurationFile("numMatches", Application.Current.Properties["MatchesSubmitted"]);
                 }
-                
-            }
-            int i = 0;
-            bool taskcompleted = false;
-            if (((int)Application.Current.Properties["MatchesSubmitted"] % 1) == 0)
-            {
-                Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                else
                 {
-                    if (!taskcompleted)
+                    var configurationfile = DependencyService.Get<DataStore>().LoadData("LSConfiguration.txt");
+                    try
                     {
-                        if (i < 15)
+                        LSConfiguration configFile = JsonConvert.DeserializeObject<LSConfiguration>(configurationfile);
+                        Application.Current.Properties["MatchesSubmitted"] = configFile.NumberOfMatches;
+                    }
+                    catch (Exception ex)
+                    {
+                        Application.Current.Properties["MatchesSubmitted"] = 1;
+                        DependencyService.Get<DataStore>().SaveConfigurationFile("numMatches", Application.Current.Properties["MatchesSubmitted"]);
+                    }
+
+                }
+                int i = 0;
+                bool taskcompleted = false;
+                if (((int)Application.Current.Properties["MatchesSubmitted"] % 1) == 0)
+                {
+                    Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                    {
+                        if (!taskcompleted)
                         {
-                            i++;
-                            return true;
+                            if (i < 15)
+                            {
+                                i++;
+                                return true;
+                            }
+                            else
+                            {
+                                Navigation.PushAsync(new MainPage());
+                                return false;
+                            }
+
                         }
                         else
                         {
-                            Navigation.PushAsync(new MainPage());
+                            int j = 0;
+                            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                            {
+                                    if (j < 3)
+                                    {
+                                        j++;
+                                        return true;
+                                    }
+                                    else
+                                    {
+                                        Navigation.PushAsync(new MainPage());
+                                        return false;
+                                    }
+
+
+                            });
                             return false;
                         }
 
-                    }
-                    else
+                    });
+                    try
                     {
-                        Navigation.PushAsync(new MainPage());
-                        return false;
-                    }
-
-                });
-                try
-                {
-                    //var bluetoothclass = new SubmitVIABluetooth();
-                    using(var bluetoothclass = new SubmitVIABluetooth())
-                    {
-                        await bluetoothclass.SubmitBluetooth();
-                        adapter = CrossBluetoothLE.Current.Adapter;
-                        if (adapter.ConnectedDevices.Count > 0)
+                        //var bluetoothclass = new SubmitVIABluetooth();
+                        using (var bluetoothclass = new SubmitVIABluetooth())
                         {
-                            taskcompleted = true;
+                            await bluetoothclass.SubmitBluetooth();
+                            adapter = CrossBluetoothLE.Current.Adapter;
+                            if (adapter.ConnectedDevices.Count > 0)
+                            {
+                                taskcompleted = true;
+                            }
                         }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
                     }
 
                 }
-                catch (Exception ex)
+                else
                 {
-                    Console.WriteLine(ex.ToString());
+                    Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                    {
+                        if (!taskcompleted)
+                        {
+                            if (i < 5)
+                            {
+                                i++;
+                                return true;
+                            }
+                            else
+                            {
+                                Navigation.PushAsync(new MainPage());
+                                return false;
+                            }
+
+                        }
+                        else
+                        {
+                            return false;
+                        }
+
+                    });
                 }
-                
             }
             else
             {
-                Device.StartTimer(TimeSpan.FromSeconds(1), () =>
-                {
-                    if (!taskcompleted)
-                    {
-                        if (i < 5)
-                        {
-                            i++;
-                            return true;
-                        }
-                        else
-                        {
-                            Navigation.PushAsync(new MainPage());
-                            return false;
-                        }
-
-                    }
-                    else
-                    {
-                        return false;
-                    }
-
-                });
+                finishForm.IsEnabled = true;
             }
+            
             
             
             

@@ -34,6 +34,7 @@ namespace LightScout
         private static int BluetoothDevices = 0;
         private static bool TimerAlreadyCreated = false;
         private static int timesalive = 0;
+        private List<string> tabletlist = new List<string>();
         private static SubmitVIABluetooth bluetoothHandler = new SubmitVIABluetooth();
         
         public MainPage()
@@ -97,7 +98,9 @@ namespace LightScout
             var allmatchesraw = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");
             listofmatches = JsonConvert.DeserializeObject<List<TeamMatch>>(allmatchesraw);
             listOfMatches.ItemsSource = listofmatches;
-            
+
+            tabletlist = new string[6] { "R1", "R2", "R3", "B1", "B2", "B3" }.ToList();
+            tabletPicker.ItemsSource = tabletlist;
         }
 
         private void FTCShow_Clicked(object sender, EventArgs e)
@@ -186,6 +189,12 @@ namespace LightScout
         private void Button_Clicked(object sender, EventArgs e)
         {
             moreinfoMenu.IsVisible = false;
+        }
+
+        private void tabletPicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var list = sender as Picker;
+            DependencyService.Get<DataStore>().SaveConfigurationFile("tabletId", tabletlist[list.SelectedIndex]);
         }
     }
 }

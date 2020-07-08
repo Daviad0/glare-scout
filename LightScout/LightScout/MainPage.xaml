@@ -46,46 +46,50 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <AbsoluteLayout>
-        <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
-            <Button Text="See FTC" x:Name="FTCShow" Clicked="FTCShow_Clicked" BackgroundColor="#f57e25" TextColor="White" Margin="10,10,10,0" IsVisible="False"/>
-            <ListView x:Name="listOfMatches" ItemTapped="listOfMatches_ItemTapped" RowHeight="60" BackgroundColor="White" IsPullToRefreshEnabled="False">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid Margin="10,5,10,5">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <Label Text="{Binding MatchNumber, StringFormat='Match #{0}'}" Grid.Row="0" VerticalOptions="Center" FontSize="20" FontAttributes="Bold"/>
-                                    <Grid Grid.Row="1">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Text="{Binding TeamNumber, StringFormat='{0} - '}" VerticalOptions="Center" Grid.Column="0" FontSize="14"/>
-                                        <Label Text="{Binding TeamName, FallbackValue='No Name'}" VerticalOptions="Center" Grid.Column="1" FontSize="14"/>
+        <ScrollView AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout>
+                <Button Text="See FTC" x:Name="FTCShow" Clicked="FTCShow_Clicked" BackgroundColor="#f57e25" TextColor="White" Margin="10,10,10,0" IsVisible="False"/>
+                <ListView x:Name="listOfMatches" ItemTapped="listOfMatches_ItemTapped" RowHeight="60" BackgroundColor="White" IsPullToRefreshEnabled="False">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Margin="10,5,10,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Label Text="{Binding MatchNumber, StringFormat='Match #{0}'}" Grid.Row="0" VerticalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                                        <Grid Grid.Row="1">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Label Text="{Binding TeamNumber, StringFormat='{0} - '}" VerticalOptions="Center" Grid.Column="0" FontSize="14"/>
+                                            <Label Text="{Binding TeamName, FallbackValue='No Name'}" VerticalOptions="Center" Grid.Column="1" FontSize="14"/>
+                                        </Grid>
+
                                     </Grid>
-
+                                    <Label FontFamily="{StaticResource IconFont}" FontSize="30" Grid.Column="1" Text="&#xeed8;" HorizontalOptions="End" VerticalOptions="Center" IsVisible="{Binding ClientSubmitted}}"/>
                                 </Grid>
-                                <Label FontFamily="{StaticResource IconFont}" FontSize="30" Grid.Column="1" Text="&#xeed8;" HorizontalOptions="End" VerticalOptions="Center" IsVisible="{Binding ClientSubmitted}}"/>
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <Button Text="See FRC" x:Name="FRCShow" Clicked="FRCShow_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10"/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button Text="See FRC" x:Name="FRCShow" Clicked="FRCShow_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10"/>
 
-            <Button Text="Get List of Devices" Clicked="CheckBluetooth" x:Name="BluetoothFind" BackgroundColor="#009cd7" TextColor="White" Margin="10" IsVisible="False"/>
-            <ListView BackgroundColor="White" x:Name="listofdevices" ItemTapped="listofdevices_ItemTapped" IsVisible="False">
+                <Button Text="Get List of Devices" Clicked="CheckBluetooth" x:Name="BluetoothFind" BackgroundColor="#009cd7" TextColor="White" Margin="10" IsVisible="False"/>
+                <ListView BackgroundColor="White" x:Name="listofdevices" ItemTapped="listofdevices_ItemTapped" IsVisible="False">
 
-            </ListView>
-        </StackLayout>
+                </ListView>
+                <Picker x:Name="tabletPicker" SelectedIndexChanged="tabletPicker_SelectedIndexChanged"/>
+            </StackLayout>
+            
+        </ScrollView>
         <StackLayout x:Name="moreinfoMenu" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
             <AbsoluteLayout VerticalOptions="FillAndExpand">
                 <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">

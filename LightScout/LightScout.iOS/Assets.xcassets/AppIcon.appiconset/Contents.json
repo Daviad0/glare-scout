@@ -26,18 +26,6 @@
     },
     {
       "scale": "2x",
-      "size": "60x60",
-      "idiom": "iphone",
-      "filename": "Icon120.png"
-    },
-    {
-      "scale": "3x",
-      "size": "60x60",
-      "idiom": "iphone",
-      "filename": "Icon180.png"
-    },
-    {
-      "scale": "2x",
       "size": "20x20",
       "idiom": "ipad",
       "filename": "Icon40.png"
@@ -107,6 +95,18 @@
       "size": "1024x1024",
       "idiom": "ios-marketing",
       "filename": "appstore.png"
+    },
+    {
+      "scale": "2x",
+      "size": "60x60",
+      "idiom": "iphone",
+      "filename": "120.png"
+    },
+    {
+      "scale": "3x",
+      "size": "60x60",
+      "idiom": "iphone",
+      "filename": "180.png"
     }
   ],
   "properties": {},

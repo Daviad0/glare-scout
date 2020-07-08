@@ -1156,6 +1156,7 @@ namespace LightScout
                     }
                     else
                     {
+                        Navigation.PushAsync(new MainPage());
                         return false;
                     }
 
@@ -1172,8 +1173,7 @@ namespace LightScout
                             taskcompleted = true;
                         }
                     }
-                    
-                    
+
                 }
                 catch (Exception ex)
                 {

@@ -1152,7 +1152,7 @@ namespace LightScout
                 bool taskcompleted = false;
                 if (((int)Application.Current.Properties["MatchesSubmitted"] % 3) == 0)
                 {
-                    savingMessage.Text = "Sending through Bluetooth...";
+                    savingMessage.Text = "Sending to Computer...";
                     submittingFormToBluetooth.IsVisible = true;
                     Device.StartTimer(TimeSpan.FromSeconds(1), () =>
                     {

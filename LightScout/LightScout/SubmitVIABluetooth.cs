@@ -28,7 +28,12 @@ namespace LightScout
             }
             adapter.DeviceConnected += async (s, a) =>
             {
-                KnownDeviceSubmit(a.Device);
+                if (!resultsubmitted)
+                {
+                    KnownDeviceSubmit(a.Device);
+                    resultsubmitted = true;
+                }
+                
             };
             adapter.DeviceDiscovered += async (s, a) =>
             {

@@ -50,7 +50,7 @@ namespace LightScout
             var bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
             if (bytestotransmit.Length > 480)
             {
-                int numberofmessages = (bytestotransmit.Length / 480);
+                int numberofmessages = (int)Math.Ceiling((float)bytestotransmit.Length / (float)480);
                 var startidentifier = "MM:" + numberofmessages.ToString();
                 var startbytesarray = Encoding.ASCII.GetBytes(startidentifier);
                 await characteristictosend.WriteAsync(startbytesarray);

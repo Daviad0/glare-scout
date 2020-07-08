@@ -1162,13 +1162,17 @@ namespace LightScout
                 });
                 try
                 {
-                    var bluetoothclass = new SubmitVIABluetooth();
-                    await bluetoothclass.SubmitBluetooth();
-                    adapter = CrossBluetoothLE.Current.Adapter;
-                    if(adapter.ConnectedDevices.Count > 0)
+                    //var bluetoothclass = new SubmitVIABluetooth();
+                    using(var bluetoothclass = new SubmitVIABluetooth())
                     {
-                        taskcompleted = true;
+                        await bluetoothclass.SubmitBluetooth();
+                        adapter = CrossBluetoothLE.Current.Adapter;
+                        if (adapter.ConnectedDevices.Count > 0)
+                        {
+                            taskcompleted = true;
+                        }
                     }
+                    
                     
                 }
                 catch (Exception ex)

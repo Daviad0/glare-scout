@@ -11,8 +11,12 @@ using Xamarin.Forms;
 
 namespace LightScout
 {
-    class SubmitVIABluetooth
+    class SubmitVIABluetooth : IDisposable
     {
+        void IDisposable.Dispose()
+        {
+
+        }
         public IAdapter adapter = CrossBluetoothLE.Current.Adapter;
         public bool resultsubmitted = false;
         public async Task SubmitBluetooth()

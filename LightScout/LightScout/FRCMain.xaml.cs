@@ -1177,7 +1177,7 @@ namespace LightScout
                 thismatch.PowerCellMissed = PowerCellMissed;
                 thismatch.PowerCellOuter = PowerCellOuter;
                 thismatch.ScoutName = scoutName.Text;
-                thismatch.TabletId = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadData("LSConfiguration.txt")).TabletIdentifier;
+                thismatch.TabletId = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TabletIdentifier;
                 thismatch.TeamNumber = 862;
                 thismatch.TeamName = "Lightning Robotics";
                 thismatch.T_ControlPanelRotation = ControlPanel[0];
@@ -1191,7 +1191,7 @@ namespace LightScout
                 }
                 else
                 {
-                    var configurationfile = DependencyService.Get<DataStore>().LoadData("LSConfiguration.txt");
+                    var configurationfile = DependencyService.Get<DataStore>().LoadConfigFile();
                     try
                     {
                         LSConfiguration configFile = JsonConvert.DeserializeObject<LSConfiguration>(configurationfile);

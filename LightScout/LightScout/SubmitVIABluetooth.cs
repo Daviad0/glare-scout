@@ -60,7 +60,7 @@ namespace LightScout
             var returnvalue = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");
             var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130000"));
             var uuid = new Guid();
-            var tabletid = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadData("LSConfiguration.txt")).TabletIdentifier;
+            var tabletid = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TabletIdentifier;
             if(tabletid == "R1")
             {
                 uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130001");

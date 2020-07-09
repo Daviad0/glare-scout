@@ -172,6 +172,23 @@ namespace LightScout.Droid
             
             return result;
         }
+        public string LoadConfigFile()
+        {
+            var docpath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, "FRCLightScout");
+            var finalPath = Path.Combine(docpath, "LSConfiguration.txt");
+            string result = null;
+            try
+            {
+                result = File.ReadAllText(finalPath);
+            }
+            catch (Exception ex)
+            {
+                File.WriteAllText(finalPath, JsonConvert.SerializeObject(new LSConfiguration()));
+                result = File.ReadAllText(finalPath);
+            }
+
+            return result;
+        }
         public void SaveConfigurationFile(string configtype, object newvalue)
         {
             var docpath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;

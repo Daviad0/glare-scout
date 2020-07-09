@@ -165,6 +165,23 @@ namespace LightScout.iOS
 
             return result;
         }
+        public string LoadConfigFile()
+        {
+            var docpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "FRCLightScout");
+            var finalPath = Path.Combine(docpath, "LSConfiguration.txt");
+            string result = null;
+            try
+            {
+                result = File.ReadAllText(finalPath);
+            }
+            catch (Exception ex)
+            {
+                File.WriteAllText(finalPath, JsonConvert.SerializeObject(new LSConfiguration()));
+                result = File.ReadAllText(finalPath);
+            }
+
+            return result;
+        }
         public void SaveConfigurationFile(string configtype, object newvalue)
         {
             var docpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);

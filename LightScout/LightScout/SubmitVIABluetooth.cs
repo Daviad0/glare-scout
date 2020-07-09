@@ -3,10 +3,12 @@ using Newtonsoft.Json;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Abstractions.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -22,7 +24,7 @@ namespace LightScout
         public IAdapter adapter = CrossBluetoothLE.Current.Adapter;
         public bool resultsubmitted = false;
         public IDevice connectedPeripheral;
-        public async Task SubmitBluetooth()
+        public async Task SubmitBluetooth(CancellationToken token)
         {
 
             foreach (var device in adapter.ConnectedDevices)
@@ -52,7 +54,38 @@ namespace LightScout
                 adapter.ConnectToDeviceAsync(a.Device);
             };
             MessagingCenter.Send<SubmitVIABluetooth, int>(this, "boom", 1);
-            await adapter.ConnectToKnownDeviceAsync(Guid.Parse("16FD1A9B-F36F-7EAB-66B2-499BF4DBB0F2"));
+            try
+            {
+                
+                await adapter.ConnectToKnownDeviceAsync(Guid.Parse("16FD1A9B-F36F-7EAB-66B2-499BF4DBB0F2"),default,token);
+                Device.StartTimer(TimeSpan.FromSeconds(0.1), () =>
+                {
+                    if (resultsubmitted)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            token.ThrowIfCancellationRequested();
+                            
+                        }
+                        catch(Exception ex)
+                        {
+                            MessagingCenter.Send<SubmitVIABluetooth, int>(this, "boom", -1);
+                            resultsubmitted = true;
+                        }
+                        return true;
+                    }
+                });
+            }
+            catch(Exception ex)
+            {
+                MessagingCenter.Send<SubmitVIABluetooth, int>(this, "boom", -1);
+                resultsubmitted = true;
+            }
+            
             
         }
         public async void KnownDeviceSubmit(IDevice deviceIWant)
@@ -115,7 +148,7 @@ namespace LightScout
                 {
                     await characteristictosend.WriteAsync(bytestotransmit);
                 }
-                MessagingCenter.Send<SubmitVIABluetooth, int>(null, "boom", 3);
+                MessagingCenter.Send<SubmitVIABluetooth, int>(this, "boom", 3);
                 stringtoconvert = "B:" + Battery.ChargeLevel.ToString();
                 bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
                 await characteristictosend.WriteAsync(bytestotransmit);

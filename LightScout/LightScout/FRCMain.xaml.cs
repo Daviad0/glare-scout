@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -1209,18 +1210,34 @@ namespace LightScout
                 bool taskcompleted = false;
                 if (((int)Application.Current.Properties["MatchesSubmitted"] % 1) == 0)
                 {
+                    CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+                    CancellationToken token = cancellationTokenSource.Token;
+                    
+                    var highestlevelresponse = 0;
                     MessagingCenter.Subscribe<SubmitVIABluetooth,int>(this, "boom", (messagesender,value) => {
                         switch (value)
                         {
                             case 1:
                                 progressBT1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
+                                if(highestlevelresponse < 1)
+                                {
+                                    highestlevelresponse = 1;
+                                }
                                 break;
                             case 2:
                                 progressBT2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
+                                if (highestlevelresponse < 2)
+                                {
+                                    highestlevelresponse = 2;
+                                }
                                 break;
                             case 3:
                                 progressBT3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
                                 DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 0);
+                                if (highestlevelresponse < 3)
+                                {
+                                    highestlevelresponse = 3;
+                                }
                                 break;
                             case -1:
                                 progressBT1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2d63ba");
@@ -1240,10 +1257,22 @@ namespace LightScout
                             if (i < 15)
                             {
                                 i++;
+                                if (i == 8)
+                                {
+                                    cancellationTokenSource.Cancel();
+                                }
                                 return true;
+                                
                             }
                             else
                             {
+                                if(highestlevelresponse < 3)
+                                {
+                                    progressBT1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2d63ba");
+                                    progressBT2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2d63ba");
+                                    progressBT3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2d63ba");
+                                    DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 1);
+                                }
                                 Navigation.PushAsync(new MainPage());
                                 return false;
                             }
@@ -1277,7 +1306,7 @@ namespace LightScout
                         //var bluetoothclass = new SubmitVIABluetooth();
                         using (var bluetoothclass = new SubmitVIABluetooth())
                         {
-                            await bluetoothclass.SubmitBluetooth();
+                            await bluetoothclass.SubmitBluetooth(token);
                             adapter = CrossBluetoothLE.Current.Adapter;
                             if (adapter.ConnectedDevices.Count > 0)
                             {

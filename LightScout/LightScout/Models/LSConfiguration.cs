@@ -9,5 +9,7 @@ namespace LightScout.Models
         public int NumberOfMatches { get; set; }
         public string TabletIdentifier { get; set; }
         public int MaxMatches { get; set; }
+        public int SubmitOffset { get; set; }
+        public int BluetoothFailureStage { get; set; }
     }
 }

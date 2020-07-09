@@ -286,7 +286,42 @@
                 </Grid>
             </StackLayout>
             <StackLayout x:Name="confirmForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
-                <Label Text="Confirm"/>
+                <Frame Padding="10" HorizontalOptions="Center" Margin="0,10" BackgroundColor="#2a7afa" CornerRadius="10" BorderColor="Transparent">
+                    <Label Text="Overview of Match 5" FontSize="Medium" FontAttributes="Bold" TextColor="White"/>
+                </Frame>
+                <Grid Margin="20,0" HorizontalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <Frame BorderColor="Purple" BackgroundColor="Transparent" CornerRadius="10" Padding="3" Grid.Row="0" Grid.Column="1">
+                        <Label Text="A" TextColor="Purple" FontAttributes="Bold" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Frame>
+                    <Frame BorderColor="Blue" BackgroundColor="Transparent" CornerRadius="10" Padding="3" Grid.Row="0" Grid.Column="2">
+                        <Label Text="T" TextColor="Blue" FontAttributes="Bold" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    </Frame>
+                    <Label Text="Total Inner PC" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="Total Outer PC" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="Total Lower PC" Grid.Row="3" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="Total Missed PC" Grid.Row="4" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="0" Grid.Row="1" Grid.Column="1" FontSize="25" FontAttributes="Bold" x:Name="totalAInnerPC" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="0" Grid.Row="2" Grid.Column="1" FontSize="25" FontAttributes="Bold" x:Name="totalAOuterPC" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="0" Grid.Row="3" Grid.Column="1" FontSize="25" FontAttributes="Bold" x:Name="totalALowerPC" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="0" Grid.Row="4" Grid.Column="1" FontSize="25" FontAttributes="Bold" x:Name="totalAMissedPC" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="0" Grid.Row="1" Grid.Column="2" FontSize="25" FontAttributes="Bold" x:Name="totalTInnerPC" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="0" Grid.Row="2" Grid.Column="2" FontSize="25" FontAttributes="Bold" x:Name="totalTOuterPC" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="0" Grid.Row="3" Grid.Column="2" FontSize="25" FontAttributes="Bold" x:Name="totalTLowerPC" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="0" Grid.Row="4" Grid.Column="2" FontSize="25" FontAttributes="Bold" x:Name="totalTMissedPC" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Grid>
+                
                 <Button Text="Load the Data" Clicked="LoadTheData"/>
                 <Button Text="Send Dummy Data" Clicked="SendTheData"/>
             </StackLayout>
@@ -419,6 +454,16 @@
 
 
                 <!--<Button Text="Let's Do This!" BackgroundColor="White" TextColor="#009cd7" CornerRadius="6" FontFamily=""/>-->
+            </Grid>
+            <Grid HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+                <BoxView HeightRequest="16" WidthRequest="16" CornerRadius="8" BackgroundColor="#2d63ba" Grid.Row="0" Grid.Column="0" x:Name="progressBT1"/>
+                <BoxView HeightRequest="16" WidthRequest="16" CornerRadius="8" BackgroundColor="#2d63ba" Grid.Row="0" Grid.Column="1" x:Name="progressBT2"/>
+                <BoxView HeightRequest="16" WidthRequest="16" CornerRadius="8" BackgroundColor="#2d63ba" Grid.Row="0" Grid.Column="2" x:Name="progressBT3"/>
             </Grid>
         </StackLayout>
     </AbsoluteLayout>

@@ -21,6 +21,7 @@ namespace LightScout
         }
         public IAdapter adapter = CrossBluetoothLE.Current.Adapter;
         public bool resultsubmitted = false;
+        public IDevice connectedPeripheral;
         public async Task SubmitBluetooth()
         {
 
@@ -28,11 +29,20 @@ namespace LightScout
             {
                 await adapter.DisconnectDeviceAsync(device);
             }
+            adapter.DeviceDisconnected += async (s, a) =>
+            {
+                if (!resultsubmitted)
+                {
+                    MessagingCenter.Send<SubmitVIABluetooth, int>(this, "boom", -1);
+                }
+            };
             adapter.DeviceConnected += async (s, a) =>
             {
                 if (!resultsubmitted)
                 {
+                    connectedPeripheral = a.Device;
                     KnownDeviceSubmit(a.Device);
+                    MessagingCenter.Send<SubmitVIABluetooth, int>(this, "boom", 2);
                     resultsubmitted = true;
                 }
                 
@@ -41,7 +51,9 @@ namespace LightScout
             {
                 adapter.ConnectToDeviceAsync(a.Device);
             };
+            MessagingCenter.Send<SubmitVIABluetooth, int>(this, "boom", 1);
             await adapter.ConnectToKnownDeviceAsync(Guid.Parse("16FD1A9B-F36F-7EAB-66B2-499BF4DBB0F2"));
+            
         }
         public async void KnownDeviceSubmit(IDevice deviceIWant)
         {
@@ -82,30 +94,40 @@ namespace LightScout
             {
                 Console.WriteLine(a.Characteristic.Value);
             };
-            await characteristictosend.StartUpdatesAsync();
-            var stringtoconvert = "S:" + returnvalue;
-            var bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
-            if (bytestotransmit.Length > 480)
+            try
             {
-                int numberofmessages = (int)Math.Ceiling((float)bytestotransmit.Length / (float)480);
-                var startidentifier = "MM:" + numberofmessages.ToString();
-                var startbytesarray = Encoding.ASCII.GetBytes(startidentifier);
-                await characteristictosend.WriteAsync(startbytesarray);
-                for (int i = numberofmessages; i > 0; i--)
+                await characteristictosend.StartUpdatesAsync();
+                var stringtoconvert = "S:" + returnvalue;
+                var bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
+                if (bytestotransmit.Length > 480)
                 {
-                    var bytesarray = bytestotransmit.Skip((numberofmessages - i) * 480).Take(480).ToArray();
-                    await characteristictosend.WriteAsync(bytesarray);
+                    int numberofmessages = (int)Math.Ceiling((float)bytestotransmit.Length / (float)480);
+                    var startidentifier = "MM:" + numberofmessages.ToString();
+                    var startbytesarray = Encoding.ASCII.GetBytes(startidentifier);
+                    await characteristictosend.WriteAsync(startbytesarray);
+                    for (int i = numberofmessages; i > 0; i--)
+                    {
+                        var bytesarray = bytestotransmit.Skip((numberofmessages - i) * 480).Take(480).ToArray();
+                        await characteristictosend.WriteAsync(bytesarray);
+                    }
                 }
-            }
-            else
-            {
+                else
+                {
+                    await characteristictosend.WriteAsync(bytestotransmit);
+                }
+                MessagingCenter.Send<SubmitVIABluetooth, int>(null, "boom", 3);
+                stringtoconvert = "B:" + Battery.ChargeLevel.ToString();
+                bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
                 await characteristictosend.WriteAsync(bytestotransmit);
+                resultsubmitted = true;
+                Console.WriteLine(bytestotransmit);
+                await adapter.DisconnectDeviceAsync(connectedPeripheral);
             }
-
-            stringtoconvert = "B:" + Battery.ChargeLevel.ToString();
-            bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
-            await characteristictosend.WriteAsync(bytestotransmit);
-            Console.WriteLine(bytestotransmit);
+            catch(Exception ex)
+            {
+                MessagingCenter.Send<SubmitVIABluetooth, int>(this, "boom", -1);
+            }
+            
         }
     }
 }

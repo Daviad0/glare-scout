@@ -166,7 +166,8 @@ namespace LightScout.Droid
             }
             catch(Exception ex)
             {
-                File.WriteAllText(finalPath, "");
+                SaveDummyData("JacksonEvent2020.txt");
+                result = File.ReadAllText(finalPath);
             }
             
             return result;
@@ -205,6 +206,9 @@ namespace LightScout.Droid
                     break;
                 case "maxMatches":
                     modeltochange.MaxMatches = (int)newvalue;
+                    break;
+                case "bluetoothStage":
+                    modeltochange.BluetoothFailureStage = (int)newvalue;
                     break;
             }
             try

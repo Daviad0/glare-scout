@@ -53,6 +53,7 @@ namespace LightScout
             {
                 adapter.ConnectToDeviceAsync(a.Device);
             };
+            resultsubmitted = false;
             MessagingCenter.Send<SubmitVIABluetooth, int>(this, "boom", 1);
             try
             {

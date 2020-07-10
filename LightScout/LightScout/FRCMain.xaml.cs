@@ -33,6 +33,7 @@ namespace LightScout
         private int NumCycles = 0;
         private int CurrentCycle = 1;
         private int CurrentSubPage;
+        private static SubmitVIABluetooth bluetoothclass = new SubmitVIABluetooth();
         private double DisabledSeconds;
         private int StackLightCounter;
         private bool CurrentlyDisabled;
@@ -1304,14 +1305,11 @@ namespace LightScout
                     try
                     {
                         //var bluetoothclass = new SubmitVIABluetooth();
-                        using (var bluetoothclass = new SubmitVIABluetooth())
+                        await bluetoothclass.SubmitBluetooth(token);
+                        adapter = CrossBluetoothLE.Current.Adapter;
+                        if (adapter.ConnectedDevices.Count > 0)
                         {
-                            await bluetoothclass.SubmitBluetooth(token);
-                            adapter = CrossBluetoothLE.Current.Adapter;
-                            if (adapter.ConnectedDevices.Count > 0)
-                            {
-                                taskcompleted = true;
-                            }
+                            taskcompleted = true;
                         }
 
                     }

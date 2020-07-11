@@ -80,7 +80,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <CarouselView x:Name="carouseluwu" HeightRequest="450" CurrentItemChanged="carouseluwu_CurrentItemChanged">
+                <CarouselView x:Name="carouseluwu" HeightRequest="450">
                     <CarouselView.ItemsLayout>
                         <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
                         

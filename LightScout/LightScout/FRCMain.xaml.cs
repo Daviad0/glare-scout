@@ -72,21 +72,30 @@ namespace LightScout
             InitLineAchieved = matchTemplate.A_InitiationLine;
             HiddenLabel.Text = "Team " + matchTemplate.TeamNumber.ToString();
             teamName.Text = "Team " + matchTemplate.TeamNumber.ToString();
-            if (matchTemplate.TabletId.StartsWith("R"))
+            if(matchTemplate.TabletId != null)
             {
-                HiddenLabelDetails.Text = "Match " + matchTemplate.MatchNumber + " - Red";
-                matchNumber.Text = "Match " + matchTemplate.MatchNumber + " - Red";
-            }
-            else if (matchTemplate.TabletId.StartsWith("B"))
-            {
-                HiddenLabelDetails.Text = "Match " + matchTemplate.MatchNumber + " - Blue";
-                matchNumber.Text = "Match " + matchTemplate.MatchNumber + " - Blue";
+                if (matchTemplate.TabletId.StartsWith("R"))
+                {
+                    HiddenLabelDetails.Text = "Match " + matchTemplate.MatchNumber + " - Red";
+                    matchNumber.Text = "Match " + matchTemplate.MatchNumber + " - Red";
+                }
+                else if (matchTemplate.TabletId.StartsWith("B"))
+                {
+                    HiddenLabelDetails.Text = "Match " + matchTemplate.MatchNumber + " - Blue";
+                    matchNumber.Text = "Match " + matchTemplate.MatchNumber + " - Blue";
+                }
+                else
+                {
+                    HiddenLabelDetails.Text = "Match " + matchTemplate.MatchNumber + " - ???";
+                    matchNumber.Text = "Match " + matchTemplate.MatchNumber + " - ???";
+                }
             }
             else
             {
                 HiddenLabelDetails.Text = "Match " + matchTemplate.MatchNumber + " - ???";
                 matchNumber.Text = "Match " + matchTemplate.MatchNumber + " - ???";
             }
+            
             HiddenLabelName.Text = matchTemplate.TeamName;
             if(matchTemplate.TeamName == null)
             {

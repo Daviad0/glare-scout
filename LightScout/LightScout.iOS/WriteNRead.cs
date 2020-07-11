@@ -27,6 +27,7 @@ namespace LightScout.iOS
             }
             docpath = Path.Combine(docpath, "FRCLightScout");
             var data = "";
+            var tabletid = JsonConvert.DeserializeObject<LSConfiguration>(LoadConfigFile()).TabletIdentifier;
             var finalPath = Path.Combine(docpath, filename);
             var DummyDataMatches = new List<TeamMatch>();
             var match = new TeamMatch();
@@ -36,6 +37,7 @@ namespace LightScout.iOS
             match.PowerCellOuter = new int[21];
             match.PowerCellLower = new int[21];
             match.PowerCellMissed = new int[21];
+            match.TabletId = tabletid;
             DummyDataMatches.Add(match);
             match = new TeamMatch();
             match.MatchNumber = 2;
@@ -44,6 +46,7 @@ namespace LightScout.iOS
             match.PowerCellOuter = new int[21];
             match.PowerCellLower = new int[21];
             match.PowerCellMissed = new int[21];
+            match.TabletId = tabletid;
             DummyDataMatches.Add(match);
             match = new TeamMatch();
             match.MatchNumber = 3;
@@ -52,6 +55,7 @@ namespace LightScout.iOS
             match.PowerCellOuter = new int[21];
             match.PowerCellLower = new int[21];
             match.PowerCellMissed = new int[21];
+            match.TabletId = tabletid;
             DummyDataMatches.Add(match);
             match = new TeamMatch();
             match.MatchNumber = 4;
@@ -60,6 +64,7 @@ namespace LightScout.iOS
             match.PowerCellOuter = new int[21];
             match.PowerCellLower = new int[21];
             match.PowerCellMissed = new int[21];
+            match.TabletId = tabletid;
             DummyDataMatches.Add(match);
             match = new TeamMatch();
             match.MatchNumber = 5;
@@ -68,6 +73,7 @@ namespace LightScout.iOS
             match.PowerCellOuter = new int[21];
             match.PowerCellLower = new int[21];
             match.PowerCellMissed = new int[21];
+            match.TabletId = tabletid;
             DummyDataMatches.Add(match);
             match = new TeamMatch();
             match.MatchNumber = 6;
@@ -76,6 +82,7 @@ namespace LightScout.iOS
             match.PowerCellOuter = new int[21];
             match.PowerCellLower = new int[21];
             match.PowerCellMissed = new int[21];
+            match.TabletId = tabletid;
             DummyDataMatches.Add(match);
             data = JsonConvert.SerializeObject(DummyDataMatches);
             try

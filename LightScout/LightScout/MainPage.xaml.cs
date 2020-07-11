@@ -30,6 +30,7 @@ namespace LightScout
         private static ObservableCollection<IDevice> Devices = new ObservableCollection<IDevice>();
         private static bool Balanced;
         private List<TeamMatch> listofmatches = new List<TeamMatch>();
+        private List<TeamMatchViewItem> listofviewmatches = new List<TeamMatchViewItem>();
         private List<string> MatchNames = new List<string>();
         private static int BluetoothDevices = 0;
         private static bool TimerAlreadyCreated = false;
@@ -97,7 +98,36 @@ namespace LightScout
             });*/
             var allmatchesraw = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");
             listofmatches = JsonConvert.DeserializeObject<List<TeamMatch>>(allmatchesraw);
-            listOfMatches.ItemsSource = listofmatches;
+            var upnext = false;
+            var upnextselected = false;
+            foreach(var match in listofmatches)
+            {
+                upnext = false;
+                if (!match.ClientSubmitted)
+                {
+                    if (!upnextselected)
+                    {
+                        upnext = true;
+                        upnextselected = true;
+                    }
+                }
+                var newmatchviewitem = new TeamMatchViewItem();
+                newmatchviewitem.Completed = match.ClientSubmitted;
+                if(match.TabletId != null)
+                {
+                    newmatchviewitem.IsRed = match.TabletId.StartsWith("R");
+                    newmatchviewitem.IsBlue = match.TabletId.StartsWith("B");
+                }
+                
+                newmatchviewitem.IsUpNext = upnext;
+                newmatchviewitem.TeamName = match.TeamName;
+                newmatchviewitem.TeamNumber = match.TeamNumber;
+                newmatchviewitem.MatchNumber = match.MatchNumber;
+                newmatchviewitem.TabletName = match.TabletId;
+                listofviewmatches.Add(newmatchviewitem);
+            }
+            listOfMatches.ItemsSource = listofviewmatches;
+            carouseluwu.ItemsSource = listofviewmatches;
 
             tabletlist = new string[6] { "R1", "R2", "R3", "B1", "B2", "B3" }.ToList();
             tabletPicker.ItemsSource = tabletlist;
@@ -196,5 +226,25 @@ namespace LightScout
             var list = sender as Picker;
             DependencyService.Get<DataStore>().SaveConfigurationFile("tabletId", tabletlist[list.SelectedIndex]);
         }
+        private async void GoToFRCPage(object sender, EventArgs e)
+        {
+            var currentindex = listofviewmatches.FindIndex(a => a == carouseluwu.CurrentItem);
+            Console.WriteLine(listofmatches[currentindex].TeamNumber.ToString() + "'s match at match #" + listofmatches[currentindex].MatchNumber.ToString());
+            bool answer = true;
+            if (listofmatches[currentindex].ClientSubmitted)
+            {
+                answer = await DisplayAlert("Match Completed", "This match has already been completed by someone using this tablet, would you still like to continue?", "Continue", "Cancel");
+            }
+            if (answer)
+            {
+                Navigation.PushAsync(new FRCMain(listofmatches[currentindex]));
+            }
+            else
+            {
+                //var listobject = sender as ListView;
+                //listobject.SelectedItem = null;
+            }
+        }
+
     }
 }

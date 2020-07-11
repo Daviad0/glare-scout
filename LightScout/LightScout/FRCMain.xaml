@@ -461,9 +461,9 @@
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
-                <BoxView HeightRequest="16" WidthRequest="16" CornerRadius="8,0,8,0" BackgroundColor="#2d63ba" Grid.Row="0" Grid.Column="0" x:Name="progressBT1"/>
+                <BoxView HeightRequest="16" WidthRequest="16" CornerRadius="6,0,6,0" BackgroundColor="#2d63ba" Grid.Row="0" Grid.Column="0" x:Name="progressBT1"/>
                 <BoxView HeightRequest="16" WidthRequest="16" CornerRadius="0" BackgroundColor="#2d63ba" Grid.Row="0" Grid.Column="1" x:Name="progressBT2"/>
-                <BoxView HeightRequest="16" WidthRequest="16" CornerRadius="0,8,0,8" BackgroundColor="#2d63ba" Grid.Row="0" Grid.Column="2" x:Name="progressBT3"/>
+                <BoxView HeightRequest="16" WidthRequest="16" CornerRadius="0,6,0,6" BackgroundColor="#2d63ba" Grid.Row="0" Grid.Column="2" x:Name="progressBT3"/>
             </Grid>
         </StackLayout>
     </AbsoluteLayout>

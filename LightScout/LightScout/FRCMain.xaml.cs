@@ -70,6 +70,28 @@ namespace LightScout
             NumCycles = matchTemplate.NumCycles;
             DisabledSeconds = matchTemplate.DisabledSeconds;
             InitLineAchieved = matchTemplate.A_InitiationLine;
+            HiddenLabel.Text = "Team " + matchTemplate.TeamNumber.ToString();
+            teamName.Text = "Team " + matchTemplate.TeamNumber.ToString();
+            if (matchTemplate.TabletId.StartsWith("R"))
+            {
+                HiddenLabelDetails.Text = "Match " + matchTemplate.MatchNumber + " - Red";
+                matchNumber.Text = "Match " + matchTemplate.MatchNumber + " - Red";
+            }
+            else if (matchTemplate.TabletId.StartsWith("B"))
+            {
+                HiddenLabelDetails.Text = "Match " + matchTemplate.MatchNumber + " - Blue";
+                matchNumber.Text = "Match " + matchTemplate.MatchNumber + " - Blue";
+            }
+            else
+            {
+                HiddenLabelDetails.Text = "Match " + matchTemplate.MatchNumber + " - ???";
+                matchNumber.Text = "Match " + matchTemplate.MatchNumber + " - ???";
+            }
+            HiddenLabelName.Text = matchTemplate.TeamName;
+            if(matchTemplate.TeamName == null)
+            {
+                HiddenLabelName.Text = "FRC Team " + matchTemplate.TeamNumber.ToString();
+            }
             SetCurrentVisualValues();
             BackgroundColor = (Color)converter.ConvertFromInvariantString("#009cd7");
             //adapter.ConnectToDeviceAsync(deviceIWant);
@@ -326,6 +348,34 @@ namespace LightScout
                 lowerUp.IsEnabled = false;
                 missedUp.IsEnabled = false;
             }
+            int totalTInnerPCCount = 0;
+            int totalTOuterPCCount = 0;
+            int totalTLowerPCCount = 0;
+            int totalTMissedPCCount = 0;
+            foreach (var pccount in PowerCellInner.ToList().Skip(1))
+            {
+                totalTInnerPCCount += pccount;
+            }
+            foreach (var pccount in PowerCellOuter.ToList().Skip(1))
+            {
+                totalTOuterPCCount += pccount;
+            }
+            foreach (var pccount in PowerCellLower.ToList().Skip(1))
+            {
+                totalTLowerPCCount += pccount;
+            }
+            foreach (var pccount in PowerCellMissed.ToList().Skip(1))
+            {
+                totalTMissedPCCount += pccount;
+            }
+            totalTInnerPC.Text = totalTInnerPCCount.ToString();
+            totalTOuterPC.Text = totalTOuterPCCount.ToString();
+            totalTLowerPC.Text = totalTLowerPCCount.ToString();
+            totalTMissedPC.Text = totalTMissedPCCount.ToString();
+            totalAInnerPC.Text = PowerCellInner[0].ToString();
+            totalAOuterPC.Text = PowerCellOuter[0].ToString();
+            totalALowerPC.Text = PowerCellLower[0].ToString();
+            totalAMissedPC.Text = PowerCellMissed[0].ToString();
         }
         protected override async void OnAppearing()
         {

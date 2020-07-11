@@ -81,7 +81,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <ProgressBar ProgressColor="#2a7afa" Progress="0" x:Name="MatchProgressList"/>
+                <ProgressBar ProgressColor="#2a7afa" Progress="0" x:Name="MatchProgressList" HeightRequest="8"/>
                 <CarouselView x:Name="carouseluwu" HeightRequest="450" CurrentItemChanged="carouseluwu_CurrentItemChanged">
                     <CarouselView.ItemsLayout>
                         <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
@@ -142,7 +142,7 @@
                                             <Grid Grid.Column="1">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="30"/>
-                                                    <RowDefinition Height="30"/>
+                                                    <RowDefinition Height="70"/>
                                                 </Grid.RowDefinitions>
                                                 <Label Text="{Binding TeamNumber, StringFormat='Team {0}'}"
                                                    FontAttributes="Bold"

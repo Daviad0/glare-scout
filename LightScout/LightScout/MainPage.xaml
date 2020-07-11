@@ -74,13 +74,15 @@
                                         </Grid>
 
                                     </Grid>
-                                    <Label FontFamily="{StaticResource IconFont}" FontSize="30" Grid.Column="1" Text="&#xeed8;" HorizontalOptions="End" VerticalOptions="Center" IsVisible="{Binding ClientSubmitted}}"/>
+                                    <Label FontFamily="{StaticResource IconFont}" FontSize="30" Grid.Column="1" Text="&#xeed8;" HorizontalOptions="End" VerticalOptions="Center" IsVisible="{Binding ClientSubmitted}"/>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <CarouselView x:Name="carouseluwu" HeightRequest="450">
+
+                <ProgressBar ProgressColor="#2a7afa" Progress="0" x:Name="MatchProgressList"/>
+                <CarouselView x:Name="carouseluwu" HeightRequest="450" CurrentItemChanged="carouseluwu_CurrentItemChanged">
                     <CarouselView.ItemsLayout>
                         <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
                         
@@ -113,10 +115,10 @@
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="25"/>
                                                 </Grid.RowDefinitions>
-                                                <Frame BackgroundColor="Red" BorderColor="Red" IsVisible="{Binding IsRed}" Grid.Row="0" Grid.Column="0" Padding="0">
+                                                <Frame HasShadow="False" BackgroundColor="Red" BorderColor="Red" IsVisible="{Binding IsRed}" Grid.Row="0" Grid.Column="0" Padding="0">
                                                     <Label Text="{Binding TabletName}" TextColor="White" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
                                                 </Frame>
-                                                <Frame BackgroundColor="Blue" BorderColor="Blue" IsVisible="{Binding IsBlue}" Grid.Row="0" Grid.Column="0" Padding="0">
+                                                <Frame HasShadow="False" BackgroundColor="Blue" BorderColor="Blue" IsVisible="{Binding IsBlue}" Grid.Row="0" Grid.Column="0" Padding="0">
                                                     <Label Text="{Binding TabletName}" TextColor="White" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
                                                 </Frame>
                                             </Grid>
@@ -125,21 +127,30 @@
                                FontSize="Large"
                                HorizontalOptions="Center"
                                VerticalOptions="Start" Grid.Column="1"/>
-                                            <Label Grid.Column="2" FontFamily="{StaticResource IconFont}" TextColor="Green" Text="&#xeed7;" FontSize="25" HorizontalOptions="End"/>
-                                            <Label Text="Up Next!" FontAttributes="Bold" TextColor="#0f3f8c" IsVisible="{Binding IsUpNext}"/>
+                                            <Label Grid.Column="2" FontFamily="{StaticResource IconFont}" TextColor="Green" FontAttributes="Bold" Text="&#xeed7;" FontSize="25" HorizontalOptions="End" IsVisible="{Binding Completed}"/>
+                                            <Label Grid.Column="2" Text="Up Next!" HorizontalOptions="End" FontAttributes="Bold" TextColor="#0f3f8c" VerticalOptions="Center" IsVisible="{Binding IsUpNext}"/>
                                             
                                         </Grid>
-                                        
-                                        <Label Text="{Binding TeamNumber, StringFormat='Team {0}'}"
-                               FontAttributes="Bold"
-                               FontSize="Medium"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center" />
-                                        <Image x:Name="OnSLLight" Source="BlueSLOnG.png" HeightRequest="100"/>
-                                        <Label Text="{Binding TeamName}"
-                               HorizontalOptions="Center" />
-
-
+                                        <Grid Margin="20,10,20,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="3*"/>
+                                                <ColumnDefinition Width="4*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Frame HeightRequest="75" WidthRequest="75" HorizontalOptions="Center" BackgroundColor="#0f3f8c" Padding="7" HasShadow="False" CornerRadius="4" Grid.Column="0">
+                                                <Image Source="{Binding teamIcon}" HeightRequest="100"/>
+                                            </Frame>
+                                            <Grid Grid.Column="1">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="30"/>
+                                                    <RowDefinition Height="30"/>
+                                                </Grid.RowDefinitions>
+                                                <Label Text="{Binding TeamNumber, StringFormat='Team {0}'}"
+                                                   FontAttributes="Bold"
+                                                   FontSize="Large" Grid.Row="0"/>
+                                                <Label Text="{Binding TeamName}"
+                                                   Grid.Row="1" FontSize="Medium" />
+                                            </Grid>
+                                        </Grid>
 
                                     </StackLayout>
                                 </Frame>

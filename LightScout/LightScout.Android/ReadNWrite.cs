@@ -14,6 +14,7 @@ using Android.Views;
 using Android.Widget;
 using LightScout.Models;
 using Newtonsoft.Json;
+using Xamarin.Forms;
 
 [assembly: Xamarin.Forms.Dependency(typeof(LightScout.Droid.ReadNWrite))]
 namespace LightScout.Droid
@@ -33,6 +34,7 @@ namespace LightScout.Droid
             }
             docpath = Path.Combine(docpath, "FRCLightScout");
             var data = "";
+            var tabletid = JsonConvert.DeserializeObject<LSConfiguration>(LoadConfigFile()).TabletIdentifier;
             var finalPath = Path.Combine(docpath, filename);
             var DummyDataMatches = new List<TeamMatch>();
             var match = new TeamMatch();
@@ -42,6 +44,7 @@ namespace LightScout.Droid
             match.PowerCellOuter = new int[21];
             match.PowerCellLower = new int[21];
             match.PowerCellMissed = new int[21];
+            match.TabletId = tabletid;
             DummyDataMatches.Add(match);
             match = new TeamMatch();
             match.MatchNumber = 2;
@@ -50,6 +53,7 @@ namespace LightScout.Droid
             match.PowerCellOuter = new int[21];
             match.PowerCellLower = new int[21];
             match.PowerCellMissed = new int[21];
+            match.TabletId = tabletid;
             DummyDataMatches.Add(match);
             match = new TeamMatch();
             match.MatchNumber = 3;
@@ -58,6 +62,7 @@ namespace LightScout.Droid
             match.PowerCellOuter = new int[21];
             match.PowerCellLower = new int[21];
             match.PowerCellMissed = new int[21];
+            match.TabletId = tabletid;
             DummyDataMatches.Add(match);
             match = new TeamMatch();
             match.MatchNumber = 4;
@@ -66,6 +71,7 @@ namespace LightScout.Droid
             match.PowerCellOuter = new int[21];
             match.PowerCellLower = new int[21];
             match.PowerCellMissed = new int[21];
+            match.TabletId = tabletid;
             DummyDataMatches.Add(match);
             match = new TeamMatch();
             match.MatchNumber = 5;
@@ -74,6 +80,7 @@ namespace LightScout.Droid
             match.PowerCellOuter = new int[21];
             match.PowerCellLower = new int[21];
             match.PowerCellMissed = new int[21];
+            match.TabletId = tabletid;
             DummyDataMatches.Add(match);
             match = new TeamMatch();
             match.MatchNumber = 6;
@@ -82,6 +89,7 @@ namespace LightScout.Droid
             match.PowerCellOuter = new int[21];
             match.PowerCellLower = new int[21];
             match.PowerCellMissed = new int[21];
+            match.TabletId = tabletid;
             DummyDataMatches.Add(match);
             data = JsonConvert.SerializeObject(DummyDataMatches);
             try

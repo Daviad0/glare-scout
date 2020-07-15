@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -267,6 +268,47 @@ namespace LightScout
         {
             var currentindex = listofviewmatches.FindIndex(a => a == carouseluwu.CurrentItem);
             MatchProgressList.ProgressTo((double)((float)(currentindex+1) / (float)listofviewmatches.Count),250, Easing.CubicInOut);
+        }
+
+        private void getDataFromServer_Clicked(object sender, EventArgs e)
+        {
+            
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            CancellationToken token = cancellationTokenSource.Token;
+            MessagingCenter.Subscribe<SubmitVIABluetooth, int>(this, "receivedata", (messagesender, value) => {
+                switch (value)
+                {
+                    case 1:
+                        getDataFromServer.Text = "Process in Progress";
+                        break;
+                    case 2:
+                        getDataFromServer.Text = "Process in Progress";
+                        break;
+                    case 3:
+                        getDataFromServer.Text = "Process Succeeded!";
+                        cancellationTokenSource.Cancel();
+                        break;
+                    case -1:
+                        getDataFromServer.Text = "Process Failed";
+                        break;
+                }
+            });
+            var submitVIABluetooth = new SubmitVIABluetooth();
+            submitVIABluetooth.GetDefaultData(token);
+            var i = 0;
+            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            {
+                i++;
+                if(i < 8)
+                {
+                    return true;
+                }
+                else
+                {
+                    cancellationTokenSource.Cancel();
+                    return false;
+                }
+            });
         }
     }
 }

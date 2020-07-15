@@ -23,6 +23,7 @@ namespace LightScout
         }
         public IAdapter adapter = CrossBluetoothLE.Current.Adapter;
         public bool resultsubmitted = false;
+        public bool datagotten = false;
         public IDevice connectedPeripheral;
         public async Task SubmitBluetooth(CancellationToken token)
         {
@@ -162,6 +163,146 @@ namespace LightScout
                 MessagingCenter.Send<SubmitVIABluetooth, int>(this, "boom", -1);
             }
             
+        }
+        public async Task GetDefaultData(CancellationToken token)
+        {
+
+            foreach (var device in adapter.ConnectedDevices)
+            {
+                await adapter.DisconnectDeviceAsync(device);
+            }
+            adapter.DeviceDisconnected += async (s, a) =>
+            {
+                if (!datagotten)
+                {
+                    MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", -1);
+                }
+            };
+            adapter.DeviceConnected += async (s, a) =>
+            {
+                if (!datagotten)
+                {
+                    connectedPeripheral = a.Device;
+                    KnownDeviceGet(a.Device);
+                    MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", 2);
+                    datagotten = true;
+                }
+
+            };
+            adapter.DeviceDiscovered += async (s, a) =>
+            {
+                adapter.ConnectToDeviceAsync(a.Device);
+            };
+            datagotten = false;
+            MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", 1);
+            try
+            {
+
+                await adapter.ConnectToKnownDeviceAsync(Guid.Parse("16FD1A9B-F36F-7EAB-66B2-499BF4DBB0F2"), default, token);
+                Device.StartTimer(TimeSpan.FromSeconds(0.1), () =>
+                {
+                    if (datagotten)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            token.ThrowIfCancellationRequested();
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", -1);
+                            resultsubmitted = true;
+                        }
+                        return true;
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", -1);
+                datagotten = true;
+            }
+
+
+        }
+        public async void KnownDeviceGet(IDevice deviceIWant)
+        {
+            var returnvalue = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");
+            var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130000"));
+            var uuid = new Guid();
+            var tabletid = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TabletIdentifier;
+            if (tabletid == "R1")
+            {
+                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130001");
+            }
+            else if (tabletid == "R2")
+            {
+                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130002");
+            }
+            else if (tabletid == "R3")
+            {
+                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130003");
+            }
+            else if (tabletid == "B1")
+            {
+                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130004");
+            }
+            else if (tabletid == "B2")
+            {
+                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130005");
+            }
+            else if (tabletid == "B3")
+            {
+                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130006");
+            }
+            else
+            {
+                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130001");
+            }
+            var characteristictosend = await servicetosend.GetCharacteristicAsync(uuid);
+            characteristictosend.ValueUpdated += async (s, a) =>
+            {
+                Console.WriteLine(a.Characteristic.Value);
+                MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", 3);
+                await adapter.DisconnectDeviceAsync(connectedPeripheral);
+            };
+            try
+            {
+                await characteristictosend.StartUpdatesAsync();
+                var stringtoconvert = "RD:" + DateTime.Now.ToString();
+                var bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
+                if (bytestotransmit.Length > 480)
+                {
+                    int numberofmessages = (int)Math.Ceiling((float)bytestotransmit.Length / (float)480);
+                    var startidentifier = "MM:" + numberofmessages.ToString();
+                    var startbytesarray = Encoding.ASCII.GetBytes(startidentifier);
+                    await characteristictosend.WriteAsync(startbytesarray);
+                    for (int i = numberofmessages; i > 0; i--)
+                    {
+                        var bytesarray = bytestotransmit.Skip((numberofmessages - i) * 480).Take(480).ToArray();
+                        await characteristictosend.WriteAsync(bytesarray);
+                    }
+                }
+                else
+                {
+                    await characteristictosend.WriteAsync(bytestotransmit);
+                }
+                
+                stringtoconvert = "B:" + Battery.ChargeLevel.ToString();
+                bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
+                await characteristictosend.WriteAsync(bytestotransmit);
+                resultsubmitted = true;
+                Console.WriteLine(bytestotransmit);
+                
+            }
+            catch (Exception ex)
+            {
+                MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", -1);
+            }
         }
     }
 }

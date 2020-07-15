@@ -264,11 +264,36 @@ namespace LightScout
                 uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130001");
             }
             var characteristictosend = await servicetosend.GetCharacteristicAsync(uuid);
+            var messagesleft = 0;
+            var fullmessage = "";
             characteristictosend.ValueUpdated += async (s, a) =>
             {
+                var convertedmessage = Encoding.ASCII.GetString(a.Characteristic.Value);
+                if(messagesleft > 0)
+                {
+                    messagesleft--;
+                    fullmessage = fullmessage + convertedmessage;
+                    if(messagesleft == 0)
+                    {
+                        MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", 3);
+                        await adapter.DisconnectDeviceAsync(connectedPeripheral);
+                    }
+                }
+                else
+                {
+                    if (convertedmessage.StartsWith("MM:"))
+                    {
+                        fullmessage = "";
+                        messagesleft = int.Parse(convertedmessage.Skip(3).ToString());
+                    }
+                    else
+                    {
+                        MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", 3);
+                        await adapter.DisconnectDeviceAsync(connectedPeripheral);
+                    }
+                }
                 Console.WriteLine(a.Characteristic.Value);
-                MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", 3);
-                await adapter.DisconnectDeviceAsync(connectedPeripheral);
+                
             };
             try
             {

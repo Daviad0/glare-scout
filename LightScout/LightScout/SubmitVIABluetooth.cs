@@ -277,6 +277,7 @@ namespace LightScout
                     {
                         MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", 3);
                         await adapter.DisconnectDeviceAsync(connectedPeripheral);
+                        DependencyService.Get<DataStore>().SaveDefaultData("JacksonEvent2020.txt", JsonConvert.DeserializeObject<List<TeamMatch>>(fullmessage));
                     }
                 }
                 else
@@ -290,6 +291,7 @@ namespace LightScout
                     {
                         MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", 3);
                         await adapter.DisconnectDeviceAsync(connectedPeripheral);
+                        DependencyService.Get<DataStore>().SaveDefaultData("JacksonEvent2020.txt", JsonConvert.DeserializeObject<List<TeamMatch>>(convertedmessage));
                     }
                 }
                 Console.WriteLine(a.Characteristic.Value);

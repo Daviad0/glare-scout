@@ -101,6 +101,29 @@ namespace LightScout.Droid
                 Console.WriteLine(ex.ToString());
             }
         }
+        public void SaveDefaultData(string filename, List<TeamMatch> teamMatches)
+        {
+            var docpath = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
+            try
+            {
+                System.IO.Directory.CreateDirectory(Path.Combine(docpath, "FRCLightScout"));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            docpath = Path.Combine(docpath, "FRCLightScout");
+            var finalPath = Path.Combine(docpath, filename);
+            var data = JsonConvert.SerializeObject(teamMatches);
+            try
+            {
+                System.IO.File.WriteAllText(finalPath, data);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
         public void SaveData(string filename, TeamMatch modeldata)
         {
             

@@ -12,5 +12,6 @@ namespace LightScout
         string LoadData(string competitionfile);
         string LoadConfigFile();
         void SaveConfigurationFile(string configurationtype, object newvalue);
+        void SaveDefaultData(string filename, List<TeamMatch> teamMatches);
     }
 }

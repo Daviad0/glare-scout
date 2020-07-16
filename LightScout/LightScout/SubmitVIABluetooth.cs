@@ -285,7 +285,7 @@ namespace LightScout
                     if (convertedmessage.StartsWith("MM:"))
                     {
                         fullmessage = "";
-                        messagesleft = int.Parse(convertedmessage.Skip(3).ToString());
+                        messagesleft = int.Parse(convertedmessage.Substring(3));
                     }
                     else
                     {

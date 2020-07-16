@@ -33,6 +33,7 @@ namespace LightScout
         private int NumCycles = 0;
         private int CurrentCycle = 1;
         private int CurrentSubPage;
+        private TeamMatch selectedMatch;
         private static SubmitVIABluetooth bluetoothclass = new SubmitVIABluetooth();
         private double DisabledSeconds;
         private int StackLightCounter;
@@ -56,6 +57,7 @@ namespace LightScout
             };
             var converter = new ColorTypeConverter();
             InitializeComponent();
+            selectedMatch = matchTemplate;
             ControlPanel[0] = matchTemplate.T_ControlPanelRotation;
             ControlPanel[1] = matchTemplate.T_ControlPanelPosition;
             Balanced = matchTemplate.E_Balanced;
@@ -1242,8 +1244,15 @@ namespace LightScout
                 thismatch.PowerCellOuter = PowerCellOuter;
                 thismatch.ScoutName = scoutName.Text;
                 thismatch.TabletId = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TabletIdentifier;
-                thismatch.TeamNumber = 862;
-                thismatch.TeamName = "Lightning Robotics";
+                thismatch.TeamNumber = selectedMatch.TeamNumber;
+                if (selectedMatch.TeamName != null)
+                {
+                    thismatch.TeamName = selectedMatch.TeamName;
+                }
+                else
+                {
+                    thismatch.TeamName = "FRC Team " + selectedMatch.TeamNumber.ToString();
+                }
                 thismatch.T_ControlPanelRotation = ControlPanel[0];
                 thismatch.T_ControlPanelPosition = ControlPanel[1];
                 thismatch.ClientSubmitted = true;

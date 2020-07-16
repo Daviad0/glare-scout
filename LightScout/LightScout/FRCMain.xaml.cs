@@ -71,6 +71,11 @@ namespace LightScout
             DisabledSeconds = matchTemplate.DisabledSeconds;
             InitLineAchieved = matchTemplate.A_InitiationLine;
             HiddenLabel.Text = "Team " + matchTemplate.TeamNumber.ToString();
+            if(matchTemplate.ScoutName != null)
+            {
+                scoutName.Text = matchTemplate.ScoutName;
+            }
+            
             teamName.Text = "Team " + matchTemplate.TeamNumber.ToString();
             if(matchTemplate.TabletId != null)
             {
@@ -108,8 +113,6 @@ namespace LightScout
         private void SetCurrentVisualValues()
         {
             var converter = new ColorTypeConverter();
-            stepper.Value = CurrentMatchNum;
-            matchNumberStepperLabel.Text = "For testing, match number (" + CurrentMatchNum.ToString() + "):";
             if (InitLineAchieved)
             {
                 initLineToggle.Style = Resources["lightSecondarySelected"] as Style;
@@ -1268,82 +1271,89 @@ namespace LightScout
                 }
                 int i = 0;
                 bool taskcompleted = false;
-                if (((int)Application.Current.Properties["MatchesSubmitted"] % 1) == 0)
+                if (((int)Application.Current.Properties["MatchesSubmitted"] % 3) == 0 || JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).BluetoothFailureStage == 1)
                 {
-                    CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-                    CancellationToken token = cancellationTokenSource.Token;
-                    
-                    var highestlevelresponse = 0;
-                    MessagingCenter.Subscribe<SubmitVIABluetooth,int>(this, "boom", (messagesender,value) => {
-                        switch (value)
-                        {
-                            case 1:
-                                progressBT1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
-                                if(highestlevelresponse < 1)
-                                {
-                                    highestlevelresponse = 1;
-                                }
-                                break;
-                            case 2:
-                                progressBT2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
-                                if (highestlevelresponse < 2)
-                                {
-                                    highestlevelresponse = 2;
-                                }
-                                break;
-                            case 3:
-                                progressBT3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
-                                DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 0);
-                                if (highestlevelresponse < 3)
-                                {
-                                    highestlevelresponse = 3;
-                                }
-                                break;
-                            case -1:
-                                progressBT1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2d63ba");
-                                progressBT2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2d63ba");
-                                progressBT3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2d63ba");
-                                DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 1);
-                                taskcompleted = true;
-                                break;
-                        }
-                    });
-                    savingMessage.Text = "Sending to Computer...";
-                    submittingFormToBluetooth.IsVisible = true;
-                    Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                    if(JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).BluetoothFailureStage < 2)
                     {
-                        if (!taskcompleted)
-                        {
-                            if (i < 15)
+                        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+                        CancellationToken token = cancellationTokenSource.Token;
+
+                        var highestlevelresponse = 0;
+                        MessagingCenter.Subscribe<SubmitVIABluetooth, int>(this, "boom", (messagesender, value) => {
+                            switch (value)
                             {
-                                i++;
-                                if (i == 8)
-                                {
-                                    cancellationTokenSource.Cancel();
-                                }
-                                return true;
-                                
-                            }
-                            else
-                            {
-                                if(highestlevelresponse < 3)
-                                {
+                                case 1:
+                                    progressBT1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
+                                    if (highestlevelresponse < 1)
+                                    {
+                                        highestlevelresponse = 1;
+                                    }
+                                    break;
+                                case 2:
+                                    progressBT2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
+                                    if (highestlevelresponse < 2)
+                                    {
+                                        highestlevelresponse = 2;
+                                    }
+                                    break;
+                                case 3:
+                                    progressBT3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
+                                    DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 0);
+                                    if (highestlevelresponse < 3)
+                                    {
+                                        highestlevelresponse = 3;
+                                    }
+                                    break;
+                                case -1:
                                     progressBT1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2d63ba");
                                     progressBT2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2d63ba");
                                     progressBT3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2d63ba");
                                     DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 1);
-                                }
-                                Navigation.PushAsync(new MainPage());
-                                return false;
+                                    if (JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).BluetoothFailureStage == 1)
+                                    {
+                                        DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 2);
+                                        DisplayAlert("Something Went Wrong!", "We encountered an error trying to transmit your data to the host computer. We tried this twice and it failed both times. Please notify the scouter managing tablets soon!", "I'll Do That!");
+                                    }
+                                    taskcompleted = true;
+                                    break;
                             }
-
-                        }
-                        else
+                        });
+                        savingMessage.Text = "Sending to Computer...";
+                        submittingFormToBluetooth.IsVisible = true;
+                        Device.StartTimer(TimeSpan.FromSeconds(1), () =>
                         {
-                            int j = 0;
-                            
-                            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                            if (!taskcompleted)
                             {
+                                if (i < 15)
+                                {
+                                    i++;
+                                    if (i == 8)
+                                    {
+                                        cancellationTokenSource.Cancel();
+                                    }
+                                    return true;
+
+                                }
+                                else
+                                {
+                                    if (highestlevelresponse < 3)
+                                    {
+                                        progressBT1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2d63ba");
+                                        progressBT2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2d63ba");
+                                        progressBT3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2d63ba");
+                                        DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 1);
+                                    }
+                                    Navigation.PushAsync(new MainPage());
+                                    return false;
+                                }
+
+                            }
+                            else
+                            {
+                                int j = 0;
+
+                                Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                                {
                                     if (j < 3)
                                     {
                                         j++;
@@ -1356,26 +1366,58 @@ namespace LightScout
                                     }
 
 
-                            });
-                            return false;
-                        }
+                                });
+                                return false;
+                            }
 
-                    });
-                    try
-                    {
-                        //var bluetoothclass = new SubmitVIABluetooth();
-                        await bluetoothclass.SubmitBluetooth(token);
-                        adapter = CrossBluetoothLE.Current.Adapter;
-                        if (adapter.ConnectedDevices.Count > 0)
+                        });
+                        try
                         {
-                            taskcompleted = true;
-                        }
+                            //var bluetoothclass = new SubmitVIABluetooth();
+                            await bluetoothclass.SubmitBluetooth(token);
+                            adapter = CrossBluetoothLE.Current.Adapter;
+                            if (adapter.ConnectedDevices.Count > 0)
+                            {
+                                taskcompleted = true;
+                            }
 
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.ToString());
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        Console.WriteLine(ex.ToString());
+                        
+                        savingMessage.Text = "Saving to Database...";
+                        submittingFormToBluetooth.IsVisible = true;
+                        await DisplayAlert("Uh Oh", "It didn't work the first time, it probably won't work now. Please get the person in charge of the tablets to unlock the Bluetooth feature once they transfer the data VIA USB. We are saving the data to the tablet for now.", "Ok!");
+                        Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                        {
+                            if (!taskcompleted)
+                            {
+                                if (i < 5)
+                                {
+                                    i++;
+                                    return true;
+                                }
+                                else
+                                {
+                                    Navigation.PushAsync(new MainPage());
+                                    return false;
+                                }
+
+                            }
+                            else
+                            {
+                                Navigation.PushAsync(new MainPage());
+                                return false;
+                            }
+
+                        });
                     }
+                    
 
                 }
                 else
@@ -1845,11 +1887,11 @@ namespace LightScout
             
         }
 
-        private void Stepper_ValueChanged(object sender, ValueChangedEventArgs e)
+
+        private void resetDisabled_Clicked(object sender, EventArgs e)
         {
-            
-            CurrentMatchNum = (int)e.NewValue;
-            matchNumberStepperLabel.Text = "For testing, match number (" + CurrentMatchNum.ToString() + "):";
+            DisabledSeconds = 0;
+            disabledSeconds.Text = "0s";
         }
     }
 }

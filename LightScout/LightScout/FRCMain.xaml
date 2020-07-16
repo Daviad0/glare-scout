@@ -104,9 +104,7 @@
                         </OnPlatform>
                     </Entry.FontFamily>
                 </Entry>
-                <Label Margin="0,20,0,0" Text="For testing, match number (1):" HorizontalOptions="Center" x:Name="matchNumberStepperLabel"/>
 
-                <Stepper Value="1" Minimum="1" Maximum="20" x:Name="stepper" ValueChanged="Stepper_ValueChanged" HorizontalOptions="Center"/>
 
             </StackLayout>
             <StackLayout x:Name="autoForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
@@ -379,18 +377,17 @@
                         </Label.FontFamily>
                     </Label>
                     
-                    <Button Text="Robot Was Re-Enabled" Clicked="DisableDisabledMenu" x:Name="disableDisabled" Margin="30,0,30,50"/>
+                    <Button Text="Robot Was Re-Enabled" Clicked="DisableDisabledMenu" x:Name="disableDisabled" Margin="30,0,30,0"/>
+                    <Button Text="Reset Disabled Timer" Clicked="resetDisabled_Clicked" x:Name="resetDisabled" Margin="30,0,30,50"/>
                 </StackLayout>
             </AbsoluteLayout>
             
         </StackLayout>
         <StackLayout x:Name="overLay" Opacity="1" BackgroundColor="#2a7afa" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
             
-            <Label Text="&#xea7b;" FontFamily="{StaticResource IconFont}" TextColor="White" FontSize="30" HorizontalOptions="Start" Margin="10,10,0,0">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="BackToMainMenu"/>
-                </Label.GestureRecognizers>
-            </Label>
+            <Button Text="&#xea7b;" FontFamily="{StaticResource IconFont}" TextColor="White" BackgroundColor="Transparent" BorderColor="Transparent" FontSize="30" HorizontalOptions="Start" Margin="10,10,0,0" Clicked="BackToMainMenu">
+
+            </Button>
             <Grid VerticalOptions="CenterAndExpand" Margin="0,70,0,0" x:Name="animatedelement">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="200"/>

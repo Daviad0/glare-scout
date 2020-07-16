@@ -5806,17 +5806,20 @@ namespace LightScout.Droid
 			// aapt resource value: 0x7F070003
 			public const int OffSL = 2131165187;
 			
+			// aapt resource value: 0x7F070076
+			public const int playstore_icon = 2131165302;
+			
 			// aapt resource value: 0x7F070004
 			public const int RedSLOn = 2131165188;
 			
 			// aapt resource value: 0x7F070005
 			public const int RedSLOnG = 2131165189;
 			
-			// aapt resource value: 0x7F070076
-			public const int tooltip_frame_dark = 2131165302;
-			
 			// aapt resource value: 0x7F070077
-			public const int tooltip_frame_light = 2131165303;
+			public const int tooltip_frame_dark = 2131165303;
+			
+			// aapt resource value: 0x7F070078
+			public const int tooltip_frame_light = 2131165304;
 			
 			static Drawable()
 			{

@@ -287,6 +287,7 @@ namespace LightScout
                     case 3:
                         getDataFromServer.Text = "Process Succeeded!";
                         cancellationTokenSource.Cancel();
+                        Navigation.PushAsync(new MainPage());
                         break;
                     case -1:
                         getDataFromServer.Text = "Process Failed";
@@ -309,6 +310,13 @@ namespace LightScout
                     return false;
                 }
             });
+        }
+
+        private void resetBTLock_Clicked(object sender, EventArgs e)
+        {
+            DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 2);
+            resetBTLock.Text = "Reset!!";
+
         }
     }
 }

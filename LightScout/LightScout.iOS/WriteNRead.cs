@@ -174,7 +174,7 @@ namespace LightScout.iOS
         }
         public void SaveDefaultData(string filename, List<TeamMatch> teamMatches)
         {
-            var docpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "FRCLightScout");
+            var docpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             try
             {
                 System.IO.Directory.CreateDirectory(Path.Combine(docpath, "FRCLightScout"));

@@ -233,103 +233,111 @@ namespace LightScout
         {
             var returnvalue = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");
             var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130000"));
-            var uuid = new Guid();
-            var tabletid = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TabletIdentifier;
-            if (tabletid == "R1")
+            if(servicetosend != null)
             {
-                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130001");
-            }
-            else if (tabletid == "R2")
-            {
-                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130002");
-            }
-            else if (tabletid == "R3")
-            {
-                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130003");
-            }
-            else if (tabletid == "B1")
-            {
-                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130004");
-            }
-            else if (tabletid == "B2")
-            {
-                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130005");
-            }
-            else if (tabletid == "B3")
-            {
-                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130006");
-            }
-            else
-            {
-                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130001");
-            }
-            var characteristictosend = await servicetosend.GetCharacteristicAsync(uuid);
-            var messagesleft = 0;
-            var fullmessage = "";
-            characteristictosend.ValueUpdated += async (s, a) =>
-            {
-                var convertedmessage = Encoding.ASCII.GetString(a.Characteristic.Value);
-                if(messagesleft > 0)
+                var uuid = new Guid();
+                var tabletid = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TabletIdentifier;
+                if (tabletid == "R1")
                 {
-                    messagesleft--;
-                    fullmessage = fullmessage + convertedmessage;
-                    if(messagesleft == 0)
-                    {
-                        MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", 3);
-                        await adapter.DisconnectDeviceAsync(connectedPeripheral);
-                        DependencyService.Get<DataStore>().SaveDefaultData("JacksonEvent2020.txt", JsonConvert.DeserializeObject<List<TeamMatch>>(fullmessage));
-                    }
+                    uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130001");
+                }
+                else if (tabletid == "R2")
+                {
+                    uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130002");
+                }
+                else if (tabletid == "R3")
+                {
+                    uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130003");
+                }
+                else if (tabletid == "B1")
+                {
+                    uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130004");
+                }
+                else if (tabletid == "B2")
+                {
+                    uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130005");
+                }
+                else if (tabletid == "B3")
+                {
+                    uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130006");
                 }
                 else
                 {
-                    if (convertedmessage.StartsWith("MM:"))
+                    uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130001");
+                }
+                var characteristictosend = await servicetosend.GetCharacteristicAsync(uuid);
+                var messagesleft = 0;
+                var fullmessage = "";
+                characteristictosend.ValueUpdated += async (s, a) =>
+                {
+                    var convertedmessage = Encoding.ASCII.GetString(a.Characteristic.Value);
+                    if (messagesleft > 0)
                     {
-                        fullmessage = "";
-                        messagesleft = int.Parse(convertedmessage.Substring(3));
+                        messagesleft--;
+                        fullmessage = fullmessage + convertedmessage;
+                        if (messagesleft == 0)
+                        {
+                            MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", 3);
+                            await adapter.DisconnectDeviceAsync(connectedPeripheral);
+                            DependencyService.Get<DataStore>().SaveDefaultData("JacksonEvent2020.txt", JsonConvert.DeserializeObject<List<TeamMatch>>(fullmessage));
+                        }
                     }
                     else
                     {
-                        MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", 3);
-                        await adapter.DisconnectDeviceAsync(connectedPeripheral);
-                        DependencyService.Get<DataStore>().SaveDefaultData("JacksonEvent2020.txt", JsonConvert.DeserializeObject<List<TeamMatch>>(convertedmessage));
+                        if (convertedmessage.StartsWith("MM:"))
+                        {
+                            fullmessage = "";
+                            messagesleft = int.Parse(convertedmessage.Substring(3));
+                        }
+                        else
+                        {
+                            MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", 3);
+                            await adapter.DisconnectDeviceAsync(connectedPeripheral);
+                            DependencyService.Get<DataStore>().SaveDefaultData("JacksonEvent2020.txt", JsonConvert.DeserializeObject<List<TeamMatch>>(convertedmessage));
+                        }
                     }
-                }
-                Console.WriteLine(a.Characteristic.Value);
-                
-            };
-            try
-            {
-                await characteristictosend.StartUpdatesAsync();
-                var stringtoconvert = "RD:" + DateTime.Now.ToString();
-                var bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
-                if (bytestotransmit.Length > 480)
+                    Console.WriteLine(a.Characteristic.Value);
+
+                };
+                try
                 {
-                    int numberofmessages = (int)Math.Ceiling((float)bytestotransmit.Length / (float)480);
-                    var startidentifier = "MM:" + numberofmessages.ToString();
-                    var startbytesarray = Encoding.ASCII.GetBytes(startidentifier);
-                    await characteristictosend.WriteAsync(startbytesarray);
-                    for (int i = numberofmessages; i > 0; i--)
+                    await characteristictosend.StartUpdatesAsync();
+                    var stringtoconvert = "RD:" + DateTime.Now.ToString();
+                    var bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
+                    if (bytestotransmit.Length > 480)
                     {
-                        var bytesarray = bytestotransmit.Skip((numberofmessages - i) * 480).Take(480).ToArray();
-                        await characteristictosend.WriteAsync(bytesarray);
+                        int numberofmessages = (int)Math.Ceiling((float)bytestotransmit.Length / (float)480);
+                        var startidentifier = "MM:" + numberofmessages.ToString();
+                        var startbytesarray = Encoding.ASCII.GetBytes(startidentifier);
+                        await characteristictosend.WriteAsync(startbytesarray);
+                        for (int i = numberofmessages; i > 0; i--)
+                        {
+                            var bytesarray = bytestotransmit.Skip((numberofmessages - i) * 480).Take(480).ToArray();
+                            await characteristictosend.WriteAsync(bytesarray);
+                        }
                     }
-                }
-                else
-                {
+                    else
+                    {
+                        await characteristictosend.WriteAsync(bytestotransmit);
+                    }
+
+                    stringtoconvert = "B:" + Battery.ChargeLevel.ToString();
+                    bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
                     await characteristictosend.WriteAsync(bytestotransmit);
+                    resultsubmitted = true;
+                    Console.WriteLine(bytestotransmit);
+
                 }
-                
-                stringtoconvert = "B:" + Battery.ChargeLevel.ToString();
-                bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
-                await characteristictosend.WriteAsync(bytestotransmit);
-                resultsubmitted = true;
-                Console.WriteLine(bytestotransmit);
-                
+                catch (Exception ex)
+                {
+                    MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", -1);
+                }
             }
-            catch (Exception ex)
+            else
             {
                 MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", -1);
             }
+            
         }
     }
 }

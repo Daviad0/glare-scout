@@ -5807,7 +5807,7 @@ namespace LightScout.Droid
 			public const int OffSL = 2131165187;
 			
 			// aapt resource value: 0x7F070076
-			public const int playstore_icon = 2131165302;
+			public const int playstoreicon = 2131165302;
 			
 			// aapt resource value: 0x7F070004
 			public const int RedSLOn = 2131165188;

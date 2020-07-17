@@ -103,10 +103,14 @@ namespace LightScout
                 matchNumber.Text = "Match " + matchTemplate.MatchNumber + " - ???";
             }
             
-            HiddenLabelName.Text = matchTemplate.TeamName;
+
             if(matchTemplate.TeamName == null)
             {
                 HiddenLabelName.Text = "FRC Team " + matchTemplate.TeamNumber.ToString();
+            }
+            else
+            {
+                HiddenLabelName.Text = matchTemplate.TeamName;
             }
             SetCurrentVisualValues();
             BackgroundColor = (Color)converter.ConvertFromInvariantString("#009cd7");

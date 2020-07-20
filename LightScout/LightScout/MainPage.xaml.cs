@@ -315,7 +315,8 @@ namespace LightScout
         {
             //DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 0);
             //resetBTLock.Text = "Reset!!";
-            DependencyService.Get<USBCommunication>().SendData("HI THERE");
+            var jsondata = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");
+            DependencyService.Get<USBCommunication>().SendData(jsondata);
 
         }
     }

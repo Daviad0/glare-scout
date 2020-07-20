@@ -315,8 +315,16 @@ namespace LightScout
         {
             //DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 0);
             //resetBTLock.Text = "Reset!!";
-            var jsondata = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");
-            DependencyService.Get<USBCommunication>().SendData(jsondata);
+            if(Battery.PowerSource == BatteryPowerSource.Usb || Battery.PowerSource == BatteryPowerSource.AC)
+            {
+                var jsondata = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");
+                DependencyService.Get<USBCommunication>().SendData(jsondata);
+            }
+            else
+            {
+                DisplayAlert("Not Available", "You are not currently connected to USB, so you cannot transfer data this way!", "Ok!");
+            }
+            
 
         }
     }

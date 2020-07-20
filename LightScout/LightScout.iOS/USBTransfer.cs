@@ -29,12 +29,12 @@ namespace LightScout.iOS
                 
 
             }, socket);
-            byte[] gottenBytes = new byte[200];
+            /*byte[] gottenBytes = new byte[200];
             socket.BeginReceive(gottenBytes, 0, gottenBytes.Length, SocketFlags.None, (ars) =>
             {
                 Console.WriteLine("We did it gamers");
 
-            }, socket);
+            }, socket);*/
 
         }
         public void USBCallBack(IAsyncResult result)

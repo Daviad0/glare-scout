@@ -313,8 +313,9 @@ namespace LightScout
 
         private void resetBTLock_Clicked(object sender, EventArgs e)
         {
-            DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 0);
-            resetBTLock.Text = "Reset!!";
+            //DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 0);
+            //resetBTLock.Text = "Reset!!";
+            DependencyService.Get<USBCommunication>().SendData("HI THERE");
 
         }
     }

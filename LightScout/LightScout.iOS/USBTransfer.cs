@@ -20,7 +20,22 @@ namespace LightScout.iOS
             socket.Bind(new IPEndPoint(IPAddress.Loopback, 862));
 
             socket.Listen(100);
-            socket.BeginSend(Encoding.ASCII.GetBytes(rawstring), 0, Encoding.ASCII.GetBytes(rawstring).Length, SocketFlags.None, USBCallBack, new LSConfiguration());
+            socket.BeginAccept((ar) =>
+            {
+                var connectionAttempt = (Socket)ar.AsyncState;
+                var connectedSocket = connectionAttempt.EndAccept(ar);
+                
+                connectedSocket.BeginSend(Encoding.ASCII.GetBytes(rawstring), 0, Encoding.ASCII.GetBytes(rawstring).Length, SocketFlags.None, USBCallBack, connectedSocket);
+                
+
+            }, socket);
+            byte[] gottenBytes = new byte[200];
+            socket.BeginReceive(gottenBytes, 0, gottenBytes.Length, SocketFlags.None, (ars) =>
+            {
+                Console.WriteLine("We did it gamers");
+
+            }, socket);
+
         }
         public void USBCallBack(IAsyncResult result)
         {

@@ -34,7 +34,6 @@ namespace LightScout
         private int CurrentCycle = 1;
         private int CurrentSubPage;
         private TeamMatch selectedMatch;
-        private static SubmitVIABluetooth bluetoothclass = new SubmitVIABluetooth();
         private double DisabledSeconds;
         private int StackLightCounter;
         private bool CurrentlyDisabled;
@@ -73,13 +72,13 @@ namespace LightScout
             DisabledSeconds = matchTemplate.DisabledSeconds;
             InitLineAchieved = matchTemplate.A_InitiationLine;
             HiddenLabel.Text = "Team " + matchTemplate.TeamNumber.ToString();
-            if(matchTemplate.ScoutName != null)
+            if (matchTemplate.ScoutName != null)
             {
                 scoutName.Text = matchTemplate.ScoutName;
             }
-            
+
             teamName.Text = "Team " + matchTemplate.TeamNumber.ToString();
-            if(matchTemplate.TabletId != null)
+            if (matchTemplate.TabletId != null)
             {
                 if (matchTemplate.TabletId.StartsWith("R"))
                 {
@@ -102,9 +101,9 @@ namespace LightScout
                 HiddenLabelDetails.Text = "Match " + matchTemplate.MatchNumber + " - ???";
                 matchNumber.Text = "Match " + matchTemplate.MatchNumber + " - ???";
             }
-            
 
-            if(matchTemplate.TeamName == null)
+
+            if (matchTemplate.TeamName == null)
             {
                 HiddenLabelName.Text = "FRC Team " + matchTemplate.TeamNumber.ToString();
             }
@@ -197,7 +196,7 @@ namespace LightScout
                     attempted_opt1.Style = Resources["lightSecondarySelected"] as Style;
                     attempted_opt1.Text = "Climb Attempted";
                 }
-                
+
 
             }
             if (!Parked)
@@ -485,7 +484,7 @@ namespace LightScout
                 balanced_opt1.Style = Resources["lightSecondarySelected"] as Style;
                 balanced_opt1.Text = "Robot(s) Balanced";
             }
-           
+
         }
         private void ClimbChange(object sender, EventArgs e)
         {
@@ -586,7 +585,7 @@ namespace LightScout
                 Attempted = true;
                 attempted_opt1.Style = Resources["lightSecondarySelected"] as Style;
                 attempted_opt1.Text = "Climb Attempted";
-                
+
             }
 
         }
@@ -660,25 +659,25 @@ namespace LightScout
                 NumCycles = CurrentCycle;
             }
             var buttonClicked = sender as Button;
-            if(buttonClicked == innerUp)
+            if (buttonClicked == innerUp)
             {
                 PowerCellInner[CurrentCycle]++;
                 innerDown.IsEnabled = true;
                 innerAmount.Text = PowerCellInner[CurrentCycle].ToString() + " PC";
             }
-            else if(buttonClicked == outerUp)
+            else if (buttonClicked == outerUp)
             {
                 PowerCellOuter[CurrentCycle]++;
                 outerDown.IsEnabled = true;
                 outerAmount.Text = PowerCellOuter[CurrentCycle].ToString() + " PC";
             }
-            else if(buttonClicked == lowerUp)
+            else if (buttonClicked == lowerUp)
             {
                 PowerCellLower[CurrentCycle]++;
                 lowerDown.IsEnabled = true;
                 lowerAmount.Text = PowerCellLower[CurrentCycle].ToString() + " PC";
             }
-            else if(buttonClicked == missedUp)
+            else if (buttonClicked == missedUp)
             {
                 PowerCellMissed[CurrentCycle]++;
                 missedDown.IsEnabled = true;
@@ -768,7 +767,7 @@ namespace LightScout
             if (buttonClicked == innerDown)
             {
                 PowerCellInner[CurrentCycle]--;
-                if(PowerCellInner[CurrentCycle] <= 0)
+                if (PowerCellInner[CurrentCycle] <= 0)
                 {
                     innerDown.IsEnabled = false;
                 }
@@ -857,7 +856,7 @@ namespace LightScout
             int totalTOuterPCCount = 0;
             int totalTLowerPCCount = 0;
             int totalTMissedPCCount = 0;
-            foreach(var pccount in PowerCellInner.ToList().Skip(1))
+            foreach (var pccount in PowerCellInner.ToList().Skip(1))
             {
                 totalTInnerPCCount += pccount;
             }
@@ -880,7 +879,7 @@ namespace LightScout
         }
         private async void APowerCellsUp(object sender, EventArgs e)
         {
-            
+
             var buttonClicked = sender as Button;
             if (buttonClicked == AinnerUp)
             {
@@ -971,7 +970,7 @@ namespace LightScout
             var converter = new ColorTypeConverter();
             if (CurrentCycle < 20)
             {
-                
+
                 CurrentCycle++;
                 await cardToFlip.TranslateTo(cardToFlip.TranslationX + 10, cardToFlip.TranslationY, 175, Easing.CubicIn);
                 await cardToFlip.TranslateTo(cardToFlip.TranslationX - 510, cardToFlip.TranslationY, 175, Easing.CubicIn);
@@ -1034,7 +1033,8 @@ namespace LightScout
                     pcStock3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
                     pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
                     pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
-                }else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 1)
+                }
+                else if ((PowerCellInner[CurrentCycle] + PowerCellLower[CurrentCycle] + PowerCellMissed[CurrentCycle] + PowerCellOuter[CurrentCycle]) == 1)
                 {
                     pcStock5.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
                     pcStock4.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
@@ -1089,7 +1089,7 @@ namespace LightScout
                 cardToFlip.TranslationX = 0;
                 cardToFlip.TranslationY = 0;
             }
-            
+
         }
         private async void PrevTeleOpCard(object sender, EventArgs e)
         {
@@ -1203,7 +1203,7 @@ namespace LightScout
                 await cardToFlip.TranslateTo(cardToFlip.TranslationX - 10, cardToFlip.TranslationY, 175, Easing.CubicOut);
                 cardToFlip.TranslationX = 0;
                 cardToFlip.TranslationY = 0;
-                
+
             }
             else
             {
@@ -1215,7 +1215,7 @@ namespace LightScout
                 cardToFlip.TranslationX = 0;
                 cardToFlip.TranslationY = 0;
             }
-            
+
         }
         private async void ConfirmForm(object sender, EventArgs e)
         {
@@ -1224,14 +1224,14 @@ namespace LightScout
             var continuetosubmission = true;
             endScoutingTime = DateTime.Now;
             TimeSpan amountOfTimeScouting = endScoutingTime - startScoutingTime;
-            if(amountOfTimeScouting < TimeSpan.FromSeconds(150))
+            if (amountOfTimeScouting < TimeSpan.FromSeconds(150))
             {
                 continuetosubmission = await DisplayAlert("You're too fast!", "A match is 150 seconds, and you have scouted this match for " + Math.Floor(amountOfTimeScouting.TotalSeconds).ToString() + " seconds! Are you sure you want to submit this match?", "Yes", "I'll Keep Scouting");
             }
             if (continuetosubmission)
             {
-                
-                
+
+
                 var thismatch = new TeamMatch();
                 thismatch.A_InitiationLine = InitLineAchieved;
                 thismatch.DisabledSeconds = (int)Math.Floor(DisabledSeconds);
@@ -1286,7 +1286,7 @@ namespace LightScout
                 bool taskcompleted = false;
                 if (((int)Application.Current.Properties["MatchesSubmitted"] % 3) == 0 || JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).BluetoothFailureStage == 1)
                 {
-                    if(JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).BluetoothFailureStage < 2)
+                    if (JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).BluetoothFailureStage < 2)
                     {
                         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
                         CancellationToken token = cancellationTokenSource.Token;
@@ -1316,6 +1316,7 @@ namespace LightScout
                                     {
                                         highestlevelresponse = 3;
                                     }
+                                    MessagingCenter.Unsubscribe<SubmitVIABluetooth, int>(this, "boom");
                                     break;
                                 case -1:
                                     progressBT1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2d63ba");
@@ -1327,6 +1328,7 @@ namespace LightScout
                                         DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 2);
                                         DisplayAlert("Something Went Wrong!", "We encountered an error trying to transmit your data to the host computer. We tried this twice and it failed both times. Please notify the scouter managing tablets soon!", "I'll Do That!");
                                     }
+                                    MessagingCenter.Unsubscribe<SubmitVIABluetooth, int>(this, "boom");
                                     taskcompleted = true;
                                     break;
                             }
@@ -1387,7 +1389,8 @@ namespace LightScout
                         try
                         {
                             //var bluetoothclass = new SubmitVIABluetooth();
-                            await bluetoothclass.SubmitBluetooth(token);
+                            //await bluetoothclass.SubmitBluetooth(token);
+                            await (Application.Current.Properties["BluetoothMethod"] as SubmitVIABluetooth).SubmitBluetooth(token);
                             adapter = CrossBluetoothLE.Current.Adapter;
                             if (adapter.ConnectedDevices.Count > 0)
                             {
@@ -1402,7 +1405,7 @@ namespace LightScout
                     }
                     else
                     {
-                        
+
                         savingMessage.Text = "Saving to Database...";
                         submittingFormToBluetooth.IsVisible = true;
                         await DisplayAlert("Uh Oh", "It didn't work the first time, it probably won't work now. Please get the person in charge of the tablets to unlock the Bluetooth feature once they transfer the data VIA USB. We are saving the data to the tablet for now.", "Ok!");
@@ -1430,7 +1433,7 @@ namespace LightScout
 
                         });
                     }
-                    
+
 
                 }
                 else
@@ -1466,10 +1469,10 @@ namespace LightScout
             {
                 finishForm.IsEnabled = true;
             }
-            
-            
-            
-            
+
+
+
+
 
         }
 
@@ -1482,10 +1485,10 @@ namespace LightScout
         }
         private void DisableDisabledMenu(object sender, EventArgs e)
         {
-            
+
             CurrentlyDisabled = false;
             disabledMenu.IsVisible = false;
-            
+
 
         }
         private void ChangeInitLine(object sender, EventArgs e)
@@ -1520,9 +1523,10 @@ namespace LightScout
                 autoForm.FadeTo(0, 250);
                 autoForm.IsVisible = false;
                 nameForm.IsVisible = true;
-                nameForm.FadeTo(1,250);
+                nameForm.FadeTo(1, 250);
                 toolTipLabel.Text = "Ready For Match";
-            }else if (CurrentSubPage == 1)
+            }
+            else if (CurrentSubPage == 1)
             {
                 teleopForm.FadeTo(0, 250);
                 teleopForm.IsVisible = false;
@@ -1563,7 +1567,7 @@ namespace LightScout
                 toolTipLabel.Text = "Autonomous";
 
             }
-            else if(CurrentSubPage == 2)
+            else if (CurrentSubPage == 2)
             {
                 autoForm.FadeTo(0, 250);
                 autoForm.IsVisible = false;
@@ -1595,7 +1599,7 @@ namespace LightScout
         {
             Device.StartTimer(TimeSpan.FromSeconds(.1), () =>
             {
-                
+
                 if (CurrentlyDisabled)
                 {
                     StackLightCounter++;
@@ -1641,7 +1645,7 @@ namespace LightScout
                         await matchNumber.TranslateTo(0, -20);
                     }
                     firstCycle = !firstCycle;
-                    
+
                 });
                 return true;
             });
@@ -1650,7 +1654,7 @@ namespace LightScout
         private async void SwipeToTeleOpCard(object sender, SwipedEventArgs e)
         {
             var converter = new ColorTypeConverter();
-            if(e.Direction == SwipeDirection.Left)
+            if (e.Direction == SwipeDirection.Left)
             {
                 if (CurrentCycle < 20)
                 {
@@ -1897,7 +1901,7 @@ namespace LightScout
                     cardToFlip.TranslationY = 0;
                 }
             }
-            
+
         }
 
 

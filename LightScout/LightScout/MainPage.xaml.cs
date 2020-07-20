@@ -38,8 +38,7 @@ namespace LightScout
         private static bool TimerAlreadyCreated = false;
         private static int timesalive = 0;
         private List<string> tabletlist = new List<string>();
-        private static SubmitVIABluetooth bluetoothHandler = new SubmitVIABluetooth();
-        
+
         public MainPage()
         {
             InitializeComponent();
@@ -103,9 +102,9 @@ namespace LightScout
             var upnext = false;
             TeamMatchViewItem selectedItem = null;
             var upnextselected = false;
-            foreach(var match in listofmatches)
+            foreach (var match in listofmatches)
             {
-                
+
                 var newmatchviewitem = new TeamMatchViewItem();
                 upnext = false;
                 if (!match.ClientSubmitted)
@@ -117,15 +116,15 @@ namespace LightScout
                     }
                 }
                 newmatchviewitem.Completed = match.ClientSubmitted;
-                if(match.TabletId != null)
+                if (match.TabletId != null)
                 {
                     newmatchviewitem.IsRed = match.TabletId.StartsWith("R");
                     newmatchviewitem.IsBlue = match.TabletId.StartsWith("B");
                 }
-                
+
                 newmatchviewitem.IsUpNext = upnext;
                 newmatchviewitem.TeamName = match.TeamName;
-                if(match.TeamName == null)
+                if (match.TeamName == null)
                 {
                     newmatchviewitem.TeamName = "FRC Team " + match.TeamNumber.ToString();
                 }
@@ -141,11 +140,11 @@ namespace LightScout
             }
             listOfMatches.ItemsSource = listofviewmatches;
             carouseluwu.ItemsSource = listofviewmatches;
-            if(selectedItem != null)
+            if (selectedItem != null)
             {
                 carouseluwu.CurrentItem = selectedItem;
             }
-            
+
             tabletlist = new string[6] { "R1", "R2", "R3", "B1", "B2", "B3" }.ToList();
             tabletPicker.ItemsSource = tabletlist;
             MatchProgressList.Progress = (float)((float)1 / (float)listofviewmatches.Count);
@@ -159,13 +158,13 @@ namespace LightScout
         private void FRCShow_Clicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new FRCMain(new TeamMatch() { PowerCellInner = new int[21], PowerCellOuter = new int[21], PowerCellLower = new int[21], PowerCellMissed = new int[21], MatchNumber = 1, TeamNumber = 862 }));
-            
-            
+
+
         }
 
         private void commscheck_Clicked(object sender, EventArgs e)
         {
-            
+
         }
         private async void CheckBluetooth(object sender, EventArgs e)
         {
@@ -226,7 +225,7 @@ namespace LightScout
                 var listobject = sender as ListView;
                 listobject.SelectedItem = null;
             }
-            
+
         }
 
         private void MenuItem_Clicked(object sender, EventArgs e)
@@ -267,12 +266,12 @@ namespace LightScout
         private void carouseluwu_CurrentItemChanged(object sender, CurrentItemChangedEventArgs e)
         {
             var currentindex = listofviewmatches.FindIndex(a => a == carouseluwu.CurrentItem);
-            MatchProgressList.ProgressTo((double)((float)(currentindex+1) / (float)listofviewmatches.Count),250, Easing.CubicInOut);
+            MatchProgressList.ProgressTo((double)((float)(currentindex + 1) / (float)listofviewmatches.Count), 250, Easing.CubicInOut);
         }
 
-        private void getDataFromServer_Clicked(object sender, EventArgs e)
+        private async void getDataFromServer_Clicked(object sender, EventArgs e)
         {
-            
+
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             CancellationToken token = cancellationTokenSource.Token;
             MessagingCenter.Subscribe<SubmitVIABluetooth, int>(this, "receivedata", (messagesender, value) => {
@@ -287,6 +286,7 @@ namespace LightScout
                     case 3:
                         getDataFromServer.Text = "Process Succeeded!";
                         cancellationTokenSource.Cancel();
+                        MessagingCenter.Unsubscribe<SubmitVIABluetooth, int>(this, "receivedata");
                         Navigation.PushAsync(new MainPage());
                         break;
                     case -1:
@@ -294,13 +294,12 @@ namespace LightScout
                         break;
                 }
             });
-            var submitVIABluetooth = new SubmitVIABluetooth();
-            submitVIABluetooth.GetDefaultData(token);
+            await (Application.Current.Properties["BluetoothMethod"] as SubmitVIABluetooth).GetDefaultData(token);
             var i = 0;
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
             {
                 i++;
-                if(i < 8)
+                if (i < 8)
                 {
                     return true;
                 }

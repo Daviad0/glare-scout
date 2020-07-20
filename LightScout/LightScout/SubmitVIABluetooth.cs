@@ -48,7 +48,7 @@ namespace LightScout
                     MessagingCenter.Send<SubmitVIABluetooth, int>(this, "boom", 2);
                     resultsubmitted = true;
                 }
-                
+
             };
             adapter.DeviceDiscovered += async (s, a) =>
             {
@@ -58,8 +58,8 @@ namespace LightScout
             MessagingCenter.Send<SubmitVIABluetooth, int>(this, "boom", 1);
             try
             {
-                
-                await adapter.ConnectToKnownDeviceAsync(Guid.Parse("16FD1A9B-F36F-7EAB-66B2-499BF4DBB0F2"),default,token);
+
+                await adapter.ConnectToKnownDeviceAsync(Guid.Parse("16FD1A9B-F36F-7EAB-66B2-499BF4DBB0F2"), default, token);
                 Device.StartTimer(TimeSpan.FromSeconds(0.1), () =>
                 {
                     if (resultsubmitted)
@@ -71,9 +71,9 @@ namespace LightScout
                         try
                         {
                             token.ThrowIfCancellationRequested();
-                            
+
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             MessagingCenter.Send<SubmitVIABluetooth, int>(this, "boom", -1);
                             resultsubmitted = true;
@@ -82,13 +82,13 @@ namespace LightScout
                     }
                 });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessagingCenter.Send<SubmitVIABluetooth, int>(this, "boom", -1);
                 resultsubmitted = true;
             }
-            
-            
+
+
         }
         public async void KnownDeviceSubmit(IDevice deviceIWant)
         {
@@ -96,7 +96,7 @@ namespace LightScout
             var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130000"));
             var uuid = new Guid();
             var tabletid = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TabletIdentifier;
-            if(tabletid == "R1")
+            if (tabletid == "R1")
             {
                 uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130001");
             }
@@ -158,11 +158,11 @@ namespace LightScout
                 Console.WriteLine(bytestotransmit);
                 await adapter.DisconnectDeviceAsync(connectedPeripheral);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessagingCenter.Send<SubmitVIABluetooth, int>(this, "boom", -1);
             }
-            
+
         }
         public async Task GetDefaultData(CancellationToken token)
         {
@@ -233,7 +233,7 @@ namespace LightScout
         {
             var returnvalue = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");
             var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130000"));
-            if(servicetosend != null)
+            if (servicetosend != null)
             {
                 var uuid = new Guid();
                 var tabletid = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TabletIdentifier;
@@ -268,35 +268,57 @@ namespace LightScout
                 var characteristictosend = await servicetosend.GetCharacteristicAsync(uuid);
                 var messagesleft = 0;
                 var fullmessage = "";
+                bool iscompleted = false;
                 characteristictosend.ValueUpdated += async (s, a) =>
                 {
-                    var convertedmessage = Encoding.ASCII.GetString(a.Characteristic.Value);
-                    if (messagesleft > 0)
+                    if (!iscompleted)
                     {
-                        messagesleft--;
-                        fullmessage = fullmessage + convertedmessage;
-                        if (messagesleft == 0)
+                        var convertedmessage = Encoding.ASCII.GetString(a.Characteristic.Value);
+                        if (messagesleft > 0)
                         {
-                            MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", 3);
-                            await adapter.DisconnectDeviceAsync(connectedPeripheral);
-                            DependencyService.Get<DataStore>().SaveDefaultData("JacksonEvent2020.txt", JsonConvert.DeserializeObject<List<TeamMatch>>(fullmessage));
-                        }
-                    }
-                    else
-                    {
-                        if (convertedmessage.StartsWith("MM:"))
-                        {
-                            fullmessage = "";
-                            messagesleft = int.Parse(convertedmessage.Substring(3));
+                            messagesleft--;
+                            fullmessage = fullmessage + convertedmessage;
+                            if (messagesleft == 0)
+                            {
+                                MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", 3);
+                                await adapter.DisconnectDeviceAsync(connectedPeripheral);
+                                iscompleted = true;
+                                DependencyService.Get<DataStore>().SaveDefaultData("JacksonEvent2020.txt", JsonConvert.DeserializeObject<List<TeamMatch>>(fullmessage));
+                            }
                         }
                         else
                         {
-                            MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", 3);
-                            await adapter.DisconnectDeviceAsync(connectedPeripheral);
-                            DependencyService.Get<DataStore>().SaveDefaultData("JacksonEvent2020.txt", JsonConvert.DeserializeObject<List<TeamMatch>>(convertedmessage));
+                            if (convertedmessage.StartsWith("MM:"))
+                            {
+                                fullmessage = "";
+                                messagesleft = int.Parse(convertedmessage.Substring(3));
+                            }
+                            else
+                            {
+                                List<TeamMatch> possibleListOfTeams = new List<TeamMatch>();
+                                bool validlist = true;
+                                try
+                                {
+                                    possibleListOfTeams = JsonConvert.DeserializeObject<List<TeamMatch>>(convertedmessage);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine("List of teams was not valid!");
+                                    validlist = false;
+                                }
+                                if (validlist)
+                                {
+                                    MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", 3);
+                                    await adapter.DisconnectDeviceAsync(connectedPeripheral);
+                                    iscompleted = true;
+                                    DependencyService.Get<DataStore>().SaveDefaultData("JacksonEvent2020.txt", possibleListOfTeams);
+                                }
+
+                            }
                         }
+                        Console.WriteLine(a.Characteristic.Value);
+
                     }
-                    Console.WriteLine(a.Characteristic.Value);
 
                 };
                 try
@@ -337,7 +359,7 @@ namespace LightScout
             {
                 MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", -1);
             }
-            
+
         }
     }
 }

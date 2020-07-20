@@ -9,7 +9,7 @@ namespace LightScout
         public App()
         {
             InitializeComponent();
-
+            Application.Current.Properties["BluetoothMethod"] = new SubmitVIABluetooth();
             MainPage = new NavigationPage(new MainPage());
         }
 

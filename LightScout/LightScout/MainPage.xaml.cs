@@ -25,6 +25,7 @@ namespace LightScout
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
+        private bool NotificationActive = false;
         private static bool[] ControlPanel = new bool[2];
         private static IBluetoothLE ble = CrossBluetoothLE.Current;
         private static IAdapter adapter = CrossBluetoothLE.Current.Adapter;
@@ -311,28 +312,31 @@ namespace LightScout
         {
             //DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 0);
             //resetBTLock.Text = "Reset!!";
-            MessagingCenter.Subscribe<object, int>(this, "USBResponse", (mssender,value) =>
+            MessagingCenter.Subscribe<object, int>(this, "USBResponse", async (mssender,value) =>
             {
                 switch (value)
                 {
                     case 1:
-                        resetBTLock.Text = "Handshake Started";
+                        await DismissNotification();
+                        await NewNotification("USB: Handshake Started");
                         break;
                     case 2:
-                        resetBTLock.Text = "Response Gotten";
+                        await DismissNotification();
+                        await NewNotification("USB: Response Gotten");
                         break;
                     case 3:
-                        resetBTLock.Text = "Socket Closed, RS";
-                        MessagingCenter.Unsubscribe<object, int>(this, "USBResponse");
+                        await DismissNotification();
+                        await NewNotification("USB: Completed");
                         break;
                     case -1:
-                        resetBTLock.Text = "Socket Failed, RS";
+                        await DismissNotification();
+                        await NewNotification("USB: Failed");
                         DisplayAlert("Not Available", "The USB socket is currently in use from a previous request. We closed it for you. Please try again!", "Ok!");
                         MessagingCenter.Unsubscribe<object, int>(this, "USBResponse");
                         break;
                 }
             });
-            if(Battery.PowerSource == BatteryPowerSource.Usb || Battery.PowerSource == BatteryPowerSource.AC)
+            if(Battery.PowerSource == BatteryPowerSource.Usb)
             {
                 var jsondata = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");
                 DependencyService.Get<USBCommunication>().SendData(jsondata);
@@ -348,19 +352,35 @@ namespace LightScout
             
 
         }
-
-        private async void sendNotification_Clicked(object sender, EventArgs e)
+        private async Task NewNotification(string NotificationText)
         {
+            NotificationActive = true;
+            NotificationLabel.Text = NotificationText;
             notificationContainer.TranslationY = 150;
             notificationMedium.IsVisible = true;
             await notificationContainer.TranslateTo(notificationContainer.TranslationX, notificationContainer.TranslationY - 150, 500, Easing.CubicInOut);
         }
+        private async Task DismissNotification()
+        {
+            if (NotificationActive)
+            {
+                NotificationActive = false;
+                await notificationContainer.TranslateTo(notificationContainer.TranslationX, notificationContainer.TranslationY + 150, 500, Easing.CubicInOut);
+
+                notificationMedium.IsVisible = false;
+                notificationContainer.TranslationY = 0;
+            }
+            
+
+        }
+        private async void sendNotification_Clicked(object sender, EventArgs e)
+        {
+            await DismissNotification();
+            await NewNotification("Test Notification");
+        }
         private async void dismissNotification_Clicked(object sender, EventArgs e)
         {
-            await notificationContainer.TranslateTo(notificationContainer.TranslationX, notificationContainer.TranslationY + 150, 500, Easing.CubicInOut);
-            
-            notificationMedium.IsVisible = false;
-            notificationContainer.TranslationY = 0;
+            await DismissNotification();
 
         }
     }

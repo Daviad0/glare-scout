@@ -187,12 +187,12 @@
             </AbsoluteLayout>
 
         </StackLayout>
-        <StackLayout x:Name="notificationMedium" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
-            <Grid VerticalOptions="FillAndExpand">
+        <StackLayout x:Name="notificationMedium" AbsoluteLayout.LayoutBounds="0,1,1,.15" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
+            <Grid VerticalOptions="End">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="110"/>
                 </Grid.RowDefinitions>
-                <Frame BackgroundColor="#2a7afa" HeightRequest="50" VerticalOptions="End" Margin="10" x:Name="notificationContainer">
+                <Frame BackgroundColor="#2a7afa" HeightRequest="100" VerticalOptions="End" Margin="10" x:Name="notificationContainer">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50"/>
@@ -201,7 +201,7 @@
                             
                         </Grid.ColumnDefinitions>
                         <Label VerticalOptions="Center" Text="&#xeacf;" FontFamily="{StaticResource IconFont}" TextColor="White" FontSize="40" Grid.Column="0"/>
-                        <Label VerticalOptions="Center" Text="Notice:" FontAttributes="Bold" Grid.Row="0" TextColor="White" FontSize="20" Grid.Column="1"/>
+                        <Label VerticalOptions="Center" x:Name="NotificationLabel" Text="Notice:" FontAttributes="Bold" Grid.Row="0" TextColor="White" FontSize="20" Grid.Column="1"/>
                         <Button Grid.Column="2" FontSize="30" WidthRequest="50" Text="&#xeee4;" FontFamily="{StaticResource IconFont}" BackgroundColor="Transparent" TextColor="White" x:Name="dismissNotification" Clicked="dismissNotification_Clicked"/>
                     </Grid>
                 </Frame>

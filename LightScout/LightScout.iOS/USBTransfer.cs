@@ -47,9 +47,9 @@ namespace LightScout.iOS
                 }, socket);
             }catch(Exception ex)
             {
-                
+                //MessagingCenter.Send<object, int>(this, "USBResponse", -1);
             }
-            
+
             /*byte[] gottenBytes = new byte[200];
             socket.BeginReceive(gottenBytes, 0, gottenBytes.Length, SocketFlags.None, (ars) =>
             {

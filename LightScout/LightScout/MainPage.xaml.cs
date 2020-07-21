@@ -315,6 +315,27 @@ namespace LightScout
         {
             //DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 0);
             //resetBTLock.Text = "Reset!!";
+            MessagingCenter.Subscribe<object, int>(this, "USBResponse", (mssender,value) =>
+            {
+                switch (value)
+                {
+                    case 1:
+                        resetBTLock.Text = "Handshake Started";
+                        break;
+                    case 2:
+                        resetBTLock.Text = "Response Gotten";
+                        break;
+                    case 3:
+                        resetBTLock.Text = "Socket Closed, RS";
+                        MessagingCenter.Unsubscribe<object, int>(this, "USBResponse");
+                        break;
+                    case -1:
+                        resetBTLock.Text = "Socket Failed, RS";
+                        DisplayAlert("Not Available", "The USB socket is currently in use from a previous request. We closed it for you. Please try again!", "Ok!");
+                        MessagingCenter.Unsubscribe<object, int>(this, "USBResponse");
+                        break;
+                }
+            });
             if(Battery.PowerSource == BatteryPowerSource.Usb || Battery.PowerSource == BatteryPowerSource.AC)
             {
                 var jsondata = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");

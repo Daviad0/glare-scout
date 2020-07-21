@@ -1296,21 +1296,21 @@ namespace LightScout
                             switch (value)
                             {
                                 case 1:
-                                    progressBT1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
+                                    savingProgress.ProgressTo(0.20, 1000, Easing.CubicInOut);
                                     if (highestlevelresponse < 1)
                                     {
                                         highestlevelresponse = 1;
                                     }
                                     break;
                                 case 2:
-                                    progressBT2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
+                                    savingProgress.ProgressTo(0.60, 1000, Easing.CubicInOut);
                                     if (highestlevelresponse < 2)
                                     {
                                         highestlevelresponse = 2;
                                     }
                                     break;
                                 case 3:
-                                    progressBT3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
+                                    savingProgress.ProgressTo(1, 1000, Easing.CubicInOut);
                                     DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 0);
                                     if (highestlevelresponse < 3)
                                     {
@@ -1319,9 +1319,7 @@ namespace LightScout
                                     MessagingCenter.Unsubscribe<SubmitVIABluetooth, int>(this, "boom");
                                     break;
                                 case -1:
-                                    progressBT1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2d63ba");
-                                    progressBT2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2d63ba");
-                                    progressBT3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2d63ba");
+                                    savingProgress.ProgressTo(0, 1000, Easing.CubicInOut);
                                     DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 1);
                                     if (JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).BluetoothFailureStage == 1)
                                     {
@@ -1353,9 +1351,7 @@ namespace LightScout
                                 {
                                     if (highestlevelresponse < 3)
                                     {
-                                        progressBT1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2d63ba");
-                                        progressBT2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2d63ba");
-                                        progressBT3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2d63ba");
+                                        
                                         DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 1);
                                     }
                                     Navigation.PushAsync(new MainPage());
@@ -1405,7 +1401,7 @@ namespace LightScout
                     }
                     else
                     {
-
+                        savingProgress.ProgressTo(1, 1000, Easing.CubicInOut);
                         savingMessage.Text = "Saving to Database...";
                         submittingFormToBluetooth.IsVisible = true;
                         await DisplayAlert("Uh Oh", "It didn't work the first time, it probably won't work now. Please get the person in charge of the tablets to unlock the Bluetooth feature once they transfer the data VIA USB. We are saving the data to the tablet for now.", "Ok!");
@@ -1438,6 +1434,7 @@ namespace LightScout
                 }
                 else
                 {
+                    savingProgress.ProgressTo(1, 500, Easing.CubicInOut);
                     savingMessage.Text = "Saving to Database...";
                     submittingFormToBluetooth.IsVisible = true;
                     Device.StartTimer(TimeSpan.FromSeconds(1), () =>

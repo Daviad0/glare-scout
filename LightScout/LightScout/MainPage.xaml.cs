@@ -51,7 +51,6 @@ namespace LightScout
                 {
                     Devices.Add(a.Device);
                 }
-                listofdevices.ItemsSource = Devices;
 
             };
             adapter.DeviceConnected += async (s, a) =>
@@ -59,20 +58,17 @@ namespace LightScout
                 Console.WriteLine("Connected to: " + a.Device.Name.ToString());
                 //status.Text = "Connected to: " + a.Device.Name.ToString();
                 deviceIWant = a.Device;
-                listofdevices.IsVisible = false;
             };
             adapter.DeviceConnectionLost += (s, a) =>
             {
                 Console.WriteLine("Lost connection to: " + a.Device.Name.ToString());
                 //status.Text = "Disconnected from: " + a.Device.Name.ToString();
-                listofdevices.IsVisible = true;
                 Devices.Clear();
             };
             adapter.DeviceDisconnected += (s, a) =>
             {
                 Console.WriteLine("Lost connection to: " + a.Device.Name.ToString());
                 //status.Text = "Disconnected from: " + a.Device.Name.ToString();
-                listofdevices.IsVisible = true;
                 Devices.Clear();
             };
 
@@ -341,11 +337,30 @@ namespace LightScout
                 var jsondata = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");
                 DependencyService.Get<USBCommunication>().SendData(jsondata);
             }
+            else if(Battery.PowerSource == BatteryPowerSource.AC)
+            {
+                DisplayAlert("That's no USB...", "You are connected to a cable, but we don't recongize it as a computer! Please reconnect the cable.", "Ok!");
+            }
             else
             {
                 DisplayAlert("Not Available", "You are not currently connected to USB, so you cannot transfer data this way!", "Ok!");
             }
             
+
+        }
+
+        private async void sendNotification_Clicked(object sender, EventArgs e)
+        {
+            notificationContainer.TranslationY = 150;
+            notificationMedium.IsVisible = true;
+            await notificationContainer.TranslateTo(notificationContainer.TranslationX, notificationContainer.TranslationY - 150, 500, Easing.CubicInOut);
+        }
+        private async void dismissNotification_Clicked(object sender, EventArgs e)
+        {
+            await notificationContainer.TranslateTo(notificationContainer.TranslationX, notificationContainer.TranslationY + 150, 500, Easing.CubicInOut);
+            
+            notificationMedium.IsVisible = false;
+            notificationContainer.TranslationY = 0;
 
         }
     }

@@ -108,7 +108,7 @@
 
             </StackLayout>
             <StackLayout x:Name="autoForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
-                <Grid Margin="10,0">
+                <Grid Margin="10,10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="200"/>
@@ -385,7 +385,7 @@
         </StackLayout>
         <StackLayout x:Name="overLay" Opacity="1" BackgroundColor="#2a7afa" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
             
-            <Button Text="&#xea7b;" FontFamily="{StaticResource IconFont}" TextColor="White" BackgroundColor="Transparent" BorderColor="Transparent" FontSize="30" HorizontalOptions="Start" Margin="10,10,0,0" Clicked="BackToMainMenu">
+            <Button Text="&#xea7b;" WidthRequest="50" FontFamily="{StaticResource IconFont}" TextColor="White" BackgroundColor="Transparent" BorderColor="Transparent" FontSize="30" HorizontalOptions="Start" Margin="10,10,0,0" Clicked="BackToMainMenu">
 
             </Button>
             <Grid VerticalOptions="CenterAndExpand" Margin="0,70,0,0" x:Name="animatedelement">
@@ -433,12 +433,14 @@
             </Button>
         </StackLayout>
         <StackLayout x:Name="submittingFormToBluetooth" Opacity="1" BackgroundColor="#2a7afa" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
-            <Grid VerticalOptions="CenterAndExpand" Margin="0,40,0,0">
+            <Grid VerticalOptions="FillAndExpand" Margin="0,150,0,0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="90"/>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="20"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -448,20 +450,28 @@
                 </Label>
                 <Label Text="Do not turn off the device!" TextColor="White" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Opacity="1" Grid.Row="2" Grid.Column="0" FontSize="20" FontAttributes="Italic">
                 </Label>
-
-
+                <Frame Margin="10" Grid.Row="4" Grid.Column="0" BackgroundColor="White" CornerRadius="8" Padding="10" VerticalOptions="EndAndExpand" HasShadow="False">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="&#xef6b;" FontFamily="{StaticResource IconFont}" TextColor="#2a7afa" FontSize="70" Grid.Column="0"/>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label Text="Did you know?" FontAttributes="Bold" Grid.Row="0" TextColor="#2a7afa" FontSize="20"/>
+                            <Label Text="Trying the same thing over and over again expecting different results is the definition of insanity?" FontSize="15" TextColor="#2a7afa" VerticalOptions="Start" Grid.Row="1" LineBreakMode="WordWrap"/>
+                        </Grid>
+                    </Grid>
+                    
+                </Frame>
+                <ProgressBar Progress="0" x:Name="savingProgress" ProgressColor="White" Grid.Row="5" Margin="10,0,10,0"/>
                 <!--<Button Text="Let's Do This!" BackgroundColor="White" TextColor="#009cd7" CornerRadius="6" FontFamily=""/>-->
             </Grid>
-            <Grid HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30"/>
-                    <ColumnDefinition Width="30"/>
-                    <ColumnDefinition Width="30"/>
-                </Grid.ColumnDefinitions>
-                <BoxView HeightRequest="16" WidthRequest="16" CornerRadius="6,0,6,0" BackgroundColor="#2d63ba" Grid.Row="0" Grid.Column="0" x:Name="progressBT1"/>
-                <BoxView HeightRequest="16" WidthRequest="16" CornerRadius="0" BackgroundColor="#2d63ba" Grid.Row="0" Grid.Column="1" x:Name="progressBT2"/>
-                <BoxView HeightRequest="16" WidthRequest="16" CornerRadius="0,6,0,6" BackgroundColor="#2d63ba" Grid.Row="0" Grid.Column="2" x:Name="progressBT3"/>
-            </Grid>
+            
         </StackLayout>
     </AbsoluteLayout>
 </ContentPage>

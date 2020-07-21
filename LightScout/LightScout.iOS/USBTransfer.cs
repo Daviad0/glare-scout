@@ -7,7 +7,9 @@ using System.Text;
 
 using Foundation;
 using LightScout.Models;
+using Newtonsoft.Json;
 using UIKit;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 [assembly: Xamarin.Forms.Dependency(typeof(LightScout.iOS.USBTransfer))]
@@ -28,22 +30,24 @@ namespace LightScout.iOS
                 socket.BeginAccept((ar) =>
                 {
                     //MessagingCenter.Send<object, int>(this, "USBResponse", 2);
+
                     var connectionAttempt = (Socket)ar.AsyncState;
                     var connectedSocket = connectionAttempt.EndAccept(ar);
+                    var tabletid = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TabletIdentifier;
+                    connectedSocket.BeginSend(Encoding.ASCII.GetBytes(tabletid + ":S:" + rawstring), 0, Encoding.ASCII.GetBytes(rawstring).Length, SocketFlags.None, (ars) =>
+                    {
+                        connectedSocket.BeginSend(Encoding.ASCII.GetBytes(tabletid + ":B:" + Battery.ChargeLevel.ToString()), 0, Encoding.ASCII.GetBytes(rawstring).Length, SocketFlags.None, USBCallBack, connectedSocket);
 
-                    connectedSocket.BeginSend(Encoding.ASCII.GetBytes(rawstring), 0, Encoding.ASCII.GetBytes(rawstring).Length, SocketFlags.None, USBCallBack, connectedSocket);
+                    }, connectedSocket);
+
+
                     socket.Close();
                     //MessagingCenter.Send<object, int>(this, "USBResponse", 3);
 
                 }, socket);
             }catch(Exception ex)
             {
-                MessagingCenter.Send<object, int>(this, "USBResponse", -1);
-                socket.BeginConnect(IPAddress.Loopback, 862, (ar) =>
-                {
-                    socket.Close();
-
-                }, socket);
+                
             }
             
             /*byte[] gottenBytes = new byte[200];

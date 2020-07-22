@@ -1247,6 +1247,7 @@ namespace LightScout
                 thismatch.PowerCellMissed = PowerCellMissed;
                 thismatch.PowerCellOuter = PowerCellOuter;
                 thismatch.ScoutName = scoutName.Text;
+                thismatch.ClientLastSubmitted = DateTime.Now;
                 thismatch.TabletId = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TabletIdentifier;
                 thismatch.TeamNumber = selectedMatch.TeamNumber;
                 if (selectedMatch.TeamName != null)

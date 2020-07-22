@@ -29,6 +29,7 @@ namespace LightScout.Models
         public bool E_Balanced { get; set; }
         public int DisabledSeconds { get; set; }
         public bool ClientSubmitted { get; set; }
+        public DateTime ClientLastSubmitted { get; set; }
         public bool APIChecked { get; set; }
         public int APIAccuracy { get; set; }
 

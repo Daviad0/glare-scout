@@ -433,24 +433,28 @@
             </Button>
         </StackLayout>
         <StackLayout x:Name="submittingFormToBluetooth" Opacity="1" BackgroundColor="#2a7afa" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
-            <Grid VerticalOptions="FillAndExpand" Margin="0,150,0,0">
+            <Grid VerticalOptions="FillAndExpand" Margin="0,50,0,0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="90"/>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="30"/>
+                    <RowDefinition Height="220"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="15"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ActivityIndicator Color="White" IsRunning="True" HeightRequest="80" WidthRequest="80" FlowDirection="RightToLeft" Grid.Row="0" Grid.Column="0"/>
-                <Label Text="Saving to Database..." x:Name="savingMessage" TextColor="White" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Opacity="1" Grid.Row="1" Grid.Column="0" FontSize="30" FontAttributes="Bold">
+                <Label Text="Saving to Database" x:Name="savingMessage" TextColor="White" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Opacity="1" Grid.Row="0" Grid.Column="0" FontSize="30" FontAttributes="Bold">
                 </Label>
-                <Label Text="Do not turn off the device!" TextColor="White" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Opacity="1" Grid.Row="2" Grid.Column="0" FontSize="20" FontAttributes="Italic">
+                <Label Text="Do not turn off the device!" TextColor="White" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Opacity="1" Grid.Row="1" Grid.Column="0" FontSize="20" FontAttributes="Italic">
                 </Label>
-                <Frame Margin="10" Grid.Row="4" Grid.Column="0" BackgroundColor="White" CornerRadius="8" Padding="10" VerticalOptions="EndAndExpand" HasShadow="False">
+
+                <Label Text="&#xef49;" TextColor="White" FontFamily="{StaticResource IconFont}" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Opacity="1" Grid.Row="2" Grid.Column="0" FontSize="140">
+                </Label>
+
+
+                <Frame Margin="10,10,10,5" Grid.Row="4" Grid.Column="0" BackgroundColor="White" CornerRadius="8" Padding="10" VerticalOptions="EndAndExpand" HasShadow="False">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="80"/>
@@ -468,7 +472,7 @@
                     </Grid>
                     
                 </Frame>
-                <ProgressBar Progress="0" x:Name="savingProgress" ProgressColor="White" Grid.Row="5" Margin="10,0,10,0"/>
+                <ProgressBar Progress="0" x:Name="savingProgress" ProgressColor="White" Grid.Row="5" Margin="10,0,10,5"/>
                 <!--<Button Text="Let's Do This!" BackgroundColor="White" TextColor="#009cd7" CornerRadius="6" FontFamily=""/>-->
             </Grid>
             

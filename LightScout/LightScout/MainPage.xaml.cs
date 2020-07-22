@@ -26,6 +26,7 @@ namespace LightScout
     public partial class MainPage : ContentPage
     {
         private bool NotificationActive = false;
+        private int NextMatchIndex = -1;
         private static bool[] ControlPanel = new bool[2];
         private static IBluetoothLE ble = CrossBluetoothLE.Current;
         private static IAdapter adapter = CrossBluetoothLE.Current.Adapter;
@@ -99,9 +100,10 @@ namespace LightScout
             var upnext = false;
             TeamMatchViewItem selectedItem = null;
             var upnextselected = false;
+            int i = 0;
             foreach (var match in listofmatches)
             {
-
+                
                 var newmatchviewitem = new TeamMatchViewItem();
                 upnext = false;
                 if (!match.ClientSubmitted)
@@ -132,8 +134,10 @@ namespace LightScout
                 if (upnext)
                 {
                     selectedItem = newmatchviewitem;
+                    NextMatchIndex = i;
                 }
                 listofviewmatches.Add(newmatchviewitem);
+                i++;
             }
             listOfMatches.ItemsSource = listofviewmatches;
             carouseluwu.ItemsSource = listofviewmatches;
@@ -248,6 +252,14 @@ namespace LightScout
             if (listofmatches[currentindex].ClientSubmitted)
             {
                 answer = await DisplayAlert("Match Completed", "This match has already been completed by someone using this tablet, would you still like to continue?", "Continue", "Cancel");
+            }
+            else if (currentindex != NextMatchIndex)
+            {
+                if(NextMatchIndex != -1)
+                {
+                    answer = await DisplayAlert("Match Not Next", "This match is not up next! Would you still like to continue?", "Continue", "Cancel");
+                }
+                
             }
             if (answer)
             {

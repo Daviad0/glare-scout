@@ -348,14 +348,10 @@ namespace LightScout
                         break;
                 }
             });
-            if(Battery.PowerSource == BatteryPowerSource.Usb)
+            if(Battery.PowerSource == BatteryPowerSource.Usb || Battery.PowerSource == BatteryPowerSource.AC)
             {
                 var jsondata = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");
                 DependencyService.Get<USBCommunication>().SendData(jsondata);
-            }
-            else if(Battery.PowerSource == BatteryPowerSource.AC)
-            {
-                DisplayAlert("That's no USB...", "You are connected to a cable, but we don't recongize it as a computer! Please reconnect the cable.", "Ok!");
             }
             else
             {

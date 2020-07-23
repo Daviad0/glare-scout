@@ -92,7 +92,11 @@ namespace LightScout
         }
         public async void KnownDeviceSubmit(IDevice deviceIWant)
         {
-            var returnvalue = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");
+            var rawreturnvalue = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");
+            List<TeamMatch> beforeList = JsonConvert.DeserializeObject<List<TeamMatch>>(rawreturnvalue);
+            DateTime lastSubmitted = (DateTime)Application.Current.Properties["TimeLastSubmitted"];
+            List<TeamMatch> afterMatch = beforeList.Where(x => x.ClientLastSubmitted == null || x.ClientLastSubmitted > lastSubmitted).ToList();
+            string returnvalue = JsonConvert.SerializeObject(afterMatch);
             var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130000"));
             var uuid = new Guid();
             var tabletid = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TabletIdentifier;
@@ -155,6 +159,7 @@ namespace LightScout
                 bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
                 await characteristictosend.WriteAsync(bytestotransmit);
                 resultsubmitted = true;
+                Application.Current.Properties["TimeLastSubmitted"] = DateTime.Now;
                 Console.WriteLine(bytestotransmit);
                 await adapter.DisconnectDeviceAsync(connectedPeripheral);
             }

@@ -34,9 +34,9 @@ namespace LightScout.iOS
                     var connectionAttempt = (Socket)ar.AsyncState;
                     var connectedSocket = connectionAttempt.EndAccept(ar);
                     var tabletid = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TabletIdentifier;
-                    connectedSocket.BeginSend(Encoding.ASCII.GetBytes(tabletid + ":S:" + rawstring), 0, Encoding.ASCII.GetBytes(rawstring).Length, SocketFlags.None, (ars) =>
+                    connectedSocket.BeginSend(Encoding.ASCII.GetBytes(tabletid + ":S:" + rawstring), 0, Encoding.ASCII.GetBytes(tabletid + ":S:" + rawstring).Length, SocketFlags.None, (ars) =>
                     {
-                        connectedSocket.BeginSend(Encoding.ASCII.GetBytes(tabletid + ":B:" + Battery.ChargeLevel.ToString()), 0, Encoding.ASCII.GetBytes(rawstring).Length, SocketFlags.None, USBCallBack, connectedSocket);
+                        connectedSocket.BeginSend(Encoding.ASCII.GetBytes(tabletid + ":B:" + Battery.ChargeLevel.ToString()), 0, Encoding.ASCII.GetBytes(tabletid + ":B:" + Battery.ChargeLevel.ToString()).Length, SocketFlags.None, USBCallBack, connectedSocket);
 
                     }, connectedSocket);
 

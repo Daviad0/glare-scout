@@ -10,6 +10,10 @@ namespace LightScout
         {
             InitializeComponent();
             Application.Current.Properties["BluetoothMethod"] = new SubmitVIABluetooth();
+            if(!Application.Current.Properties.ContainsKey("TimeLastSubmitted"))
+            {
+                Application.Current.Properties["TimeLastSubmitted"] = DateTime.Now;
+            }
             MainPage = new NavigationPage(new MainPage());
         }
 

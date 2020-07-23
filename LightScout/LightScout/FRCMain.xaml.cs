@@ -24,8 +24,10 @@ namespace LightScout
         private bool Balanced;
         private bool Climb;
         private bool Parked;
+        private int SecondsScouting;
         private bool Attempted;
         private int CurrentMatchNum = 1;
+        private List<string> trackingLogs = new List<string>();
         private int[] PowerCellInner = new int[21];
         private int[] PowerCellOuter = new int[21];
         private int[] PowerCellLower = new int[21];
@@ -430,6 +432,20 @@ namespace LightScout
             await overLay.FadeTo(0, 500, Easing.SinOut);
             overLay.IsVisible = false;
             startScoutingTime = DateTime.Now;
+            trackingLogs.Add("0:1");
+            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            {
+                if (!submittingFormToBluetooth.IsVisible)
+                {
+                    SecondsScouting++;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                
+            });
             ShowToolTip();
             TextFlipTimer();
         }
@@ -970,7 +986,7 @@ namespace LightScout
             var converter = new ColorTypeConverter();
             if (CurrentCycle < 20)
             {
-
+                //trackingLogs.Add(SecondsScouting.ToString() + ":T:PC:" + CurrentCycle.ToString() + "," + PowerCellInner[CurrentCycle].ToString() + "," + PowerCellOuter[CurrentCycle].ToString() + "," + PowerCellLower[CurrentCycle].ToString() + "," + PowerCellMissed[CurrentCycle].ToString());
                 CurrentCycle++;
                 await cardToFlip.TranslateTo(cardToFlip.TranslationX + 10, cardToFlip.TranslationY, 175, Easing.CubicIn);
                 await cardToFlip.TranslateTo(cardToFlip.TranslationX - 510, cardToFlip.TranslationY, 175, Easing.CubicIn);
@@ -1096,6 +1112,7 @@ namespace LightScout
             var converter = new ColorTypeConverter();
             if (CurrentCycle > 1)
             {
+                //trackingLogs.Add(SecondsScouting.ToString() + ":T:PC:" + CurrentCycle.ToString() + "," + PowerCellInner[CurrentCycle].ToString() + "," + PowerCellOuter[CurrentCycle].ToString() + "," + PowerCellLower[CurrentCycle].ToString() + "," + PowerCellMissed[CurrentCycle].ToString());
                 CurrentCycle--;
                 await cardToFlip.TranslateTo(cardToFlip.TranslationX - 10, cardToFlip.TranslationY, 175, Easing.CubicIn);
                 await cardToFlip.TranslateTo(cardToFlip.TranslationX + 510, cardToFlip.TranslationY, 175, Easing.CubicIn);
@@ -1223,6 +1240,8 @@ namespace LightScout
             finishForm.IsEnabled = false;
             var continuetosubmission = true;
             endScoutingTime = DateTime.Now;
+            //trackingLogs.Add(SecondsScouting.ToString() + ":T:PC:" + CurrentCycle.ToString() + "," + PowerCellInner[CurrentCycle].ToString() + "," + PowerCellOuter[CurrentCycle].ToString() + "," + PowerCellLower[CurrentCycle].ToString() + "," + PowerCellMissed[CurrentCycle].ToString());
+            trackingLogs.Add(SecondsScouting.ToString() + ":2");
             TimeSpan amountOfTimeScouting = endScoutingTime - startScoutingTime;
             if (amountOfTimeScouting < TimeSpan.FromSeconds(150))
             {
@@ -1242,6 +1261,7 @@ namespace LightScout
                 thismatch.E_Park = Parked;
                 thismatch.MatchNumber = CurrentMatchNum;
                 thismatch.NumCycles = NumCycles;
+                thismatch.TapLogs = trackingLogs.ToArray();
                 thismatch.PowerCellInner = PowerCellInner;
                 thismatch.PowerCellLower = PowerCellLower;
                 thismatch.PowerCellMissed = PowerCellMissed;
@@ -1479,6 +1499,7 @@ namespace LightScout
             disabledMenu.IsVisible = true;
             CurrentlyDisabled = true;
             DisabledTimer();
+            trackingLogs.Add(SecondsScouting.ToString() + ":9000");
 
         }
         private void DisableDisabledMenu(object sender, EventArgs e)
@@ -1486,7 +1507,7 @@ namespace LightScout
 
             CurrentlyDisabled = false;
             disabledMenu.IsVisible = false;
-
+            trackingLogs.Add(SecondsScouting.ToString() + ":9001");
 
         }
         private void ChangeInitLine(object sender, EventArgs e)
@@ -1516,6 +1537,7 @@ namespace LightScout
             finishForm.IsVisible = false;
             if (CurrentSubPage == 0)
             {
+                trackingLogs.Add(SecondsScouting.ToString() + ":1001");
                 exitForm.IsVisible = true;
                 prevForm.IsEnabled = false;
                 autoForm.FadeTo(0, 250);
@@ -1526,6 +1548,7 @@ namespace LightScout
             }
             else if (CurrentSubPage == 1)
             {
+                trackingLogs.Add(SecondsScouting.ToString() + ":1002");
                 teleopForm.FadeTo(0, 250);
                 teleopForm.IsVisible = false;
                 autoForm.IsVisible = true;
@@ -1534,6 +1557,7 @@ namespace LightScout
             }
             else if (CurrentSubPage == 2)
             {
+                trackingLogs.Add(SecondsScouting.ToString() + ":1003");
                 endgameForm.FadeTo(0, 250);
                 endgameForm.IsVisible = false;
                 teleopForm.IsVisible = true;
@@ -1542,6 +1566,7 @@ namespace LightScout
             }
             else if (CurrentSubPage == 3)
             {
+                trackingLogs.Add(SecondsScouting.ToString() + ":1004");
                 confirmForm.FadeTo(0, 250);
                 confirmForm.IsVisible = false;
                 endgameForm.IsVisible = true;
@@ -1558,6 +1583,7 @@ namespace LightScout
             prevForm.IsEnabled = true;
             if (CurrentSubPage == 1)
             {
+                trackingLogs.Add(SecondsScouting.ToString() + ":1002");
                 nameForm.FadeTo(0, 250);
                 nameForm.IsVisible = false;
                 autoForm.IsVisible = true;
@@ -1567,6 +1593,7 @@ namespace LightScout
             }
             else if (CurrentSubPage == 2)
             {
+                trackingLogs.Add(SecondsScouting.ToString() + ":1003");
                 autoForm.FadeTo(0, 250);
                 autoForm.IsVisible = false;
                 teleopForm.IsVisible = true;
@@ -1575,6 +1602,7 @@ namespace LightScout
             }
             else if (CurrentSubPage == 3)
             {
+                trackingLogs.Add(SecondsScouting.ToString() + ":1004");
                 teleopForm.FadeTo(0, 250);
                 teleopForm.IsVisible = false;
                 endgameForm.IsVisible = true;
@@ -1583,6 +1611,7 @@ namespace LightScout
             }
             else if (CurrentSubPage == 4)
             {
+                trackingLogs.Add(SecondsScouting.ToString() + ":1005");
                 nextForm.IsEnabled = false;
                 finishForm.IsVisible = true;
                 endgameForm.FadeTo(0, 250);

@@ -145,6 +145,10 @@ namespace LightScout
             {
                 carouseluwu.CurrentItem = selectedItem;
             }
+            else
+            {
+                carouseluwu.CurrentItem = listofviewmatches.First();
+            }
 
             tabletlist = new string[6] { "R1", "R2", "R3", "B1", "B2", "B3" }.ToList();
             tabletPicker.ItemsSource = tabletlist;

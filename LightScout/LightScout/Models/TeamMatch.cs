@@ -32,6 +32,7 @@ namespace LightScout.Models
         public DateTime ClientLastSubmitted { get; set; }
         public bool APIChecked { get; set; }
         public int APIAccuracy { get; set; }
+        public string[] TapLogs { get; set; }
 
     }
 }

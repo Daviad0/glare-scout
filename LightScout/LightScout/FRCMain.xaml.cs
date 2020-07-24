@@ -1545,9 +1545,15 @@ namespace LightScout
                 trackingLogs.Add(SecondsScouting.ToString() + ":2001");
             }
         }
-        private void Button_Clicked(object sender, EventArgs e)
+        private async void Button_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new MainPage());
+            
+            bool answer = await DisplayAlert("Hol' Up", "Are you sure that you want to cancel tracking this entry. Your progress will not be saved!", "Exit", "Cancel");
+            if (answer)
+            {
+                Navigation.PushAsync(new MainPage());
+            }
+            
         }
 
 
@@ -1961,6 +1967,13 @@ namespace LightScout
 
         private void scoutName_Completed(object sender, EventArgs e)
         {
+            if (!nextForm.IsVisible)
+            {
+                nextForm.Opacity = 0;
+                nextForm.IsVisible = true;
+                nextForm.FadeTo(1, 500, Easing.CubicIn);
+            }
+            
             trackingLogs.Add(SecondsScouting.ToString() + ":100:" + scoutName.Text);
         }
     }

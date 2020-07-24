@@ -154,16 +154,35 @@
 
                                     </StackLayout>
                                 </Frame>
-                                <Frame HasShadow="True"
-                       BorderColor="DarkGray"
-                       CornerRadius="5"
-                       Margin="20,0,20,20"
-                       HeightRequest="50"
-                                       Padding="0"
-                       HorizontalOptions="Center"
-                                       WidthRequest="150">
-                                    <Button Text="Scout Match" BackgroundColor="Transparent" BorderColor="Transparent" Clicked="GoToFRCPage"/>
-                                </Frame>
+                                <Grid HorizontalOptions="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="170"/>
+                                        <ColumnDefinition Width="70"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Frame HasShadow="True"
+                                       BorderColor="DarkGray"
+                                       CornerRadius="5"
+                                       Margin="10,0,10,20"
+                                       HeightRequest="50"
+                                       Grid.Column="0"
+                                                       Padding="0"
+                                       HorizontalOptions="Center"
+                                                       WidthRequest="150">          
+                                        <Button Text="Scout Match" BackgroundColor="Transparent" BorderColor="Transparent" Clicked="GoToFRCPage"/>
+                                    </Frame>
+                                    <Frame HasShadow="True"
+                                       BorderColor="DarkGray"
+                                       CornerRadius="5"
+                                       Margin="5,0,5,20"
+                                       HeightRequest="50"
+                                       Grid.Column="1"
+                                                       Padding="0"
+                                       HorizontalOptions="Center"
+                                                       WidthRequest="70">
+                                        <Button Text="&#xee09;" BackgroundColor="Transparent" TextColor="Red" BorderColor="Transparent" FontFamily="{StaticResource IconFont}" Clicked="DeleteEntry"/>
+                                    </Frame>
+                                </Grid>
+                                
                             </StackLayout>
                         </DataTemplate>
                     </CarouselView.ItemTemplate>

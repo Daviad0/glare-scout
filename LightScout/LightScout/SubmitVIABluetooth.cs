@@ -4,6 +4,7 @@ using Plugin.BLE;
 using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.Exceptions;
+using Plugin.BLE.Abstractions.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,14 +53,18 @@ namespace LightScout
             };
             adapter.DeviceDiscovered += async (s, a) =>
             {
-                adapter.ConnectToDeviceAsync(a.Device);
+                if(a.Device.Id == Guid.Parse("16FD1A9B-F36F-7EAB-66B2-499BF4DBB0F2"))
+                {
+                    adapter.ConnectToDeviceAsync(a.Device);
+                }
+                
             };
             resultsubmitted = false;
             MessagingCenter.Send<SubmitVIABluetooth, int>(this, "boom", 1);
             try
             {
-
-                await adapter.ConnectToKnownDeviceAsync(Guid.Parse("16FD1A9B-F36F-7EAB-66B2-499BF4DBB0F2"), default, token);
+                await adapter.StartScanningForDevicesAsync();
+                //await adapter.ConnectToKnownDeviceAsync(Guid.Parse("16FD1A9B-F36F-7EAB-66B2-499BF4DBB0F2"), default, token);
                 Device.StartTimer(TimeSpan.FromSeconds(0.1), () =>
                 {
                     if (resultsubmitted)
@@ -196,14 +201,17 @@ namespace LightScout
             };
             adapter.DeviceDiscovered += async (s, a) =>
             {
-                adapter.ConnectToDeviceAsync(a.Device);
+                if (a.Device.Id == Guid.Parse("16FD1A9B-F36F-7EAB-66B2-499BF4DBB0F2"))
+                {
+                    adapter.ConnectToDeviceAsync(a.Device);
+                }
             };
             datagotten = false;
             MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", 1);
             try
             {
 
-                await adapter.ConnectToKnownDeviceAsync(Guid.Parse("16FD1A9B-F36F-7EAB-66B2-499BF4DBB0F2"), default, token);
+                await adapter.StartScanningForDevicesAsync();
                 Device.StartTimer(TimeSpan.FromSeconds(0.1), () =>
                 {
                     if (datagotten)

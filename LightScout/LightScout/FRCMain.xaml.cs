@@ -458,10 +458,12 @@ namespace LightScout
                 if (ControlPanel[0])
                 {
                     cp_lv1.Style = Resources["lightSecondarySelected"] as Style;
+                    trackingLogs.Add(SecondsScouting.ToString() + ":3010");
                 }
                 else
                 {
                     cp_lv1.Style = Resources["lightSecondary"] as Style;
+                    trackingLogs.Add(SecondsScouting.ToString() + ":3011");
                 }
 
             }
@@ -471,10 +473,12 @@ namespace LightScout
                 if (ControlPanel[1])
                 {
                     cp_lv2.Style = Resources["lightSecondarySelected"] as Style;
+                    trackingLogs.Add(SecondsScouting.ToString() + ":3020");
                 }
                 else
                 {
                     cp_lv2.Style = Resources["lightSecondary"] as Style;
+                    trackingLogs.Add(SecondsScouting.ToString() + ":3021");
                 }
 
             }
@@ -493,12 +497,14 @@ namespace LightScout
                 Balanced = false;
                 balanced_opt1.Style = Resources["lightSecondary"] as Style;
                 balanced_opt1.Text = "Not Balanced";
+                trackingLogs.Add(SecondsScouting.ToString() + ":4031");
             }
             else
             {
                 Balanced = true;
                 balanced_opt1.Style = Resources["lightSecondarySelected"] as Style;
                 balanced_opt1.Text = "Robot(s) Balanced";
+                trackingLogs.Add(SecondsScouting.ToString() + ":4030");
             }
 
         }
@@ -514,6 +520,8 @@ namespace LightScout
                 balancedMenu.Opacity = 0.35;
                 balanced_opt1.Style = Resources["lightSecondary"] as Style;
                 balanced_opt1.Text = "Did Not Contribute";
+                trackingLogs.Add(SecondsScouting.ToString() + ":4021");
+                trackingLogs.Add(SecondsScouting.ToString() + ":4031");
             }
             else
             {
@@ -524,6 +532,7 @@ namespace LightScout
                 balancedMenu.Opacity = 1;
                 balanced_opt1.Style = Resources["lightSecondary"] as Style;
                 balanced_opt1.Text = "Not Balanced";
+                trackingLogs.Add(SecondsScouting.ToString() + ":4020");
             }
 
         }
@@ -541,6 +550,7 @@ namespace LightScout
                 attemptedMenu.Opacity = 1;
                 climbMenu.IsEnabled = false;
                 climbMenu.Opacity = 0.35;
+                trackingLogs.Add(SecondsScouting.ToString() + ":4001");
                 if (Attempted)
                 {
                     climbMenu.IsEnabled = true;
@@ -560,6 +570,9 @@ namespace LightScout
                 Balanced = false;
                 balancedMenu.IsEnabled = false;
                 balancedMenu.Opacity = 0.35;
+                trackingLogs.Add(SecondsScouting.ToString() + ":4000");
+                trackingLogs.Add(SecondsScouting.ToString() + ":4021");
+                trackingLogs.Add(SecondsScouting.ToString() + ":4031");
                 balanced_opt1.Style = Resources["lightSecondary"] as Style;
                 balanced_opt1.Text = "Did Not Contribute";
                 if (Attempted)
@@ -586,9 +599,13 @@ namespace LightScout
                 balancedMenu.Opacity = 0.35;
                 balanced_opt1.Style = Resources["lightSecondary"] as Style;
                 balanced_opt1.Text = "Did Not Contribute";
+                trackingLogs.Add(SecondsScouting.ToString() + ":4011");
+                trackingLogs.Add(SecondsScouting.ToString() + ":4021");
+                trackingLogs.Add(SecondsScouting.ToString() + ":4031");
             }
             else
             {
+                trackingLogs.Add(SecondsScouting.ToString() + ":4010");
                 if (!Parked)
                 {
                     climbMenu.IsEnabled = true;
@@ -673,6 +690,7 @@ namespace LightScout
             if (CurrentCycle > NumCycles)
             {
                 NumCycles = CurrentCycle;
+                trackingLogs.Add(SecondsScouting.ToString() + ":3000");
             }
             var buttonClicked = sender as Button;
             if (buttonClicked == innerUp)
@@ -1246,6 +1264,7 @@ namespace LightScout
             if (amountOfTimeScouting < TimeSpan.FromSeconds(150))
             {
                 continuetosubmission = await DisplayAlert("You're too fast!", "A match is 150 seconds, and you have scouted this match for " + Math.Floor(amountOfTimeScouting.TotalSeconds).ToString() + " seconds! Are you sure you want to submit this match?", "Yes", "I'll Keep Scouting");
+                if (continuetosubmission) trackingLogs.Add(SecondsScouting.ToString() + ":10");
             }
             if (continuetosubmission)
             {
@@ -1517,11 +1536,13 @@ namespace LightScout
             {
                 initLineToggle.Style = Resources["lightSecondarySelected"] as Style;
                 initLineToggle.Text = "Achieved";
+                trackingLogs.Add(SecondsScouting.ToString() + ":2000");
             }
             else
             {
                 initLineToggle.Style = Resources["lightSecondary"] as Style;
                 initLineToggle.Text = "Not Achieved";
+                trackingLogs.Add(SecondsScouting.ToString() + ":2001");
             }
         }
         private void Button_Clicked(object sender, EventArgs e)
@@ -1936,6 +1957,11 @@ namespace LightScout
         {
             DisabledSeconds = 0;
             disabledSeconds.Text = "0s";
+        }
+
+        private void scoutName_Completed(object sender, EventArgs e)
+        {
+            trackingLogs.Add(SecondsScouting.ToString() + ":100:" + scoutName.Text);
         }
     }
 }

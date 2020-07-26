@@ -202,7 +202,7 @@ namespace LightScout
             };
             adapter.DeviceDiscovered += async (s, a) =>
             {
-                if (a.Device.Name == "LRSS")
+                if (a.Device.Name == "LRSS" || a.Device.Id == Guid.Parse("16FD1A9B-F36F-7EAB-66B2-499BF4DBB0F2"))
                 {
                     adapter.ConnectToDeviceAsync(a.Device);
                 }

@@ -28,10 +28,14 @@ namespace LightScout.Droid
             {
                 Console.WriteLine(dv.Key);
             }
-            foreach (var a in access)
+            if(access != null)
             {
-                Console.WriteLine("Found");
+                foreach (var a in access)
+                {
+                    Console.WriteLine("Found");
+                }
             }
+            
         }
     }
 }

@@ -333,7 +333,7 @@
                     <Label TextColor="White" Text="Ready for Match" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" x:Name="toolTipLabel"/>
                 </Frame>
 
-                <Button VerticalOptions="End" Clicked="EnableDisabledMenu" Grid.Column="1" Grid.Row="0" HorizontalOptions="End" Text="&#xef1b;" x:Name="enableDisabled" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" Margin="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="#2a7afa" TextColor="White"/>
+                <Button VerticalOptions="End" Clicked="EnableDisabledMenu" IsVisible="False" Grid.Column="1" Grid.Row="0" HorizontalOptions="End" Text="&#xef1b;" x:Name="enableDisabled" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" Margin="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="#2a7afa" TextColor="White"/>
                 
             </Grid>
             

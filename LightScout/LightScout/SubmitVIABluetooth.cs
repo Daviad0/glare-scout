@@ -53,16 +53,16 @@ namespace LightScout
             };
             adapter.DeviceDiscovered += async (s, a) =>
             {
-                if(a.Device.Id == Guid.Parse("16FD1A9B-F36F-7EAB-66B2-499BF4DBB0F2"))
+                if (a.Device.Name == "LRSS")
                 {
                     adapter.ConnectToDeviceAsync(a.Device);
                 }
-                
             };
             resultsubmitted = false;
             MessagingCenter.Send<SubmitVIABluetooth, int>(this, "boom", 1);
             try
             {
+                adapter.ScanMode = ScanMode.LowPower;
                 await adapter.StartScanningForDevicesAsync();
                 //await adapter.ConnectToKnownDeviceAsync(Guid.Parse("16FD1A9B-F36F-7EAB-66B2-499BF4DBB0F2"), default, token);
                 Device.StartTimer(TimeSpan.FromSeconds(0.1), () =>
@@ -133,6 +133,7 @@ namespace LightScout
             {
                 uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130001");
             }
+            await deviceIWant.RequestMtuAsync(512);
             var characteristictosend = await servicetosend.GetCharacteristicAsync(uuid);
             characteristictosend.ValueUpdated += (s, a) =>
             {
@@ -201,7 +202,7 @@ namespace LightScout
             };
             adapter.DeviceDiscovered += async (s, a) =>
             {
-                if (a.Device.Id == Guid.Parse("16FD1A9B-F36F-7EAB-66B2-499BF4DBB0F2"))
+                if (a.Device.Name == "LRSS")
                 {
                     adapter.ConnectToDeviceAsync(a.Device);
                 }
@@ -282,10 +283,12 @@ namespace LightScout
                 var messagesleft = 0;
                 var fullmessage = "";
                 bool iscompleted = false;
+                await deviceIWant.RequestMtuAsync(512);
                 characteristictosend.ValueUpdated += async (s, a) =>
                 {
                     if (!iscompleted)
                     {
+                        
                         var convertedmessage = Encoding.ASCII.GetString(a.Characteristic.Value);
                         if (messagesleft > 0)
                         {
@@ -293,10 +296,16 @@ namespace LightScout
                             fullmessage = fullmessage + convertedmessage;
                             if (messagesleft == 0)
                             {
-                                MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", 3);
                                 await adapter.DisconnectDeviceAsync(connectedPeripheral);
                                 iscompleted = true;
                                 DependencyService.Get<DataStore>().SaveDefaultData("JacksonEvent2020.txt", JsonConvert.DeserializeObject<List<TeamMatch>>(fullmessage));
+                                Device.StartTimer(TimeSpan.FromSeconds(3), () =>
+                                {
+                                    MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", 3);
+                                    return false;
+                                });
+                                
+                                
                             }
                         }
                         else

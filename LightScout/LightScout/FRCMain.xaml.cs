@@ -427,6 +427,16 @@ namespace LightScout
         }
         private async void StartScouting(object sender, EventArgs e)
         {
+            if(scoutName.Text != null && scoutName.Text != "")
+            {
+                nextForm.Opacity = 0;
+                nextForm.IsVisible = true;
+                nextForm.FadeTo(1, 500, Easing.CubicIn);
+                enableDisabled.Opacity = 0;
+                enableDisabled.IsVisible = true;
+                enableDisabled.FadeTo(1, 500, Easing.CubicIn);
+            }
+            
             var converter = new ColorTypeConverter();
             BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
             await overLay.FadeTo(0, 500, Easing.SinOut);
@@ -1972,6 +1982,9 @@ namespace LightScout
                 nextForm.Opacity = 0;
                 nextForm.IsVisible = true;
                 nextForm.FadeTo(1, 500, Easing.CubicIn);
+                enableDisabled.Opacity = 0;
+                enableDisabled.IsVisible = true;
+                enableDisabled.FadeTo(1, 500, Easing.CubicIn);
             }
             
             trackingLogs.Add(SecondsScouting.ToString() + ":100:" + scoutName.Text);

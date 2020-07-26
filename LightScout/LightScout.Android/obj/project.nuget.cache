@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "7+ciC3NFv41NcKPgs+FaJVGPDKgQm8EdDSxABHHlZC4DUjvvgJPYAg7s56kqGo7ZlbWfwKn3KgNOBQqHVmHeHA==",
+  "dgSpecHash": "bFdg3eY03ciRfImLW+LFZd4xXsIIhiF5X8hgxwlss6inX084wuRF8gPpHtx3w6s3DeraSCFsTnnDBMyhbutZuQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout.Android\\LightScout.Android.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\djree\\.nuget\\packages\\lusovu.xamarinusbserialforandroid\\0.2.3\\lusovu.xamarinusbserialforandroid.0.2.3.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\plugin.ble\\2.1.1\\plugin.ble.2.1.1.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\plugin.currentactivity\\2.1.0.4\\plugin.currentactivity.2.1.0.4.nupkg.sha512",

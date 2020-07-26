@@ -42,6 +42,10 @@
       "frameworks": {
         "monoandroid90": {
           "dependencies": {
+            "LusoVU.XamarinUsbSerialForAndroid": {
+              "target": "Package",
+              "version": "[0.2.3, )"
+            },
             "Plugin.BLE": {
               "target": "Package",
               "version": "[2.1.1, )"

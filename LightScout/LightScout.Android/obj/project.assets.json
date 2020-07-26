@@ -2,6 +2,20 @@
   "version": 3,
   "targets": {
     "MonoAndroid,Version=v9.0": {
+      "LusoVU.XamarinUsbSerialForAndroid/0.2.3": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Mono.Android",
+          "Mono.Android.Export",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/MonoAndroid/UsbSerialForAndroid.dll": {}
+        },
+        "runtime": {
+          "lib/MonoAndroid/UsbSerialForAndroid.dll": {}
+        }
+      },
       "Newtonsoft.Json/12.0.3": {
         "type": "package",
         "compile": {
@@ -851,6 +865,18 @@
     }
   },
   "libraries": {
+    "LusoVU.XamarinUsbSerialForAndroid/0.2.3": {
+      "sha512": "jloLWL3U3YMPhDRp0m3N3n8F9hb58+y9ZhdKXuZnMaHdQeKuZH1CdkIZXyV3hprT0iMNDQHiVPucvxE2Q1N8Ew==",
+      "type": "package",
+      "path": "lusovu.xamarinusbserialforandroid/0.2.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/MonoAndroid/UsbSerialForAndroid.dll",
+        "lusovu.xamarinusbserialforandroid.0.2.3.nupkg.sha512",
+        "lusovu.xamarinusbserialforandroid.nuspec"
+      ]
+    },
     "Newtonsoft.Json/12.0.3": {
       "sha512": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
       "type": "package",
@@ -2028,6 +2054,7 @@
   "projectFileDependencyGroups": {
     "MonoAndroid,Version=v9.0": [
       "LightScout >= 1.0.0",
+      "LusoVU.XamarinUsbSerialForAndroid >= 0.2.3",
       "Plugin.BLE >= 2.1.1",
       "Xamarin.Essentials >= 1.5.3.2",
       "Xamarin.Forms >= 4.4.0.991265"
@@ -2075,6 +2102,10 @@
     "frameworks": {
       "monoandroid90": {
         "dependencies": {
+          "LusoVU.XamarinUsbSerialForAndroid": {
+            "target": "Package",
+            "version": "[0.2.3, )"
+          },
           "Plugin.BLE": {
             "target": "Package",
             "version": "[2.1.1, )"

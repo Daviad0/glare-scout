@@ -43,6 +43,10 @@
       "frameworks": {
         "netstandard2.0": {
           "dependencies": {
+            "LusoVU.XamarinUsbSerialForAndroid": {
+              "target": "Package",
+              "version": "[0.2.3, )"
+            },
             "NETStandard.Library": {
               "suppressParent": "All",
               "target": "Package",

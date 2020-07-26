@@ -21,10 +21,11 @@ namespace LightScout.Droid
     {
         public void SendData(string data)
         {
-            string[] ports = SerialPort.GetPortNames();
-            foreach(var port in ports)
+            var usbManager = (UsbManager)Application.Context.GetSystemService(Context.UsbService);
+            var devices = usbManager.DeviceList;
+            foreach(var dv in devices)
             {
-                Console.WriteLine(port);
+                Console.WriteLine(dv.Key);
             }
         }
     }

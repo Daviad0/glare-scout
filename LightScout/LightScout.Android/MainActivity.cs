@@ -18,6 +18,7 @@ namespace LightScout.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
             this.Window.AddFlags(WindowManagerFlags.Fullscreen);

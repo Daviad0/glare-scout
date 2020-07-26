@@ -23,9 +23,14 @@ namespace LightScout.Droid
         {
             var usbManager = (UsbManager)Application.Context.GetSystemService(Context.UsbService);
             var devices = usbManager.DeviceList;
+            var access = usbManager.GetAccessoryList();
             foreach(var dv in devices)
             {
                 Console.WriteLine(dv.Key);
+            }
+            foreach (var a in access)
+            {
+                Console.WriteLine("Found");
             }
         }
     }

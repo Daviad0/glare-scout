@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 
@@ -18,17 +19,12 @@ namespace LightScout.Droid
 {
     public class USBTransfer : USBCommunication
     {
-        IUsbSerialPort port;
-
-        SerialInputOutputManager serialIoManager;
-
-        UsbManager usbManager;
         public void SendData(string data)
         {
-            var usbList = usbManager.DeviceList;
-            foreach(var item in usbList)
+            string[] ports = SerialPort.GetPortNames();
+            foreach(var port in ports)
             {
-                Console.WriteLine(item.Key);
+                Console.WriteLine(port);
             }
         }
     }

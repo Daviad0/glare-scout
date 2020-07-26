@@ -8,6 +8,8 @@ using Android.Widget;
 using Android.OS;
 using Android;
 using Android.Support.V4.App;
+using Android.Hardware.Usb;
+using Android.Content;
 
 namespace LightScout.Droid
 {

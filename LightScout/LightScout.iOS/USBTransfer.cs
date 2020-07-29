@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-
+using System.Threading.Tasks;
 using Foundation;
 using LightScout.Models;
 using Newtonsoft.Json;
@@ -36,6 +36,7 @@ namespace LightScout.iOS
                     var tabletid = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TabletIdentifier;
                     connectedSocket.BeginSend(Encoding.ASCII.GetBytes(tabletid + ":S:" + rawstring), 0, Encoding.ASCII.GetBytes(tabletid + ":S:" + rawstring).Length, SocketFlags.None, (ars) =>
                     {
+                        
                         connectedSocket.BeginSend(Encoding.ASCII.GetBytes(tabletid + ":B:" + Battery.ChargeLevel.ToString()), 0, Encoding.ASCII.GetBytes(tabletid + ":B:" + Battery.ChargeLevel.ToString()).Length, SocketFlags.None, USBCallBack, connectedSocket);
 
                     }, connectedSocket);

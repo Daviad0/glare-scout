@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="2" android:versionName="0.1" package="com.team862.lightscout" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="0.1" package="com.team862.lightscout" android:installLocation="auto" android:versionCode="3">
 	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="28" />
-	<application android:label="LightScout.Android" android:icon="@drawable/playstoreicon"></application>
+	<application android:label="LightScout.Android" android:icon="@drawable/blueslon"></application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -10,5 +10,5 @@
 	<uses-permission android:name="android.permission.BLUETOOTH" />
 	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 	<uses-permission android:name="android.permission.BATTERY_STATS" />
-  <uses-feature android:name="android.hardware.usb.accessory" />
+	<uses-feature android:name="android.hardware.usb.accessory" />
 </manifest>

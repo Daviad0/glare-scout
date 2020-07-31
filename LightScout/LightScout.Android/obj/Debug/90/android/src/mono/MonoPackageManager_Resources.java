@@ -10,6 +10,8 @@ public class MonoPackageManager_Resources {
 		"Plugin.BLE.dll",
 		"Plugin.CurrentActivity.dll",
 		"Plugin.DeviceInfo.dll",
+		"System.IO.Ports.dll",
+		"UsbSerialForAndroid.dll",
 		"Xamarin.Android.Arch.Core.Common.dll",
 		"Xamarin.Android.Arch.Core.Runtime.dll",
 		"Xamarin.Android.Arch.Lifecycle.Common.dll",

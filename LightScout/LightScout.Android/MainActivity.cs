@@ -44,7 +44,7 @@ namespace LightScout.Droid
 
         Hoho.Android.UsbSerial.Util.SerialInputOutputManager serialIoManager;
 
-        UsbSerialPort port;
+        //UsbSerialPort port;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             TabLayoutResource = Resource.Layout.Tabbar;

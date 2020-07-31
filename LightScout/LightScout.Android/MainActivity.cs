@@ -10,7 +10,6 @@ using Android.Widget;
 using Android.OS;
 using Android.Util;
 using Hoho.Android.UsbSerial.Driver;
-using Hoho.Android.UsbSerial.Extensions;
 using Hoho.Android.UsbSerial.Util;
 using Android.Support.V4.App;
 using Android.Content.PM;

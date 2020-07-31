@@ -39,6 +39,9 @@ namespace LightScout
         private static int BluetoothDevices = 0;
         private static bool TimerAlreadyCreated = false;
         private static int timesalive = 0;
+        private string currentCodeString = "";
+        private int currentCodeReason = 0;
+        private static SubmitVIABluetooth submitVIABluetoothInstance = new SubmitVIABluetooth();
         private List<string> tabletlist = new List<string>();
 
         public MainPage()
@@ -284,34 +287,24 @@ namespace LightScout
         }
         private async void DeleteEntry(object sender, EventArgs e)
         {
-            var currentindex = listofviewmatches.FindIndex(a => a == carouseluwu.CurrentItem);
-            Console.WriteLine(listofmatches[currentindex].TeamNumber.ToString() + "'s match at match #" + listofmatches[currentindex].MatchNumber.ToString());
-            string correctCode = "0000";
-            string codeGiven = "";
-            codeGiven = await DisplayPromptAsync("Permission Needed", "Strategy students can only complete this task!", placeholder: "XXXX", accept: "Submit", maxLength: 4, keyboard: Keyboard.Numeric);
-            if(codeGiven != null)
-            {
-                if (correctCode == codeGiven.ToString())
-                {
-                    listofmatches.RemoveAt(currentindex);
-                    DependencyService.Get<DataStore>().SaveDefaultData("JacksonEvent2020.txt", listofmatches);
-                    Navigation.PushAsync(new MainPage());
-                }
-                else
-                {
-                    await DismissNotification();
-                    await NewNotification("Invalid Code!");
-                }
-            }
-            else
-            {
-                await DismissNotification();
-                await NewNotification("Invalid Code!");
-            }
-            
-            
+            var converter = new ColorTypeConverter();
+            codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+            codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+            codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+            codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+            strategyCodeInterface.IsVisible = true;
+            currentCodeReason = 1;
         }
-
+        private async void EditEntry(object sender, EventArgs e)
+        {
+            var converter = new ColorTypeConverter();
+            codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+            codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+            codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+            codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+            strategyCodeInterface.IsVisible = true;
+            currentCodeReason = 2;
+        }
 
         private void carouseluwu_CurrentItemChanged(object sender, CurrentItemChangedEventArgs e)
         {
@@ -407,7 +400,7 @@ namespace LightScout
                         break;
                 }
             });
-            await (Application.Current.Properties["BluetoothMethod"] as SubmitVIABluetooth).GetDefaultData(token);
+            await submitVIABluetoothInstance.GetDefaultData(token);
             var i = 0;
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
             {
@@ -494,6 +487,257 @@ namespace LightScout
         {
             await DismissNotification();
 
+        }
+        
+        private async void AddCodeNumber(object sender, EventArgs e)
+        {
+            var converter = new ColorTypeConverter();
+            var codebutton = (Button)sender as Button;
+            switch (codebutton.Text)
+            {
+                case "0":
+                    currentCodeString = currentCodeString + "0";
+                    break;
+                case "1":
+                    currentCodeString = currentCodeString + "1";
+                    break;
+                case "2":
+                    currentCodeString = currentCodeString + "2";
+                    break;
+                case "3":
+                    currentCodeString = currentCodeString + "3";
+                    break;
+                case "4":
+                    currentCodeString = currentCodeString + "4";
+                    break;
+                case "5":
+                    currentCodeString = currentCodeString + "5";
+                    break;
+                case "6":
+                    currentCodeString = currentCodeString + "6";
+                    break;
+                case "7":
+                    currentCodeString = currentCodeString + "7";
+                    break;
+                case "8":
+                    currentCodeString = currentCodeString + "8";
+                    break;
+                case "9":
+                    currentCodeString = currentCodeString + "9";
+                    break;
+                default:
+                    currentCodeString = "";
+                    codeButtonCancel.FadeTo(0, 150, Easing.SinIn);
+                    codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    break;
+            }
+            if(currentCodeString.Length == 1)
+            {
+                codeButtonCancel.FadeTo(1, 150, Easing.SinIn);
+                codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+            }
+            else if (currentCodeString.Length == 2)
+            {
+                codeButtonCancel.FadeTo(1, 150, Easing.SinIn);
+                codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+            }
+            else if (currentCodeString.Length == 3)
+            {
+                codeButtonCancel.FadeTo(1, 150, Easing.SinIn);
+                codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+            }
+            else if (currentCodeString.Length == 4)
+            {
+                codeButtonCancel.FadeTo(0, 150, Easing.SinIn);
+                codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+                if (currentCodeString == "0000")
+                {
+                    codeButton0.IsEnabled = false;
+                    codeButton1.IsEnabled = false;
+                    codeButton2.IsEnabled = false;
+                    codeButton3.IsEnabled = false;
+                    codeButton4.IsEnabled = false;
+                    codeButton5.IsEnabled = false;
+                    codeButton6.IsEnabled = false;
+                    codeButton7.IsEnabled = false;
+                    codeButton8.IsEnabled = false;
+                    codeButton9.IsEnabled = false;
+                    codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
+                    codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
+                    codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
+                    codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
+                    
+                    await Task.Delay(100);
+                    codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    await Task.Delay(100);
+                    codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
+                    codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
+                    codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
+                    codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
+                    await Task.Delay(100);
+                    codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    await Task.Delay(100);
+                    codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
+                    codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
+                    codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
+                    codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
+                    await Task.Delay(100);
+                    codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    await Task.Delay(100);
+                    codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
+                    codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
+                    codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
+                    codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
+                    strategyCodeInterface.IsVisible = false;
+                    codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    codeButton0.IsEnabled = true;
+                    codeButton1.IsEnabled = true;
+                    codeButton2.IsEnabled = true;
+                    codeButton3.IsEnabled = true;
+                    codeButton4.IsEnabled = true;
+                    codeButton5.IsEnabled = true;
+                    codeButton6.IsEnabled = true;
+                    codeButton7.IsEnabled = true;
+                    codeButton8.IsEnabled = true;
+                    codeButton9.IsEnabled = true;
+                    if(currentCodeReason == 1)
+                    {
+                        var currentindex = listofviewmatches.FindIndex(a => a == carouseluwu.CurrentItem);
+                        listofmatches.RemoveAt(currentindex);
+                        DependencyService.Get<DataStore>().SaveDefaultData("JacksonEvent2020.txt", listofmatches);
+                        Navigation.PushAsync(new MainPage());
+                    }
+                    else if(currentCodeReason == 2)
+                    {
+                        var currentindex = listofviewmatches.FindIndex(a => a == carouseluwu.CurrentItem);
+                        var currentmatch = listofmatches.ToArray()[currentindex];
+                        coreEditMatchNumberLabel.Text = "Match #" + currentmatch.MatchNumber.ToString();
+                        coreEditMatchNumberStepper.Value = currentmatch.MatchNumber;
+                        if(currentmatch.TeamName != null)
+                        {
+                            coreEditTeamName.Text = currentmatch.TeamName;
+                        }
+                        coreEditTeamNumber.Text = currentmatch.TeamNumber.ToString();
+                        editCoreInfoInterface.IsVisible = true;
+                    }
+                    
+                }
+                else
+                {
+                    currentCodeString = "";
+                    codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Red");
+                    codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Red");
+                    codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Red");
+                    codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Red");
+                    codeButton0.IsEnabled = false;
+                    codeButton1.IsEnabled = false;
+                    codeButton2.IsEnabled = false;
+                    codeButton3.IsEnabled = false;
+                    codeButton4.IsEnabled = false;
+                    codeButton5.IsEnabled = false;
+                    codeButton6.IsEnabled = false;
+                    codeButton7.IsEnabled = false;
+                    codeButton8.IsEnabled = false;
+                    codeButton9.IsEnabled = false;
+                    await codeProgressContainer.TranslateTo(codeProgressContainer.TranslationX - 10, codeProgressContainer.TranslationY, 75, Easing.SinIn);
+                    await codeProgressContainer.TranslateTo(codeProgressContainer.TranslationX + 20, codeProgressContainer.TranslationY, 75, Easing.SinIn);
+                    await codeProgressContainer.TranslateTo(codeProgressContainer.TranslationX - 20, codeProgressContainer.TranslationY, 75, Easing.SinIn);
+                    await codeProgressContainer.TranslateTo(codeProgressContainer.TranslationX + 20, codeProgressContainer.TranslationY, 75, Easing.SinIn);
+                    await codeProgressContainer.TranslateTo(codeProgressContainer.TranslationX - 10, codeProgressContainer.TranslationY, 75, Easing.SinIn);
+                    codeButton0.IsEnabled = true;
+                    codeButton1.IsEnabled = true;
+                    codeButton2.IsEnabled = true;
+                    codeButton3.IsEnabled = true;
+                    codeButton4.IsEnabled = true;
+                    codeButton5.IsEnabled = true;
+                    codeButton6.IsEnabled = true;
+                    codeButton7.IsEnabled = true;
+                    codeButton8.IsEnabled = true;
+                    codeButton9.IsEnabled = true;
+                    codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                    codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+                }
+            }
+        }
+
+        private async void SeeSettingsPage(object sender, EventArgs e)
+        {
+            mainInterface.TranslateTo(mainInterface.TranslationX - 600, mainInterface.TranslationY, 500, Easing.SinIn);
+            await showSettings.TranslateTo(showSettings.TranslationX + 100, showSettings.TranslationY, 250, Easing.BounceOut);
+            showSettings.IsVisible = false;
+            showSettings.TranslationX = 0;
+            await Task.Delay(100);
+            settingsInterface.TranslationY = 1200;
+            settingsInterface.IsVisible = true;
+            settingsInterface.TranslateTo(settingsInterface.TranslationX, settingsInterface.TranslationY-1200, 500, Easing.SinOut);
+        }
+        private async void CancelSettingsPage(object sender, EventArgs e)
+        {
+            settingsInterface.TranslateTo(settingsInterface.TranslationX, settingsInterface.TranslationY + 1200, 500, Easing.SinIn);
+            await Task.Delay(350);
+            settingsInterface.IsVisible = false;
+            settingsInterface.TranslationY = 0;
+            mainInterface.TranslationX = -600;
+            mainInterface.TranslateTo(mainInterface.TranslationX + 600, mainInterface.TranslationY, 500, Easing.SinOut);
+            showSettings.TranslationX = 100;
+            showSettings.IsVisible = true;
+            await showSettings.TranslateTo(showSettings.TranslationX - 100, showSettings.TranslationY, 250, Easing.BounceIn);
+
+        }
+        private async void CancelCodePanel(object sender, EventArgs e)
+        {
+            strategyCodeInterface.IsVisible = false;
+            currentCodeString = "";
+        }
+        private async void CancelCoreInfoEdit(object sender, EventArgs e)
+        {
+            editCoreInfoInterface.IsVisible = false;
+        }
+        private async void SaveCoreInfoEdit(object sender, EventArgs e)
+        {
+            var currentindex = listofviewmatches.FindIndex(a => a == carouseluwu.CurrentItem);
+            var currentmatch = listofmatches.ToArray()[currentindex];
+            currentmatch.TeamName = coreEditTeamName.Text;
+            currentmatch.TeamNumber = int.Parse(coreEditTeamNumber.Text);
+            currentmatch.MatchNumber = (int)coreEditMatchNumberStepper.Value;
+            listofmatches.ToArray()[currentindex] = currentmatch;
+            DependencyService.Get<DataStore>().SaveDefaultData("JacksonEvent2020.txt", listofmatches);
+            editCoreInfoInterface.IsVisible = false;
+            Navigation.PushAsync(new MainPage());
+        }
+
+        private void coreEditMatchNumberStepper_ValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            coreEditMatchNumberLabel.Text = "Match #" + e.NewValue.ToString();
         }
     }
 }

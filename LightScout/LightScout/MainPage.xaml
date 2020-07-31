@@ -46,7 +46,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <AbsoluteLayout>
-        <ScrollView AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+        <ScrollView AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" x:Name="mainInterface">
             <StackLayout>
                 <Button Text="See FTC" x:Name="FTCShow" Clicked="FTCShow_Clicked" BackgroundColor="#f57e25" TextColor="White" Margin="10,10,10,0" IsVisible="False"/>
                 <ListView x:Name="listOfMatches" ItemTapped="listOfMatches_ItemTapped" RowHeight="60" BackgroundColor="White" IsPullToRefreshEnabled="False" IsVisible="False">
@@ -158,6 +158,7 @@
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="170"/>
                                         <ColumnDefinition Width="70"/>
+                                        <ColumnDefinition Width="70"/>
                                     </Grid.ColumnDefinitions>
                                     <Frame HasShadow="True"
                                        BorderColor="DarkGray"
@@ -181,12 +182,33 @@
                                                        WidthRequest="70">
                                         <Button Text="&#xee09;" BackgroundColor="Transparent" TextColor="Red" BorderColor="Transparent" FontFamily="{StaticResource IconFont}" Clicked="DeleteEntry"/>
                                     </Frame>
+                                    <Frame HasShadow="True"
+                                       BorderColor="DarkGray"
+                                       CornerRadius="5"
+                                       Margin="5,0,5,20"
+                                       HeightRequest="50"
+                                       Grid.Column="2"
+                                                       Padding="0"
+                                       HorizontalOptions="Center"
+                                                       WidthRequest="70">
+                                        <Button Text="&#xec55;" BackgroundColor="Transparent" TextColor="Blue" BorderColor="Transparent" FontFamily="{StaticResource IconFont}" Clicked="EditEntry"/>
+                                    </Frame>
                                 </Grid>
                                 
                             </StackLayout>
                         </DataTemplate>
                     </CarouselView.ItemTemplate>
                 </CarouselView>
+                
+            </StackLayout>
+            
+        </ScrollView>
+        <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" x:Name="settingsInterface">
+            
+            <StackLayout>
+                <Grid VerticalOptions="Start" HorizontalOptions="Start" Margin="15">
+                    <Button VerticalOptions="Start" HorizontalOptions="Start" Text="&#xea9d;" x:Name="backSettings" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="#2a7afa" TextColor="White" Clicked="CancelSettingsPage"/>
+                </Grid>
                 <Button Text="Get Data" x:Name="getDataFromServer" Clicked="getDataFromServer_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10"/>
                 <Button Text="Send to USB" x:Name="resetBTLock" Clicked="resetBTLock_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10"/>
                 <Button Text="Send Notification" Clicked="sendNotification_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10"/>
@@ -226,6 +248,91 @@
                 </Frame>
             </Grid>
 
+        </StackLayout>
+        <StackLayout x:Name="settingsButton" AbsoluteLayout.LayoutBounds="1,1,.30,.15" AbsoluteLayout.LayoutFlags="All">
+            <Grid VerticalOptions="FillAndExpand" HorizontalOptions="End" Margin="15">
+                <Button Clicked="SeeSettingsPage" VerticalOptions="End" Grid.Column="1" Grid.Row="0" HorizontalOptions="End" Text="&#xef3b;" x:Name="showSettings" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="#2a7afa" TextColor="White"/>
+            </Grid>
+
+        </StackLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" x:Name="strategyCodeInterface" IsVisible="False">
+            <AbsoluteLayout VerticalOptions="FillAndExpand">
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">
+
+                </StackLayout>
+                <StackLayout BackgroundColor="White" VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".6,.6,.8,.8" AbsoluteLayout.LayoutFlags="All" Padding="50">
+                    <Label Text="Code Required!" HorizontalOptions="Center" FontAttributes="Bold"/>
+                    <Grid HeightRequest="12" Margin="0,15,0,0" HorizontalOptions="Center" x:Name="codeProgressContainer">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="25"/>
+                            <ColumnDefinition Width="25"/>
+                        </Grid.ColumnDefinitions>
+                        <BoxView BackgroundColor="LightGray" Grid.Column="0" Margin="1" CornerRadius="14,0,14,0" x:Name="codeProgress1"/>
+                        <BoxView BackgroundColor="LightGray" Grid.Column="1" Margin="1" x:Name="codeProgress2"/>
+                        <BoxView BackgroundColor="LightGray" Grid.Column="2" Margin="1" x:Name="codeProgress3"/>
+                        <BoxView BackgroundColor="LightGray" Grid.Column="3" Margin="1" CornerRadius="0,14,0,14" x:Name="codeProgress4"/>
+                    </Grid>
+                    <Grid Margin="0,10,0,15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="70"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="70"/>
+                        </Grid.RowDefinitions>
+                        <Button Text="1" Grid.Column="0" Grid.Row="0" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton1"/>
+                        <Button Text="2" Grid.Column="1" Grid.Row="0" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton2"/>
+                        <Button Text="3" Grid.Column="2" Grid.Row="0" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton3"/>
+                        <Button Text="4" Grid.Column="0" Grid.Row="1" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton4"/>
+                        <Button Text="5" Grid.Column="1" Grid.Row="1" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton5"/>
+                        <Button Text="6" Grid.Column="2" Grid.Row="1" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton6"/>
+                        <Button Text="7" Grid.Column="0" Grid.Row="2" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton7"/>
+                        <Button Text="8" Grid.Column="1" Grid.Row="2" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton8"/>
+                        <Button Text="9" Grid.Column="2" Grid.Row="2" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton9"/>
+                        <Button Text="&#xea9d;" Grid.Column="0" Grid.Row="3" Margin="5" FontSize="20" CornerRadius="30" TextColor="#2a7afa" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="#2a7afa" BorderWidth="2" Clicked="CancelCodePanel" FontFamily="{StaticResource IconFont}"/>
+                        <Button Text="0" Grid.Column="1" Grid.Row="3" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton0"/>
+                        <Button Opacity="0" Text="&#xeee4;" Grid.Column="2" Grid.Row="3" Margin="5" FontSize="20" CornerRadius="30" TextColor="Red" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Red" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButtonCancel" FontFamily="{StaticResource IconFont}"/>
+                    </Grid>
+                </StackLayout>
+            </AbsoluteLayout>
+        </StackLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" x:Name="editCoreInfoInterface" IsVisible="False">
+            <AbsoluteLayout VerticalOptions="FillAndExpand">
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">
+
+                </StackLayout>
+                <StackLayout BackgroundColor="White" VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".6,.6,.8,.8" AbsoluteLayout.LayoutFlags="All" Padding="50">
+                    <Label Text="Team Number"/>
+                    <Entry Keyboard="Numeric" Placeholder="862" BackgroundColor="White" x:Name="coreEditTeamNumber"/>
+                    <Label Text="Team Name"/>
+                    <Entry Placeholder="FRC Team" BackgroundColor="White" x:Name="coreEditTeamName"/>
+                    <Label Text="Match Number"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Stepper Minimum="1" Value="1" ValueChanged="coreEditMatchNumberStepper_ValueChanged" x:Name="coreEditMatchNumberStepper" Grid.Column="0"/>
+                        <Label Margin="10,0,0,0" Text="Match #1" Grid.Column="1" FontSize="20" x:Name="coreEditMatchNumberLabel" VerticalOptions="Center"/>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Text="Cancel" Margin="3" Clicked="CancelCoreInfoEdit" CornerRadius="4" BackgroundColor="Red" TextColor="White" Grid.Column="0"/>
+                        <Button Text="Save" Margin="3" CornerRadius="4" BackgroundColor="Green" TextColor="White" Grid.Column="1" Clicked="SaveCoreInfoEdit"/>
+                    </Grid>
+                    
+                    
+                </StackLayout>
+            </AbsoluteLayout>
         </StackLayout>
     </AbsoluteLayout>
     

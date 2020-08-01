@@ -96,14 +96,7 @@
                         </OnPlatform>
                     </Label.FontFamily>
                 </Label>
-                <Entry Placeholder="You (The Scouter)" x:Name="scoutName" Margin="10,0,10,0" ClearButtonVisibility="WhileEditing" IsTextPredictionEnabled="False" Keyboard="Text" MaxLength="30" ReturnType="Next" HorizontalOptions="CenterAndExpand" Completed="scoutName_Completed">
-                    <Entry.FontFamily>
-                        <OnPlatform x:TypeArguments="x:String">
-                            <On Platform="iOS">Varela Round Regular</On>
-                            <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
-                        </OnPlatform>
-                    </Entry.FontFamily>
-                </Entry>
+                <Picker x:Name="scouterPicker" WidthRequest="200" SelectedIndexChanged="scoutName_Completed" HorizontalOptions="Center"/>
 
 
             </StackLayout>

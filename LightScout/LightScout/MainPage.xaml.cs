@@ -25,6 +25,8 @@ namespace LightScout
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
+        private bool MenuAnimationActive = false;
+        private bool MenuOpen = false;
         private bool NotificationActive = false;
         private int NextMatchIndex = -1;
         private static bool[] ControlPanel = new bool[2];
@@ -163,6 +165,29 @@ namespace LightScout
             tabletlist = new string[6] { "R1", "R2", "R3", "B1", "B2", "B3" }.ToList();
             tabletPicker.ItemsSource = tabletlist;
             MatchProgressList.Progress = (float)((float)1 / (float)listofviewmatches.Count);
+            SetMenuItems();
+        }
+        private async void SetMenuItems()
+        {
+            settingsButton.Opacity = 0;
+            showUsb.TranslationX = 0;
+            showSettings.TranslationX = 0;
+            showUsb.TranslationX = (showMenu.X - showUsb.X);
+            showUsb.IsVisible = true;
+            showUsb.TranslateTo(showUsb.TranslationX - (showMenu.X - showUsb.X), showUsb.TranslationY, 10, Easing.CubicInOut);
+            showAbout.TranslationX = (showMenu.X - showAbout.X);
+            showAbout.IsVisible = true;
+            showAbout.TranslateTo(showAbout.TranslationX - (showMenu.X - showAbout.X), showAbout.TranslationY, 10, Easing.CubicInOut);
+            showSettings.TranslationX = (showMenu.X - showSettings.X);
+            showSettings.IsVisible = true;
+            await showSettings.TranslateTo(showSettings.TranslationX - (showMenu.X - showSettings.X), showSettings.TranslationY, 10, Easing.CubicInOut);
+            await Task.Delay(10);
+            showUsb.TranslateTo((showMenu.X - showUsb.X), showUsb.TranslationY, 10);
+            showAbout.TranslateTo((showMenu.X - showAbout.X), showAbout.TranslationY, 10);
+            await showSettings.TranslateTo((showMenu.X - showSettings.X), showSettings.TranslationY, 10);
+            showUsb.IsVisible = false;
+            showSettings.IsVisible = false;
+            settingsButton.Opacity = 1;
         }
 
         private void FTCShow_Clicked(object sender, EventArgs e)
@@ -176,7 +201,19 @@ namespace LightScout
 
 
         }
-
+        private void CreateNewScoutNames(object sender, EventArgs e)
+        {
+            DependencyService.Get<DataStore>().SaveConfigurationFile("scoutNames", new string[3] { "John Doe", "Imaex Ample", "Guest Scouter" });
+            Console.WriteLine(DependencyService.Get<DataStore>().LoadConfigFile());
+        }
+        private void SendDummyData(object sender, EventArgs e)
+        {
+            DependencyService.Get<DataStore>().SaveDummyData("JacksonEvent2020.txt");
+        }
+        private void ReloadScreen(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new MainPage());
+        }
         private void commscheck_Clicked(object sender, EventArgs e)
         {
 
@@ -293,6 +330,7 @@ namespace LightScout
             codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
             codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
             strategyCodeInterface.IsVisible = true;
+            currentCodeString = "";
             currentCodeReason = 1;
         }
         private async void EditEntry(object sender, EventArgs e)
@@ -303,6 +341,7 @@ namespace LightScout
             codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
             codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
             strategyCodeInterface.IsVisible = true;
+            currentCodeString = "";
             currentCodeReason = 2;
         }
 
@@ -464,6 +503,12 @@ namespace LightScout
             notificationContainer.TranslationY = 150;
             notificationMedium.IsVisible = true;
             await notificationContainer.TranslateTo(notificationContainer.TranslationX, notificationContainer.TranslationY - 150, 500, Easing.CubicInOut);
+            await NotificationIcon.RotateTo(25, 100, Easing.CubicIn);
+            await NotificationIcon.RotateTo(0, 100, Easing.CubicIn);
+            await NotificationIcon.RotateTo(25, 100, Easing.CubicIn);
+            await NotificationIcon.RotateTo(0, 100, Easing.CubicIn);
+            await NotificationIcon.RotateTo(25, 100, Easing.CubicIn);
+            await NotificationIcon.RotateTo(0, 100, Easing.CubicIn);
         }
         private async Task DismissNotification()
         {
@@ -691,14 +736,81 @@ namespace LightScout
 
         private async void SeeSettingsPage(object sender, EventArgs e)
         {
-            mainInterface.TranslateTo(mainInterface.TranslationX - 600, mainInterface.TranslationY, 500, Easing.SinIn);
-            await showSettings.TranslateTo(showSettings.TranslationX + 100, showSettings.TranslationY, 250, Easing.BounceOut);
-            showSettings.IsVisible = false;
-            showSettings.TranslationX = 0;
-            await Task.Delay(100);
-            settingsInterface.TranslationY = 1200;
-            settingsInterface.IsVisible = true;
-            settingsInterface.TranslateTo(settingsInterface.TranslationX, settingsInterface.TranslationY-1200, 500, Easing.SinOut);
+            if (!MenuAnimationActive)
+            {
+                mainInterface.TranslateTo(mainInterface.TranslationX - 600, mainInterface.TranslationY, 500, Easing.SinIn);
+                if (MenuOpen)
+                {
+                    showUsb.TranslateTo((showMenu.X - showUsb.X), showUsb.TranslationY, 350, Easing.CubicIn);
+                    showAbout.TranslateTo((showMenu.X - showAbout.X), showAbout.TranslationY, 350, Easing.CubicIn);
+                    showSettings.TranslateTo((showMenu.X - showSettings.X), showSettings.TranslationY, 350, Easing.CubicIn);
+                    showMenu.Focus();
+                    pureblueOverButton.IsVisible = true;
+                    pureblueOverButton.FadeTo(1, 200);
+                    await Task.Delay(200);
+                    await showMenu.RotateTo(0, easing: Easing.CubicInOut);
+                    showUsb.IsVisible = false;
+                    showAbout.IsVisible = false;
+                    showSettings.IsVisible = false;
+
+                    MenuOpen = false;
+                }
+                MenuAnimationActive = true;
+                await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY - 10, 75, Easing.CubicOut);
+                await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY + 110, 250, Easing.CubicOut);
+                MenuAnimationActive = false;
+                settingsButton.IsVisible = false;
+                settingsButton.TranslationY = 0;
+                await Task.Delay(100);
+                settingsInterface.TranslationY = 1200;
+                settingsInterface.IsVisible = true;
+                settingsInterface.TranslateTo(settingsInterface.TranslationX, settingsInterface.TranslationY - 1200, 500, Easing.SinOut);
+            }
+            
+        }
+        private async void ToggleMenuItems(object sender, EventArgs e)
+        {
+            if (!MenuAnimationActive)
+            {
+                if (!MenuOpen)
+                {
+                    MenuAnimationActive = true;
+                    showMenu.RotateTo(90, easing: Easing.CubicInOut);
+                    await Task.Delay(150);
+                    showUsb.TranslationX = 0;
+                    showSettings.TranslationX = 0;
+                    showUsb.TranslationX = (showMenu.X - showUsb.X);
+                    showUsb.IsVisible = true;
+                    showUsb.TranslateTo(showUsb.TranslationX - (showMenu.X - showUsb.X), showUsb.TranslationY, 600, Easing.CubicOut);
+                    showSettings.TranslationX = (showMenu.X - showSettings.X);
+                    showSettings.IsVisible = true;
+                    showSettings.TranslateTo(showSettings.TranslationX - (showMenu.X - showSettings.X), showSettings.TranslationY, 600, Easing.CubicOut);
+                    showAbout.TranslationX = (showMenu.X - showAbout.X);
+                    showAbout.IsVisible = true;
+                    await showAbout.TranslateTo(showAbout.TranslationX - (showMenu.X - showAbout.X), showAbout.TranslationY, 600, Easing.CubicOut);
+                    MenuOpen = true;
+                    MenuAnimationActive = false;
+                }
+                else
+                {
+                    MenuAnimationActive = true;
+                    showUsb.TranslateTo((showMenu.X - showUsb.X), showUsb.TranslationY, 350, Easing.CubicIn);
+                    showSettings.TranslateTo((showMenu.X - showSettings.X), showSettings.TranslationY, 350, Easing.CubicIn);
+                    showAbout.TranslateTo((showMenu.X - showAbout.X), showAbout.TranslationY, 350, Easing.CubicIn);
+                    await Task.Delay(200);
+                    await showMenu.RotateTo(0, easing: Easing.CubicInOut);
+                    showUsb.IsVisible = false;
+                    showSettings.IsVisible = false;
+                    showAbout.IsVisible = false;
+
+                    MenuOpen = false;
+                    MenuAnimationActive = false;
+                }
+            }
+            
+            
+
+            
         }
         private async void CancelSettingsPage(object sender, EventArgs e)
         {
@@ -706,11 +818,121 @@ namespace LightScout
             await Task.Delay(350);
             settingsInterface.IsVisible = false;
             settingsInterface.TranslationY = 0;
+            pureblueOverButton.IsVisible = false;
+            pureblueOverButton.Opacity = 0;
             mainInterface.TranslationX = -600;
             mainInterface.TranslateTo(mainInterface.TranslationX + 600, mainInterface.TranslationY, 500, Easing.SinOut);
-            showSettings.TranslationX = 100;
-            showSettings.IsVisible = true;
-            await showSettings.TranslateTo(showSettings.TranslationX - 100, showSettings.TranslationY, 250, Easing.BounceIn);
+            settingsButton.TranslationY = 100;
+            settingsButton.IsVisible = true;
+            MenuAnimationActive = true;
+            await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY - 110, 400, Easing.CubicIn);
+            await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY + 10, 100, Easing.CubicIn);
+            MenuAnimationActive = false;
+
+
+        }
+        private async void SeeUsbPage(object sender, EventArgs e)
+        {
+            if (!MenuAnimationActive)
+            {
+                mainInterface.TranslateTo(mainInterface.TranslationX - 600, mainInterface.TranslationY, 500, Easing.SinIn);
+                if (MenuOpen)
+                {
+                    showUsb.TranslateTo((showMenu.X - showUsb.X), showUsb.TranslationY, 350, Easing.CubicIn);
+                    showAbout.TranslateTo((showMenu.X - showAbout.X), showAbout.TranslationY, 350, Easing.CubicIn);
+                    showSettings.TranslateTo((showMenu.X - showSettings.X), showSettings.TranslationY, 350, Easing.CubicIn);
+                    showMenu.Focus();
+                    pureblueOverButton.IsVisible = true;
+                    pureblueOverButton.FadeTo(1, 200);
+                    await Task.Delay(200);
+                    await showMenu.RotateTo(0, easing: Easing.CubicInOut);
+                    showUsb.IsVisible = false;
+                    showAbout.IsVisible = false;
+                    showSettings.IsVisible = false;
+
+                    MenuOpen = false;
+                }
+                MenuAnimationActive = true;
+                await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY - 10, 75, Easing.CubicOut);
+                await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY + 110, 250, Easing.CubicOut);
+                MenuAnimationActive = false;
+                settingsButton.IsVisible = false;
+                settingsButton.TranslationY = 0;
+                await Task.Delay(100);
+                usbInterface.TranslationY = 1200;
+                usbInterface.IsVisible = true;
+                usbInterface.TranslateTo(usbInterface.TranslationX, usbInterface.TranslationY - 1200, 500, Easing.SinOut);
+            }
+            
+        }
+        private async void CancelUsbPage(object sender, EventArgs e)
+        {
+            usbInterface.TranslateTo(usbInterface.TranslationX, usbInterface.TranslationY + 1200, 500, Easing.SinIn);
+            await Task.Delay(350);
+            usbInterface.IsVisible = false;
+            usbInterface.TranslationY = 0;
+            pureblueOverButton.IsVisible = false;
+            pureblueOverButton.Opacity = 0;
+            mainInterface.TranslationX = -600;
+            mainInterface.TranslateTo(mainInterface.TranslationX + 600, mainInterface.TranslationY, 500, Easing.SinOut);
+            settingsButton.TranslationY = 100;
+            settingsButton.IsVisible = true;
+            MenuAnimationActive = true;
+            await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY - 110, 400, Easing.CubicIn);
+            await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY + 10, 100, Easing.CubicIn);
+            MenuAnimationActive = false;
+
+        }
+        private async void SeeAboutPage(object sender, EventArgs e)
+        {
+            if (!MenuAnimationActive)
+            {
+                mainInterface.TranslateTo(mainInterface.TranslationX - 600, mainInterface.TranslationY, 500, Easing.SinIn);
+                if (MenuOpen)
+                {
+                    showUsb.TranslateTo((showMenu.X - showUsb.X), showUsb.TranslationY, 350, Easing.CubicIn);
+                    showAbout.TranslateTo((showMenu.X - showAbout.X), showAbout.TranslationY, 350, Easing.CubicIn);
+                    showSettings.TranslateTo((showMenu.X - showSettings.X), showSettings.TranslationY, 350, Easing.CubicIn);
+                    showMenu.Focus();
+                    pureblueOverButton.IsVisible = true;
+                    pureblueOverButton.FadeTo(1, 200);
+                    await Task.Delay(200);
+                    await showMenu.RotateTo(0, easing: Easing.CubicInOut);
+                    showUsb.IsVisible = false;
+                    showAbout.IsVisible = false;
+                    showSettings.IsVisible = false;
+
+                    MenuOpen = false;
+                }
+                MenuAnimationActive = true;
+                await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY - 10, 75, Easing.CubicOut);
+                await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY + 110, 250, Easing.CubicOut);
+                MenuAnimationActive = false;
+                settingsButton.IsVisible = false;
+                settingsButton.TranslationY = 0;
+                await Task.Delay(100);
+                aboutInterface.TranslationY = 1200;
+                aboutInterface.IsVisible = true;
+                aboutInterface.TranslateTo(aboutInterface.TranslationX, aboutInterface.TranslationY - 1200, 500, Easing.SinOut);
+            }
+
+        }
+        private async void CancelAboutPage(object sender, EventArgs e)
+        {
+            aboutInterface.TranslateTo(aboutInterface.TranslationX, aboutInterface.TranslationY + 1200, 500, Easing.SinIn);
+            await Task.Delay(350);
+            aboutInterface.IsVisible = false;
+            aboutInterface.TranslationY = 0;
+            pureblueOverButton.IsVisible = false;
+            pureblueOverButton.Opacity = 0;
+            mainInterface.TranslationX = -600;
+            mainInterface.TranslateTo(mainInterface.TranslationX + 600, mainInterface.TranslationY, 500, Easing.SinOut);
+            settingsButton.TranslationY = 100;
+            settingsButton.IsVisible = true;
+            MenuAnimationActive = true;
+            await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY - 110, 400, Easing.CubicIn);
+            await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY + 10, 100, Easing.CubicIn);
+            MenuAnimationActive = false;
 
         }
         private async void CancelCodePanel(object sender, EventArgs e)

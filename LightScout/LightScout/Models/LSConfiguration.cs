@@ -11,5 +11,6 @@ namespace LightScout.Models
         public int MaxMatches { get; set; }
         public int SubmitOffset { get; set; }
         public int BluetoothFailureStage { get; set; }
+        public string[] ScouterNames { get; set; }
     }
 }

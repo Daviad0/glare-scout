@@ -46,7 +46,10 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <AbsoluteLayout>
-        <ScrollView AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" x:Name="mainInterface">
+        <ScrollView AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" x:Name="logoBackground">
+            <Image VerticalOptions="Center" HorizontalOptions="Center" Source="LightScoutGray.png" HeightRequest="300"/>
+        </ScrollView>
+        <ScrollView BackgroundColor="#fafafa" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" x:Name="mainInterface">
             <StackLayout>
                 <Button Text="See FTC" x:Name="FTCShow" Clicked="FTCShow_Clicked" BackgroundColor="#f57e25" TextColor="White" Margin="10,10,10,0" IsVisible="False"/>
                 <ListView x:Name="listOfMatches" ItemTapped="listOfMatches_ItemTapped" RowHeight="60" BackgroundColor="White" IsPullToRefreshEnabled="False" IsVisible="False">
@@ -203,19 +206,119 @@
             </StackLayout>
             
         </ScrollView>
-        <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" x:Name="settingsInterface">
-            
+        <ScrollView BackgroundColor="#fafafa" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" x:Name="settingsInterface">
             <StackLayout>
-                <Grid VerticalOptions="Start" HorizontalOptions="Start" Margin="15">
-                    <Button VerticalOptions="Start" HorizontalOptions="Start" Text="&#xea9d;" x:Name="backSettings" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="#2a7afa" TextColor="White" Clicked="CancelSettingsPage"/>
-                </Grid>
-                <Button Text="Get Data" x:Name="getDataFromServer" Clicked="getDataFromServer_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10"/>
-                <Button Text="Send to USB" x:Name="resetBTLock" Clicked="resetBTLock_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10"/>
-                <Button Text="Send Notification" Clicked="sendNotification_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10"/>
+                <Grid Padding="10" BackgroundColor="#2a7afa" ios:Page.UseSafeArea="True">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
 
-                <Picker x:Name="tabletPicker" SelectedIndexChanged="tabletPicker_SelectedIndexChanged"/>
+
+                    <Button Text="&#xea97;" TextColor="#2a7afa" BackgroundColor="White" BorderColor="#2a7afa" BorderWidth="2" Clicked="CancelSettingsPage" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
+
+                    <Label Text="Settings" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" TextColor="White">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Varela Round Regular</On>
+                                <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                    
+                </Grid>
+                <StackLayout>
+                    <Label Text="Reset Team Data" Margin="10,0"/>
+                    <Button Text="Get Data VIA Bluetooth" x:Name="getDataFromServer" Clicked="getDataFromServer_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
+                    <Button Text="Send Dummy Data" Clicked="SendDummyData" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
+                    <BoxView BackgroundColor="Gray" HeightRequest="2" Margin="5,0"/>
+                    <Label Text="Team Scouters" Margin="10,0"/>
+                    <Button Text="Reset Scout Names" Clicked="CreateNewScoutNames" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
+                    <BoxView BackgroundColor="Gray" HeightRequest="2" Margin="5,0"/>
+                    <Button Text="Send Notification" Clicked="sendNotification_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
+
+                    <Picker x:Name="tabletPicker" SelectedIndexChanged="tabletPicker_SelectedIndexChanged"/>
+                    <Button Text="Reload" Clicked="ReloadScreen" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
+
+                </StackLayout>
             </StackLayout>
             
+            
+
+
+        </ScrollView>
+        <ScrollView BackgroundColor="#fafafa" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" x:Name="aboutInterface">
+            <StackLayout>
+                <Grid Padding="10" BackgroundColor="#2a7afa" ios:Page.UseSafeArea="True">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <Button Text="&#xea97;" TextColor="#2a7afa" BackgroundColor="White" BorderColor="#2a7afa" BorderWidth="2" Clicked="CancelAboutPage" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
+
+                    <Label Text="About" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" TextColor="White">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Varela Round Regular</On>
+                                <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+
+                </Grid>
+                <StackLayout>
+
+                    <Label Text="Version 0.1.1" HorizontalOptions="Center"/>
+
+                </StackLayout>
+            </StackLayout>
+
+
+
+
+        </ScrollView>
+        <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" x:Name="usbInterface" BackgroundColor="#2a7afa">
+            <StackLayout>
+                <Grid Padding="10" BackgroundColor="#2a7afa" ios:Page.UseSafeArea="True">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <Button Text="&#xea97;" TextColor="#2a7afa" BackgroundColor="White" BorderColor="#2a7afa" BorderWidth="2" Clicked="CancelUsbPage" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
+
+                    <Label Text="USB Transfer" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" TextColor="White">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">Varela Round Regular</On>
+                                <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+
+                </Grid>
+                <StackLayout>
+
+                    <Button Text="Send to USB" x:Name="resetBTLock" Clicked="resetBTLock_Clicked" BackgroundColor="White" TextColor="#2a7afa" Margin="10"/>
+                </StackLayout>
+            </StackLayout>
+            
+
         </ScrollView>
         <StackLayout x:Name="moreinfoMenu" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
             <AbsoluteLayout VerticalOptions="FillAndExpand">
@@ -226,6 +329,25 @@
                     <Button BackgroundColor="Transparent" BorderColor="Transparent" Text="&#xeee4;" HorizontalOptions="Start" VerticalOptions="Start" Margin="5" TextColor="Gray" FontSize="40" Clicked="Button_Clicked" FontFamily="{StaticResource IconFont}"/>
                 </StackLayout>
             </AbsoluteLayout>
+
+        </StackLayout>
+        
+        <StackLayout x:Name="settingsButton" AbsoluteLayout.LayoutBounds="1,1,300,80" AbsoluteLayout.LayoutFlags="PositionProportional">
+            <Grid VerticalOptions="End" HorizontalOptions="End" Margin="0,0,15,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="64"/>
+                    <ColumnDefinition Width="64"/>
+                    <ColumnDefinition Width="64"/>
+                    <ColumnDefinition Width="64"/>
+                </Grid.ColumnDefinitions>
+                
+                <Button Clicked="SeeSettingsPage" IsVisible="False" VerticalOptions="End" Grid.Column="0" HorizontalOptions="End" Text="&#xef3b;" x:Name="showSettings" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" TextColor="#2a7afa" BorderColor="#2a7afa" BorderWidth="2"/>
+                <Button Clicked="SeeUsbPage" IsVisible="False" VerticalOptions="End" Grid.Column="1" HorizontalOptions="End" Text="&#xf01f;" x:Name="showUsb" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" TextColor="#2a7afa" BorderColor="#2a7afa" BorderWidth="2"/>
+                <Button Clicked="SeeAboutPage" IsVisible="False" VerticalOptions="End" Grid.Column="2" HorizontalOptions="End" Text="&#xef4e;" x:Name="showAbout" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" TextColor="#2a7afa" BorderColor="#2a7afa" BorderWidth="2"/>
+                <Button Clicked="ToggleMenuItems" x:Name="showMenu" VerticalOptions="End" Grid.Column="3" HorizontalOptions="End" Text="&#xefa2;" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="#2a7afa" TextColor="White" BorderColor="#2a7afa" BorderWidth="2"/>
+                <Button Opacity="0" IsVisible="False" VerticalOptions="End" Grid.Column="3" HorizontalOptions="End" Text="&#xefa2;" x:Name="pureblueOverButton" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="#2a7afa" TextColor="#2a7afa" BorderColor="#2a7afa" BorderWidth="2"/>
+
+                </Grid>
 
         </StackLayout>
         <StackLayout x:Name="notificationMedium" AbsoluteLayout.LayoutBounds="0,1,1,.15" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
@@ -239,19 +361,13 @@
                             <ColumnDefinition Width="50"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="50"/>
-                            
+
                         </Grid.ColumnDefinitions>
-                        <Label VerticalOptions="Center" Text="&#xeacf;" FontFamily="{StaticResource IconFont}" FontSize="40" Grid.Column="0"/>
+                        <Label VerticalOptions="Center" TextColor="White" Text="&#xeacf;" FontFamily="{StaticResource IconFont}" FontSize="40" Grid.Column="0" x:Name="NotificationIcon"/>
                         <Label VerticalOptions="Center" x:Name="NotificationLabel" Text="Notice:" FontAttributes="Bold" Grid.Row="0" TextColor="White" FontSize="20" Grid.Column="1"/>
                         <Button Grid.Column="2" FontSize="30" WidthRequest="50" Text="&#xeee4;" FontFamily="{StaticResource IconFont}" BackgroundColor="Transparent" TextColor="White" x:Name="dismissNotification" Clicked="dismissNotification_Clicked"/>
                     </Grid>
                 </Frame>
-            </Grid>
-
-        </StackLayout>
-        <StackLayout x:Name="settingsButton" AbsoluteLayout.LayoutBounds="1,1,.40,.30" AbsoluteLayout.LayoutFlags="All">
-            <Grid VerticalOptions="FillAndExpand" HorizontalOptions="End" Margin="15">
-                <Button Clicked="SeeSettingsPage" VerticalOptions="End" Grid.Column="1" Grid.Row="0" HorizontalOptions="End" Text="&#xef3b;" x:Name="showSettings" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="#2a7afa" TextColor="White"/>
             </Grid>
 
         </StackLayout>

@@ -74,9 +74,20 @@ namespace LightScout
             DisabledSeconds = matchTemplate.DisabledSeconds;
             InitLineAchieved = matchTemplate.A_InitiationLine;
             HiddenLabel.Text = "Team " + matchTemplate.TeamNumber.ToString();
+            
+            var listofscouts = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).ScouterNames.ToList();
+            scouterPicker.ItemsSource = listofscouts;
             if (matchTemplate.ScoutName != null)
             {
-                scoutName.Text = matchTemplate.ScoutName;
+                try
+                {
+                    scouterPicker.SelectedIndex = listofscouts.IndexOf(matchTemplate.ScoutName);
+                }
+                catch(Exception ex)
+                {
+
+                }
+                
             }
 
             teamName.Text = "Team " + matchTemplate.TeamNumber.ToString();
@@ -427,15 +438,19 @@ namespace LightScout
         }
         private async void StartScouting(object sender, EventArgs e)
         {
-            if(scoutName.Text != null && scoutName.Text != "")
+            if(scouterPicker.SelectedItem != null)
             {
-                nextForm.Opacity = 0;
-                nextForm.IsVisible = true;
-                nextForm.FadeTo(1, 500, Easing.CubicIn);
-                enableDisabled.Opacity = 0;
-                enableDisabled.IsVisible = true;
-                enableDisabled.FadeTo(1, 500, Easing.CubicIn);
+                if (scouterPicker.SelectedItem.ToString() != null || scouterPicker.SelectedItem.ToString() != "")
+                {
+                    nextForm.Opacity = 0;
+                    nextForm.IsVisible = true;
+                    nextForm.FadeTo(1, 500, Easing.CubicIn);
+                    enableDisabled.Opacity = 0;
+                    enableDisabled.IsVisible = true;
+                    enableDisabled.FadeTo(1, 500, Easing.CubicIn);
+                }
             }
+            
             
             var converter = new ColorTypeConverter();
             BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
@@ -1295,7 +1310,7 @@ namespace LightScout
                 thismatch.PowerCellLower = PowerCellLower;
                 thismatch.PowerCellMissed = PowerCellMissed;
                 thismatch.PowerCellOuter = PowerCellOuter;
-                thismatch.ScoutName = scoutName.Text;
+                thismatch.ScoutName = scouterPicker.SelectedItem.ToString();
                 thismatch.ClientLastSubmitted = DateTime.Now;
                 thismatch.TabletId = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TabletIdentifier;
                 thismatch.TeamNumber = selectedMatch.TeamNumber;
@@ -1987,7 +2002,7 @@ namespace LightScout
                 enableDisabled.FadeTo(1, 500, Easing.CubicIn);
             }
             
-            trackingLogs.Add(SecondsScouting.ToString() + ":100:" + scoutName.Text);
+            trackingLogs.Add(SecondsScouting.ToString() + ":100:" + scouterPicker.SelectedItem.ToString());
         }
     }
 }

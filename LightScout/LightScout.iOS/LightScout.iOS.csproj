@@ -153,6 +153,12 @@
     <ImageAsset Include="Assets.xcassets\BlueSLOn.png.imageset\BlueSLOn.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\LightScoutGray.png.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\LightScoutGray.png.imageset\lsbackArtboard 1xxxhdpi.png">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\RedSLOn.png.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>

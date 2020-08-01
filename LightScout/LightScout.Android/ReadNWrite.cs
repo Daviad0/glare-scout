@@ -214,7 +214,9 @@ namespace LightScout.Droid
             }
             catch (Exception ex)
             {
-                File.WriteAllText(finalPath, JsonConvert.SerializeObject(new LSConfiguration()));
+                var newconfigfile = new LSConfiguration();
+                newconfigfile.ScouterNames = new string[2] { "John Doe", "Imaex Ample" };
+                File.WriteAllText(finalPath, JsonConvert.SerializeObject(newconfigfile));
                 result = File.ReadAllText(finalPath);
             }
 
@@ -243,6 +245,7 @@ namespace LightScout.Droid
             {
                 Console.WriteLine("Cannot find specified match in file system. Creating configuration file...");
                 modeltochange = new LSConfiguration();
+                modeltochange.ScouterNames = new string[3] { "John Doe", "Imaex Ample", "Guest Scouter" };
             }
             switch (configtype)
             {
@@ -257,6 +260,9 @@ namespace LightScout.Droid
                     break;
                 case "bluetoothStage":
                     modeltochange.BluetoothFailureStage = (int)newvalue;
+                    break;
+                case "scoutNames":
+                    modeltochange.ScouterNames = (string[])newvalue;
                     break;
             }
             try

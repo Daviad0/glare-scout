@@ -10,6 +10,8 @@ namespace LightScout.Models
         public string TabletIdentifier { get; set; }
         public int MaxMatches { get; set; }
         public int SubmitOffset { get; set; }
+        public int TeamOfOwnership { get; set; }
+        public string ScouterOfOwnership { get; set; }
         public int BluetoothFailureStage { get; set; }
         public string[] ScouterNames { get; set; }
     }

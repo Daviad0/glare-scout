@@ -264,6 +264,12 @@ namespace LightScout.Droid
                 case "scoutNames":
                     modeltochange.ScouterNames = (string[])newvalue;
                     break;
+                case "ownerTeamChange":
+                    modeltochange.TeamOfOwnership = (int)newvalue;
+                    break;
+                case "ownerScoutChange":
+                    modeltochange.ScouterOfOwnership = (string)newvalue;
+                    break;
             }
             try
             {

@@ -738,6 +738,7 @@ namespace LightScout
                 settingsButton.TranslationY = 0;
                 await Task.Delay(100);
                 settingsInterface.TranslationY = 1200;
+                await Task.Delay(100);
                 settingsInterface.IsVisible = true;
                 settingsInterface.TranslateTo(settingsInterface.TranslationX, settingsInterface.TranslationY - 1200, 500, Easing.SinOut);
             }
@@ -835,6 +836,7 @@ namespace LightScout
                 settingsButton.TranslationY = 0;
                 await Task.Delay(100);
                 usbInterface.TranslationY = 1200;
+                await Task.Delay(100);
                 usbInterface.IsVisible = true;
                 usbInterface.TranslateTo(usbInterface.TranslationX, usbInterface.TranslationY - 1200, 500, Easing.SinOut);
             }
@@ -887,6 +889,7 @@ namespace LightScout
                 settingsButton.TranslationY = 0;
                 await Task.Delay(100);
                 aboutInterface.TranslationY = 1200;
+                await Task.Delay(100);
                 aboutInterface.IsVisible = true;
                 aboutInterface.TranslateTo(aboutInterface.TranslationX, aboutInterface.TranslationY - 1200, 500, Easing.SinOut);
             }

@@ -215,14 +215,18 @@ namespace LightScout
 
 
         }
-        private void CreateNewScoutNames(object sender, EventArgs e)
+        private async void CreateNewScoutNames(object sender, EventArgs e)
         {
             DependencyService.Get<DataStore>().SaveConfigurationFile("scoutNames", new string[3] { "John Doe", "Imaex Ample", "Guest Scouter" });
             Console.WriteLine(DependencyService.Get<DataStore>().LoadConfigFile());
+            await DismissNotification();
+            await NewNotification("Scout Names Reset!");
         }
-        private void SendDummyData(object sender, EventArgs e)
+        private async void SendDummyData(object sender, EventArgs e)
         {
             DependencyService.Get<DataStore>().SaveDummyData("JacksonEvent2020.txt");
+            await DismissNotification();
+            await NewNotification("Data Reset!");
         }
         private void ReloadScreen(object sender, EventArgs e)
         {
@@ -357,7 +361,7 @@ namespace LightScout
 
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             CancellationToken token = cancellationTokenSource.Token;
-            MessagingCenter.Subscribe<SubmitVIABluetooth, int>(this, "receivedata", (messagesender, value) => {
+            MessagingCenter.Subscribe<SubmitVIABluetooth, int>(this, "receivedata", async (messagesender, value) => {
                 switch (value)
                 {
                     case 1:
@@ -370,7 +374,8 @@ namespace LightScout
                         ReloadMatches();
                         cancellationTokenSource.Cancel();
                         MessagingCenter.Unsubscribe<SubmitVIABluetooth, int>(this, "receivedata");
-                        
+                        await DismissNotification();
+                        await NewNotification("GET Succeeded!");
                         break;
                     case -1:
                         getDataFromServer.Text = "Process Failed";
@@ -394,7 +399,7 @@ namespace LightScout
             });
         }
 
-        private void resetBTLock_Clicked(object sender, EventArgs e)
+        private async void resetBTLock_Clicked(object sender, EventArgs e)
         {
             //DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 0);
             //resetBTLock.Text = "Reset!!";
@@ -429,7 +434,8 @@ namespace LightScout
             }
             else
             {
-                DisplayAlert("Not Available", "You are not currently connected to USB, so you cannot transfer data this way!", "Ok!");
+                await DismissNotification();
+                await NewNotification("USB Not Connected!");
             }
             
 
@@ -595,9 +601,7 @@ namespace LightScout
                     codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
                     codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
                     codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
-                    await strategyCodePanel.TranslateTo(strategyCodePanel.TranslationX - 600, strategyCodePanel.TranslationY, 500, Easing.CubicInOut);
-                    strategyCodeInterface.IsVisible = false;
-                    strategyCodePanel.TranslationX = 0;
+                    
                     codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
                     codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
                     codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
@@ -632,6 +636,10 @@ namespace LightScout
                             }
                             coreEditTeamNumber.Text = currentmatch.TeamNumber.ToString();
                             editCoreInfoPanel.TranslationX = 600;
+                            await Task.Delay(50);
+                            await strategyCodePanel.TranslateTo(strategyCodePanel.TranslationX - 600, strategyCodePanel.TranslationY, 500, Easing.CubicInOut);
+                            strategyCodeInterface.IsVisible = false;
+                            strategyCodePanel.TranslationX = 0;
                             editCoreInfoInterface.IsVisible = true;
                             editCoreInfoPanel.TranslateTo(editCoreInfoPanel.TranslationX - 600, editCoreInfoPanel.TranslationY, 500, Easing.CubicInOut);
                             await Task.Delay(2000);
@@ -641,6 +649,10 @@ namespace LightScout
                             createNewMatchNumberStepper.Value = 1;
                             createNewMatchNumberLabel.Text = "#1";
                             createMatchInfoPanel.TranslationX = 600;
+                            await Task.Delay(50);
+                            await strategyCodePanel.TranslateTo(strategyCodePanel.TranslationX - 600, strategyCodePanel.TranslationY, 500, Easing.CubicInOut);
+                            strategyCodeInterface.IsVisible = false;
+                            strategyCodePanel.TranslationX = 0;
                             createNewMatchInterface.IsVisible = true;
                             createMatchInfoPanel.TranslateTo(createMatchInfoPanel.TranslationX - 600, createMatchInfoPanel.TranslationY, 500, Easing.CubicInOut);
 
@@ -964,7 +976,7 @@ namespace LightScout
         {
             createNewMatchNumberLabel.Text = "#" + e.NewValue.ToString();
         }
-        private void CreateNewMatch(object sender, EventArgs e)
+        private async void CreateNewMatch(object sender, EventArgs e)
         {
             var converter = new ColorTypeConverter();
             codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
@@ -972,6 +984,7 @@ namespace LightScout
             codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
             codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
             strategyCodePanel.TranslationX = 600;
+            await Task.Delay(50);
             strategyCodeInterface.IsVisible = true;
             strategyCodePanel.TranslateTo(strategyCodePanel.TranslationX - 600, strategyCodePanel.TranslationY, 500, Easing.CubicInOut);
             currentCodeString = "";
@@ -985,6 +998,7 @@ namespace LightScout
             codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
             codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
             strategyCodePanel.TranslationX = 600;
+            await Task.Delay(50);
             strategyCodeInterface.IsVisible = true;
             strategyCodePanel.TranslateTo(strategyCodePanel.TranslationX - 600, strategyCodePanel.TranslationY, 500, Easing.CubicInOut);
             currentCodeString = "";
@@ -998,6 +1012,7 @@ namespace LightScout
             codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
             codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
             strategyCodePanel.TranslationX = 600;
+            await Task.Delay(50);
             strategyCodeInterface.IsVisible = true;
             strategyCodePanel.TranslateTo(strategyCodePanel.TranslationX - 600, strategyCodePanel.TranslationY, 500, Easing.CubicInOut);
             currentCodeString = "";

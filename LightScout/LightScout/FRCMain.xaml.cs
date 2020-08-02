@@ -1540,17 +1540,22 @@ namespace LightScout
 
         private void EnableDisabledMenu(object sender, EventArgs e)
         {
+            disabledMenuPanel.TranslationX = 600;
             disabledMenu.IsVisible = true;
+            disabledMenuPanel.TranslateTo(disabledMenuPanel.TranslationX - 600, disabledMenuPanel.TranslationY, 500, Easing.CubicInOut);
             CurrentlyDisabled = true;
             DisabledTimer();
             trackingLogs.Add(SecondsScouting.ToString() + ":9000");
 
         }
-        private void DisableDisabledMenu(object sender, EventArgs e)
+        private async void DisableDisabledMenu(object sender, EventArgs e)
         {
 
             CurrentlyDisabled = false;
+           
+            await disabledMenuPanel.TranslateTo(disabledMenuPanel.TranslationX - 600, disabledMenuPanel.TranslationY, 500, Easing.CubicInOut);
             disabledMenu.IsVisible = false;
+            disabledMenuPanel.TranslationX = 0;
             trackingLogs.Add(SecondsScouting.ToString() + ":9001");
 
         }
@@ -1986,6 +1991,7 @@ namespace LightScout
 
         private void resetDisabled_Clicked(object sender, EventArgs e)
         {
+            
             DisabledSeconds = 0;
             disabledSeconds.Text = "0s";
         }

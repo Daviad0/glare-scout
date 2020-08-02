@@ -92,8 +92,9 @@
                     </CarouselView.ItemsLayout>
                     <CarouselView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout>
-                                <Frame HasShadow="True"
+                            <Grid>
+                                <StackLayout IsVisible="{Binding ActualMatch}">
+                                    <Frame HasShadow="True"
                        BorderColor="DarkGray"
                        CornerRadius="5"
                        Margin="20,20,20,0"
@@ -101,69 +102,69 @@
                        HorizontalOptions="Center"
                        VerticalOptions="CenterAndExpand"
                                        WidthRequest="300">
-                                    <StackLayout>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="70"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="70"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="30"/>
-                                            </Grid.RowDefinitions>
-                                            <Grid HorizontalOptions="Start" Grid.Column="0" Margin="0,3,0,0">
+                                        <StackLayout>
+                                            <Grid>
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="35"/>
+                                                    <ColumnDefinition Width="70"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="70"/>
                                                 </Grid.ColumnDefinitions>
                                                 <Grid.RowDefinitions>
-                                                    <RowDefinition Height="25"/>
+                                                    <RowDefinition Height="30"/>
                                                 </Grid.RowDefinitions>
-                                                <Frame HasShadow="False" BackgroundColor="Red" BorderColor="Red" IsVisible="{Binding IsRed}" Grid.Row="0" Grid.Column="0" Padding="0">
-                                                    <Label Text="{Binding TabletName}" TextColor="White" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
-                                                </Frame>
-                                                <Frame HasShadow="False" BackgroundColor="Blue" BorderColor="Blue" IsVisible="{Binding IsBlue}" Grid.Row="0" Grid.Column="0" Padding="0">
-                                                    <Label Text="{Binding TabletName}" TextColor="White" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
-                                                </Frame>
-                                            </Grid>
-                                            <Label Text="{Binding MatchNumber, StringFormat='Match #{0}'}"
+                                                <Grid HorizontalOptions="Start" Grid.Column="0" Margin="0,3,0,0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="35"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="25"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Frame HasShadow="False" BackgroundColor="Red" BorderColor="Red" IsVisible="{Binding IsRed}" Grid.Row="0" Grid.Column="0" Padding="0">
+                                                        <Label Text="{Binding TabletName}" TextColor="White" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
+                                                    </Frame>
+                                                    <Frame HasShadow="False" BackgroundColor="Blue" BorderColor="Blue" IsVisible="{Binding IsBlue}" Grid.Row="0" Grid.Column="0" Padding="0">
+                                                        <Label Text="{Binding TabletName}" TextColor="White" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
+                                                    </Frame>
+                                                </Grid>
+                                                <Label Text="{Binding MatchNumber, StringFormat='Match #{0}'}"
                                FontAttributes="Bold"
                                FontSize="Large"
                                HorizontalOptions="Center"
                                VerticalOptions="Start" Grid.Column="1"/>
-                                            <Label Grid.Column="2" FontFamily="{StaticResource IconFont}" TextColor="Green" FontAttributes="Bold" Text="&#xeed7;" FontSize="25" HorizontalOptions="End" IsVisible="{Binding Completed}"/>
-                                            <Label Grid.Column="2" Text="Up Next!" HorizontalOptions="End" FontAttributes="Bold" TextColor="#0f3f8c" VerticalOptions="Center" IsVisible="{Binding IsUpNext}"/>
-                                            
-                                        </Grid>
-                                        <Grid Margin="20,10,20,0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="3*"/>
-                                                <ColumnDefinition Width="4*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Frame HeightRequest="75" WidthRequest="75" HorizontalOptions="Center" BackgroundColor="#0f3f8c" Padding="7" HasShadow="False" CornerRadius="4" Grid.Column="0">
-                                                <Image Source="{Binding teamIcon}" HeightRequest="100"/>
-                                            </Frame>
-                                            <Grid Grid.Column="1">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="30"/>
-                                                    <RowDefinition Height="70"/>
-                                                </Grid.RowDefinitions>
-                                                <Label Text="{Binding TeamNumber, StringFormat='Team {0}'}"
+                                                <Label Grid.Column="2" FontFamily="{StaticResource IconFont}" TextColor="Green" FontAttributes="Bold" Text="&#xeed7;" FontSize="25" HorizontalOptions="End" IsVisible="{Binding Completed}"/>
+                                                <Label Grid.Column="2" Text="Up Next!" HorizontalOptions="End" FontAttributes="Bold" TextColor="#0f3f8c" VerticalOptions="Center" IsVisible="{Binding IsUpNext}"/>
+
+                                            </Grid>
+                                            <Grid Margin="20,10,20,0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="3*"/>
+                                                    <ColumnDefinition Width="4*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Frame HeightRequest="75" WidthRequest="75" HorizontalOptions="Center" BackgroundColor="#0f3f8c" Padding="7" HasShadow="False" CornerRadius="4" Grid.Column="0">
+                                                    <Image Source="{Binding teamIcon}" HeightRequest="100"/>
+                                                </Frame>
+                                                <Grid Grid.Column="1">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="30"/>
+                                                        <RowDefinition Height="70"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Label Text="{Binding TeamNumber, StringFormat='Team {0}'}"
                                                    FontAttributes="Bold"
                                                    FontSize="Large" Grid.Row="0"/>
-                                                <Label Text="{Binding TeamName}"
+                                                    <Label Text="{Binding TeamName}"
                                                    Grid.Row="1" FontSize="Medium" />
+                                                </Grid>
                                             </Grid>
-                                        </Grid>
 
-                                    </StackLayout>
-                                </Frame>
-                                <Grid HorizontalOptions="Center">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="170"/>
-                                        <ColumnDefinition Width="70"/>
-                                        <ColumnDefinition Width="70"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Frame HasShadow="True"
+                                        </StackLayout>
+                                    </Frame>
+                                    <Grid HorizontalOptions="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="170"/>
+                                            <ColumnDefinition Width="70"/>
+                                            <ColumnDefinition Width="70"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Frame HasShadow="True"
                                        BorderColor="DarkGray"
                                        CornerRadius="5"
                                        Margin="10,0,10,20"
@@ -171,10 +172,10 @@
                                        Grid.Column="0"
                                                        Padding="0"
                                        HorizontalOptions="Center"
-                                                       WidthRequest="150">          
-                                        <Button Text="Scout Match" BackgroundColor="Transparent" BorderColor="Transparent" Clicked="GoToFRCPage"/>
-                                    </Frame>
-                                    <Frame HasShadow="True"
+                                                       WidthRequest="150">
+                                            <Button Text="Scout Match" BackgroundColor="Transparent" BorderColor="Transparent" Clicked="GoToFRCPage"/>
+                                        </Frame>
+                                        <Frame HasShadow="True"
                                        BorderColor="DarkGray"
                                        CornerRadius="5"
                                        Margin="5,0,5,20"
@@ -183,9 +184,9 @@
                                                        Padding="0"
                                        HorizontalOptions="Center"
                                                        WidthRequest="70">
-                                        <Button Text="&#xee09;" BackgroundColor="Transparent" TextColor="Red" BorderColor="Transparent" FontFamily="{StaticResource IconFont}" Clicked="DeleteEntry"/>
-                                    </Frame>
-                                    <Frame HasShadow="True"
+                                            <Button Text="&#xee09;" BackgroundColor="Transparent" TextColor="Red" BorderColor="Transparent" FontFamily="{StaticResource IconFont}" Clicked="DeleteEntry"/>
+                                        </Frame>
+                                        <Frame HasShadow="True"
                                        BorderColor="DarkGray"
                                        CornerRadius="5"
                                        Margin="5,0,5,20"
@@ -194,11 +195,38 @@
                                                        Padding="0"
                                        HorizontalOptions="Center"
                                                        WidthRequest="70">
-                                        <Button Text="&#xec55;" BackgroundColor="Transparent" TextColor="Blue" BorderColor="Transparent" FontFamily="{StaticResource IconFont}" Clicked="EditEntry"/>
+                                            <Button Text="&#xec55;" BackgroundColor="Transparent" TextColor="Blue" BorderColor="Transparent" FontFamily="{StaticResource IconFont}" Clicked="EditEntry"/>
+                                        </Frame>
+                                    </Grid>
+
+                                </StackLayout>
+                                <StackLayout IsVisible="{Binding NewPlaceholder}">
+                                    <Frame HasShadow="False"
+                       BorderColor="DarkGray"
+                       CornerRadius="5"
+                       Margin="20,20,20,0"
+                       HeightRequest="300"
+                       HorizontalOptions="Center"
+                       VerticalOptions="CenterAndExpand"
+                                       WidthRequest="300"
+                                       BackgroundColor="Transparent">
+                                        <Button HeightRequest="300" WidthRequest="300" Text="&#xefc2;" BackgroundColor="Transparent" TextColor="DarkGray" Clicked="CreateNewMatch" FontSize="80" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="{StaticResource IconFont}"/>
                                     </Frame>
-                                </Grid>
-                                
-                            </StackLayout>
+                                    <Frame HasShadow="False"
+                                       BorderColor="DarkGray"
+                                       CornerRadius="5"
+                                       Margin="10,0,10,20"
+                                       HeightRequest="50"
+                                                       Padding="0"
+                                       HorizontalOptions="Center"
+                                                       WidthRequest="250">
+                                        <Button Text="Create New Match" BackgroundColor="Transparent" BorderColor="DarkGray" TextColor="DarkGray" Clicked="CreateNewMatch"/>
+                                    </Frame>
+
+
+                                </StackLayout>
+                            </Grid>
+                            
                         </DataTemplate>
                     </CarouselView.ItemTemplate>
                 </CarouselView>
@@ -376,45 +404,50 @@
                 <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">
 
                 </StackLayout>
-                <StackLayout BackgroundColor="White" VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".6,.6,.8,.8" AbsoluteLayout.LayoutFlags="All" Padding="50">
-                    <Label Text="Code Required!" HorizontalOptions="Center" FontAttributes="Bold"/>
-                    <Grid HeightRequest="12" Margin="0,15,0,0" HorizontalOptions="Center" x:Name="codeProgressContainer">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="25"/>
-                            <ColumnDefinition Width="25"/>
-                            <ColumnDefinition Width="25"/>
-                            <ColumnDefinition Width="25"/>
-                        </Grid.ColumnDefinitions>
-                        <BoxView BackgroundColor="LightGray" Grid.Column="0" Margin="1" CornerRadius="6,0,6,0" x:Name="codeProgress1"/>
-                        <BoxView BackgroundColor="LightGray" Grid.Column="1" Margin="1" x:Name="codeProgress2"/>
-                        <BoxView BackgroundColor="LightGray" Grid.Column="2" Margin="1" x:Name="codeProgress3"/>
-                        <BoxView BackgroundColor="LightGray" Grid.Column="3" Margin="1" CornerRadius="0,6,0,6" x:Name="codeProgress4"/>
-                    </Grid>
-                    <Grid Margin="0,10,0,15">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="70"/>
-                            <ColumnDefinition Width="70"/>
-                            <ColumnDefinition Width="70"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="70"/>
-                            <RowDefinition Height="70"/>
-                            <RowDefinition Height="70"/>
-                            <RowDefinition Height="70"/>
-                        </Grid.RowDefinitions>
-                        <Button Text="1" Grid.Column="0" Grid.Row="0" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton1"/>
-                        <Button Text="2" Grid.Column="1" Grid.Row="0" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton2"/>
-                        <Button Text="3" Grid.Column="2" Grid.Row="0" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton3"/>
-                        <Button Text="4" Grid.Column="0" Grid.Row="1" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton4"/>
-                        <Button Text="5" Grid.Column="1" Grid.Row="1" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton5"/>
-                        <Button Text="6" Grid.Column="2" Grid.Row="1" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton6"/>
-                        <Button Text="7" Grid.Column="0" Grid.Row="2" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton7"/>
-                        <Button Text="8" Grid.Column="1" Grid.Row="2" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton8"/>
-                        <Button Text="9" Grid.Column="2" Grid.Row="2" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton9"/>
-                        <Button Text="&#xea9d;" Grid.Column="0" Grid.Row="3" Margin="5" FontSize="20" CornerRadius="30" TextColor="#2a7afa" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="#2a7afa" BorderWidth="2" Clicked="CancelCodePanel" FontFamily="{StaticResource IconFont}"/>
-                        <Button Text="0" Grid.Column="1" Grid.Row="3" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton0"/>
-                        <Button Opacity="0" Text="&#xeee4;" Grid.Column="2" Grid.Row="3" Margin="5" FontSize="20" CornerRadius="30" TextColor="Red" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Red" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButtonCancel" FontFamily="{StaticResource IconFont}"/>
-                    </Grid>
+                <StackLayout VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".5,.5,.8,.8" AbsoluteLayout.LayoutFlags="All" x:Name="strategyCodePanel">
+                    <Frame CornerRadius="14" BackgroundColor="White" Padding="50">
+                        <StackLayout>
+                            <Label Text="Code Required!" HorizontalOptions="Center" FontSize="23" FontAttributes="Bold"/>
+                            <Grid HeightRequest="13" Margin="0,15,0,0" HorizontalOptions="Center" x:Name="codeProgressContainer">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="25"/>
+                                    <ColumnDefinition Width="25"/>
+                                    <ColumnDefinition Width="25"/>
+                                    <ColumnDefinition Width="25"/>
+                                </Grid.ColumnDefinitions>
+                                <BoxView BackgroundColor="LightGray" Grid.Column="0" WidthRequest="25" HorizontalOptions="Center" CornerRadius="6,1,6,1" x:Name="codeProgress1"/>
+                                <BoxView BackgroundColor="LightGray" Grid.Column="1" WidthRequest="25" HorizontalOptions="Center" CornerRadius="1,1,1,1" x:Name="codeProgress2"/>
+                                <BoxView BackgroundColor="LightGray" Grid.Column="2" WidthRequest="25" HorizontalOptions="Center" CornerRadius="1,1,1,1" x:Name="codeProgress3"/>
+                                <BoxView BackgroundColor="LightGray" Grid.Column="3" WidthRequest="25" HorizontalOptions="Center" CornerRadius="1,6,1,6" x:Name="codeProgress4"/>
+                            </Grid>
+                            <Grid Margin="0,10,0,15">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="70"/>
+                                    <ColumnDefinition Width="70"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="70"/>
+                                    <RowDefinition Height="70"/>
+                                </Grid.RowDefinitions>
+                                <Button Text="1" Grid.Column="0" Grid.Row="0" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton1"/>
+                                <Button Text="2" Grid.Column="1" Grid.Row="0" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton2"/>
+                                <Button Text="3" Grid.Column="2" Grid.Row="0" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton3"/>
+                                <Button Text="4" Grid.Column="0" Grid.Row="1" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton4"/>
+                                <Button Text="5" Grid.Column="1" Grid.Row="1" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton5"/>
+                                <Button Text="6" Grid.Column="2" Grid.Row="1" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton6"/>
+                                <Button Text="7" Grid.Column="0" Grid.Row="2" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton7"/>
+                                <Button Text="8" Grid.Column="1" Grid.Row="2" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton8"/>
+                                <Button Text="9" Grid.Column="2" Grid.Row="2" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton9"/>
+                                <Button Text="&#xea9d;" Grid.Column="0" Grid.Row="3" Margin="5" FontSize="20" CornerRadius="30" TextColor="#2a7afa" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="#2a7afa" BorderWidth="2" Clicked="CancelCodePanel" FontFamily="{StaticResource IconFont}"/>
+                                <Button Text="0" Grid.Column="1" Grid.Row="3" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton0"/>
+                                <Button Opacity="0" Text="&#xeee4;" Grid.Column="2" Grid.Row="3" Margin="5" FontSize="20" CornerRadius="30" TextColor="Red" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Red" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButtonCancel" FontFamily="{StaticResource IconFont}"/>
+                            </Grid>
+                        </StackLayout>
+                    </Frame>
+                    
                 </StackLayout>
             </AbsoluteLayout>
         </StackLayout>
@@ -423,30 +456,74 @@
                 <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">
 
                 </StackLayout>
-                <StackLayout BackgroundColor="White" VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".6,.6,.8,.8" AbsoluteLayout.LayoutFlags="All" Padding="50">
-                    <Label Text="Team Number"/>
-                    <Entry Keyboard="Numeric" Placeholder="862" x:Name="coreEditTeamNumber"/>
-                    <Label Text="Team Name"/>
-                    <Entry Placeholder="FRC Team" x:Name="coreEditTeamName"/>
-                    <Label Text="Match Number"/>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Stepper Minimum="1" Value="1" ValueChanged="coreEditMatchNumberStepper_ValueChanged" x:Name="coreEditMatchNumberStepper" Grid.Column="0"/>
-                        <Label Margin="10,0,0,0" Text="Match #1" Grid.Column="1" FontSize="20" x:Name="coreEditMatchNumberLabel" VerticalOptions="Center"/>
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Button Text="Cancel" Margin="3" Clicked="CancelCoreInfoEdit" CornerRadius="4" BackgroundColor="Red" TextColor="White" Grid.Column="0"/>
-                        <Button Text="Save" Margin="3" CornerRadius="4" BackgroundColor="Green" TextColor="White" Grid.Column="1" Clicked="SaveCoreInfoEdit"/>
-                    </Grid>
+                <StackLayout VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".5,.5,.8,.8" AbsoluteLayout.LayoutFlags="All" x:Name="editCoreInfoPanel">
+                    <Frame BackgroundColor="White" Padding="50" CornerRadius="14">
+                        <StackLayout>
+                            <Label Text="Edit Core Match Info" FontSize="20" FontAttributes="Bold" Margin="0,0,0,15" HorizontalOptions="Center"/>
+                            <Label Text="Team Number"/>
+                            <Entry Unfocused="OverlayEntryUnfocused" Keyboard="Numeric" Placeholder="862" x:Name="coreEditTeamNumber"/>
+                            <Label Text="Team Name"/>
+                            <Entry Unfocused="OverlayEntryUnfocused" Placeholder="FRC Team" x:Name="coreEditTeamName"/>
+                            <Label Text="Match Number"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Stepper Minimum="1" Value="1" ValueChanged="coreEditMatchNumberStepper_ValueChanged" x:Name="coreEditMatchNumberStepper" Grid.Column="0"/>
+                                <Label Margin="10,0,0,0" Text="#1" Grid.Column="1" FontSize="20" x:Name="coreEditMatchNumberLabel" VerticalOptions="Center"/>
+                            </Grid>
+                            <Grid HorizontalOptions="End">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="50"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Text="&#xeee4;" FontFamily="{StaticResource IconFont}" Margin="3,15,0,0" FontSize="35" Padding="0" Clicked="CancelCoreInfoEdit" BackgroundColor="White" TextColor="Red" Grid.Column="0"/>
+                                <Button Text="&#xeed8;" FontFamily="{StaticResource IconFont}" Margin="3,15,0,0" FontSize="35" Padding="0" BackgroundColor="White" TextColor="Green" Grid.Column="1" Clicked="SaveCoreInfoEdit"/>
+                            </Grid>
+                        </StackLayout>
+                    </Frame>
                     
                     
+                    
+                </StackLayout>
+            </AbsoluteLayout>
+        </StackLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" x:Name="createNewMatchInterface" IsVisible="False">
+            <AbsoluteLayout VerticalOptions="FillAndExpand">
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">
+
+                </StackLayout>
+                <StackLayout VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".5,.5,.8,.8" AbsoluteLayout.LayoutFlags="All" x:Name="createMatchInfoPanel">
+                    <Frame BackgroundColor="White" Padding="50" CornerRadius="14">
+                        <StackLayout>
+                            <Label Text="Create New Match" FontSize="20" FontAttributes="Bold" Margin="0,0,0,15" HorizontalOptions="Center"/>
+                            <Label Text="Team Number"/>
+                            <Entry Unfocused="OverlayEntryUnfocused" Keyboard="Numeric" Placeholder="862" x:Name="createNewTeamNumber"/>
+                            <Label Text="Team Name"/>
+                            <Entry Unfocused="OverlayEntryUnfocused" Placeholder="FRC Team" x:Name="createNewTeamName"/>
+                            <Label Text="Match Number"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Stepper Minimum="1" Value="1" HeightRequest="50" ValueChanged="createMatchNumberStepper_ValueChanged" x:Name="createNewMatchNumberStepper" Grid.Column="0"/>
+                                <Label Margin="10,0,0,0" Text="#1" Grid.Column="1" FontSize="20" x:Name="createNewMatchNumberLabel" VerticalOptions="Center"/>
+                            </Grid>
+                            <Grid HorizontalOptions="End">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="50"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Text="&#xeee4;" FontFamily="{StaticResource IconFont}" Margin="3,15,0,0" FontSize="35" Padding="0" Clicked="CancelCreateMatch" BackgroundColor="White" TextColor="Red" Grid.Column="0"/>
+                                <Button Text="&#xefc2;" FontFamily="{StaticResource IconFont}" Margin="3,15,0,0" FontSize="26" Padding="0" BackgroundColor="White" TextColor="Green" Grid.Column="1" Clicked="SaveCreateMatch"/>
+                            </Grid>
+                        </StackLayout>
+                    </Frame>
+                    
+
+
                 </StackLayout>
             </AbsoluteLayout>
         </StackLayout>

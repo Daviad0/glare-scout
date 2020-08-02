@@ -16,5 +16,7 @@ namespace LightScout.Models
         public ImageSource teamIcon { get; set; }
         public bool Completed { get; set; }
         public string TabletName { get; set; }
+        public bool NewPlaceholder { get; set; }
+        public bool ActualMatch { get; set; }
     }
 }

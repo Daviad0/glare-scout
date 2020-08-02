@@ -337,41 +337,46 @@
                 <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">
 
                 </StackLayout>
-                <StackLayout BackgroundColor="White" VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".6,.6,.8,.8" AbsoluteLayout.LayoutFlags="All">
-                    <Grid Margin="0,50,0,10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Image x:Name="OnSLLight" Source="BlueSLOnG.png" Grid.Column="0" Grid.Row="0" HeightRequest="100"/>
-                        <Image x:Name="OffSLLight" Source="OffSL.png" Grid.Column="0" Grid.Row="0" HeightRequest="100" IsVisible="False"/>
-                    </Grid>
-                    <Label Text="Robot Disabled!" Margin="40,0,40,0" FontSize="30" HorizontalOptions="Center">
-                        <Label.FontFamily>
-                            <OnPlatform x:TypeArguments="x:String">
-                                <On Platform="iOS">Varela Round Regular</On>
-                                <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
-                            </OnPlatform>
-                        </Label.FontFamily>
-                    </Label>
-                    <Label Text="The robot has been disabled for..." Margin="40,0" HorizontalOptions="Center" HorizontalTextAlignment="Center">
-                        <Label.FontFamily>
-                            <OnPlatform x:TypeArguments="x:String">
-                                <On Platform="iOS">Varela Round Regular</On>
-                                <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
-                            </OnPlatform>
-                        </Label.FontFamily>
-                    </Label>
-                    <Label Text="0s" FontSize="60" TextColor="#0f3f8c" HorizontalOptions="Center" x:Name="disabledSeconds">
-                        <Label.FontFamily>
-                            <OnPlatform x:TypeArguments="x:String">
-                                <On Platform="iOS">Varela Round Regular</On>
-                                <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
-                            </OnPlatform>
-                        </Label.FontFamily>
-                    </Label>
+                <StackLayout VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".5,.5,.8,.8" AbsoluteLayout.LayoutFlags="All" x:Name="disabledMenuPanel">
+                    <Frame BackgroundColor="White" Padding="20" CornerRadius="14">
+                        <StackLayout>
+                            <Grid Margin="0,50,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image x:Name="OnSLLight" Source="BlueSLOnG.png" Grid.Column="0" Grid.Row="0" HeightRequest="100"/>
+                                <Image x:Name="OffSLLight" Source="OffSL.png" Grid.Column="0" Grid.Row="0" HeightRequest="100" IsVisible="False"/>
+                            </Grid>
+                            <Label Text="Robot Disabled!" Margin="40,0,40,0" FontSize="30" HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                                <Label.FontFamily>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                        <On Platform="iOS">Varela Round Regular</On>
+                                        <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                                    </OnPlatform>
+                                </Label.FontFamily>
+                            </Label>
+                            <Label Text="The robot has been disabled for..." Margin="40,0" HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                                <Label.FontFamily>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                        <On Platform="iOS">Varela Round Regular</On>
+                                        <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                                    </OnPlatform>
+                                </Label.FontFamily>
+                            </Label>
+                            <Label Text="0s" FontSize="60" TextColor="#0f3f8c" HorizontalOptions="Center" x:Name="disabledSeconds">
+                                <Label.FontFamily>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                        <On Platform="iOS">Varela Round Regular</On>
+                                        <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                                    </OnPlatform>
+                                </Label.FontFamily>
+                            </Label>
+
+                            <Button Text="Robot Was Re-Enabled" Clicked="DisableDisabledMenu" x:Name="disableDisabled" Margin="30,0,30,0"/>
+                            <Button Text="Reset Disabled Timer" Clicked="resetDisabled_Clicked" x:Name="resetDisabled" Margin="30,0,30,50"/>
+                        </StackLayout>
+                    </Frame>
                     
-                    <Button Text="Robot Was Re-Enabled" Clicked="DisableDisabledMenu" x:Name="disableDisabled" Margin="30,0,30,0"/>
-                    <Button Text="Reset Disabled Timer" Clicked="resetDisabled_Clicked" x:Name="resetDisabled" Margin="30,0,30,50"/>
                 </StackLayout>
             </AbsoluteLayout>
             

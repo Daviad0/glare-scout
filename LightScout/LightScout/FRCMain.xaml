@@ -381,6 +381,32 @@
             </AbsoluteLayout>
             
         </StackLayout>
+        <StackLayout x:Name="submittingOverlay" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
+            <AbsoluteLayout VerticalOptions="FillAndExpand">
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">
+
+                </StackLayout>
+                <StackLayout VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".5,.5,.8,.8" AbsoluteLayout.LayoutFlags="All" x:Name="submittingOverlayPanel">
+                    <Frame BackgroundColor="White" Padding="40" CornerRadius="14">
+                        <StackLayout>
+                            <Image Source="LightScoutGray.png" HeightRequest="150" Margin="20,50,20,0"/>
+                            <Grid>
+                                <StackLayout Grid.Row="0" Grid.Column="0" x:Name="waitingWithSubmit" IsVisible="True" HeightRequest="170">
+                                    <Label HorizontalOptions="Center" Text="Loading..." Margin="20,0,20,0" FontSize="30" TextColor="Gray"/>
+                                    <Label HorizontalOptions="Center" Text="Connecting to File System" Margin="20,0,20,30" x:Name="progressStep" TextColor="Gray"/>
+                                </StackLayout>
+                                <StackLayout Grid.Row="0" Grid.Column="0" x:Name="doneWithSubmit" IsVisible="False" HeightRequest="170">
+                                    <Label HorizontalOptions="Center" VerticalOptions="Center" Text="&#xeed8;" Margin="20,30,20,0" FontSize="50" TextColor="Gray" FontFamily="{StaticResource IconFont}"/>
+                                    
+                                </StackLayout>
+                            </Grid>
+                        </StackLayout>
+                    </Frame>
+
+                </StackLayout>
+            </AbsoluteLayout>
+
+        </StackLayout>
         <StackLayout x:Name="overLay" Opacity="1" BackgroundColor="#2a7afa" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
             
             <Button Text="&#xea7b;" WidthRequest="50" FontFamily="{StaticResource IconFont}" TextColor="White" BackgroundColor="Transparent" BorderColor="Transparent" FontSize="30" HorizontalOptions="Start" Margin="10,10,0,0" Clicked="BackToMainMenu">

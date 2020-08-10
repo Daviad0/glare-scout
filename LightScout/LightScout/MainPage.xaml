@@ -405,7 +405,8 @@
 
                 </StackLayout>
                 <StackLayout VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".5,.5,.8,.8" AbsoluteLayout.LayoutFlags="All" x:Name="strategyCodePanel">
-                    <Frame CornerRadius="14" BackgroundColor="White" Padding="50">
+
+                    <Frame CornerRadius="14" BackgroundColor="White" Padding="50" HasShadow="False">
                         <StackLayout>
                             <Label Text="Code Required!" HorizontalOptions="Center" FontSize="23" FontAttributes="Bold"/>
                             <Grid HeightRequest="13" Margin="0,15,0,0" HorizontalOptions="Center" x:Name="codeProgressContainer">

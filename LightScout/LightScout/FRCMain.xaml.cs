@@ -1397,7 +1397,10 @@ namespace LightScout
                             }
                         });
                         savingMessage.Text = "Sending to Computer...";
-                        submittingFormToBluetooth.IsVisible = true;
+                        submittingOverlayPanel.TranslationX = 600;
+                        await Task.Delay(15);
+                        submittingOverlay.IsVisible = true;
+                        submittingOverlayPanel.TranslateTo(submittingOverlayPanel.TranslationX - 600, submittingOverlayPanel.TranslationY, 500, Easing.CubicInOut);
                         Device.StartTimer(TimeSpan.FromSeconds(1), () =>
                         {
                             if (!taskcompleted)
@@ -1419,7 +1422,30 @@ namespace LightScout
                                         
                                         DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 1);
                                     }
-                                    Navigation.PushAsync(new MainPage());
+                                    waitingWithSubmit.IsVisible = false;
+                                    doneWithSubmit.IsVisible = true;
+                                    int j = 0;
+                                    Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                                    {
+                                        if (j < 3)
+                                        {
+                                            if (j == 2)
+                                            {
+                                                submittingOverlayPanel.TranslateTo(submittingOverlayPanel.TranslationX - 600, submittingOverlayPanel.TranslationY, 500, Easing.CubicInOut);
+                                            }
+                                            j++;
+                                            return true;
+                                        }
+                                        else
+                                        {
+
+
+                                            Navigation.PushAsync(new MainPage());
+                                            return false;
+                                        }
+
+
+                                    });
                                     return false;
                                 }
 
@@ -1427,16 +1453,23 @@ namespace LightScout
                             else
                             {
                                 int j = 0;
-
+                                waitingWithSubmit.IsVisible = false;
+                                doneWithSubmit.IsVisible = true;
                                 Device.StartTimer(TimeSpan.FromSeconds(1), () =>
                                 {
                                     if (j < 3)
                                     {
+                                        if(j == 2)
+                                        {
+                                            submittingOverlayPanel.TranslateTo(submittingOverlayPanel.TranslationX - 600, submittingOverlayPanel.TranslationY, 500, Easing.CubicInOut);
+                                        }
                                         j++;
                                         return true;
                                     }
                                     else
                                     {
+                                        
+                                        
                                         Navigation.PushAsync(new MainPage());
                                         return false;
                                     }
@@ -1468,7 +1501,10 @@ namespace LightScout
                     {
                         savingProgress.ProgressTo(1, 1000, Easing.CubicInOut);
                         savingMessage.Text = "Saving to Database...";
-                        submittingFormToBluetooth.IsVisible = true;
+                        submittingOverlayPanel.TranslationX = 600;
+                        await Task.Delay(15);
+                        submittingOverlay.IsVisible = true;
+                        submittingOverlayPanel.TranslateTo(submittingOverlayPanel.TranslationX - 600, submittingOverlayPanel.TranslationY, 500, Easing.CubicInOut);
                         await DisplayAlert("Uh Oh", "It didn't work the first time, it probably won't work now. Please get the person in charge of the tablets to unlock the Bluetooth feature once they transfer the data VIA USB. We are saving the data to the tablet for now.", "Ok!");
                         Device.StartTimer(TimeSpan.FromSeconds(1), () =>
                         {
@@ -1476,7 +1512,12 @@ namespace LightScout
                             {
                                 if (i < 5)
                                 {
+                                    if(i == 4)
+                                    {
+                                        submittingOverlayPanel.TranslateTo(submittingOverlayPanel.TranslationX - 600, submittingOverlayPanel.TranslationY, 500, Easing.CubicInOut);
+                                    }
                                     i++;
+
                                     return true;
                                 }
                                 else
@@ -1488,7 +1529,28 @@ namespace LightScout
                             }
                             else
                             {
-                                Navigation.PushAsync(new MainPage());
+                                int j = 3;
+                                Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                                {
+                                    if (j < 3)
+                                    {
+                                        if (j == 2)
+                                        {
+                                            submittingOverlayPanel.TranslateTo(submittingOverlayPanel.TranslationX - 600, submittingOverlayPanel.TranslationY, 500, Easing.CubicInOut);
+                                        }
+                                        j++;
+                                        return true;
+                                    }
+                                    else
+                                    {
+
+
+                                        Navigation.PushAsync(new MainPage());
+                                        return false;
+                                    }
+
+
+                                });
                                 return false;
                             }
 
@@ -1501,14 +1563,26 @@ namespace LightScout
                 {
                     savingProgress.ProgressTo(1, 500, Easing.CubicInOut);
                     savingMessage.Text = "Saving to Database...";
-                    submittingFormToBluetooth.IsVisible = true;
+                    submittingOverlayPanel.TranslationX = 600;
+                    await Task.Delay(15);
+                    submittingOverlay.IsVisible = true;
+                    submittingOverlayPanel.TranslateTo(submittingOverlayPanel.TranslationX - 600, submittingOverlayPanel.TranslationY, 500, Easing.CubicInOut);
                     Device.StartTimer(TimeSpan.FromSeconds(1), () =>
                     {
                         if (!taskcompleted)
                         {
                             if (i < 5)
                             {
+                                if(i == 2)
+                                {
+                                    waitingWithSubmit.IsVisible = false;
+                                    doneWithSubmit.IsVisible = true;
+                                }
                                 i++;
+                                if(i == 5)
+                                {
+                                    submittingOverlayPanel.TranslateTo(submittingOverlayPanel.TranslationX - 600, submittingOverlayPanel.TranslationY, 500, Easing.CubicInOut);
+                                }
                                 return true;
                             }
                             else
@@ -1520,7 +1594,28 @@ namespace LightScout
                         }
                         else
                         {
-                            Navigation.PushAsync(new MainPage());
+                            int j = 3;
+                            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                            {
+                                if (j < 3)
+                                {
+                                    if (j == 2)
+                                    {
+                                        submittingOverlayPanel.TranslateTo(submittingOverlayPanel.TranslationX - 600, submittingOverlayPanel.TranslationY, 500, Easing.CubicInOut);
+                                    }
+                                    j++;
+                                    return true;
+                                }
+                                else
+                                {
+
+
+                                    Navigation.PushAsync(new MainPage());
+                                    return false;
+                                }
+
+
+                            });
                             return false;
                         }
 

@@ -392,7 +392,7 @@
                             <Image Source="LightScoutGray.png" HeightRequest="150" Margin="20,50,20,0"/>
                             <Grid>
                                 <StackLayout Grid.Row="0" Grid.Column="0" x:Name="waitingWithSubmit" IsVisible="True" HeightRequest="170">
-                                    <Label HorizontalOptions="Center" Text="Loading..." Margin="20,0,20,0" FontSize="30" TextColor="Gray"/>
+                                    <Label HorizontalOptions="Center" Text="Loading..." Margin="20,30,20,0" FontSize="30" TextColor="Gray"/>
                                     <Label HorizontalOptions="Center" Text="Connecting to File System" Margin="20,0,20,30" x:Name="progressStep" TextColor="Gray"/>
                                 </StackLayout>
                                 <StackLayout Grid.Row="0" Grid.Column="0" x:Name="doneWithSubmit" IsVisible="False" HeightRequest="170">

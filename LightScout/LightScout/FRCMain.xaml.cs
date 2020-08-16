@@ -33,6 +33,8 @@ namespace LightScout
         private int[] PowerCellLower = new int[21];
         private int[] PowerCellMissed = new int[21];
         private int NumCycles = 0;
+        private int TotalCycleTime = 0;
+        private DateTime lastRecordedCycle;
         private int CurrentCycle = 1;
         private int CurrentSubPage;
         private TeamMatch selectedMatch;
@@ -714,6 +716,12 @@ namespace LightScout
             var converter = new ColorTypeConverter();
             if (CurrentCycle > NumCycles)
             {
+                
+                if(CurrentCycle > 1)
+                {
+                    TotalCycleTime += (int)(DateTime.Now - lastRecordedCycle).TotalSeconds;
+                }
+                lastRecordedCycle = DateTime.Now;
                 NumCycles = CurrentCycle;
                 trackingLogs.Add(SecondsScouting.ToString() + ":3000");
             }
@@ -1296,6 +1304,8 @@ namespace LightScout
 
 
                 var thismatch = new TeamMatch();
+                thismatch.CycleTime = TotalCycleTime / NumCycles;
+                thismatch.AlliancePartners = selectedMatch.AlliancePartners;
                 thismatch.A_InitiationLine = InitLineAchieved;
                 thismatch.DisabledSeconds = (int)Math.Floor(DisabledSeconds);
                 thismatch.EventCode = "test_env";

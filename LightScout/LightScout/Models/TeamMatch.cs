@@ -33,6 +33,7 @@ namespace LightScout.Models
         public DateTime ClientLastSubmitted { get; set; }
         public string[] TapLogs { get; set; }
         public int[] AlliancePartners { get; set; }
+        public int CycleTime { get; set; }
 
     }
 }

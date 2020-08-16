@@ -171,11 +171,12 @@ namespace LightScout
                 {
                     carouseluwu.CurrentItem = listofviewmatches.First();
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
 
             }
-            
+
 
             tabletlist = new string[6] { "R1", "R2", "R3", "B1", "B2", "B3" }.ToList();
             tabletPicker.ItemsSource = tabletlist;
@@ -325,11 +326,11 @@ namespace LightScout
             }
             else if (currentindex != NextMatchIndex)
             {
-                if(NextMatchIndex != -1)
+                if (NextMatchIndex != -1)
                 {
                     answer = await DisplayAlert("Match Not Next", "This match is not up next! Would you still like to continue?", "Continue", "Cancel");
                 }
-                
+
             }
             if (answer)
             {
@@ -341,12 +342,12 @@ namespace LightScout
                 //listobject.SelectedItem = null;
             }
         }
-        
+
 
         private void carouseluwu_CurrentItemChanged(object sender, CurrentItemChangedEventArgs e)
         {
             var currentindex = listofviewmatches.FindIndex(a => a == carouseluwu.CurrentItem);
-            if(((TeamMatchViewItem)carouseluwu.CurrentItem).ActualMatch == true)
+            if (((TeamMatchViewItem)carouseluwu.CurrentItem).ActualMatch == true)
             {
                 MatchProgressList.ProgressTo((double)((float)(currentindex + 1) / (float)(listofviewmatches.Count - 1)), 250, Easing.CubicInOut);
             }
@@ -354,7 +355,7 @@ namespace LightScout
             {
                 MatchProgressList.ProgressTo(1, 250, Easing.CubicInOut);
             }
-            
+
         }
 
         private async void getDataFromServer_Clicked(object sender, EventArgs e)
@@ -404,7 +405,7 @@ namespace LightScout
         {
             //DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 0);
             //resetBTLock.Text = "Reset!!";
-            MessagingCenter.Subscribe<object, int>(this, "USBResponse", async (mssender,value) =>
+            MessagingCenter.Subscribe<object, int>(this, "USBResponse", async (mssender, value) =>
             {
                 switch (value)
                 {
@@ -428,7 +429,7 @@ namespace LightScout
                         break;
                 }
             });
-            if(Battery.PowerSource == BatteryPowerSource.Usb || Battery.PowerSource == BatteryPowerSource.AC)
+            if (Battery.PowerSource == BatteryPowerSource.Usb || Battery.PowerSource == BatteryPowerSource.AC)
             {
                 var jsondata = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");
                 DependencyService.Get<USBCommunication>().SendData(jsondata);
@@ -438,7 +439,7 @@ namespace LightScout
                 await DismissNotification();
                 await NewNotification("USB Not Connected!");
             }
-            
+
 
         }
         private async Task NewNotification(string NotificationText)
@@ -465,7 +466,7 @@ namespace LightScout
                 notificationMedium.IsVisible = false;
                 notificationContainer.TranslationY = 0;
             }
-            
+
 
         }
         private async void sendNotification_Clicked(object sender, EventArgs e)
@@ -478,7 +479,7 @@ namespace LightScout
             await DismissNotification();
 
         }
-        
+
         private async void AddCodeNumber(object sender, EventArgs e)
         {
             var converter = new ColorTypeConverter();
@@ -524,7 +525,7 @@ namespace LightScout
                     codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
                     break;
             }
-            if(currentCodeString.Length == 1)
+            if (currentCodeString.Length == 1)
             {
                 codeButtonCancel.FadeTo(1, 150, Easing.SinIn);
                 codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
@@ -571,7 +572,7 @@ namespace LightScout
                     codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
                     codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
                     codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
-                    
+
                     await Task.Delay(100);
                     codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
                     codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
@@ -602,7 +603,7 @@ namespace LightScout
                     codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
                     codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
                     codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Green");
-                    
+
                     codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
                     codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
                     codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
@@ -623,6 +624,9 @@ namespace LightScout
                             var currentindex = listofviewmatches.FindIndex(a => a == carouseluwu.CurrentItem);
                             listofmatches.RemoveAt(currentindex);
                             DependencyService.Get<DataStore>().SaveDefaultData("JacksonEvent2020.txt", listofmatches);
+                            await strategyCodePanel.TranslateTo(strategyCodePanel.TranslationX - 600, strategyCodePanel.TranslationY, 500, Easing.CubicInOut);
+                            strategyCodeInterface.IsVisible = false;
+                            strategyCodePanel.TranslationX = 0;
                             await Task.Delay(2000);
                             ReloadMatches();
                             break;
@@ -659,7 +663,7 @@ namespace LightScout
 
                             break;
                     }
-                    
+
                 }
                 else
                 {
@@ -682,11 +686,11 @@ namespace LightScout
                     {
                         Vibration.Vibrate();
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
 
                     }
-                    
+
                     await codeProgressContainer.TranslateTo(codeProgressContainer.TranslationX - 10, codeProgressContainer.TranslationY, 75, Easing.SinIn);
                     await codeProgressContainer.TranslateTo(codeProgressContainer.TranslationX + 20, codeProgressContainer.TranslationY, 75, Easing.SinIn);
                     await codeProgressContainer.TranslateTo(codeProgressContainer.TranslationX - 20, codeProgressContainer.TranslationY, 75, Easing.SinIn);
@@ -724,7 +728,11 @@ namespace LightScout
                     pureblueOverButton.IsVisible = true;
                     pureblueOverButton.FadeTo(1, 200);
                     await Task.Delay(200);
-                    await showMenu.RotateTo(0, easing: Easing.CubicInOut);
+                    showMenu.RotateTo(0, easing: Easing.CubicInOut);
+                    cancelToggleMenu.RotateTo(0, easing: Easing.CubicInOut);
+                    await Task.Delay(50);
+                    cancelToggleMenu.FadeTo(0, 25, Easing.Linear);
+                    await Task.Delay(200);
                     showUsb.IsVisible = false;
                     showAbout.IsVisible = false;
                     showSettings.IsVisible = false;
@@ -743,7 +751,7 @@ namespace LightScout
                 settingsInterface.IsVisible = true;
                 settingsInterface.TranslateTo(settingsInterface.TranslationX, settingsInterface.TranslationY - 1200, 500, Easing.SinOut);
             }
-            
+
         }
         private async void ToggleMenuItems(object sender, EventArgs e)
         {
@@ -753,7 +761,10 @@ namespace LightScout
                 {
                     MenuAnimationActive = true;
                     showMenu.RotateTo(90, easing: Easing.CubicInOut);
-                    await Task.Delay(150);
+                    cancelToggleMenu.RotateTo(90, easing: Easing.CubicInOut);
+                    await Task.Delay(50);
+                    cancelToggleMenu.FadeTo(1, 25, Easing.Linear);
+                    await Task.Delay(100);
                     showUsb.TranslationX = 0;
                     showSettings.TranslationX = 0;
                     showUsb.TranslationX = (showMenu.X - showUsb.X);
@@ -775,7 +786,11 @@ namespace LightScout
                     showSettings.TranslateTo((showMenu.X - showSettings.X), showSettings.TranslationY, 350, Easing.CubicIn);
                     showAbout.TranslateTo((showMenu.X - showAbout.X), showAbout.TranslationY, 350, Easing.CubicIn);
                     await Task.Delay(200);
-                    await showMenu.RotateTo(0, easing: Easing.CubicInOut);
+                    showMenu.RotateTo(0, easing: Easing.CubicInOut);
+                    cancelToggleMenu.RotateTo(0, easing: Easing.CubicInOut);
+                    await Task.Delay(50);
+                    cancelToggleMenu.FadeTo(0, 25, Easing.Linear);
+                    await Task.Delay(200);
                     showUsb.IsVisible = false;
                     showSettings.IsVisible = false;
                     showAbout.IsVisible = false;
@@ -784,10 +799,10 @@ namespace LightScout
                     MenuAnimationActive = false;
                 }
             }
-            
-            
 
-            
+
+
+
         }
         private async void CancelSettingsPage(object sender, EventArgs e)
         {
@@ -822,7 +837,11 @@ namespace LightScout
                     pureblueOverButton.IsVisible = true;
                     pureblueOverButton.FadeTo(1, 200);
                     await Task.Delay(200);
-                    await showMenu.RotateTo(0, easing: Easing.CubicInOut);
+                    showMenu.RotateTo(0, easing: Easing.CubicInOut);
+                    cancelToggleMenu.RotateTo(0, easing: Easing.CubicInOut);
+                    await Task.Delay(50);
+                    cancelToggleMenu.FadeTo(0, 25, Easing.Linear);
+                    await Task.Delay(200);
                     showUsb.IsVisible = false;
                     showAbout.IsVisible = false;
                     showSettings.IsVisible = false;
@@ -841,7 +860,7 @@ namespace LightScout
                 usbInterface.IsVisible = true;
                 usbInterface.TranslateTo(usbInterface.TranslationX, usbInterface.TranslationY - 1200, 500, Easing.SinOut);
             }
-            
+
         }
         private async void CancelUsbPage(object sender, EventArgs e)
         {
@@ -875,7 +894,11 @@ namespace LightScout
                     pureblueOverButton.IsVisible = true;
                     pureblueOverButton.FadeTo(1, 200);
                     await Task.Delay(200);
-                    await showMenu.RotateTo(0, easing: Easing.CubicInOut);
+                    showMenu.RotateTo(0, easing: Easing.CubicInOut);
+                    cancelToggleMenu.RotateTo(0, easing: Easing.CubicInOut);
+                    await Task.Delay(50);
+                    cancelToggleMenu.FadeTo(0, 25, Easing.Linear);
+                    await Task.Delay(200);
                     showUsb.IsVisible = false;
                     showAbout.IsVisible = false;
                     showSettings.IsVisible = false;
@@ -919,8 +942,8 @@ namespace LightScout
             await strategyCodePanel.TranslateTo(strategyCodePanel.TranslationX + 600, strategyCodePanel.TranslationY, 500, Easing.CubicInOut);
             strategyCodeInterface.IsVisible = false;
             strategyCodePanel.TranslationX = 0;
-            
-            
+
+
             currentCodeString = "";
         }
         private async void CancelCoreInfoEdit(object sender, EventArgs e)
@@ -957,7 +980,7 @@ namespace LightScout
         }
         private async void SaveCreateMatch(object sender, EventArgs e)
         {
-            
+
 
             var currentmatch = new TeamMatch() { PowerCellInner = new int[20], PowerCellOuter = new int[20], PowerCellLower = new int[20], PowerCellMissed = new int[20], TabletId = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TabletIdentifier };
             currentmatch.TeamName = createNewTeamName.Text;

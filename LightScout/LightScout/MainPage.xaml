@@ -88,7 +88,7 @@
                 <CarouselView x:Name="carouseluwu" HeightRequest="450" CurrentItemChanged="carouseluwu_CurrentItemChanged">
                     <CarouselView.ItemsLayout>
                         <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
-                        
+
                     </CarouselView.ItemsLayout>
                     <CarouselView.ItemTemplate>
                         <DataTemplate>
@@ -98,7 +98,7 @@
                        BorderColor="DarkGray"
                        CornerRadius="5"
                        Margin="20,20,20,0"
-                       HeightRequest="300"
+                       HeightRequest="350"
                        HorizontalOptions="Center"
                        VerticalOptions="CenterAndExpand"
                                        WidthRequest="300">
@@ -135,15 +135,43 @@
                                                 <Label Grid.Column="2" Text="Up Next!" HorizontalOptions="End" FontAttributes="Bold" TextColor="#0f3f8c" VerticalOptions="Center" IsVisible="{Binding IsUpNext}"/>
 
                                             </Grid>
-                                            <Grid Margin="20,10,20,0">
+                                            <Grid HeightRequest="50" MinimumHeightRequest="50" HorizontalOptions="Center">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="80"/>
+                                                    <ColumnDefinition Width="80"/>
+                                                    <ColumnDefinition Width="80"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Frame WidthRequest="100" HeightRequest="35" Padding="5" HasShadow="False" Opacity=".5" BackgroundColor="Red" Grid.Column="0" HorizontalOptions="End" Margin="10">
+                                                    <Label TextColor="White" Text="8890" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                                                </Frame>
+                                                <Frame WidthRequest="100" HeightRequest="35" Padding="5" HasShadow="False" BackgroundColor="Red" Grid.Column="1" HorizontalOptions="Start" Margin="10">
+                                                    <Label TextColor="White" Text="862" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                                                </Frame>
+                                                <Frame WidthRequest="100" HeightRequest="35" Padding="5" HasShadow="False" Opacity=".5" BackgroundColor="Red" Grid.Column="2" HorizontalOptions="Start" Margin="10">
+                                                    <Label TextColor="White" Text="8890" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                                                </Frame>
+                                            </Grid>
+                                            <Grid>
+                                                <Image Source="{Binding teamIcon}" Grid.Row="0" Grid.Column="0" Margin="5"/>
+                                                <Frame BackgroundColor="Black" HasShadow="False" HeightRequest="20" WidthRequest="70" Opacity=".5" Grid.Row="0" Grid.Column="0" VerticalOptions="End" Margin="60,0,60,20">
+
+                                                </Frame>
+                                                <Frame BackgroundColor="Transparent" HasShadow="False" HeightRequest="20" WidthRequest="70" Opacity=".8" Grid.Row="0" Grid.Column="0" VerticalOptions="End" Margin="40,0,40,20">
+                                                    <Label Text="FRC Team 862" HorizontalOptions="Center" VerticalOptions="Center" TextColor="White"/>
+                                                </Frame>
+
+                                            </Grid>
+
+                                            <Grid IsVisible="False" Margin="20,0,20,0">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="3*"/>
                                                     <ColumnDefinition Width="4*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Frame HeightRequest="75" WidthRequest="75" HorizontalOptions="Center" BackgroundColor="#0f3f8c" Padding="2" HasShadow="False" CornerRadius="4" Grid.Column="0">
-                                                    <Image Source="{Binding teamIcon}" HeightRequest="100"/>
+                                                <Frame Grid.Column="0" Margin="10,0">
+
                                                 </Frame>
-                                                <Grid Grid.Column="1">
+
+                                                <Grid Grid.Column="1" Margin="0,20">
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="30"/>
                                                         <RowDefinition Height="70"/>
@@ -155,15 +183,12 @@
                                                    Grid.Row="1" FontSize="Medium" />
                                                 </Grid>
                                             </Grid>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*"/>
-                                                </Grid.ColumnDefinitions>
-                                            </Grid>
+                                            <Label IsVisible="False" Text="Is Playing With:" HorizontalOptions="Center"/>
+
 
                                         </StackLayout>
                                     </Frame>
-                                    <Grid HorizontalOptions="Center">
+                                    <Grid HorizontalOptions="Center" Margin="0,10,0,0">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="170"/>
                                             <ColumnDefinition Width="70"/>
@@ -231,13 +256,13 @@
 
                                 </StackLayout>
                             </Grid>
-                            
+
                         </DataTemplate>
                     </CarouselView.ItemTemplate>
                 </CarouselView>
-                
+
             </StackLayout>
-            
+
         </ScrollView>
         <ScrollView BackgroundColor="#fafafa" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" x:Name="settingsInterface">
             <StackLayout>
@@ -262,7 +287,7 @@
                             </OnPlatform>
                         </Label.FontFamily>
                     </Label>
-                    
+
                 </Grid>
                 <StackLayout>
                     <Label Text="Reset Team Data" Margin="10,0"/>
@@ -279,8 +304,8 @@
 
                 </StackLayout>
             </StackLayout>
-            
-            
+
+
 
 
         </ScrollView>
@@ -350,7 +375,7 @@
                     <Button Text="Send to USB" x:Name="resetBTLock" Clicked="resetBTLock_Clicked" BackgroundColor="White" TextColor="#2a7afa" Margin="10"/>
                 </StackLayout>
             </StackLayout>
-            
+
 
         </ScrollView>
         <StackLayout x:Name="moreinfoMenu" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
@@ -364,7 +389,7 @@
             </AbsoluteLayout>
 
         </StackLayout>
-        
+
         <StackLayout x:Name="settingsButton" AbsoluteLayout.LayoutBounds="1,1,300,80" AbsoluteLayout.LayoutFlags="PositionProportional">
             <Grid VerticalOptions="End" HorizontalOptions="End" Margin="0,0,15,0">
                 <Grid.ColumnDefinitions>
@@ -373,14 +398,15 @@
                     <ColumnDefinition Width="64"/>
                     <ColumnDefinition Width="64"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <Button Clicked="SeeSettingsPage" IsVisible="False" VerticalOptions="End" Grid.Column="0" HorizontalOptions="End" Text="&#xef3b;" x:Name="showSettings" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" TextColor="#2a7afa" BorderColor="#2a7afa" BorderWidth="2"/>
                 <Button Clicked="SeeUsbPage" IsVisible="False" VerticalOptions="End" Grid.Column="1" HorizontalOptions="End" Text="&#xf01f;" x:Name="showUsb" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" TextColor="#2a7afa" BorderColor="#2a7afa" BorderWidth="2"/>
                 <Button Clicked="SeeAboutPage" IsVisible="False" VerticalOptions="End" Grid.Column="2" HorizontalOptions="End" Text="&#xef4e;" x:Name="showAbout" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" TextColor="#2a7afa" BorderColor="#2a7afa" BorderWidth="2"/>
                 <Button Clicked="ToggleMenuItems" x:Name="showMenu" VerticalOptions="End" Grid.Column="3" HorizontalOptions="End" Text="&#xefa2;" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="#2a7afa" TextColor="White" BorderColor="#2a7afa" BorderWidth="2"/>
+                <Button Clicked="ToggleMenuItems" Opacity="0" VerticalOptions="End" Grid.Column="3" HorizontalOptions="End" Text="&#xeee4;" x:Name="cancelToggleMenu" FontFamily="{StaticResource IconFont}" FontSize="35" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="#2a7afa" TextColor="White" BorderColor="#2a7afa" BorderWidth="2"/>
                 <Button Opacity="0" IsVisible="False" VerticalOptions="End" Grid.Column="3" HorizontalOptions="End" Text="&#xefa2;" x:Name="pureblueOverButton" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="#2a7afa" TextColor="#2a7afa" BorderColor="#2a7afa" BorderWidth="2"/>
 
-                </Grid>
+            </Grid>
 
         </StackLayout>
         <StackLayout x:Name="notificationMedium" AbsoluteLayout.LayoutBounds="0,1,1,.15" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
@@ -453,7 +479,7 @@
                             </Grid>
                         </StackLayout>
                     </Frame>
-                    
+
                 </StackLayout>
             </AbsoluteLayout>
         </StackLayout>
@@ -489,9 +515,9 @@
                             </Grid>
                         </StackLayout>
                     </Frame>
-                    
-                    
-                    
+
+
+
                 </StackLayout>
             </AbsoluteLayout>
         </StackLayout>
@@ -527,13 +553,13 @@
                             </Grid>
                         </StackLayout>
                     </Frame>
-                    
+
 
 
                 </StackLayout>
             </AbsoluteLayout>
         </StackLayout>
     </AbsoluteLayout>
-    
+
 
 </ContentPage>

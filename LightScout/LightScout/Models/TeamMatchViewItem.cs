@@ -18,5 +18,7 @@ namespace LightScout.Models
         public string TabletName { get; set; }
         public bool NewPlaceholder { get; set; }
         public bool ActualMatch { get; set; }
+        public int AlliancePartner1 { get; set; }
+        public int AlliancePartner2 { get; set; }
     }
 }

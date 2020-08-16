@@ -507,3 +507,4 @@ C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\90\android\src\crc64c91c44f0dad89297\UsbSerialPortInfo.java
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\90\android\src\crc64c91c44f0dad89297\UsbSerialPortInfo_ParcelableCreator.java
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\90\res\drawable\lightscoutgray.png
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\90\res\drawable\lightscoutsplash.png

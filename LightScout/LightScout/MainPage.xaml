@@ -140,7 +140,7 @@
                                                     <ColumnDefinition Width="3*"/>
                                                     <ColumnDefinition Width="4*"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Frame HeightRequest="75" WidthRequest="75" HorizontalOptions="Center" BackgroundColor="#0f3f8c" Padding="7" HasShadow="False" CornerRadius="4" Grid.Column="0">
+                                                <Frame HeightRequest="75" WidthRequest="75" HorizontalOptions="Center" BackgroundColor="#0f3f8c" Padding="2" HasShadow="False" CornerRadius="4" Grid.Column="0">
                                                     <Image Source="{Binding teamIcon}" HeightRequest="100"/>
                                                 </Frame>
                                                 <Grid Grid.Column="1">
@@ -154,6 +154,11 @@
                                                     <Label Text="{Binding TeamName}"
                                                    Grid.Row="1" FontSize="Medium" />
                                                 </Grid>
+                                            </Grid>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
                                             </Grid>
 
                                         </StackLayout>

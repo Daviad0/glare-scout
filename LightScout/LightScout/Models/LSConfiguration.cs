@@ -14,5 +14,6 @@ namespace LightScout.Models
         public string ScouterOfOwnership { get; set; }
         public int BluetoothFailureStage { get; set; }
         public string[] ScouterNames { get; set; }
+        public string CurrentEventCode { get; set; }
     }
 }

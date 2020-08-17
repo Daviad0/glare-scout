@@ -39,12 +39,13 @@ namespace LightScout.Droid
             var DummyDataMatches = new List<TeamMatch>();
             var match = new TeamMatch();
             match.MatchNumber = 1;
-            match.TeamNumber = 862;
+            match.TeamNumber = 1023;
             match.PowerCellInner = new int[21];
             match.PowerCellOuter = new int[21];
             match.PowerCellLower = new int[21];
             match.PowerCellMissed = new int[21];
             match.TabletId = tabletid;
+            match.EventCode = JsonConvert.DeserializeObject<LSConfiguration>(LoadConfigFile()).CurrentEventCode;
             DummyDataMatches.Add(match);
             match = new TeamMatch();
             match.MatchNumber = 2;
@@ -54,6 +55,7 @@ namespace LightScout.Droid
             match.PowerCellLower = new int[21];
             match.PowerCellMissed = new int[21];
             match.TabletId = tabletid;
+            match.EventCode = JsonConvert.DeserializeObject<LSConfiguration>(LoadConfigFile()).CurrentEventCode;
             DummyDataMatches.Add(match);
             match = new TeamMatch();
             match.MatchNumber = 3;
@@ -63,6 +65,7 @@ namespace LightScout.Droid
             match.PowerCellLower = new int[21];
             match.PowerCellMissed = new int[21];
             match.TabletId = tabletid;
+            match.EventCode = JsonConvert.DeserializeObject<LSConfiguration>(LoadConfigFile()).CurrentEventCode;
             DummyDataMatches.Add(match);
             match = new TeamMatch();
             match.MatchNumber = 4;
@@ -72,6 +75,7 @@ namespace LightScout.Droid
             match.PowerCellLower = new int[21];
             match.PowerCellMissed = new int[21];
             match.TabletId = tabletid;
+            match.EventCode = JsonConvert.DeserializeObject<LSConfiguration>(LoadConfigFile()).CurrentEventCode;
             DummyDataMatches.Add(match);
             match = new TeamMatch();
             match.MatchNumber = 5;
@@ -81,6 +85,7 @@ namespace LightScout.Droid
             match.PowerCellLower = new int[21];
             match.PowerCellMissed = new int[21];
             match.TabletId = tabletid;
+            match.EventCode = JsonConvert.DeserializeObject<LSConfiguration>(LoadConfigFile()).CurrentEventCode;
             DummyDataMatches.Add(match);
             match = new TeamMatch();
             match.MatchNumber = 6;
@@ -90,6 +95,7 @@ namespace LightScout.Droid
             match.PowerCellLower = new int[21];
             match.PowerCellMissed = new int[21];
             match.TabletId = tabletid;
+            match.EventCode = JsonConvert.DeserializeObject<LSConfiguration>(LoadConfigFile()).CurrentEventCode;
             DummyDataMatches.Add(match);
             data = JsonConvert.SerializeObject(DummyDataMatches);
             try
@@ -215,6 +221,7 @@ namespace LightScout.Droid
             catch (Exception ex)
             {
                 var newconfigfile = new LSConfiguration();
+                newconfigfile.CurrentEventCode = "2020mijac";
                 newconfigfile.ScouterNames = new string[2] { "John Doe", "Imaex Ample" };
                 File.WriteAllText(finalPath, JsonConvert.SerializeObject(newconfigfile));
                 result = File.ReadAllText(finalPath);
@@ -245,6 +252,7 @@ namespace LightScout.Droid
             {
                 Console.WriteLine("Cannot find specified match in file system. Creating configuration file...");
                 modeltochange = new LSConfiguration();
+                modeltochange.CurrentEventCode = "2020mijac";
                 modeltochange.ScouterNames = new string[3] { "John Doe", "Imaex Ample", "Guest Scouter" };
             }
             switch (configtype)
@@ -269,6 +277,9 @@ namespace LightScout.Droid
                     break;
                 case "ownerScoutChange":
                     modeltochange.ScouterOfOwnership = (string)newvalue;
+                    break;
+                case "eventCode":
+                    modeltochange.CurrentEventCode = (string)newvalue;
                     break;
             }
             try

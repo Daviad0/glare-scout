@@ -1308,7 +1308,15 @@ namespace LightScout
                 thismatch.AlliancePartners = selectedMatch.AlliancePartners;
                 thismatch.A_InitiationLine = InitLineAchieved;
                 thismatch.DisabledSeconds = (int)Math.Floor(DisabledSeconds);
-                thismatch.EventCode = "test_env";
+                if(selectedMatch.EventCode != null && selectedMatch.EventCode != "")
+                {
+                    thismatch.EventCode = selectedMatch.EventCode;
+                }
+                else
+                {
+                    thismatch.EventCode = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).CurrentEventCode;
+                }
+                
                 thismatch.E_Balanced = Balanced;
                 thismatch.E_ClimbAttempt = Attempted;
                 thismatch.E_ClimbSuccess = Climb;

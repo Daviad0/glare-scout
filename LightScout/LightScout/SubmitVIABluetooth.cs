@@ -8,6 +8,7 @@ using Plugin.BLE.Abstractions.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -404,6 +405,183 @@ namespace LightScout
             {
                 MessagingCenter.Send<SubmitVIABluetooth, int>(this, "receivedata", -1);
             }
+
+
+        }
+        public async Task SendTBAData(CancellationToken token)
+        {
+
+            foreach (var device in adapter.ConnectedDevices)
+            {
+                await adapter.DisconnectDeviceAsync(device);
+            }
+            GdeviceDC = new EventHandler<Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs>(async (s, a) =>
+            {
+                if (!datagotten)
+                {
+                    MessagingCenter.Send<SubmitVIABluetooth, int>(this, "tbasenddata", -1);
+                    adapter.DeviceDisconnected -= GdeviceDC;
+                }
+            });
+            GdeviceC = new EventHandler<Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs>(async (s, a) =>
+            {
+                if (!datagotten)
+                {
+                    connectedPeripheral = a.Device;
+                    KnownDeviceGet(a.Device);
+                    MessagingCenter.Send<SubmitVIABluetooth, int>(this, "tbasenddata", 2);
+                    datagotten = true;
+                    adapter.DeviceConnected -= GdeviceC;
+                }
+            });
+            GdeviceD = new EventHandler<Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs>(async (s, a) =>
+            {
+                if (a.Device.Name == "LRSS" || a.Device.Id == Guid.Parse("16FD1A9B-F36F-7EAB-66B2-499BF4DBB0F2"))
+                {
+                    adapter.ConnectToDeviceAsync(a.Device);
+                    adapter.DeviceDiscovered -= GdeviceD;
+                }
+            });
+            adapter.DeviceDisconnected += GdeviceDC;
+            adapter.DeviceConnected += GdeviceC;
+            adapter.DeviceDiscovered += GdeviceD;
+            datagotten = false;
+            MessagingCenter.Send<SubmitVIABluetooth, int>(this, "tbasenddata", 1);
+            try
+            {
+                adapter.ScanMode = ScanMode.LowPower;
+                adapter.StartScanningForDevicesAsync();
+                Device.StartTimer(TimeSpan.FromSeconds(0.1), () =>
+                {
+                    if (datagotten)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            token.ThrowIfCancellationRequested();
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessagingCenter.Send<SubmitVIABluetooth, int>(this, "tbasenddata", -1);
+                            resultsubmitted = true;
+                        }
+                        return true;
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                MessagingCenter.Send<SubmitVIABluetooth, int>(this, "tbasenddata", -1);
+                datagotten = true;
+            }
+
+
+        }
+        public async void KnownDeviceSendTBA(IDevice deviceIWant)
+        {
+            var configurationfile = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile());
+            var urltoget = "https://www.thebluealliance.com/api/v3/event/" + configurationfile.CurrentEventCode + "/matches";
+            try
+            {
+                string tbamatches = "";
+                using (HttpClient client = new HttpClient())
+                using (HttpResponseMessage response = await client.GetAsync(urltoget))
+                using (HttpContent content = response.Content)
+                {
+                    // ... Read the string.
+                    tbamatches = await content.ReadAsStringAsync();
+                    Console.WriteLine(tbamatches);
+                }
+                var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130000"));
+                if (servicetosend != null)
+                {
+                    var uuid = new Guid();
+                    var tabletid = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TabletIdentifier;
+                    if (tabletid == "R1")
+                    {
+                        uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130001");
+                    }
+                    else if (tabletid == "R2")
+                    {
+                        uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130002");
+                    }
+                    else if (tabletid == "R3")
+                    {
+                        uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130003");
+                    }
+                    else if (tabletid == "B1")
+                    {
+                        uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130004");
+                    }
+                    else if (tabletid == "B2")
+                    {
+                        uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130005");
+                    }
+                    else if (tabletid == "B3")
+                    {
+                        uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130006");
+                    }
+                    else
+                    {
+                        uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130001");
+                    }
+                    var characteristictosend = await servicetosend.GetCharacteristicAsync(uuid);
+                    var messagesleft = 0;
+                    var fullmessage = "";
+                    bool iscompleted = false;
+                    await deviceIWant.RequestMtuAsync(512);
+                    var deviceid = new Random().Next(1000, 9999);
+                    characteristictosend.ValueUpdated += async (s, a) =>
+                    {
+                        Console.WriteLine(a.Characteristic.Value);
+
+                    };
+                    try
+                    {
+
+                        await characteristictosend.StartUpdatesAsync();
+                        var stringtoconvert = "FS:" + deviceid.ToString() + ":" + tbamatches;
+                        var bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
+                        if (bytestotransmit.Length > 480)
+                        {
+                            int numberofmessages = (int)Math.Ceiling((float)bytestotransmit.Length / (float)480);
+                            var startidentifier = "MM:" + numberofmessages.ToString();
+                            var startbytesarray = Encoding.ASCII.GetBytes(startidentifier);
+                            await characteristictosend.WriteAsync(startbytesarray);
+                            for (int i = numberofmessages; i > 0; i--)
+                            {
+                                var bytesarray = bytestotransmit.Skip((numberofmessages - i) * 480).Take(480).ToArray();
+                                await characteristictosend.WriteAsync(bytesarray);
+                            }
+                        }
+                        else
+                        {
+                            await characteristictosend.WriteAsync(bytestotransmit);
+                        }
+
+                        resultsubmitted = true;
+                        Console.WriteLine(bytestotransmit);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessagingCenter.Send<SubmitVIABluetooth, int>(this, "tbasenddata", -1);
+                    }
+                }
+                else
+                {
+                    MessagingCenter.Send<SubmitVIABluetooth, int>(this, "tbasenddata", -1);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessagingCenter.Send<SubmitVIABluetooth, int>(this, "tbasenddata", -1);
+            }
+            
 
 
         }

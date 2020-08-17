@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -439,6 +440,63 @@ namespace LightScout
                 await DismissNotification();
                 await NewNotification("USB Not Connected!");
             }
+
+
+        }
+        public static bool CheckForInternetConnection()
+        {
+            try
+            {
+                using (var client = new WebClient())
+                using (client.OpenRead("http://google.com/generate_204"))
+                    return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        private async void SendTBAData(object sender, EventArgs e)
+        {
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            CancellationToken token = cancellationTokenSource.Token;
+            var isconnected = CheckForInternetConnection();
+            //DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 0);
+            //resetBTLock.Text = "Reset!!";
+            
+            if (isconnected)
+            {
+                MessagingCenter.Subscribe<object, int>(this, "tbasenddata", async (mssender, value) =>
+                {
+                    switch (value)
+                    {
+                        case 1:
+                            await DismissNotification();
+                            await NewNotification("TBA: Handshake Started");
+                            break;
+                        case 2:
+                            await DismissNotification();
+                            await NewNotification("TBA: Response Gotten");
+                            break;
+                        case 3:
+                            await DismissNotification();
+                            await NewNotification("TBA: Completed");
+                            break;
+                        case -1:
+                            await DismissNotification();
+                            await NewNotification("USB: Failed");
+                            DisplayAlert("Not Available", "You don't have internet! If you were not told to do this, keep it that way.", "Ok!");
+                            MessagingCenter.Unsubscribe<object, int>(this, "tbasenddata");
+                            break;
+                    }
+                });
+                await submitVIABluetoothInstance.SendTBAData(token);
+            }
+            else
+            {
+                DisplayAlert("Not Available", "You don't have internet! If you were not told to do this, keep it that way.", "Ok!");
+            }
+            
 
 
         }

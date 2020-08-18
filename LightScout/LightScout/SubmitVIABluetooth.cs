@@ -7,7 +7,9 @@ using Plugin.BLE.Abstractions.Exceptions;
 using Plugin.BLE.Abstractions.Extensions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -428,7 +430,7 @@ namespace LightScout
                 if (!datagotten)
                 {
                     connectedPeripheral = a.Device;
-                    KnownDeviceGet(a.Device);
+                    KnownDeviceSendTBA(a.Device);
                     MessagingCenter.Send<SubmitVIABluetooth, int>(this, "tbasenddata", 2);
                     datagotten = true;
                     adapter.DeviceConnected -= GdeviceC;
@@ -488,14 +490,17 @@ namespace LightScout
             try
             {
                 string tbamatches = "";
-                using (HttpClient client = new HttpClient())
-                using (HttpResponseMessage response = await client.GetAsync(urltoget))
-                using (HttpContent content = response.Content)
+                var request = (HttpWebRequest)WebRequest.Create(urltoget);
+                request.Headers.Add("X-TBA-Auth-Key", "kzyt55ci5iHn3X1T8BgXYu2yMXmAjdxV5OCXHVA16CRfX8C0Z6tfrwU4BajyleY3");
+                request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                using(Stream stream = response.GetResponseStream())
+                using(StreamReader reader = new StreamReader(stream))
                 {
-                    // ... Read the string.
-                    tbamatches = await content.ReadAsStringAsync();
+                    tbamatches = reader.ReadToEnd();
                     Console.WriteLine(tbamatches);
                 }
+                tbamatches = JsonConvert.SerializeObject(JsonConvert.DeserializeObject<List<TBA_Match>>(tbamatches));
                 var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130000"));
                 if (servicetosend != null)
                 {

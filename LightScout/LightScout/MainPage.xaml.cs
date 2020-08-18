@@ -466,7 +466,7 @@ namespace LightScout
             
             if (isconnected)
             {
-                MessagingCenter.Subscribe<object, int>(this, "tbasenddata", async (mssender, value) =>
+                MessagingCenter.Subscribe<SubmitVIABluetooth, int>(this, "tbasenddata", async (mssender, value) =>
                 {
                     switch (value)
                     {
@@ -484,9 +484,9 @@ namespace LightScout
                             break;
                         case -1:
                             await DismissNotification();
-                            await NewNotification("USB: Failed");
+                            await NewNotification("TBA: Failed");
                             DisplayAlert("Not Available", "You don't have internet! If you were not told to do this, keep it that way.", "Ok!");
-                            MessagingCenter.Unsubscribe<object, int>(this, "tbasenddata");
+                            MessagingCenter.Unsubscribe<SubmitVIABluetooth, int>(this, "tbasenddata");
                             break;
                     }
                 });

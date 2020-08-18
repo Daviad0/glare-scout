@@ -292,6 +292,7 @@
                 <StackLayout>
                     <Label Text="Reset Team Data" Margin="10,0"/>
                     <Button Text="Get Data VIA Bluetooth" x:Name="getDataFromServer" Clicked="getDataFromServer_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
+                    <Button Text="Send TBA" x:Name="getDataFromTBA" Clicked="SendTBAData" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
                     <Button Text="Send Dummy Data" Clicked="SendDummyData" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
                     <BoxView BackgroundColor="Gray" HeightRequest="2" Margin="5,0"/>
                     <Label Text="Team Scouters" Margin="10,0"/>

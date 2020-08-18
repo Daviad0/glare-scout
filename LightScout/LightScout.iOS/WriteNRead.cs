@@ -208,7 +208,9 @@ namespace LightScout.iOS
             string result = null;
             try
             {
+                
                 result = File.ReadAllText(finalPath);
+                var samplewaytochange = JsonConvert.DeserializeObject<LSConfiguration>(result);
             }
             catch (Exception ex)
             {

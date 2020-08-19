@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:local="clr-namespace:LightScout"
              ios:Page.UseSafeArea="True"
              mc:Ignorable="d"
              x:Class="LightScout.MainPage"
@@ -372,8 +373,30 @@
 
                 </Grid>
                 <StackLayout>
-
-                    <Button Text="Send to USB" x:Name="resetBTLock" Clicked="resetBTLock_Clicked" BackgroundColor="White" TextColor="#2a7afa" Margin="10"/>
+                    <Grid Margin="20,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Frame Margin="5" Padding="5" BackgroundColor="White" Grid.Column="0" HeightRequest="150" CornerRadius="6">
+                            <local:MultiLineButton x:Name="resetBTLock" Clicked="resetBTLock_Clicked" HorizontalOptions="Fill" VerticalOptions="Fill">
+                                <StackLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+                                    <Label Text="&#xeebe;" TextColor="#2a7afa" FontFamily="{StaticResource IconFont}" FontSize="70" HorizontalOptions="Center"/>
+                                    <Label Text="Bluetooth" TextColor="#2a7afa" HorizontalOptions="Center" FontAttributes="Bold" FontSize="20"/>
+                                </StackLayout>
+                            </local:MultiLineButton>
+                        </Frame>
+                        <Frame Margin="5" Padding="5" BackgroundColor="White" Grid.Column="1" HeightRequest="150" CornerRadius="6">
+                            <local:MultiLineButton Clicked="resetBTLock_Clicked" HorizontalOptions="Fill" VerticalOptions="Fill">
+                                <StackLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+                                    <Label Text="&#xf01f;" TextColor="#2a7afa" FontFamily="{StaticResource IconFont}" FontSize="70" HorizontalOptions="Center"/>
+                                    <Label Text="USB" TextColor="#2a7afa" HorizontalOptions="Center" FontAttributes="Bold" FontSize="20"/>
+                                </StackLayout>
+                            </local:MultiLineButton>
+                        </Frame>
+                        
+                    </Grid>
+                    <BoxView HeightRequest="2" Margin="50,5" BackgroundColor="White" CornerRadius="1" WidthRequest="100"/>
                 </StackLayout>
             </StackLayout>
             

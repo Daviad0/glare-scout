@@ -67,7 +67,7 @@
                                             <RowDefinition Height="*"/>
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
-                                        <Label Text="{Binding MatchNumber, StringFormat='Match #{0}'}" Grid.Row="0" VerticalOptions="Center" FontSize="20" FontAttributes="Bold"/>
+                                        <Label Text="{Binding MatchNumber, StringFormat='Match #{0}'}" Grid.Row="0" VerticalOptions="Center" FontSize="20" FontAttributes="Bold" Margin="0,3,0,0" />
                                         <Grid Grid.Row="1">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto"/>
@@ -136,29 +136,32 @@
                                                 <Label Grid.Column="2" Text="Up Next!" HorizontalOptions="End" FontAttributes="Bold" TextColor="#0f3f8c" VerticalOptions="Center" IsVisible="{Binding IsUpNext}"/>
 
                                             </Grid>
-                                            <Grid HeightRequest="50" MinimumHeightRequest="50" HorizontalOptions="Center">
+                                            <Grid HeightRequest="60" MinimumHeightRequest="60" HorizontalOptions="Center" Margin="10,0">
                                                 <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="80"/>
-                                                    <ColumnDefinition Width="80"/>
-                                                    <ColumnDefinition Width="80"/>
+                                                    <ColumnDefinition Width="75"/>
+                                                    <ColumnDefinition Width="90"/>
+                                                    <ColumnDefinition Width="75"/>
                                                 </Grid.ColumnDefinitions>
-                                                <Frame WidthRequest="100" HeightRequest="35" Padding="5" HasShadow="False" Opacity=".5" BackgroundColor="Red" Grid.Column="0" HorizontalOptions="End" Margin="10">
-                                                    <Label TextColor="White" Text="8890" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                                                <Frame CornerRadius="4" WidthRequest="100" HeightRequest="35" VerticalOptions="Center" Padding="5" HasShadow="False" Opacity=".5" BackgroundColor="{Binding TeamColor}" Grid.Column="0" HorizontalOptions="End" Margin="10,15">
+                                                    <Label VerticalOptions="Center" TextColor="White" Text="{Binding AlliancePartner1}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
                                                 </Frame>
-                                                <Frame WidthRequest="100" HeightRequest="35" Padding="5" HasShadow="False" BackgroundColor="Red" Grid.Column="1" HorizontalOptions="Start" Margin="10">
-                                                    <Label TextColor="White" Text="862" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                                                <Frame CornerRadius="4" WidthRequest="120" HeightRequest="45" VerticalOptions="Center" Padding="5" HasShadow="False" BackgroundColor="{Binding TeamColor}" Grid.Column="1" HorizontalOptions="Start" Margin="10">
+                                                    <Label VerticalOptions="Center" FontSize="20" FontAttributes="Bold" TextColor="White" Text="{Binding TeamNumber}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
                                                 </Frame>
-                                                <Frame WidthRequest="100" HeightRequest="35" Padding="5" HasShadow="False" Opacity=".5" BackgroundColor="Red" Grid.Column="2" HorizontalOptions="Start" Margin="10">
-                                                    <Label TextColor="White" Text="8890" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                                                <Frame CornerRadius="4" WidthRequest="100" HeightRequest="35" VerticalOptions="Center" Padding="5" HasShadow="False" Opacity=".5" BackgroundColor="{Binding TeamColor}" Grid.Column="2" HorizontalOptions="Start" Margin="10,15">
+                                                    <Label VerticalOptions="Center" TextColor="White" Text="{Binding AlliancePartner2}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
                                                 </Frame>
                                             </Grid>
                                             <Grid>
-                                                <Image Source="{Binding teamIcon}" Grid.Row="0" Grid.Column="0" Margin="5"/>
+                                                <Frame Margin="5" Grid.Row="0" Padding="3" Grid.Column="0" BackgroundColor="{Binding TeamColor}" HorizontalOptions="Center" VerticalOptions="Center">
+                                                    <Image Source="{Binding teamIcon}"/>
+                                                </Frame>
+                                                
                                                 <Frame BackgroundColor="Black" HasShadow="False" HeightRequest="15" WidthRequest="70" Opacity=".5" Grid.Row="0" Grid.Column="0" VerticalOptions="End" Margin="60,0,60,20">
                                                     
                                                 </Frame>
                                                 <Frame BackgroundColor="Transparent" HasShadow="False" HeightRequest="15" WidthRequest="70" Opacity=".8" Grid.Row="0" Grid.Column="0" VerticalOptions="End" Margin="40,0,40,20">
-                                                    <Label Text="FRC Team 862" HorizontalOptions="Center" VerticalOptions="Center" TextColor="White"/>
+                                                    <Label Text="{Binding TeamName}" HorizontalOptions="Center" VerticalOptions="Center" TextColor="White"/>
                                                 </Frame>
                                                 
                                             </Grid>

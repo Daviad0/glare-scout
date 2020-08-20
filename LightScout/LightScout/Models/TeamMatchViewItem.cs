@@ -20,5 +20,6 @@ namespace LightScout.Models
         public bool ActualMatch { get; set; }
         public int AlliancePartner1 { get; set; }
         public int AlliancePartner2 { get; set; }
+        public Color TeamColor { get; set; }
     }
 }

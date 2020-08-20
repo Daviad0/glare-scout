@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
 using System.Threading;
@@ -46,6 +47,7 @@ namespace LightScout
         private CodeReason currentCodeReason;
         private static SubmitVIABluetooth submitVIABluetoothInstance = new SubmitVIABluetooth();
         private List<string> tabletlist = new List<string>();
+        private static Socket iosSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
         public enum CodeReason
         {
@@ -56,7 +58,7 @@ namespace LightScout
 
         public MainPage()
         {
-
+            
             InitializeComponent();
             ControlPanel[0] = false;
             ControlPanel[1] = false;

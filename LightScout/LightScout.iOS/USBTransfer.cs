@@ -38,12 +38,12 @@ namespace LightScout.iOS
                     {
                         
                         connectedSocket.BeginSend(Encoding.ASCII.GetBytes(tabletid + ":B:" + Battery.ChargeLevel.ToString()), 0, Encoding.ASCII.GetBytes(tabletid + ":B:" + Battery.ChargeLevel.ToString()).Length, SocketFlags.None, USBCallBack, connectedSocket);
-
+                        socket.Close();
+                        socket.Dispose();
                     }, connectedSocket);
 
 
-                    socket.Close();
-                    socket.Dispose();
+                    
                     //MessagingCenter.Send<object, int>(this, "USBResponse", 3);
 
                 }, socket);

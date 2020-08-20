@@ -404,6 +404,7 @@
                     <Button CornerRadius="4" BackgroundColor="White" Margin="20,0" Text="Get Match Data" TextColor="#2a7afa"/>
                     <Button CornerRadius="4" BackgroundColor="White" Margin="20,0" Text="Send TBA Data" TextColor="#2a7afa"/>
                     <Button CornerRadius="4" BackgroundColor="White" Margin="20,0" Text="Preload TBA Data" TextColor="#2a7afa"/>
+                    <Button CornerRadius="4" BackgroundColor="White" Margin="20,0" Text="TEMP DATA TO USB" TextColor="#2a7afa" Clicked="resetBTLock_Clicked"/>
                 </StackLayout>
             </StackLayout>
             

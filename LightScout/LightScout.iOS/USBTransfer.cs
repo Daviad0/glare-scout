@@ -43,6 +43,7 @@ namespace LightScout.iOS
 
 
                     socket.Close();
+                    socket.Dispose();
                     //MessagingCenter.Send<object, int>(this, "USBResponse", 3);
 
                 }, socket);

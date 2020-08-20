@@ -400,6 +400,10 @@
                         
                     </Grid>
                     <BoxView HeightRequest="2" Margin="50,5" BackgroundColor="White" CornerRadius="1" WidthRequest="100"/>
+                    <Button CornerRadius="4" BackgroundColor="White" Margin="20,0" Text="Send Current Scores" TextColor="#2a7afa"/>
+                    <Button CornerRadius="4" BackgroundColor="White" Margin="20,0" Text="Get Match Data" TextColor="#2a7afa"/>
+                    <Button CornerRadius="4" BackgroundColor="White" Margin="20,0" Text="Send TBA Data" TextColor="#2a7afa"/>
+                    <Button CornerRadius="4" BackgroundColor="White" Margin="20,0" Text="Preload TBA Data" TextColor="#2a7afa"/>
                 </StackLayout>
             </StackLayout>
             

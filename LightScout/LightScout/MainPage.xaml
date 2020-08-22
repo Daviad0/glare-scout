@@ -381,16 +381,16 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Frame Margin="5" Padding="5" BackgroundColor="White" Grid.Column="0" HeightRequest="150" CornerRadius="6">
-                            <local:MultiLineButton x:Name="resetBTLock" Clicked="resetBTLock_Clicked" HorizontalOptions="Fill" VerticalOptions="Fill">
+                        <Frame Margin="5" Padding="5" BackgroundColor="White" Grid.Column="0" HeightRequest="150" CornerRadius="8">
+                            <local:MultiLineButton Clicked="resetBTLock_Clicked" HorizontalOptions="Fill" VerticalOptions="Fill" x:Name="bluetoothGeneral">
                                 <StackLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
                                     <Label Text="&#xeebe;" TextColor="#2a7afa" FontFamily="{StaticResource IconFont}" FontSize="70" HorizontalOptions="Center"/>
                                     <Label Text="Bluetooth" TextColor="#2a7afa" HorizontalOptions="Center" FontAttributes="Bold" FontSize="20"/>
                                 </StackLayout>
                             </local:MultiLineButton>
                         </Frame>
-                        <Frame Margin="5" Padding="5" BackgroundColor="White" Grid.Column="1" HeightRequest="150" CornerRadius="6">
-                            <local:MultiLineButton Clicked="resetBTLock_Clicked" HorizontalOptions="Fill" VerticalOptions="Fill">
+                        <Frame Margin="5" Padding="5" BackgroundColor="White" Grid.Column="1" HeightRequest="150" CornerRadius="8">
+                            <local:MultiLineButton Clicked="resetBTLock_Clicked" HorizontalOptions="Fill" VerticalOptions="Fill" x:Name="usbGeneral">
                                 <StackLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
                                     <Label Text="&#xf01f;" TextColor="#2a7afa" FontFamily="{StaticResource IconFont}" FontSize="70" HorizontalOptions="Center"/>
                                     <Label Text="USB" TextColor="#2a7afa" HorizontalOptions="Center" FontAttributes="Bold" FontSize="20"/>
@@ -399,11 +399,33 @@
                         </Frame>
                         
                     </Grid>
+                    <Grid Margin="20,0,20,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <BoxView HeightRequest="6" Margin="30,3,30,5" BackgroundColor="White" CornerRadius="3" WidthRequest="100" HorizontalOptions="Center" Grid.Column="0" x:Name="bluetoothSelected"/>
+                        <BoxView HeightRequest="6" Margin="30,3,30,5" BackgroundColor="White" CornerRadius="3" WidthRequest="100" HorizontalOptions="Center" Grid.Column="1" x:Name="usbSelected"/>
+                    </Grid>
+                   
+                    <Grid>
+                        <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="0" FontFamily="{StaticResource IconFont}" Text="&#xeed8;" TextColor="White" FontSize="40" Margin="20,0,0,0" VerticalOptions="Center" Opacity="0" x:Name="comm_sendCurrent_check"/>
+                        <Button Grid.Row="0" Grid.Column="0" CornerRadius="6" BackgroundColor="White" Margin="25,0" Text="Send Current Scores" TextColor="#2a7afa" x:Name="comm_sendCurrent" ClassId="comm_sendCurrent" Clicked="SelectCommOption"/>
+                    </Grid>
+                    <Grid>
+                        <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="0" FontFamily="{StaticResource IconFont}" Text="&#xeed8;" TextColor="White" FontSize="40" Margin="20,0,0,0" VerticalOptions="Center" Opacity="0" x:Name="comm_getMatchData_check"/>
+                        <Button Grid.Row="0" Grid.Column="0" CornerRadius="6" BackgroundColor="White" Text="Get Match Data" Margin="25,0" TextColor="#2a7afa" x:Name="comm_getMatchData" ClassId="comm_getMatchData" Clicked="SelectCommOption"/>
+                    </Grid>
+                    <Grid>
+                        <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="0" FontFamily="{StaticResource IconFont}" Text="&#xeed8;" TextColor="White" FontSize="40" Margin="20,0,0,0" VerticalOptions="Center" Opacity="0" x:Name="comm_checkTBA_check"/>
+                        <Button Grid.Row="0" Grid.Column="0" CornerRadius="6" BackgroundColor="White" Margin="25,0" Text="Send TBA Data" TextColor="#2a7afa" x:Name="comm_checkTBA" ClassId="comm_checkTBA" Clicked="SelectCommOption"/>
+                    </Grid>
+                    <Grid>
+                        <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="0" FontFamily="{StaticResource IconFont}" Text="&#xeed8;" TextColor="White" FontSize="40" Margin="20,0,0,0" VerticalOptions="Center" Opacity="0" x:Name="comm_preloadTBA_check"/>
+                        <Button Grid.Row="0" Grid.Column="0" CornerRadius="6" BackgroundColor="White" Margin="25,0" Text="Preload TBA Data" TextColor="#2a7afa" x:Name="comm_preloadTBA" ClassId="comm_preloadTBA" Clicked="SelectCommOption"/>
+                    </Grid>
                     <BoxView HeightRequest="2" Margin="50,5" BackgroundColor="White" CornerRadius="1" WidthRequest="100"/>
-                    <Button CornerRadius="4" BackgroundColor="White" Margin="20,0" Text="Send Current Scores" TextColor="#2a7afa"/>
-                    <Button CornerRadius="4" BackgroundColor="White" Margin="20,0" Text="Get Match Data" TextColor="#2a7afa"/>
-                    <Button CornerRadius="4" BackgroundColor="White" Margin="20,0" Text="Send TBA Data" TextColor="#2a7afa"/>
-                    <Button CornerRadius="4" BackgroundColor="White" Margin="20,0" Text="Preload TBA Data" TextColor="#2a7afa"/>
+                    <Button CornerRadius="4" BackgroundColor="White" Margin="30,0" Text="Start Request" HeightRequest="70" TextColor="#2a7afa" FontSize="30"/>
                 </StackLayout>
             </StackLayout>
             

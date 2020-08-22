@@ -21,7 +21,7 @@ namespace LightScout.iOS
         {
 
             var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            
+
             try
             {
                 socket.Bind(new IPEndPoint(IPAddress.Loopback, 862));
@@ -36,18 +36,19 @@ namespace LightScout.iOS
                     var tabletid = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TabletIdentifier;
                     connectedSocket.BeginSend(Encoding.ASCII.GetBytes(tabletid + ":S:" + rawstring), 0, Encoding.ASCII.GetBytes(tabletid + ":S:" + rawstring).Length, SocketFlags.None, (ars) =>
                     {
-                        
-                        connectedSocket.BeginSend(Encoding.ASCII.GetBytes(tabletid + ":B:" + Battery.ChargeLevel.ToString()), 0, Encoding.ASCII.GetBytes(tabletid + ":B:" + Battery.ChargeLevel.ToString()).Length, SocketFlags.None, USBCallBack, connectedSocket);
 
+                        connectedSocket.BeginSend(Encoding.ASCII.GetBytes(tabletid + ":B:" + Battery.ChargeLevel.ToString()), 0, Encoding.ASCII.GetBytes(tabletid + ":B:" + Battery.ChargeLevel.ToString()).Length, SocketFlags.None, USBCallBack, connectedSocket);
+                        socket.Close();
+                        socket.Dispose();
                     }, connectedSocket);
 
 
-                    socket.Close();
-                    socket.Dispose();
+
                     //MessagingCenter.Send<object, int>(this, "USBResponse", 3);
 
                 }, socket);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 //MessagingCenter.Send<object, int>(this, "USBResponse", -1);
             }

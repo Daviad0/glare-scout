@@ -31,6 +31,7 @@ namespace LightScout
         private bool MenuOpen = false;
         private bool NotificationActive = false;
         private int NextMatchIndex = -1;
+        private Button currentlySelectedComm;
         private static bool[] ControlPanel = new bool[2];
         private static IBluetoothLE ble = CrossBluetoothLE.Current;
         private static IAdapter adapter = CrossBluetoothLE.Current.Adapter;
@@ -1115,6 +1116,152 @@ namespace LightScout
             strategyCodePanel.TranslateTo(strategyCodePanel.TranslationX - 600, strategyCodePanel.TranslationY, 500, Easing.CubicInOut);
             currentCodeString = "";
             currentCodeReason = CodeReason.EditMatch;
+        }
+        private async void SelectGenComm(object sender, EventArgs e)
+        {
+            var converter = new ColorTypeConverter();
+            MultiLineButton selected = (MultiLineButton)sender as MultiLineButton;
+            if(selected == usbGeneral)
+            {
+                usbSelected.FadeTo(1, 100, Easing.CubicInOut);
+                bluetoothSelected.FadeTo(0, 100, Easing.CubicInOut);
+            }
+            else
+            {
+                usbSelected.FadeTo(0, 100, Easing.CubicInOut);
+                bluetoothSelected.FadeTo(1, 100, Easing.CubicInOut);
+            }
+        }
+        private async void SelectCommOption(object sender, EventArgs e)
+        {
+            var converter = new ColorTypeConverter();
+            Button selected = (Button)sender as Button;
+            if (selected == comm_checkTBA)
+            {
+                if(currentlySelectedComm != selected)
+                {
+                    if (currentlySelectedComm != null)
+                    {
+                        var checkmarkbutton = this.FindByName<Label>(currentlySelectedComm.ClassId + "_check");
+                        currentlySelectedComm.TranslateTo(currentlySelectedComm.TranslationX - 40, currentlySelectedComm.TranslationY, easing: Easing.CubicInOut);
+                        comm_checkTBA_check.Opacity = 1;
+                        await comm_checkTBA.TranslateTo(comm_checkTBA.TranslationX + 40, comm_checkTBA.TranslationY, easing: Easing.CubicInOut);
+                        currentlySelectedComm.TranslationX = 0;
+                        checkmarkbutton.Opacity = 0;
+                        checkmarkbutton.TranslationX = 0;
+                        comm_checkTBA.TranslationX = 40;
+                    }
+                    else
+                    {
+                        comm_checkTBA_check.Opacity = 1;
+                        await comm_checkTBA.TranslateTo(comm_checkTBA.TranslationX + 40, comm_checkTBA.TranslationY, easing: Easing.CubicInOut);
+                        comm_checkTBA.TranslationX = 40;
+                    }
+                    currentlySelectedComm = comm_checkTBA;
+                }
+                else
+                {
+                    await currentlySelectedComm.TranslateTo(currentlySelectedComm.TranslationX +10, currentlySelectedComm.TranslationY,125, easing: Easing.CubicInOut);
+                    await currentlySelectedComm.TranslateTo(currentlySelectedComm.TranslationX -10, currentlySelectedComm.TranslationY,125, easing: Easing.CubicInOut);
+                    comm_checkTBA.TranslationX = 40;
+                }
+                
+                
+
+            }
+            else if (selected == comm_getMatchData)
+            {
+                if (currentlySelectedComm != selected)
+                {
+                    if (currentlySelectedComm != null)
+                    {
+                        var checkmarkbutton = this.FindByName<Label>(currentlySelectedComm.ClassId + "_check");
+                        currentlySelectedComm.TranslateTo(currentlySelectedComm.TranslationX - 40, currentlySelectedComm.TranslationY, easing: Easing.CubicInOut);
+                        comm_getMatchData_check.Opacity = 1;
+                        await comm_getMatchData.TranslateTo(comm_getMatchData.TranslationX + 40, comm_getMatchData.TranslationY, easing: Easing.CubicInOut);
+                        currentlySelectedComm.TranslationX = 0;
+                        checkmarkbutton.Opacity = 0;
+                        checkmarkbutton.TranslationX = 0;
+                        comm_getMatchData.TranslationX = 40;
+                    }
+                    else
+                    {
+                        comm_getMatchData_check.Opacity = 1;
+                        await comm_getMatchData.TranslateTo(comm_getMatchData.TranslationX + 40, comm_getMatchData.TranslationY, easing: Easing.CubicInOut);
+                        comm_getMatchData.TranslationX = 40;
+                    }
+                    currentlySelectedComm = comm_getMatchData;
+                }
+                else
+                {
+                    await currentlySelectedComm.TranslateTo(currentlySelectedComm.TranslationX + 10, currentlySelectedComm.TranslationY, 125, easing: Easing.CubicInOut);
+                    await currentlySelectedComm.TranslateTo(currentlySelectedComm.TranslationX - 10, currentlySelectedComm.TranslationY, 125, easing: Easing.CubicInOut);
+                    comm_getMatchData.TranslationX = 40;
+                }
+                
+            }
+            else if(selected == comm_preloadTBA)
+            {
+                if (currentlySelectedComm != selected)
+                {
+                    if (currentlySelectedComm != null)
+                    {
+                        var checkmarkbutton = this.FindByName<Label>(currentlySelectedComm.ClassId + "_check");
+                        currentlySelectedComm.TranslateTo(currentlySelectedComm.TranslationX - 40, currentlySelectedComm.TranslationY, easing: Easing.CubicInOut);
+                        comm_preloadTBA_check.Opacity = 1;
+                        await comm_preloadTBA.TranslateTo(comm_preloadTBA.TranslationX + 40, comm_preloadTBA.TranslationY, easing: Easing.CubicInOut);
+                        currentlySelectedComm.TranslationX = 0;
+                        comm_preloadTBA.TranslationX = 40;
+                        checkmarkbutton.Opacity = 0;
+                        checkmarkbutton.TranslationX = 0;
+                    }
+                    else
+                    {
+                        comm_preloadTBA_check.Opacity = 1;
+                        await comm_preloadTBA.TranslateTo(comm_preloadTBA.TranslationX + 40, comm_preloadTBA.TranslationY, easing: Easing.CubicInOut);
+                        comm_preloadTBA.TranslationX = 40;
+                    }
+                    currentlySelectedComm = comm_preloadTBA;
+                }
+                else
+                {
+                    await currentlySelectedComm.TranslateTo(currentlySelectedComm.TranslationX + 10, currentlySelectedComm.TranslationY, 125, easing: Easing.CubicInOut);
+                    await currentlySelectedComm.TranslateTo(currentlySelectedComm.TranslationX - 10, currentlySelectedComm.TranslationY, 125, easing: Easing.CubicInOut);
+                    comm_preloadTBA.TranslationX = 40;
+                }
+                
+            }
+            else if(selected == comm_sendCurrent)
+            {
+                if (currentlySelectedComm != selected)
+                {
+                    if (currentlySelectedComm != null)
+                    {
+                        var checkmarkbutton = this.FindByName<Label>(currentlySelectedComm.ClassId + "_check");
+                        currentlySelectedComm.TranslateTo(currentlySelectedComm.TranslationX - 40, currentlySelectedComm.TranslationY, easing: Easing.CubicInOut);
+                        comm_sendCurrent_check.Opacity = 1;
+                        await comm_sendCurrent.TranslateTo(comm_sendCurrent.TranslationX + 40, comm_sendCurrent.TranslationY, easing: Easing.CubicInOut);
+                        currentlySelectedComm.TranslationX = 0;
+                        checkmarkbutton.Opacity = 0;
+                        checkmarkbutton.TranslationX = 0;
+                        comm_sendCurrent.TranslationX = 40;
+                    }
+                    else
+                    {
+                        comm_sendCurrent.Opacity = 1;
+                        await comm_sendCurrent.TranslateTo(comm_sendCurrent.TranslationX + 40, comm_sendCurrent.TranslationY, easing: Easing.CubicInOut);
+                        comm_sendCurrent.TranslationX = 40;
+                    }
+                    currentlySelectedComm = comm_sendCurrent;
+                }
+                else
+                {
+                    await currentlySelectedComm.TranslateTo(currentlySelectedComm.TranslationX + 10, currentlySelectedComm.TranslationY, 125, easing: Easing.CubicInOut);
+                    await currentlySelectedComm.TranslateTo(currentlySelectedComm.TranslationX - 10, currentlySelectedComm.TranslationY, 125, easing: Easing.CubicInOut);
+                    comm_sendCurrent.TranslationX = 40;
+                }
+                
+            }
         }
         private void ReloadMatches()
         {

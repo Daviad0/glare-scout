@@ -2170,12 +2170,23 @@ namespace LightScout
             trackingLogs.Add(SecondsScouting.ToString() + ":100:" + scouterPicker.SelectedItem.ToString());
         }
 
-        private void BoxView_Tapped(object sender, MR.Gestures.TapEventArgs e)
+
+        private void AbsoluteLayout_Tapping(object sender, MR.Gestures.TapEventArgs e)
         {
-            if(e.Touches?.Length > 0)
+            if (e.Touches?.Length > 0)
             {
                 Point touch = e.Touches[0];
-                
+
+                Console.WriteLine("Point is at (" + touch.X.ToString() + "," + touch.Y.ToString() + ")");
+            }
+        }
+
+        private void AbsoluteLayout_Down(object sender, MR.Gestures.DownUpEventArgs e)
+        {
+            if (e.Touches?.Length > 0)
+            {
+                Point touch = e.Touches[0];
+
                 Console.WriteLine("Point is at (" + touch.X.ToString() + "," + touch.Y.ToString() + ")");
             }
         }

@@ -460,12 +460,12 @@
                         <StackLayout>
                             <Label Text="Shooting Location" HorizontalOptions="Center" FontSize="20" Margin="10,0"/>
                             <Label Text="Click anywhere on the image to select a point where the robot shot most of the power cells at. You may change your location." HorizontalOptions="Center" FontSize="10" Margin="10,0" HorizontalTextAlignment="Center"/>
-                            <AbsoluteLayout Margin="20,10">
-                                <mr:BoxView BackgroundColor="DimGray" CornerRadius="4" HeightRequest="200" WidthRequest="250" HorizontalOptions="Center" Tapped="BoxView_Tapped">
+                            <mr:AbsoluteLayout Margin="20,10" Tapping="AbsoluteLayout_Tapping" Down="AbsoluteLayout_Down" Tapped="AbsoluteLayout_Tapping">
+                                <BoxView AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="DimGray" CornerRadius="4" HeightRequest="200" WidthRequest="250" HorizontalOptions="Center">
 
-                                </mr:BoxView>
+                                </BoxView>
                                 <Label Text="&#xeee4;" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" TextColor="Aqua" FontFamily="{StaticResource IconFont}" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </AbsoluteLayout>
+                            </mr:AbsoluteLayout>
                             <Label Text="Trench" HorizontalOptions="Center" TextColor="#0f3f8c"/>
                             <Button Text="&#xeed8;" Clicked="HideChangeShot" FontFamily="{StaticResource IconFont}" HorizontalOptions="End" Margin="3,15,0,0" FontSize="30" Padding="0" BackgroundColor="White" TextColor="Green"/>
                         </StackLayout>
@@ -486,9 +486,9 @@
                             <Label Text="Loading Location" HorizontalOptions="Center" FontSize="20" Margin="10,0"/>
                             <Label Text="Click anywhere on the image to select a point where the robot shot collects most power cells. You may change your location." HorizontalOptions="Center" FontSize="10" Margin="10,0" HorizontalTextAlignment="Center"/>
                             <AbsoluteLayout Margin="20,10">
-                                <BoxView BackgroundColor="DimGray" CornerRadius="4" HeightRequest="200" WidthRequest="250" HorizontalOptions="Center">
+                                <mr:BoxView AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="DimGray" CornerRadius="4" HeightRequest="200" WidthRequest="250" HorizontalOptions="Center">
 
-                                </BoxView>
+                                </mr:BoxView>
                                 <Label Margin="5,0,0,0" Text="&#xeee4;" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" TextColor="Aqua" FontFamily="{StaticResource IconFont}" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center"/>
                             </AbsoluteLayout>
                             <Label Text="Loading Bay" HorizontalOptions="Center" TextColor="#0f3f8c"/>

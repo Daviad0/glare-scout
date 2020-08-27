@@ -118,7 +118,7 @@ namespace LightScout
                 var allmatchesraw = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");
                 listofmatches = JsonConvert.DeserializeObject<List<TeamMatch>>(allmatchesraw);
                 var upnext = false;
-                TeamMatchViewItem selectedItem = null;
+                TeamMatchViewItem selectedItem = new TeamMatchViewItem();
                 var upnextselected = false;
                 int i = 0;
                 foreach (var match in listofmatches)
@@ -152,8 +152,12 @@ namespace LightScout
                     newmatchviewitem.ActualMatch = true;
                     newmatchviewitem.MatchNumber = match.MatchNumber;
                     newmatchviewitem.TabletName = match.TabletId;
-                    newmatchviewitem.AlliancePartner1 = match.AlliancePartners[0];
-                    newmatchviewitem.AlliancePartner2 = match.AlliancePartners[1];
+                    if(match.AlliancePartners != null && match.AlliancePartners.Length >= 2)
+                    {
+                        newmatchviewitem.AlliancePartner1 = match.AlliancePartners[0];
+                        newmatchviewitem.AlliancePartner2 = match.AlliancePartners[1];
+                    }
+                    
                     if (newmatchviewitem.IsBlue)
                     {
                         newmatchviewitem.TeamColor = (Color)converter.ConvertFromInvariantString("Color.Blue");

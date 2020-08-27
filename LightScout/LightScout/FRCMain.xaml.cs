@@ -1304,7 +1304,11 @@ namespace LightScout
 
 
                 var thismatch = new TeamMatch();
-                thismatch.CycleTime = TotalCycleTime / NumCycles;
+                if(NumCycles > 0)
+                {
+                    thismatch.CycleTime = TotalCycleTime / NumCycles;
+                }
+                
                 thismatch.AlliancePartners = selectedMatch.AlliancePartners;
                 thismatch.A_InitiationLine = InitLineAchieved;
                 thismatch.DisabledSeconds = (int)Math.Floor(DisabledSeconds);
@@ -1670,6 +1674,48 @@ namespace LightScout
             disabledMenu.IsVisible = false;
             disabledMenuPanel.TranslationX = 0;
             trackingLogs.Add(SecondsScouting.ToString() + ":9001");
+
+        }
+        private void ShowChangeShot(object sender, EventArgs e)
+        {
+            changeShotLocationPanel.TranslationX = 600;
+            changeShotLocationOverlay.IsVisible = true;
+            changeShotLocationPanel.TranslateTo(changeShotLocationPanel.TranslationX - 600, changeShotLocationPanel.TranslationY, 500, Easing.CubicInOut);
+            CurrentlyDisabled = true;
+            DisabledTimer();
+            
+
+        }
+        private async void HideChangeShot(object sender, EventArgs e)
+        {
+
+            CurrentlyDisabled = false;
+
+            await changeShotLocationPanel.TranslateTo(changeShotLocationPanel.TranslationX - 600, changeShotLocationPanel.TranslationY, 500, Easing.CubicInOut);
+            changeShotLocationOverlay.IsVisible = false;
+            changeShotLocationPanel.TranslationX = 0;
+            
+
+        }
+        private void ShowChangeLoad(object sender, EventArgs e)
+        {
+            changeLoadLocationPanel.TranslationX = 600;
+            changeLoadLocationOverlay.IsVisible = true;
+            changeLoadLocationPanel.TranslateTo(changeLoadLocationPanel.TranslationX - 600, changeLoadLocationPanel.TranslationY, 500, Easing.CubicInOut);
+            CurrentlyDisabled = true;
+            DisabledTimer();
+            
+
+        }
+        private async void HideChangeLoad(object sender, EventArgs e)
+        {
+
+            CurrentlyDisabled = false;
+
+            await changeLoadLocationPanel.TranslateTo(changeLoadLocationPanel.TranslationX - 600, changeLoadLocationPanel.TranslationY, 500, Easing.CubicInOut);
+            changeLoadLocationOverlay.IsVisible = false;
+            changeLoadLocationPanel.TranslationX = 0;
+            
 
         }
         private void ChangeInitLine(object sender, EventArgs e)

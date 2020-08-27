@@ -277,6 +277,48 @@
                 </Grid>
             </StackLayout>
             <StackLayout x:Name="confirmForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
+                <Grid Margin="10,20,10,0" x:Name="defenseForMenu">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Played Defense?" 
+                   HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
+                    <Button Text="No" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="deffor_opt1" Clicked="ParkChange"/>
+
+                </Grid>
+                <Grid Margin="10,10,10,0" x:Name="defenseAgainstMenu">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Got Defended Against?" 
+                   HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
+                    <Button Text="No" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="defagn_opt1" Clicked="AttempedChange"/>
+
+                </Grid>
+                <Grid Margin="10,10,10,0" x:Name="shootingLocationMenu">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Shooting Location" 
+                   HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
+                    <Button Text="Nowhere" Clicked="ShowChangeShot" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="locsho_opt1"/>
+
+                </Grid>
+                <Grid Margin="10,10,10,0" x:Name="loadingLocationMenu">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Loading Location" 
+                   HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
+                    <Button Text="Nowhere" Clicked="ShowChangeLoad" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="locloa_opt1"/>
+
+                </Grid>
+            </StackLayout>
+            <StackLayout x:Name="confirmForm2" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
                 <Frame Padding="10" HorizontalOptions="Center" Margin="0,10" BackgroundColor="#2a7afa" CornerRadius="10" BorderColor="Transparent">
                     <Label Text="Overview of Match 5" FontSize="Medium" FontAttributes="Bold" TextColor="White"/>
                 </Frame>
@@ -400,6 +442,57 @@
                                     
                                 </StackLayout>
                             </Grid>
+                        </StackLayout>
+                    </Frame>
+
+                </StackLayout>
+            </AbsoluteLayout>
+
+        </StackLayout>
+        <StackLayout x:Name="changeShotLocationOverlay" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
+            <AbsoluteLayout VerticalOptions="FillAndExpand">
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">
+
+                </StackLayout>
+                <StackLayout VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".5,.5,.8,.8" AbsoluteLayout.LayoutFlags="All" x:Name="changeShotLocationPanel">
+                    <Frame BackgroundColor="White" Padding="40" CornerRadius="14">
+                        <StackLayout>
+                            <Label Text="Shooting Location" HorizontalOptions="Center" FontSize="20" Margin="10,0"/>
+                            <Label Text="Click anywhere on the image to select a point where the robot shot most of the power cells at. You may change your location." HorizontalOptions="Center" FontSize="10" Margin="10,0" HorizontalTextAlignment="Center"/>
+                            <AbsoluteLayout Margin="20,10">
+                                <BoxView BackgroundColor="DimGray" CornerRadius="4" HeightRequest="200" WidthRequest="250" HorizontalOptions="Center">
+
+                                </BoxView>
+                                
+                                <Label Text="&#xeee4;" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" TextColor="Aqua" FontFamily="{StaticResource IconFont}" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            </AbsoluteLayout>
+                            <Label Text="Trench" HorizontalOptions="Center" TextColor="#0f3f8c"/>
+                            <Button Text="&#xeed8;" Clicked="HideChangeShot" FontFamily="{StaticResource IconFont}" HorizontalOptions="End" Margin="3,15,0,0" FontSize="30" Padding="0" BackgroundColor="White" TextColor="Green"/>
+                        </StackLayout>
+                    </Frame>
+
+                </StackLayout>
+            </AbsoluteLayout>
+
+        </StackLayout>
+        <StackLayout x:Name="changeLoadLocationOverlay" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
+            <AbsoluteLayout VerticalOptions="FillAndExpand">
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">
+
+                </StackLayout>
+                <StackLayout VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".5,.5,.8,.8" AbsoluteLayout.LayoutFlags="All" x:Name="changeLoadLocationPanel">
+                    <Frame BackgroundColor="White" Padding="40" CornerRadius="14">
+                        <StackLayout>
+                            <Label Text="Loading Location" HorizontalOptions="Center" FontSize="20" Margin="10,0"/>
+                            <Label Text="Click anywhere on the image to select a point where the robot shot collects most power cells. You may change your location." HorizontalOptions="Center" FontSize="10" Margin="10,0" HorizontalTextAlignment="Center"/>
+                            <AbsoluteLayout Margin="20,10">
+                                <BoxView BackgroundColor="DimGray" CornerRadius="4" HeightRequest="200" WidthRequest="250" HorizontalOptions="Center">
+
+                                </BoxView>
+                                <Label Margin="5,0,0,0" Text="&#xeee4;" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" TextColor="Aqua" FontFamily="{StaticResource IconFont}" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            </AbsoluteLayout>
+                            <Label Text="Loading Bay" HorizontalOptions="Center" TextColor="#0f3f8c"/>
+                            <Button Text="&#xeed8;" Clicked="HideChangeLoad" FontFamily="{StaticResource IconFont}" HorizontalOptions="End" Margin="3,15,0,0" FontSize="30" Padding="0" BackgroundColor="White" TextColor="Green"/>
                         </StackLayout>
                     </Frame>
 

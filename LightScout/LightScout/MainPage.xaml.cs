@@ -295,6 +295,8 @@ namespace LightScout
             adapter.DisconnectDeviceAsync(deviceIWant);
         }
 
+        
+
         private async void listOfMatches_ItemTapped(object sender, ItemTappedEventArgs e)
         {
             Console.WriteLine(listofmatches[e.ItemIndex].TeamNumber.ToString() + "'s match at match #" + listofmatches[e.ItemIndex].MatchNumber.ToString());
@@ -1120,16 +1122,18 @@ namespace LightScout
         private async void SelectGenComm(object sender, EventArgs e)
         {
             var converter = new ColorTypeConverter();
-            MultiLineButton selected = (MultiLineButton)sender as MultiLineButton;
+            Button selected = (Button)sender as Button;
             if(selected == usbGeneral)
             {
                 usbSelected.FadeTo(1, 100, Easing.CubicInOut);
                 bluetoothSelected.FadeTo(0, 100, Easing.CubicInOut);
+                commOptions.FadeTo(1, 100, Easing.CubicInOut);
             }
             else
             {
                 usbSelected.FadeTo(0, 100, Easing.CubicInOut);
                 bluetoothSelected.FadeTo(1, 100, Easing.CubicInOut);
+                commOptions.FadeTo(1, 100, Easing.CubicInOut);
             }
         }
         private async void SelectCommOption(object sender, EventArgs e)

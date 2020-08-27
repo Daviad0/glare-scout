@@ -2,6 +2,18 @@
   "version": 3,
   "targets": {
     "Xamarin.iOS,Version=v1.0": {
+      "MR.Gestures/2.1.2": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "4.0.0.425677"
+        },
+        "compile": {
+          "lib/Xamarin.iOS10/MR.Gestures.dll": {}
+        },
+        "runtime": {
+          "lib/Xamarin.iOS10/MR.Gestures.dll": {}
+        }
+      },
       "Newtonsoft.Json/12.0.3": {
         "type": "package",
         "compile": {
@@ -171,6 +183,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "MR.Gestures": "2.1.2",
           "Newtonsoft.Json": "12.0.3",
           "Plugin.BLE": "2.1.1",
           "Xam.Plugin.DeviceInfo": "4.1.1",
@@ -186,6 +199,18 @@
       }
     },
     "Xamarin.iOS,Version=v1.0/win": {
+      "MR.Gestures/2.1.2": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "4.0.0.425677"
+        },
+        "compile": {
+          "lib/Xamarin.iOS10/MR.Gestures.dll": {}
+        },
+        "runtime": {
+          "lib/Xamarin.iOS10/MR.Gestures.dll": {}
+        }
+      },
       "Newtonsoft.Json/12.0.3": {
         "type": "package",
         "compile": {
@@ -355,6 +380,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "MR.Gestures": "2.1.2",
           "Newtonsoft.Json": "12.0.3",
           "Plugin.BLE": "2.1.1",
           "Xam.Plugin.DeviceInfo": "4.1.1",
@@ -370,6 +396,18 @@
       }
     },
     "Xamarin.iOS,Version=v1.0/win-x64": {
+      "MR.Gestures/2.1.2": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "4.0.0.425677"
+        },
+        "compile": {
+          "lib/Xamarin.iOS10/MR.Gestures.dll": {}
+        },
+        "runtime": {
+          "lib/Xamarin.iOS10/MR.Gestures.dll": {}
+        }
+      },
       "Newtonsoft.Json/12.0.3": {
         "type": "package",
         "compile": {
@@ -539,6 +577,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "MR.Gestures": "2.1.2",
           "Newtonsoft.Json": "12.0.3",
           "Plugin.BLE": "2.1.1",
           "Xam.Plugin.DeviceInfo": "4.1.1",
@@ -554,6 +593,18 @@
       }
     },
     "Xamarin.iOS,Version=v1.0/win-x86": {
+      "MR.Gestures/2.1.2": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "4.0.0.425677"
+        },
+        "compile": {
+          "lib/Xamarin.iOS10/MR.Gestures.dll": {}
+        },
+        "runtime": {
+          "lib/Xamarin.iOS10/MR.Gestures.dll": {}
+        }
+      },
       "Newtonsoft.Json/12.0.3": {
         "type": "package",
         "compile": {
@@ -723,6 +774,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "MR.Gestures": "2.1.2",
           "Newtonsoft.Json": "12.0.3",
           "Plugin.BLE": "2.1.1",
           "Xam.Plugin.DeviceInfo": "4.1.1",
@@ -739,6 +791,31 @@
     }
   },
   "libraries": {
+    "MR.Gestures/2.1.2": {
+      "sha512": "Roh6BL0fK5N7IVjeYmrBXjQEq65fjKWqApB5ZZr7cox/XGxVmvKCtW2mhHCv7HEm70IaPJEoBNm8lo2RpAahJA==",
+      "type": "package",
+      "path": "mr.gestures/2.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/MonoAndroid90/MR.Gestures.dll",
+        "lib/MonoAndroid90/MR.Gestures.xml",
+        "lib/Xamarin.iOS10/MR.Gestures.dll",
+        "lib/Xamarin.iOS10/MR.Gestures.xml",
+        "lib/net461/MR.Gestures.dll",
+        "lib/net461/MR.Gestures.xml",
+        "lib/netstandard1.0/MR.Gestures.dll",
+        "lib/netstandard1.0/MR.Gestures.xml",
+        "lib/netstandard2.0/MR.Gestures.dll",
+        "lib/netstandard2.0/MR.Gestures.xml",
+        "lib/uap10.0/MR.Gestures.dll",
+        "lib/uap10.0/MR.Gestures.xml",
+        "lib/xamarinmac20/MR.Gestures.dll",
+        "lib/xamarinmac20/MR.Gestures.xml",
+        "mr.gestures.2.1.2.nupkg.sha512",
+        "mr.gestures.nuspec"
+      ]
+    },
     "Newtonsoft.Json/12.0.3": {
       "sha512": "6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
       "type": "package",
@@ -1148,6 +1225,7 @@
   "projectFileDependencyGroups": {
     "Xamarin.iOS,Version=v1.0": [
       "LightScout >= 1.0.0",
+      "MR.Gestures >= 2.1.2",
       "Plugin.BLE >= 2.1.1",
       "Xamarin.Essentials >= 1.5.3.2",
       "Xamarin.Forms >= 4.4.0.991265"
@@ -1195,6 +1273,10 @@
     "frameworks": {
       "xamarinios10": {
         "dependencies": {
+          "MR.Gestures": {
+            "target": "Package",
+            "version": "[2.1.2, )"
+          },
           "Plugin.BLE": {
             "target": "Package",
             "version": "[2.1.1, )"

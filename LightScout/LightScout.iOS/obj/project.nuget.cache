@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "lV316PLi9PxerZbl3iYAGnifUcE2bBmy4EhoFamDh8nMRp+0GnwxfLoZLloPlosTZfYYKieW86KS0JNiUo5mWw==",
+  "dgSpecHash": "/nWkII5llqXsioKdC2IIXWKDRosybxM9DIgNVDM1ViYW8A+NvbF2sUThVaDqY4/YiiE6cjSL9jHLJikSlsWZOQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout.iOS\\LightScout.iOS.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\djree\\.nuget\\packages\\mr.gestures\\2.1.2\\mr.gestures.2.1.2.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\plugin.ble\\2.1.1\\plugin.ble.2.1.1.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\xam.plugin.deviceinfo\\4.1.1\\xam.plugin.deviceinfo.4.1.1.nupkg.sha512",

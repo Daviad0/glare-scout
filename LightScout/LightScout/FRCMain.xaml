@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures"
              mc:Ignorable="d"
              x:Class="LightScout.FRCMain"
              NavigationPage.HasBackButton="False"
@@ -460,10 +461,9 @@
                             <Label Text="Shooting Location" HorizontalOptions="Center" FontSize="20" Margin="10,0"/>
                             <Label Text="Click anywhere on the image to select a point where the robot shot most of the power cells at. You may change your location." HorizontalOptions="Center" FontSize="10" Margin="10,0" HorizontalTextAlignment="Center"/>
                             <AbsoluteLayout Margin="20,10">
-                                <BoxView BackgroundColor="DimGray" CornerRadius="4" HeightRequest="200" WidthRequest="250" HorizontalOptions="Center">
+                                <mr:BoxView BackgroundColor="DimGray" CornerRadius="4" HeightRequest="200" WidthRequest="250" HorizontalOptions="Center" Tapped="BoxView_Tapped">
 
-                                </BoxView>
-                                
+                                </mr:BoxView>
                                 <Label Text="&#xeee4;" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" TextColor="Aqua" FontFamily="{StaticResource IconFont}" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center"/>
                             </AbsoluteLayout>
                             <Label Text="Trench" HorizontalOptions="Center" TextColor="#0f3f8c"/>

@@ -42,6 +42,10 @@
       "frameworks": {
         "xamarinios10": {
           "dependencies": {
+            "MR.Gestures": {
+              "target": "Package",
+              "version": "[2.1.2, )"
+            },
             "Plugin.BLE": {
               "target": "Package",
               "version": "[2.1.1, )"
@@ -108,6 +112,10 @@
       "frameworks": {
         "netstandard2.0": {
           "dependencies": {
+            "MR.Gestures": {
+              "target": "Package",
+              "version": "[2.1.2, )"
+            },
             "NETStandard.Library": {
               "suppressParent": "All",
               "target": "Package",

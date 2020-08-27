@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "sHL0sRiFqEmH+Tvd5wMs/yW611MiGI7oOJze05oAKMKNovl9NtyPwKYjhMwe2B5yhcUg0A/PGikRiFX884zq1A==",
+  "dgSpecHash": "lyoy2I7q5jInTWGMdVB4PR39EckgPdT1vI/pmvRM6HsPopPn9T16pyIK/4dC41wQkwaQyaWrRNRaAuI1FMeMEg==",
   "success": true,
   "projectFilePath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout.Android\\LightScout.Android.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\djree\\.nuget\\packages\\lusovu.xamarinusbserialforandroid\\0.2.3\\lusovu.xamarinusbserialforandroid.0.2.3.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\mr.gestures\\2.1.2\\mr.gestures.2.1.2.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\plugin.ble\\2.1.1\\plugin.ble.2.1.1.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\plugin.currentactivity\\2.1.0.4\\plugin.currentactivity.2.1.0.4.nupkg.sha512",

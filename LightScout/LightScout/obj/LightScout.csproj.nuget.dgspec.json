@@ -43,9 +43,9 @@
       "frameworks": {
         "netstandard2.0": {
           "dependencies": {
-            "LusoVU.XamarinUsbSerialForAndroid": {
+            "MR.Gestures": {
               "target": "Package",
-              "version": "[0.2.3, )"
+              "version": "[2.1.2, )"
             },
             "NETStandard.Library": {
               "suppressParent": "All",

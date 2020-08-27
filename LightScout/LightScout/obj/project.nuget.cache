@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "LQMEZJXQaBt0xRvdyhOjHer1sobMb3i/i8kwizWSRGOR3Mntw1nswm1GPKdtop2kPmI3YEkHAOymBPTT74BkJw==",
+  "dgSpecHash": "TtasqCOS997nWxzeNhE50jjaRGbzCEWnRqirW5qAppRGlydRHm4WtUc77cZVhcXiPEKW+prwMYqnmxetZX1e5w==",
   "success": true,
   "projectFilePath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout\\LightScout.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\djree\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\mr.gestures\\2.1.2\\mr.gestures.2.1.2.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\plugin.ble\\2.1.1\\plugin.ble.2.1.1.nupkg.sha512",

@@ -53,16 +53,19 @@ namespace LightScout {
         private global::Xamarin.Forms.ScrollView usbInterface;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
-        private global::LightScout.MultiLineButton bluetoothGeneral;
+        private global::Xamarin.Forms.Button bluetoothGeneral;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
-        private global::LightScout.MultiLineButton usbGeneral;
+        private global::Xamarin.Forms.Button usbGeneral;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private global::Xamarin.Forms.BoxView bluetoothSelected;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private global::Xamarin.Forms.BoxView usbSelected;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Xamarin.Forms.StackLayout commOptions;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private global::Xamarin.Forms.Label comm_sendCurrent_check;
@@ -232,10 +235,11 @@ namespace LightScout {
             tabletPicker = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Picker>(this, "tabletPicker");
             aboutInterface = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.ScrollView>(this, "aboutInterface");
             usbInterface = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.ScrollView>(this, "usbInterface");
-            bluetoothGeneral = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::LightScout.MultiLineButton>(this, "bluetoothGeneral");
-            usbGeneral = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::LightScout.MultiLineButton>(this, "usbGeneral");
+            bluetoothGeneral = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Button>(this, "bluetoothGeneral");
+            usbGeneral = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Button>(this, "usbGeneral");
             bluetoothSelected = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.BoxView>(this, "bluetoothSelected");
             usbSelected = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.BoxView>(this, "usbSelected");
+            commOptions = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.StackLayout>(this, "commOptions");
             comm_sendCurrent_check = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Label>(this, "comm_sendCurrent_check");
             comm_sendCurrent = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Button>(this, "comm_sendCurrent");
             comm_getMatchData_check = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.Label>(this, "comm_getMatchData_check");

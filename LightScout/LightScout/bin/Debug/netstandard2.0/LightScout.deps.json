@@ -9,6 +9,7 @@
     ".NETStandard,Version=v2.0/": {
       "LightScout/1.0.0": {
         "dependencies": {
+          "MR.Gestures": "2.1.2",
           "NETStandard.Library": "2.0.3",
           "Newtonsoft.Json": "12.0.3",
           "Plugin.BLE": "2.1.1",
@@ -21,6 +22,17 @@
         }
       },
       "Microsoft.NETCore.Platforms/1.1.0": {},
+      "MR.Gestures/2.1.2": {
+        "dependencies": {
+          "Xamarin.Forms": "4.4.0.991265"
+        },
+        "runtime": {
+          "lib/netstandard2.0/MR.Gestures.dll": {
+            "assemblyVersion": "2.1.2.0",
+            "fileVersion": "2.1.2.0"
+          }
+        }
+      },
       "NETStandard.Library/2.0.3": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0"
@@ -103,6 +115,13 @@
       "sha512": "sha512-kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A==",
       "path": "microsoft.netcore.platforms/1.1.0",
       "hashPath": "microsoft.netcore.platforms.1.1.0.nupkg.sha512"
+    },
+    "MR.Gestures/2.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Roh6BL0fK5N7IVjeYmrBXjQEq65fjKWqApB5ZZr7cox/XGxVmvKCtW2mhHCv7HEm70IaPJEoBNm8lo2RpAahJA==",
+      "path": "mr.gestures/2.1.2",
+      "hashPath": "mr.gestures.2.1.2.nupkg.sha512"
     },
     "NETStandard.Library/2.0.3": {
       "type": "package",

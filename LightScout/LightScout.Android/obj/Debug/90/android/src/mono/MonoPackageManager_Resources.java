@@ -5,6 +5,7 @@ public class MonoPackageManager_Resources {
 		"LightScout.Android.dll",
 		"FormsViewGroup.dll",
 		"LightScout.dll",
+		"MR.Gestures.dll",
 		"Newtonsoft.Json.dll",
 		"Plugin.BLE.Abstractions.dll",
 		"Plugin.BLE.dll",

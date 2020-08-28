@@ -2172,7 +2172,7 @@ namespace LightScout
 
         private void TouchEffect_TouchAction(object sender, TouchTracking.TouchActionEventArgs args)
         {
-            if(args.Location.X > 10 && args.Location.X < 190 && args.Location.Y > 10 && args.Location.Y < 190)
+            if(args.Location.X > 5 && args.Location.X < 197 && args.Location.Y > 30 && args.Location.Y < 170)
             {
                 var markTranslationX = args.Location.X - 100;
                 var markTranslationY = args.Location.Y - 100;
@@ -2180,6 +2180,7 @@ namespace LightScout
                 fieldMarker.TranslationY = markTranslationY;
                 Console.WriteLine("Point at (" + args.Location.X.ToString() + "," + args.Location.Y.ToString() + ")");
                 Console.WriteLine("Point at (" + fieldMarker.X.ToString() + "," + fieldMarker.X.ToString() + ")");
+
             }
             
 

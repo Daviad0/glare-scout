@@ -462,11 +462,11 @@
                             <Label Text="Shooting Location" HorizontalOptions="Center" FontSize="20" Margin="10,0"/>
                             <Label Text="Click anywhere on the image to select a point where the robot shot most of the power cells at. You may change your location." HorizontalOptions="Center" FontSize="10" Margin="10,0" HorizontalTextAlignment="Center"/>
                             <AbsoluteLayout Margin="20,10">
-                                <BoxView AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="DimGray" HeightRequest="200" WidthRequest="200" HorizontalOptions="Center">
-                                    <BoxView.Effects>
+                                <Image Source="FRCShotField.png" HeightRequest="200" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                                    <Image.Effects>
                                         <tt:TouchEffect Capture="True" TouchAction="TouchEffect_TouchAction"/>
-                                    </BoxView.Effects>
-                                </BoxView>
+                                    </Image.Effects>
+                                </Image>
                                 <Label x:Name="fieldMarker" Text="&#xeee4;" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" TextColor="Aqua" FontFamily="{StaticResource IconFont}" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center"/>
                             </AbsoluteLayout>
                             <Label Text="Trench" HorizontalOptions="Center" TextColor="#0f3f8c"/>

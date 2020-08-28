@@ -135,6 +135,9 @@
     <ImageAsset Include="Assets.xcassets\frcicon.png.imageset\frcicon.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\FRCShotField.png.imageset\44492d390e1f186bef450b307b132e820fd88263 (2).png">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\ftcicon.png.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
@@ -152,6 +155,9 @@
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\BlueSLOn.png.imageset\BlueSLOn.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\FRCShotField.png.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\LightScoutGray.png.imageset\Contents.json">

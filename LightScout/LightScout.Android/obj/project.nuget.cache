@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "sOKMJ6K5ahxJ3KBtgsrgZ5eaH0YhvQM2G2vAlPqd+maTwuAgNXWvQQ9wO3KCc/rdPWxSod2d5lvmza+in0aeQw==",
+  "dgSpecHash": "LZt5DG1DviM3hOfnRgysAkKzxOChJlMgCFqUNeZABB/QJVEx377eb+geBidIgT5lMRb2hR0EYdFx0H/XmVvj1A==",
   "success": true,
   "projectFilePath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout.Android\\LightScout.Android.csproj",
   "expectedPackageFiles": [
@@ -59,12 +59,46 @@
     "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.android.support.v4\\28.0.0.3\\xamarin.android.support.v4.28.0.0.3.nupkg.sha512",
     "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.android.support.v7.appcompat\\28.0.0.3\\xamarin.android.support.v7.appcompat.28.0.0.3.nupkg.sha512",
     "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.android.support.v7.cardview\\28.0.0.3\\xamarin.android.support.v7.cardview.28.0.0.3.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\xamarin.android.support.v7.mediarouter\\27.0.2.1\\xamarin.android.support.v7.mediarouter.27.0.2.1.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\xamarin.android.support.v7.palette\\27.0.2.1\\xamarin.android.support.v7.palette.27.0.2.1.nupkg.sha512",
     "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.android.support.v7.recyclerview\\28.0.0.3\\xamarin.android.support.v7.recyclerview.28.0.0.3.nupkg.sha512",
     "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.android.support.vector.drawable\\28.0.0.3\\xamarin.android.support.vector.drawable.28.0.0.3.nupkg.sha512",
     "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.android.support.versionedparcelable\\28.0.0.3\\xamarin.android.support.versionedparcelable.28.0.0.3.nupkg.sha512",
     "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.android.support.viewpager\\28.0.0.3\\xamarin.android.support.viewpager.28.0.0.3.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\xamarin.essentials\\1.5.3.2\\xamarin.essentials.1.5.3.2.nupkg.sha512",
-    "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.forms\\4.4.0.991265\\xamarin.forms.4.4.0.991265.nupkg.sha512"
+    "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.forms\\4.4.0.991265\\xamarin.forms.4.4.0.991265.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\xformstouch\\1.0.9\\xformstouch.1.0.9.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1608",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Detected package version outside of dependency constraint: Xamarin.Android.Support.v7.MediaRouter 27.0.2.1 requires Xamarin.Android.Support.v7.AppCompat (= 27.0.2.1) but version Xamarin.Android.Support.v7.AppCompat 28.0.0.3 was resolved.",
+      "libraryId": "Xamarin.Android.Support.v7.AppCompat",
+      "targetGraphs": [
+        "MonoAndroid,Version=v9.0"
+      ]
+    },
+    {
+      "code": "NU1608",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Detected package version outside of dependency constraint: Xamarin.Android.Support.v7.Palette 27.0.2.1 requires Xamarin.Android.Support.Compat (= 27.0.2.1) but version Xamarin.Android.Support.Compat 28.0.0.3 was resolved.",
+      "libraryId": "Xamarin.Android.Support.Compat",
+      "targetGraphs": [
+        "MonoAndroid,Version=v9.0"
+      ]
+    },
+    {
+      "code": "NU1608",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Detected package version outside of dependency constraint: Xamarin.Android.Support.v7.Palette 27.0.2.1 requires Xamarin.Android.Support.Core.Utils (= 27.0.2.1) but version Xamarin.Android.Support.Core.Utils 28.0.0.3 was resolved.",
+      "libraryId": "Xamarin.Android.Support.Core.Utils",
+      "targetGraphs": [
+        "MonoAndroid,Version=v9.0"
+      ]
+    }
+  ]
 }

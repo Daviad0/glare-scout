@@ -76,7 +76,10 @@ namespace LightScout
             DisabledSeconds = matchTemplate.DisabledSeconds;
             InitLineAchieved = matchTemplate.A_InitiationLine;
             HiddenLabel.Text = "Team " + matchTemplate.TeamNumber.ToString();
-            
+            var toucheffect = new TouchTracking.Forms.TouchEffect();
+            toucheffect.Capture = true;
+            toucheffect.TouchAction += TouchEffect_TouchAction;
+            testImage.Effects.Add(toucheffect);
             var listofscouts = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).ScouterNames.ToList();
             scouterPicker.ItemsSource = listofscouts;
             if (matchTemplate.ScoutName != null)
@@ -2170,7 +2173,7 @@ namespace LightScout
             trackingLogs.Add(SecondsScouting.ToString() + ":100:" + scouterPicker.SelectedItem.ToString());
         }
 
-        private void TouchEffect_TouchAction(object sender, TouchTracking.TouchActionEventArgs args)
+        private async void TouchEffect_TouchAction(object sender, TouchTracking.TouchActionEventArgs args)
         {
             if(args.Location.X > 5 && args.Location.X < 197 && args.Location.Y > 30 && args.Location.Y < 170)
             {

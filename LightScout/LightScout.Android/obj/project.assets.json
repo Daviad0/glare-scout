@@ -972,6 +972,38 @@
           "build/monoandroid90/Xamarin.Android.Support.v7.CardView.targets": {}
         }
       },
+      "Xamarin.Android.Support.v7.MediaRouter/27.0.2.1": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Android.Support.v7.AppCompat": "[27.0.2.1]",
+          "Xamarin.Android.Support.v7.Palette": "[27.0.2.1]"
+        },
+        "compile": {
+          "lib/MonoAndroid81/Xamarin.Android.Support.v7.MediaRouter.dll": {}
+        },
+        "runtime": {
+          "lib/MonoAndroid81/Xamarin.Android.Support.v7.MediaRouter.dll": {}
+        },
+        "build": {
+          "build/MonoAndroid81/Xamarin.Android.Support.v7.MediaRouter.targets": {}
+        }
+      },
+      "Xamarin.Android.Support.v7.Palette/27.0.2.1": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Android.Support.Compat": "[27.0.2.1]",
+          "Xamarin.Android.Support.Core.Utils": "[27.0.2.1]"
+        },
+        "compile": {
+          "lib/MonoAndroid81/Xamarin.Android.Support.v7.Palette.dll": {}
+        },
+        "runtime": {
+          "lib/MonoAndroid81/Xamarin.Android.Support.v7.Palette.dll": {}
+        },
+        "build": {
+          "build/MonoAndroid81/Xamarin.Android.Support.v7.Palette.targets": {}
+        }
+      },
       "Xamarin.Android.Support.v7.RecyclerView/28.0.0.3": {
         "type": "package",
         "dependencies": {
@@ -1091,6 +1123,44 @@
           "build/Xamarin.Forms.targets": {}
         }
       },
+      "XFormsTouch/1.0.9": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Android.Arch.Core.Common": "1.0.0.1",
+          "Xamarin.Android.Arch.Lifecycle.Common": "1.0.3.1",
+          "Xamarin.Android.Arch.Lifecycle.Runtime": "1.0.3.1",
+          "Xamarin.Android.Support.Animated.Vector.Drawable": "27.0.2.1",
+          "Xamarin.Android.Support.Annotations": "27.0.2.1",
+          "Xamarin.Android.Support.Compat": "27.0.2.1",
+          "Xamarin.Android.Support.Core.UI": "27.0.2.1",
+          "Xamarin.Android.Support.Core.Utils": "27.0.2.1",
+          "Xamarin.Android.Support.Design": "27.0.2.1",
+          "Xamarin.Android.Support.Fragment": "27.0.2.1",
+          "Xamarin.Android.Support.Media.Compat": "27.0.2.1",
+          "Xamarin.Android.Support.Transition": "27.0.2.1",
+          "Xamarin.Android.Support.Vector.Drawable": "27.0.2.1",
+          "Xamarin.Android.Support.v4": "27.0.2.1",
+          "Xamarin.Android.Support.v7.AppCompat": "27.0.2.1",
+          "Xamarin.Android.Support.v7.CardView": "27.0.2.1",
+          "Xamarin.Android.Support.v7.MediaRouter": "27.0.2.1",
+          "Xamarin.Android.Support.v7.Palette": "27.0.2.1",
+          "Xamarin.Android.Support.v7.RecyclerView": "27.0.2.1",
+          "Xamarin.Forms": "3.4.0.1008975"
+        },
+        "frameworkAssemblies": [
+          "Java.Interop",
+          "Mono.Android",
+          "System",
+          "System.Core",
+          "System.Xml"
+        ],
+        "compile": {
+          "lib/monoandroid81/XFormsTouch.dll": {}
+        },
+        "runtime": {
+          "lib/monoandroid81/XFormsTouch.dll": {}
+        }
+      },
       "LightScout/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -1099,6 +1169,7 @@
           "Plugin.BLE": "2.1.1",
           "SkiaSharp.Views.Forms": "1.68.1",
           "TouchTracking.Forms": "1.1.0",
+          "XFormsTouch": "1.0.9",
           "Xam.Plugin.DeviceInfo": "4.1.1",
           "Xamarin.Essentials": "1.5.3.2",
           "Xamarin.Forms": "4.4.0.991265"
@@ -2380,6 +2451,34 @@
         "xamarin.android.support.v7.cardview.nuspec"
       ]
     },
+    "Xamarin.Android.Support.v7.MediaRouter/27.0.2.1": {
+      "sha512": "P2dwA6mUYSFM7y+LhYQ1mluhNyNev0k+A5n/6XydExXkv7GTrOownvj2TsgOjb7iXV2Oz/KhR8YhJuxSdLeEjw==",
+      "type": "package",
+      "path": "xamarin.android.support.v7.mediarouter/27.0.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "THIRD-PARTY-NOTICES.txt",
+        "build/MonoAndroid81/Xamarin.Android.Support.v7.MediaRouter.targets",
+        "lib/MonoAndroid81/Xamarin.Android.Support.v7.MediaRouter.dll",
+        "xamarin.android.support.v7.mediarouter.27.0.2.1.nupkg.sha512",
+        "xamarin.android.support.v7.mediarouter.nuspec"
+      ]
+    },
+    "Xamarin.Android.Support.v7.Palette/27.0.2.1": {
+      "sha512": "zhwsIL2jTYQ+hjOgfi1n+5YgAUR7xbp7h90PJya9D4bShM5At2whnFmB6ljb0otqqzPYmVyWMxBag5sxskQzjw==",
+      "type": "package",
+      "path": "xamarin.android.support.v7.palette/27.0.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "THIRD-PARTY-NOTICES.txt",
+        "build/MonoAndroid81/Xamarin.Android.Support.v7.Palette.targets",
+        "lib/MonoAndroid81/Xamarin.Android.Support.v7.Palette.dll",
+        "xamarin.android.support.v7.palette.27.0.2.1.nupkg.sha512",
+        "xamarin.android.support.v7.palette.nuspec"
+      ]
+    },
     "Xamarin.Android.Support.v7.RecyclerView/28.0.0.3": {
       "sha512": "FL79rgMeI8UCkgRQ8LqlSCKKHEoFbJaCKz91XZNfXwK6kIkXgZCpsJnncub8LHgqwmcL898G3uCQ4Y5eTqMaMg==",
       "type": "package",
@@ -2769,6 +2868,22 @@
         "xamarin.forms.nuspec"
       ]
     },
+    "XFormsTouch/1.0.9": {
+      "sha512": "F8WvqL7rHCNrqe7BgJuUS/UNRfJ2uLqkR8eoI6BghkJ/2QFD+NEAzGnej3rvtOYKBPp0fp0S8h4Ya1Yz2LwU/g==",
+      "type": "package",
+      "path": "xformstouch/1.0.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/monoandroid81/XFormsTouch.dll",
+        "lib/monoandroid81/XFormsTouch.pdb",
+        "lib/net461/XFormsTouch.dll",
+        "lib/xamarinios10/XFormsTouch.dll",
+        "lib/xamarinios10/XFormsTouch.pdb",
+        "xformstouch.1.0.9.nupkg.sha512",
+        "xformstouch.nuspec"
+      ]
+    },
     "LightScout/1.0.0": {
       "type": "project",
       "path": "../LightScout/LightScout.csproj",
@@ -2783,6 +2898,7 @@
       "SkiaSharp.Views.Forms >= 1.68.1",
       "System.IO.Ports >= 4.7.0",
       "TouchTracking.Forms >= 1.1.0",
+      "XFormsTouch >= 1.0.9",
       "Xamarin.Essentials >= 1.5.3.2",
       "Xamarin.Forms >= 4.4.0.991265"
     ]
@@ -2849,6 +2965,10 @@
             "target": "Package",
             "version": "[1.1.0, )"
           },
+          "XFormsTouch": {
+            "target": "Package",
+            "version": "[1.0.9, )"
+          },
           "Xamarin.Essentials": {
             "target": "Package",
             "version": "[1.5.3.2, )"
@@ -2860,5 +2980,37 @@
         }
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1608",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Detected package version outside of dependency constraint: Xamarin.Android.Support.v7.MediaRouter 27.0.2.1 requires Xamarin.Android.Support.v7.AppCompat (= 27.0.2.1) but version Xamarin.Android.Support.v7.AppCompat 28.0.0.3 was resolved.",
+      "libraryId": "Xamarin.Android.Support.v7.AppCompat",
+      "targetGraphs": [
+        "MonoAndroid,Version=v9.0"
+      ]
+    },
+    {
+      "code": "NU1608",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Detected package version outside of dependency constraint: Xamarin.Android.Support.v7.Palette 27.0.2.1 requires Xamarin.Android.Support.Compat (= 27.0.2.1) but version Xamarin.Android.Support.Compat 28.0.0.3 was resolved.",
+      "libraryId": "Xamarin.Android.Support.Compat",
+      "targetGraphs": [
+        "MonoAndroid,Version=v9.0"
+      ]
+    },
+    {
+      "code": "NU1608",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Detected package version outside of dependency constraint: Xamarin.Android.Support.v7.Palette 27.0.2.1 requires Xamarin.Android.Support.Core.Utils (= 27.0.2.1) but version Xamarin.Android.Support.Core.Utils 28.0.0.3 was resolved.",
+      "libraryId": "Xamarin.Android.Support.Core.Utils",
+      "targetGraphs": [
+        "MonoAndroid,Version=v9.0"
+      ]
+    }
+  ]
 }

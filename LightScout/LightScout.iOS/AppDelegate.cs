@@ -24,6 +24,7 @@ namespace LightScout.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
+            var _ = new TouchTracking.Forms.iOS.TouchEffect();
             UIApplication.SharedApplication.StatusBarHidden = true;
             return base.FinishedLaunching(app, options);
         }

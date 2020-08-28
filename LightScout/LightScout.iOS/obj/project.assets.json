@@ -250,6 +250,24 @@
           "build/Xamarin.Forms.targets": {}
         }
       },
+      "XFormsTouch/1.0.9": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "3.4.0.1008975"
+        },
+        "frameworkAssemblies": [
+          "System",
+          "System.Core",
+          "System.Xml",
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/XFormsTouch.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/XFormsTouch.dll": {}
+        }
+      },
       "LightScout/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -258,6 +276,7 @@
           "Plugin.BLE": "2.1.1",
           "SkiaSharp.Views.Forms": "1.68.1",
           "TouchTracking.Forms": "1.1.0",
+          "XFormsTouch": "1.0.9",
           "Xam.Plugin.DeviceInfo": "4.1.1",
           "Xamarin.Essentials": "1.5.3.2",
           "Xamarin.Forms": "4.4.0.991265"
@@ -497,6 +516,24 @@
           "build/Xamarin.Forms.targets": {}
         }
       },
+      "XFormsTouch/1.0.9": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "3.4.0.1008975"
+        },
+        "frameworkAssemblies": [
+          "System",
+          "System.Core",
+          "System.Xml",
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/XFormsTouch.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/XFormsTouch.dll": {}
+        }
+      },
       "LightScout/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -505,6 +542,7 @@
           "Plugin.BLE": "2.1.1",
           "SkiaSharp.Views.Forms": "1.68.1",
           "TouchTracking.Forms": "1.1.0",
+          "XFormsTouch": "1.0.9",
           "Xam.Plugin.DeviceInfo": "4.1.1",
           "Xamarin.Essentials": "1.5.3.2",
           "Xamarin.Forms": "4.4.0.991265"
@@ -747,6 +785,24 @@
           "build/Xamarin.Forms.targets": {}
         }
       },
+      "XFormsTouch/1.0.9": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "3.4.0.1008975"
+        },
+        "frameworkAssemblies": [
+          "System",
+          "System.Core",
+          "System.Xml",
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/XFormsTouch.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/XFormsTouch.dll": {}
+        }
+      },
       "LightScout/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -755,6 +811,7 @@
           "Plugin.BLE": "2.1.1",
           "SkiaSharp.Views.Forms": "1.68.1",
           "TouchTracking.Forms": "1.1.0",
+          "XFormsTouch": "1.0.9",
           "Xam.Plugin.DeviceInfo": "4.1.1",
           "Xamarin.Essentials": "1.5.3.2",
           "Xamarin.Forms": "4.4.0.991265"
@@ -997,6 +1054,24 @@
           "build/Xamarin.Forms.targets": {}
         }
       },
+      "XFormsTouch/1.0.9": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Forms": "3.4.0.1008975"
+        },
+        "frameworkAssemblies": [
+          "System",
+          "System.Core",
+          "System.Xml",
+          "Xamarin.iOS"
+        ],
+        "compile": {
+          "lib/xamarinios10/XFormsTouch.dll": {}
+        },
+        "runtime": {
+          "lib/xamarinios10/XFormsTouch.dll": {}
+        }
+      },
       "LightScout/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -1005,6 +1080,7 @@
           "Plugin.BLE": "2.1.1",
           "SkiaSharp.Views.Forms": "1.68.1",
           "TouchTracking.Forms": "1.1.0",
+          "XFormsTouch": "1.0.9",
           "Xam.Plugin.DeviceInfo": "4.1.1",
           "Xamarin.Essentials": "1.5.3.2",
           "Xamarin.Forms": "4.4.0.991265"
@@ -1560,6 +1636,22 @@
         "xamarin.forms.nuspec"
       ]
     },
+    "XFormsTouch/1.0.9": {
+      "sha512": "F8WvqL7rHCNrqe7BgJuUS/UNRfJ2uLqkR8eoI6BghkJ/2QFD+NEAzGnej3rvtOYKBPp0fp0S8h4Ya1Yz2LwU/g==",
+      "type": "package",
+      "path": "xformstouch/1.0.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/monoandroid81/XFormsTouch.dll",
+        "lib/monoandroid81/XFormsTouch.pdb",
+        "lib/net461/XFormsTouch.dll",
+        "lib/xamarinios10/XFormsTouch.dll",
+        "lib/xamarinios10/XFormsTouch.pdb",
+        "xformstouch.1.0.9.nupkg.sha512",
+        "xformstouch.nuspec"
+      ]
+    },
     "LightScout/1.0.0": {
       "type": "project",
       "path": "../LightScout/LightScout.csproj",
@@ -1572,6 +1664,7 @@
       "Plugin.BLE >= 2.1.1",
       "SkiaSharp.Views.Forms >= 1.68.1",
       "TouchTracking.Forms >= 1.1.0",
+      "XFormsTouch >= 1.0.9",
       "Xamarin.Essentials >= 1.5.3.2",
       "Xamarin.Forms >= 4.4.0.991265"
     ]
@@ -1629,6 +1722,10 @@
           "TouchTracking.Forms": {
             "target": "Package",
             "version": "[1.1.0, )"
+          },
+          "XFormsTouch": {
+            "target": "Package",
+            "version": "[1.0.9, )"
           },
           "Xamarin.Essentials": {
             "target": "Package",

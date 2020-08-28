@@ -42,5 +42,7 @@
     <Import Project="C:\Microsoft\Xamarin\NuGet\xamarin.android.support.design\28.0.0.3\build\monoandroid90\Xamarin.Android.Support.Design.targets" Condition="Exists('C:\Microsoft\Xamarin\NuGet\xamarin.android.support.design\28.0.0.3\build\monoandroid90\Xamarin.Android.Support.Design.targets')" />
     <Import Project="C:\Microsoft\Xamarin\NuGet\xamarin.android.support.customtabs\28.0.0.3\build\monoandroid90\Xamarin.Android.Support.CustomTabs.targets" Condition="Exists('C:\Microsoft\Xamarin\NuGet\xamarin.android.support.customtabs\28.0.0.3\build\monoandroid90\Xamarin.Android.Support.CustomTabs.targets')" />
     <Import Project="C:\Microsoft\Xamarin\NuGet\xamarin.forms\4.4.0.991265\build\Xamarin.Forms.targets" Condition="Exists('C:\Microsoft\Xamarin\NuGet\xamarin.forms\4.4.0.991265\build\Xamarin.Forms.targets')" />
+    <Import Project="$(NuGetPackageRoot)xamarin.android.support.v7.palette\27.0.2.1\build\MonoAndroid81\Xamarin.Android.Support.v7.Palette.targets" Condition="Exists('$(NuGetPackageRoot)xamarin.android.support.v7.palette\27.0.2.1\build\MonoAndroid81\Xamarin.Android.Support.v7.Palette.targets')" />
+    <Import Project="$(NuGetPackageRoot)xamarin.android.support.v7.mediarouter\27.0.2.1\build\MonoAndroid81\Xamarin.Android.Support.v7.MediaRouter.targets" Condition="Exists('$(NuGetPackageRoot)xamarin.android.support.v7.mediarouter\27.0.2.1\build\MonoAndroid81\Xamarin.Android.Support.v7.MediaRouter.targets')" />
   </ImportGroup>
 </Project>

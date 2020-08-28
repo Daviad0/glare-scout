@@ -48,3 +48,6 @@ Xamarin.Android.Support.ViewPager
 Xamarin.Essentials
 Xamarin.Forms.Platform.Android
 Xamarin.Forms.Platform
+Xamarin.Android.Support.v7.MediaRouter
+Xamarin.Android.Support.v7.Palette
+XFormsTouch

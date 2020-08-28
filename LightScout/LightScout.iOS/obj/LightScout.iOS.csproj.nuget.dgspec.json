@@ -54,6 +54,10 @@
               "target": "Package",
               "version": "[1.1.0, )"
             },
+            "XFormsTouch": {
+              "target": "Package",
+              "version": "[1.0.9, )"
+            },
             "Xamarin.Essentials": {
               "target": "Package",
               "version": "[1.5.3.2, )"
@@ -137,6 +141,10 @@
             "TouchTracking.Forms": {
               "target": "Package",
               "version": "[1.1.0, )"
+            },
+            "XFormsTouch": {
+              "target": "Package",
+              "version": "[1.0.9, )"
             },
             "Xam.Plugin.DeviceInfo": {
               "target": "Package",

@@ -65,6 +65,10 @@
               "target": "Package",
               "version": "[1.1.0, )"
             },
+            "XFormsTouch": {
+              "target": "Package",
+              "version": "[1.0.9, )"
+            },
             "Xam.Plugin.DeviceInfo": {
               "target": "Package",
               "version": "[4.1.1, )"

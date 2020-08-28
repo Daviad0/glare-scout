@@ -2170,25 +2170,19 @@ namespace LightScout
             trackingLogs.Add(SecondsScouting.ToString() + ":100:" + scouterPicker.SelectedItem.ToString());
         }
 
-
-        private void AbsoluteLayout_Tapping(object sender, MR.Gestures.TapEventArgs e)
+        private void TouchEffect_TouchAction(object sender, TouchTracking.TouchActionEventArgs args)
         {
-            if (e.Touches?.Length > 0)
+            if(args.Location.X > 10 && args.Location.X < 190 && args.Location.Y > 10 && args.Location.Y < 190)
             {
-                Point touch = e.Touches[0];
-
-                Console.WriteLine("Point is at (" + touch.X.ToString() + "," + touch.Y.ToString() + ")");
+                var markTranslationX = args.Location.X - 100;
+                var markTranslationY = args.Location.Y - 100;
+                fieldMarker.TranslationX = markTranslationX;
+                fieldMarker.TranslationY = markTranslationY;
+                Console.WriteLine("Point at (" + args.Location.X.ToString() + "," + args.Location.Y.ToString() + ")");
+                Console.WriteLine("Point at (" + fieldMarker.X.ToString() + "," + fieldMarker.X.ToString() + ")");
             }
-        }
+            
 
-        private void AbsoluteLayout_Down(object sender, MR.Gestures.DownUpEventArgs e)
-        {
-            if (e.Touches?.Length > 0)
-            {
-                Point touch = e.Touches[0];
-
-                Console.WriteLine("Point is at (" + touch.X.ToString() + "," + touch.Y.ToString() + ")");
-            }
         }
     }
 }

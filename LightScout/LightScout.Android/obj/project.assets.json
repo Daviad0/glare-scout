@@ -40,18 +40,6 @@
           }
         }
       },
-      "MR.Gestures/2.1.2": {
-        "type": "package",
-        "dependencies": {
-          "Xamarin.Forms": "4.0.0.425677"
-        },
-        "compile": {
-          "lib/MonoAndroid90/MR.Gestures.dll": {}
-        },
-        "runtime": {
-          "lib/MonoAndroid90/MR.Gestures.dll": {}
-        }
-      },
       "Newtonsoft.Json/12.0.3": {
         "type": "package",
         "compile": {
@@ -129,10 +117,70 @@
           }
         }
       },
+      "SkiaSharp/1.68.1": {
+        "type": "package",
+        "dependencies": {
+          "System.Memory": "4.5.3"
+        },
+        "compile": {
+          "lib/MonoAndroid/SkiaSharp.dll": {}
+        },
+        "runtime": {
+          "lib/MonoAndroid/SkiaSharp.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/osx/native/libSkiaSharp.dylib": {
+            "assetType": "native",
+            "rid": "osx"
+          },
+          "runtimes/tizen-armel/native/libSkiaSharp.so": {
+            "assetType": "native",
+            "rid": "tizen-armel"
+          },
+          "runtimes/tizen-x86/native/libSkiaSharp.so": {
+            "assetType": "native",
+            "rid": "tizen-x86"
+          },
+          "runtimes/win-x64/native/libSkiaSharp.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x86/native/libSkiaSharp.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          }
+        }
+      },
+      "SkiaSharp.Views/1.68.1": {
+        "type": "package",
+        "dependencies": {
+          "SkiaSharp": "1.68.1"
+        },
+        "compile": {
+          "lib/MonoAndroid/SkiaSharp.Views.Android.dll": {}
+        },
+        "runtime": {
+          "lib/MonoAndroid/SkiaSharp.Views.Android.dll": {}
+        }
+      },
+      "SkiaSharp.Views.Forms/1.68.1": {
+        "type": "package",
+        "dependencies": {
+          "SkiaSharp": "1.68.1",
+          "SkiaSharp.Views": "1.68.1",
+          "Xamarin.Forms": "4.0.0.540366"
+        },
+        "compile": {
+          "ref/MonoAndroid/SkiaSharp.Views.Forms.dll": {}
+        },
+        "runtime": {
+          "lib/MonoAndroid/SkiaSharp.Views.Forms.dll": {}
+        }
+      },
       "System.Buffers/4.5.0": {
         "type": "package",
         "compile": {
-          "ref/netstandard2.0/_._": {}
+          "ref/netstandard2.0/System.Buffers.dll": {}
         },
         "runtime": {
           "lib/netstandard2.0/System.Buffers.dll": {}
@@ -163,6 +211,28 @@
             "assetType": "runtime",
             "rid": "win"
           }
+        }
+      },
+      "System.Memory/4.5.3": {
+        "type": "package",
+        "dependencies": {
+          "System.Buffers": "4.4.0",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/System.Memory.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Memory.dll": {}
+        }
+      },
+      "System.Runtime.CompilerServices.Unsafe/4.5.2": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
         }
       },
       "System.Security.AccessControl/4.7.0": {
@@ -196,6 +266,32 @@
             "assetType": "runtime",
             "rid": "win"
           }
+        }
+      },
+      "TouchTracking/1.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/MonoAndroid/TouchTracking.Droid.dll": {},
+          "lib/MonoAndroid/TouchTracking.dll": {}
+        },
+        "runtime": {
+          "lib/MonoAndroid/TouchTracking.Droid.dll": {},
+          "lib/MonoAndroid/TouchTracking.dll": {}
+        }
+      },
+      "TouchTracking.Forms/1.1.0": {
+        "type": "package",
+        "dependencies": {
+          "TouchTracking": "1.1.0",
+          "Xamarin.Forms": "3.0.0"
+        },
+        "compile": {
+          "lib/MonoAndroid/TouchTracking.Forms.Droid.dll": {},
+          "lib/MonoAndroid/TouchTracking.Forms.dll": {}
+        },
+        "runtime": {
+          "lib/MonoAndroid/TouchTracking.Forms.Droid.dll": {},
+          "lib/MonoAndroid/TouchTracking.Forms.dll": {}
         }
       },
       "Xam.Plugin.DeviceInfo/4.1.1": {
@@ -999,9 +1095,10 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
-          "MR.Gestures": "2.1.2",
           "Newtonsoft.Json": "12.0.3",
           "Plugin.BLE": "2.1.1",
+          "SkiaSharp.Views.Forms": "1.68.1",
+          "TouchTracking.Forms": "1.1.0",
           "Xam.Plugin.DeviceInfo": "4.1.1",
           "Xamarin.Essentials": "1.5.3.2",
           "Xamarin.Forms": "4.4.0.991265"
@@ -1073,31 +1170,6 @@
         "runtimes/win/lib/netstandard2.0/Microsoft.Win32.Registry.xml",
         "useSharedDesignerContext.txt",
         "version.txt"
-      ]
-    },
-    "MR.Gestures/2.1.2": {
-      "sha512": "Roh6BL0fK5N7IVjeYmrBXjQEq65fjKWqApB5ZZr7cox/XGxVmvKCtW2mhHCv7HEm70IaPJEoBNm8lo2RpAahJA==",
-      "type": "package",
-      "path": "mr.gestures/2.1.2",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/MonoAndroid90/MR.Gestures.dll",
-        "lib/MonoAndroid90/MR.Gestures.xml",
-        "lib/Xamarin.iOS10/MR.Gestures.dll",
-        "lib/Xamarin.iOS10/MR.Gestures.xml",
-        "lib/net461/MR.Gestures.dll",
-        "lib/net461/MR.Gestures.xml",
-        "lib/netstandard1.0/MR.Gestures.dll",
-        "lib/netstandard1.0/MR.Gestures.xml",
-        "lib/netstandard2.0/MR.Gestures.dll",
-        "lib/netstandard2.0/MR.Gestures.xml",
-        "lib/uap10.0/MR.Gestures.dll",
-        "lib/uap10.0/MR.Gestures.xml",
-        "lib/xamarinmac20/MR.Gestures.dll",
-        "lib/xamarinmac20/MR.Gestures.xml",
-        "mr.gestures.2.1.2.nupkg.sha512",
-        "mr.gestures.nuspec"
       ]
     },
     "Newtonsoft.Json/12.0.3": {
@@ -1260,6 +1332,111 @@
         "version.txt"
       ]
     },
+    "SkiaSharp/1.68.1": {
+      "sha512": "HT+Ks5hC71IkOKlmWYPeb9SkHqdOV5FVYuQxXgkQF06qmbhDD7cIvB0p+TcnxtKgO5U7bb9wK6BkOQ9Ni7PubQ==",
+      "type": "package",
+      "path": "skiasharp/1.68.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "THIRD-PARTY-NOTICES.txt",
+        "build/net45/SkiaSharp.targets",
+        "build/tizen40/SkiaSharp.targets",
+        "lib/MonoAndroid/SkiaSharp.dll",
+        "lib/MonoAndroid/SkiaSharp.xml",
+        "lib/Xamarin.Mac20/SkiaSharp.dll",
+        "lib/Xamarin.Mac20/SkiaSharp.xml",
+        "lib/Xamarin.TVOS/SkiaSharp.dll",
+        "lib/Xamarin.TVOS/SkiaSharp.xml",
+        "lib/Xamarin.WatchOS/SkiaSharp.dll",
+        "lib/Xamarin.WatchOS/SkiaSharp.xml",
+        "lib/Xamarin.iOS/SkiaSharp.dll",
+        "lib/Xamarin.iOS/SkiaSharp.xml",
+        "lib/net45/SkiaSharp.dll",
+        "lib/net45/SkiaSharp.xml",
+        "lib/netstandard1.3/SkiaSharp.dll",
+        "lib/netstandard1.3/SkiaSharp.xml",
+        "lib/tizen40/SkiaSharp.dll",
+        "lib/tizen40/SkiaSharp.xml",
+        "lib/uap10.0/SkiaSharp.dll",
+        "lib/uap10.0/SkiaSharp.xml",
+        "runtimes/osx/native/libSkiaSharp.dylib",
+        "runtimes/tizen-armel/native/libSkiaSharp.so",
+        "runtimes/tizen-x86/native/libSkiaSharp.so",
+        "runtimes/win-x64/native/libSkiaSharp.dll",
+        "runtimes/win-x86/native/libSkiaSharp.dll",
+        "runtimes/win10-arm/nativeassets/uap10.0/libEGL.dll",
+        "runtimes/win10-arm/nativeassets/uap10.0/libGLESv2.dll",
+        "runtimes/win10-arm/nativeassets/uap10.0/libSkiaSharp.dll",
+        "runtimes/win10-x64/nativeassets/uap10.0/libEGL.dll",
+        "runtimes/win10-x64/nativeassets/uap10.0/libGLESv2.dll",
+        "runtimes/win10-x64/nativeassets/uap10.0/libSkiaSharp.dll",
+        "runtimes/win10-x86/nativeassets/uap10.0/libEGL.dll",
+        "runtimes/win10-x86/nativeassets/uap10.0/libGLESv2.dll",
+        "runtimes/win10-x86/nativeassets/uap10.0/libSkiaSharp.dll",
+        "skiasharp.1.68.1.nupkg.sha512",
+        "skiasharp.nuspec",
+        "xamarin.interactive/SkiaSharp.Workbooks.dll"
+      ]
+    },
+    "SkiaSharp.Views/1.68.1": {
+      "sha512": "V6pv3Wci11drQJIB8L/1kGLQjwhWMtomvknJzffhumOiUmSpbqvoA4W7Iwh1+k8zWi3JRj7b7v9O4Hhn0Palig==",
+      "type": "package",
+      "path": "skiasharp.views/1.68.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "lib/MonoAndroid/SkiaSharp.Views.Android.dll",
+        "lib/MonoAndroid/SkiaSharp.Views.Android.xml",
+        "lib/Xamarin.Mac20/SkiaSharp.Views.Mac.dll",
+        "lib/Xamarin.Mac20/SkiaSharp.Views.Mac.xml",
+        "lib/Xamarin.TVOS/SkiaSharp.Views.tvOS.dll",
+        "lib/Xamarin.TVOS/SkiaSharp.Views.tvOS.xml",
+        "lib/Xamarin.WatchOS/SkiaSharp.Views.watchOS.dll",
+        "lib/Xamarin.WatchOS/SkiaSharp.Views.watchOS.xml",
+        "lib/Xamarin.iOS/SkiaSharp.Views.iOS.dll",
+        "lib/Xamarin.iOS/SkiaSharp.Views.iOS.xml",
+        "lib/net45/SkiaSharp.Views.Desktop.dll",
+        "lib/net45/SkiaSharp.Views.Desktop.xml",
+        "lib/tizen40/SkiaSharp.Views.Tizen.dll",
+        "lib/tizen40/SkiaSharp.Views.Tizen.xml",
+        "lib/uap10.0/SkiaSharp.Views.UWP.dll",
+        "lib/uap10.0/SkiaSharp.Views.UWP.xml",
+        "runtimes/win10-arm/nativeassets/uap10.0/SkiaSharp.Views.Interop.UWP.dll",
+        "runtimes/win10-x64/nativeassets/uap10.0/SkiaSharp.Views.Interop.UWP.dll",
+        "runtimes/win10-x86/nativeassets/uap10.0/SkiaSharp.Views.Interop.UWP.dll",
+        "skiasharp.views.1.68.1.nupkg.sha512",
+        "skiasharp.views.nuspec"
+      ]
+    },
+    "SkiaSharp.Views.Forms/1.68.1": {
+      "sha512": "++YNirnPMogVK0pDiTZG+LIRRB81fPHSSm36ZN/rcbRA1yz4LiqctWXCAKhejB15UoB8L+Z26j0Mn24R99Exvw==",
+      "type": "package",
+      "path": "skiasharp.views.forms/1.68.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "build/net45/SkiaSharp.Views.Forms.targets",
+        "lib/MonoAndroid/SkiaSharp.Views.Forms.dll",
+        "lib/MonoAndroid/SkiaSharp.Views.Forms.xml",
+        "lib/Xamarin.Mac20/SkiaSharp.Views.Forms.dll",
+        "lib/Xamarin.Mac20/SkiaSharp.Views.Forms.xml",
+        "lib/Xamarin.iOS/SkiaSharp.Views.Forms.dll",
+        "lib/Xamarin.iOS/SkiaSharp.Views.Forms.xml",
+        "lib/tizen40/SkiaSharp.Views.Forms.dll",
+        "lib/tizen40/SkiaSharp.Views.Forms.xml",
+        "lib/uap10.0/SkiaSharp.Views.Forms.dll",
+        "lib/uap10.0/SkiaSharp.Views.Forms.xml",
+        "ref/MonoAndroid/SkiaSharp.Views.Forms.dll",
+        "ref/netstandard1.3/SkiaSharp.Views.Forms.dll",
+        "ref/netstandard1.3/SkiaSharp.Views.Forms.xml",
+        "skiasharp.views.forms.1.68.1.nupkg.sha512",
+        "skiasharp.views.forms.nuspec"
+      ]
+    },
     "System.Buffers/4.5.0": {
       "sha512": "pL2ChpaRRWI/p4LXyy4RgeWlYF2sgfj/pnVMvBqwNFr5cXg7CXNnWZWxrOONLg8VGdFB8oB+EG2Qw4MLgTOe+A==",
       "type": "package",
@@ -1319,6 +1496,52 @@
         "runtimes/win/lib/uap10.0.16299/_._",
         "system.io.ports.4.7.0.nupkg.sha512",
         "system.io.ports.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.Memory/4.5.3": {
+      "sha512": "3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA==",
+      "type": "package",
+      "path": "system.memory/4.5.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/netcoreapp2.1/_._",
+        "lib/netstandard1.1/System.Memory.dll",
+        "lib/netstandard1.1/System.Memory.xml",
+        "lib/netstandard2.0/System.Memory.dll",
+        "lib/netstandard2.0/System.Memory.xml",
+        "ref/netcoreapp2.1/_._",
+        "system.memory.4.5.3.nupkg.sha512",
+        "system.memory.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.Runtime.CompilerServices.Unsafe/4.5.2": {
+      "sha512": "wprSFgext8cwqymChhrBLu62LMg/1u92bU+VOwyfBimSPVFXtsNqEWC92Pf9ofzJFlk4IHmJA75EDJn1b2goAQ==",
+      "type": "package",
+      "path": "system.runtime.compilerservices.unsafe/4.5.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512",
+        "system.runtime.compilerservices.unsafe.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
@@ -1421,6 +1644,42 @@
         "system.security.principal.windows.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "TouchTracking/1.1.0": {
+      "sha512": "ZuhJdQBAOXlDGfxmFBWUlaL3GpUBtUd5c6KDMaW10fhIqDtWse9mvBZ/5uJ1oElm15QRunpTihj6GjdtN5+Y/g==",
+      "type": "package",
+      "path": "touchtracking/1.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/MonoAndroid/TouchTracking.Droid.dll",
+        "lib/MonoAndroid/TouchTracking.dll",
+        "lib/XamariniOS/TouchTracking.dll",
+        "lib/XamariniOS/TouchTracking.iOS.dll",
+        "lib/netstandard1.3/TouchTracking.dll",
+        "lib/uap10.0/TouchTracking.UWP.dll",
+        "lib/uap10.0/TouchTracking.dll",
+        "touchtracking.1.1.0.nupkg.sha512",
+        "touchtracking.nuspec"
+      ]
+    },
+    "TouchTracking.Forms/1.1.0": {
+      "sha512": "rEIFSJM0kl9T6Vn1LvY6jaZ4ulbk3MSbWVtH66/A9YSqf5aAfEEct3uWu+Ivt0zuKQrI/9Ryedcve1TqgDMqlQ==",
+      "type": "package",
+      "path": "touchtracking.forms/1.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/MonoAndroid/TouchTracking.Forms.Droid.dll",
+        "lib/MonoAndroid/TouchTracking.Forms.dll",
+        "lib/XamariniOS/TouchTracking.Forms.dll",
+        "lib/XamariniOS/TouchTracking.Forms.iOS.dll",
+        "lib/netstandard1.3/TouchTracking.Forms.dll",
+        "lib/uap10.0/TouchTracking.Forms.UWP.dll",
+        "lib/uap10.0/TouchTracking.Forms.dll",
+        "touchtracking.forms.1.1.0.nupkg.sha512",
+        "touchtracking.forms.nuspec"
       ]
     },
     "Xam.Plugin.DeviceInfo/4.1.1": {
@@ -2520,9 +2779,10 @@
     "MonoAndroid,Version=v9.0": [
       "LightScout >= 1.0.0",
       "LusoVU.XamarinUsbSerialForAndroid >= 0.2.3",
-      "MR.Gestures >= 2.1.2",
       "Plugin.BLE >= 2.1.1",
+      "SkiaSharp.Views.Forms >= 1.68.1",
       "System.IO.Ports >= 4.7.0",
+      "TouchTracking.Forms >= 1.1.0",
       "Xamarin.Essentials >= 1.5.3.2",
       "Xamarin.Forms >= 4.4.0.991265"
     ]
@@ -2573,17 +2833,21 @@
             "target": "Package",
             "version": "[0.2.3, )"
           },
-          "MR.Gestures": {
-            "target": "Package",
-            "version": "[2.1.2, )"
-          },
           "Plugin.BLE": {
             "target": "Package",
             "version": "[2.1.1, )"
           },
+          "SkiaSharp.Views.Forms": {
+            "target": "Package",
+            "version": "[1.68.1, )"
+          },
           "System.IO.Ports": {
             "target": "Package",
             "version": "[4.7.0, )"
+          },
+          "TouchTracking.Forms": {
+            "target": "Package",
+            "version": "[1.1.0, )"
           },
           "Xamarin.Essentials": {
             "target": "Package",

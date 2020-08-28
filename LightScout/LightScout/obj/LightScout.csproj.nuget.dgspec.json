@@ -43,10 +43,6 @@
       "frameworks": {
         "netstandard2.0": {
           "dependencies": {
-            "MR.Gestures": {
-              "target": "Package",
-              "version": "[2.1.2, )"
-            },
             "NETStandard.Library": {
               "suppressParent": "All",
               "target": "Package",
@@ -60,6 +56,14 @@
             "Plugin.BLE": {
               "target": "Package",
               "version": "[2.1.1, )"
+            },
+            "SkiaSharp.Views.Forms": {
+              "target": "Package",
+              "version": "[1.68.1, )"
+            },
+            "TouchTracking.Forms": {
+              "target": "Package",
+              "version": "[1.1.0, )"
             },
             "Xam.Plugin.DeviceInfo": {
               "target": "Package",

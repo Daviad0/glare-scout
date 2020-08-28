@@ -1,8 +1,12 @@
 FormsViewGroup
-MR.Gestures
 Plugin.BLE
 Plugin.CurrentActivity
 Plugin.DeviceInfo
+SkiaSharp
+SkiaSharp.Views.Android
+SkiaSharp.Views.Forms
+TouchTracking.Droid
+TouchTracking.Forms.Droid
 UsbSerialForAndroid
 Xamarin.Android.Arch.Core.Common
 Xamarin.Android.Arch.Core.Runtime

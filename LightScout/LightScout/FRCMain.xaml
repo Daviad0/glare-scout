@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             xmlns:tt="clr-namespace:TouchTracking.Forms;assembly=TouchTracking.Forms"
              mc:Ignorable="d"
              x:Class="LightScout.FRCMain"
              NavigationPage.HasBackButton="False"
@@ -460,14 +461,16 @@
                         <StackLayout>
                             <Label Text="Shooting Location" HorizontalOptions="Center" FontSize="20" Margin="10,0"/>
                             <Label Text="Click anywhere on the image to select a point where the robot shot most of the power cells at. You may change your location." HorizontalOptions="Center" FontSize="10" Margin="10,0" HorizontalTextAlignment="Center"/>
-                            <mr:AbsoluteLayout Margin="20,10" Tapping="AbsoluteLayout_Tapping" Down="AbsoluteLayout_Down" Tapped="AbsoluteLayout_Tapping">
-                                <BoxView AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="DimGray" CornerRadius="4" HeightRequest="200" WidthRequest="250" HorizontalOptions="Center">
-
+                            <AbsoluteLayout Margin="20,10">
+                                <BoxView AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="DimGray" HeightRequest="200" WidthRequest="200" HorizontalOptions="Center">
+                                    <BoxView.Effects>
+                                        <tt:TouchEffect Capture="True" TouchAction="TouchEffect_TouchAction"/>
+                                    </BoxView.Effects>
                                 </BoxView>
-                                <Label Text="&#xeee4;" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" TextColor="Aqua" FontFamily="{StaticResource IconFont}" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center"/>
-                            </mr:AbsoluteLayout>
+                                <Label x:Name="fieldMarker" Text="&#xeee4;" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" TextColor="Aqua" FontFamily="{StaticResource IconFont}" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center"/>
+                            </AbsoluteLayout>
                             <Label Text="Trench" HorizontalOptions="Center" TextColor="#0f3f8c"/>
-                            <Button Text="&#xeed8;" Clicked="HideChangeShot" FontFamily="{StaticResource IconFont}" HorizontalOptions="End" Margin="3,15,0,0" FontSize="30" Padding="0" BackgroundColor="White" TextColor="Green"/>
+                            <Button Text="&#xeed8;" WidthRequest="50" Clicked="HideChangeShot" FontFamily="{StaticResource IconFont}" HorizontalOptions="End" Margin="3,15,0,0" FontSize="30" Padding="0" BackgroundColor="White" TextColor="Green"/>
                         </StackLayout>
                     </Frame>
 
@@ -486,9 +489,9 @@
                             <Label Text="Loading Location" HorizontalOptions="Center" FontSize="20" Margin="10,0"/>
                             <Label Text="Click anywhere on the image to select a point where the robot shot collects most power cells. You may change your location." HorizontalOptions="Center" FontSize="10" Margin="10,0" HorizontalTextAlignment="Center"/>
                             <AbsoluteLayout Margin="20,10">
-                                <mr:BoxView AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="DimGray" CornerRadius="4" HeightRequest="200" WidthRequest="250" HorizontalOptions="Center">
+                                <BoxView AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="DimGray" CornerRadius="4" HeightRequest="200" WidthRequest="250" HorizontalOptions="Center">
 
-                                </mr:BoxView>
+                                </BoxView>
                                 <Label Margin="5,0,0,0" Text="&#xeee4;" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" TextColor="Aqua" FontFamily="{StaticResource IconFont}" FontSize="30" HorizontalOptions="Center" VerticalOptions="Center"/>
                             </AbsoluteLayout>
                             <Label Text="Loading Bay" HorizontalOptions="Center" TextColor="#0f3f8c"/>

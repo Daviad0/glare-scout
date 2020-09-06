@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -32,6 +33,10 @@ namespace LightScout
         private int[] PowerCellOuter = new int[21];
         private int[] PowerCellLower = new int[21];
         private int[] PowerCellMissed = new int[21];
+        private int[] ShotCoordinates = { 0, 0 };
+        private Button oldSelectedShotButton;
+        private int[] LoadCoordinates = { 0, 0 };
+        private Button oldSelectedLoadButton;
         private int NumCycles = 0;
         private int TotalCycleTime = 0;
         private DateTime lastRecordedCycle;
@@ -40,6 +45,8 @@ namespace LightScout
         private TeamMatch selectedMatch;
         private double DisabledSeconds;
         private int StackLightCounter;
+        private bool DefenseFor;
+        private bool DefenseAgainst;
         private bool CurrentlyDisabled;
         private bool InitLineAchieved;
         private DateTime startScoutingTime;
@@ -76,10 +83,6 @@ namespace LightScout
             DisabledSeconds = matchTemplate.DisabledSeconds;
             InitLineAchieved = matchTemplate.A_InitiationLine;
             HiddenLabel.Text = "Team " + matchTemplate.TeamNumber.ToString();
-            var toucheffect = new TouchTracking.Forms.TouchEffect();
-            toucheffect.Capture = true;
-            toucheffect.TouchAction += TouchEffect_TouchAction;
-            testImage.Effects.Add(toucheffect);
             var listofscouts = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).ScouterNames.ToList();
             scouterPicker.ItemsSource = listofscouts;
             if (matchTemplate.ScoutName != null)
@@ -88,11 +91,11 @@ namespace LightScout
                 {
                     scouterPicker.SelectedIndex = listofscouts.IndexOf(matchTemplate.ScoutName);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
 
                 }
-                
+
             }
 
             teamName.Text = "Team " + matchTemplate.TeamNumber.ToString();
@@ -443,7 +446,7 @@ namespace LightScout
         }
         private async void StartScouting(object sender, EventArgs e)
         {
-            if(scouterPicker.SelectedItem != null)
+            if (scouterPicker.SelectedItem != null)
             {
                 if (scouterPicker.SelectedItem.ToString() != null || scouterPicker.SelectedItem.ToString() != "")
                 {
@@ -455,8 +458,8 @@ namespace LightScout
                     enableDisabled.FadeTo(1, 500, Easing.CubicIn);
                 }
             }
-            
-            
+
+
             var converter = new ColorTypeConverter();
             BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
             await overLay.FadeTo(0, 500, Easing.SinOut);
@@ -474,7 +477,7 @@ namespace LightScout
                 {
                     return false;
                 }
-                
+
             });
             ShowToolTip();
             TextFlipTimer();
@@ -719,8 +722,8 @@ namespace LightScout
             var converter = new ColorTypeConverter();
             if (CurrentCycle > NumCycles)
             {
-                
-                if(CurrentCycle > 1)
+
+                if (CurrentCycle > 1)
                 {
                     TotalCycleTime += (int)(DateTime.Now - lastRecordedCycle).TotalSeconds;
                 }
@@ -1288,6 +1291,42 @@ namespace LightScout
             }
 
         }
+        private async void ChangeDefenseFor(object sender, EventArgs e)
+        {
+            DefenseFor = !DefenseFor;
+            if (DefenseFor)
+            {
+                deffor_opt1.Style = Resources["lightSecondarySelected"] as Style;
+                deffor_opt1.Text = "Yes";
+                //trackingLogs.Add(SecondsScouting.ToString() + ":2000");
+                trackingLogs.Add(SecondsScouting.ToString() + ":8010:");
+            }
+            else
+            {
+                deffor_opt1.Style = Resources["lightSecondary"] as Style;
+                deffor_opt1.Text = "No";
+                //trackingLogs.Add(SecondsScouting.ToString() + ":2001");
+                trackingLogs.Add(SecondsScouting.ToString() + ":8011:");
+            }
+        }
+        private async void ChangeDefenseAgainst(object sender, EventArgs e)
+        {
+            DefenseAgainst = !DefenseAgainst;
+            if (DefenseAgainst)
+            {
+                defagn_opt1.Style = Resources["lightSecondarySelected"] as Style;
+                defagn_opt1.Text = "Yes";
+                //trackingLogs.Add(SecondsScouting.ToString() + ":2000");
+                trackingLogs.Add(SecondsScouting.ToString() + ":8020:");
+            }
+            else
+            {
+                defagn_opt1.Style = Resources["lightSecondary"] as Style;
+                defagn_opt1.Text = "No";
+                //trackingLogs.Add(SecondsScouting.ToString() + ":2001");
+                trackingLogs.Add(SecondsScouting.ToString() + ":8021:");
+            }
+        }
         private async void ConfirmForm(object sender, EventArgs e)
         {
             var converter = new ColorTypeConverter();
@@ -1307,15 +1346,15 @@ namespace LightScout
 
 
                 var thismatch = new TeamMatch();
-                if(NumCycles > 0)
+                if (NumCycles > 0)
                 {
                     thismatch.CycleTime = TotalCycleTime / NumCycles;
                 }
-                
+
                 thismatch.AlliancePartners = selectedMatch.AlliancePartners;
                 thismatch.A_InitiationLine = InitLineAchieved;
                 thismatch.DisabledSeconds = (int)Math.Floor(DisabledSeconds);
-                if(selectedMatch.EventCode != null && selectedMatch.EventCode != "")
+                if (selectedMatch.EventCode != null && selectedMatch.EventCode != "")
                 {
                     thismatch.EventCode = selectedMatch.EventCode;
                 }
@@ -1323,7 +1362,7 @@ namespace LightScout
                 {
                     thismatch.EventCode = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).CurrentEventCode;
                 }
-                
+
                 thismatch.E_Balanced = Balanced;
                 thismatch.E_ClimbAttempt = Attempted;
                 thismatch.E_ClimbSuccess = Climb;
@@ -1335,6 +1374,10 @@ namespace LightScout
                 thismatch.PowerCellLower = PowerCellLower;
                 thismatch.PowerCellMissed = PowerCellMissed;
                 thismatch.PowerCellOuter = PowerCellOuter;
+                thismatch.LoadCoordinates = LoadCoordinates;
+                thismatch.ShotCoordinates = ShotCoordinates;
+                thismatch.DefenseFor = DefenseFor;
+                thismatch.DefenseAgainst = DefenseAgainst;
                 thismatch.ScoutName = scouterPicker.SelectedItem.ToString();
                 thismatch.ClientLastSubmitted = DateTime.Now;
                 thismatch.TabletId = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TabletIdentifier;
@@ -1444,7 +1487,7 @@ namespace LightScout
                                 {
                                     if (highestlevelresponse < 3)
                                     {
-                                        
+
                                         DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 1);
                                     }
                                     waitingWithSubmit.IsVisible = false;
@@ -1484,7 +1527,7 @@ namespace LightScout
                                 {
                                     if (j < 3)
                                     {
-                                        if(j == 2)
+                                        if (j == 2)
                                         {
                                             submittingOverlayPanel.TranslateTo(submittingOverlayPanel.TranslationX - 600, submittingOverlayPanel.TranslationY, 500, Easing.CubicInOut);
                                         }
@@ -1493,8 +1536,8 @@ namespace LightScout
                                     }
                                     else
                                     {
-                                        
-                                        
+
+
                                         Navigation.PushAsync(new MainPage());
                                         return false;
                                     }
@@ -1537,7 +1580,7 @@ namespace LightScout
                             {
                                 if (i < 5)
                                 {
-                                    if(i == 4)
+                                    if (i == 4)
                                     {
                                         submittingOverlayPanel.TranslateTo(submittingOverlayPanel.TranslationX - 600, submittingOverlayPanel.TranslationY, 500, Easing.CubicInOut);
                                     }
@@ -1598,13 +1641,13 @@ namespace LightScout
                         {
                             if (i < 5)
                             {
-                                if(i == 2)
+                                if (i == 2)
                                 {
                                     waitingWithSubmit.IsVisible = false;
                                     doneWithSubmit.IsVisible = true;
                                 }
                                 i++;
-                                if(i == 5)
+                                if (i == 5)
                                 {
                                     submittingOverlayPanel.TranslateTo(submittingOverlayPanel.TranslationX - 600, submittingOverlayPanel.TranslationY, 500, Easing.CubicInOut);
                                 }
@@ -1672,7 +1715,7 @@ namespace LightScout
         {
 
             CurrentlyDisabled = false;
-           
+
             await disabledMenuPanel.TranslateTo(disabledMenuPanel.TranslationX - 600, disabledMenuPanel.TranslationY, 500, Easing.CubicInOut);
             disabledMenu.IsVisible = false;
             disabledMenuPanel.TranslationX = 0;
@@ -1686,7 +1729,7 @@ namespace LightScout
             changeShotLocationPanel.TranslateTo(changeShotLocationPanel.TranslationX - 600, changeShotLocationPanel.TranslationY, 500, Easing.CubicInOut);
             CurrentlyDisabled = true;
             DisabledTimer();
-            
+
 
         }
         private async void HideChangeShot(object sender, EventArgs e)
@@ -1697,7 +1740,7 @@ namespace LightScout
             await changeShotLocationPanel.TranslateTo(changeShotLocationPanel.TranslationX - 600, changeShotLocationPanel.TranslationY, 500, Easing.CubicInOut);
             changeShotLocationOverlay.IsVisible = false;
             changeShotLocationPanel.TranslationX = 0;
-            
+
 
         }
         private void ShowChangeLoad(object sender, EventArgs e)
@@ -1707,7 +1750,7 @@ namespace LightScout
             changeLoadLocationPanel.TranslateTo(changeLoadLocationPanel.TranslationX - 600, changeLoadLocationPanel.TranslationY, 500, Easing.CubicInOut);
             CurrentlyDisabled = true;
             DisabledTimer();
-            
+
 
         }
         private async void HideChangeLoad(object sender, EventArgs e)
@@ -1718,7 +1761,7 @@ namespace LightScout
             await changeLoadLocationPanel.TranslateTo(changeLoadLocationPanel.TranslationX - 600, changeLoadLocationPanel.TranslationY, 500, Easing.CubicInOut);
             changeLoadLocationOverlay.IsVisible = false;
             changeLoadLocationPanel.TranslationX = 0;
-            
+
 
         }
         private void ChangeInitLine(object sender, EventArgs e)
@@ -1739,13 +1782,13 @@ namespace LightScout
         }
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            
+
             bool answer = await DisplayAlert("Hol' Up", "Are you sure that you want to cancel tracking this entry. Your progress will not be saved!", "Exit", "Cancel");
             if (answer)
             {
                 Navigation.PushAsync(new MainPage());
             }
-            
+
         }
 
 
@@ -1786,10 +1829,19 @@ namespace LightScout
             else if (CurrentSubPage == 3)
             {
                 trackingLogs.Add(SecondsScouting.ToString() + ":1004");
-                confirmForm.FadeTo(0, 250);
-                confirmForm.IsVisible = false;
+                afterMatchForm.FadeTo(0, 250);
+                afterMatchForm.IsVisible = false;
                 endgameForm.IsVisible = true;
                 endgameForm.FadeTo(1, 250);
+                toolTipLabel.Text = "Endgame";
+            }
+            else if (CurrentSubPage == 4)
+            {
+                trackingLogs.Add(SecondsScouting.ToString() + ":1005");
+                confirmForm.FadeTo(0, 250);
+                confirmForm.IsVisible = false;
+                afterMatchForm.IsVisible = true;
+                afterMatchForm.FadeTo(1, 250);
                 toolTipLabel.Text = "Endgame";
             }
             ShowToolTip();
@@ -1835,6 +1887,17 @@ namespace LightScout
                 finishForm.IsVisible = true;
                 endgameForm.FadeTo(0, 250);
                 endgameForm.IsVisible = false;
+                afterMatchForm.IsVisible = true;
+                afterMatchForm.FadeTo(1, 250);
+                toolTipLabel.Text = "Confirm Entry";
+            }
+            else if (CurrentSubPage == 5)
+            {
+                trackingLogs.Add(SecondsScouting.ToString() + ":1006");
+                nextForm.IsEnabled = false;
+                finishForm.IsVisible = true;
+                afterMatchForm.FadeTo(0, 250);
+                afterMatchForm.IsVisible = false;
                 confirmForm.IsVisible = true;
                 confirmForm.FadeTo(1, 250);
                 toolTipLabel.Text = "Confirm Entry";
@@ -2153,7 +2216,7 @@ namespace LightScout
 
         private void resetDisabled_Clicked(object sender, EventArgs e)
         {
-            
+
             DisabledSeconds = 0;
             disabledSeconds.Text = "0s";
         }
@@ -2169,24 +2232,375 @@ namespace LightScout
                 enableDisabled.IsVisible = true;
                 enableDisabled.FadeTo(1, 500, Easing.CubicIn);
             }
-            
+
             trackingLogs.Add(SecondsScouting.ToString() + ":100:" + scouterPicker.SelectedItem.ToString());
         }
-
-        private async void TouchEffect_TouchAction(object sender, TouchTracking.TouchActionEventArgs args)
+        private async void SelectShotFieldPosition(object sender, EventArgs e)
         {
-            if(args.Location.X > 5 && args.Location.X < 197 && args.Location.Y > 30 && args.Location.Y < 170)
+            Button selectedButton = (Button)sender as Button;
+            string rawclassid = selectedButton.ClassId;
+            ShotCoordinates[0] = int.Parse(rawclassid.Split('-')[0]);
+            ShotCoordinates[1] = int.Parse(rawclassid.Split('-')[1]);
+            if (oldSelectedShotButton != null)
             {
-                var markTranslationX = args.Location.X - 100;
-                var markTranslationY = args.Location.Y - 100;
-                fieldMarker.TranslationX = markTranslationX;
-                fieldMarker.TranslationY = markTranslationY;
-                Console.WriteLine("Point at (" + args.Location.X.ToString() + "," + args.Location.Y.ToString() + ")");
-                Console.WriteLine("Point at (" + fieldMarker.X.ToString() + "," + fieldMarker.X.ToString() + ")");
-
+                oldSelectedShotButton.FadeTo(0, easing: Easing.CubicInOut);
             }
-            
-
+            selectedButton.FadeTo(0.75, easing: Easing.CubicInOut);
+            oldSelectedShotButton = selectedButton;
+            await currentShotLocation.FadeTo(0, 200, Easing.CubicInOut);
+            switch (rawclassid)
+            {
+                case "1-1":
+                    currentShotLocation.Text = "Power Port Close Right";
+                    break;
+                case "1-2":
+                    currentShotLocation.Text = "Close Initiation Line";
+                    break;
+                case "1-3":
+                    currentShotLocation.Text = "Far Initiation Line";
+                    break;
+                case "1-4":
+                    currentShotLocation.Text = "Close End of Trench";
+                    break;
+                case "1-5":
+                    currentShotLocation.Text = "Middle of Trench";
+                    break;
+                case "1-6":
+                    currentShotLocation.Text = "Middle of Trench";
+                    break;
+                case "1-7":
+                    currentShotLocation.Text = "Far Trench";
+                    break;
+                case "1-8":
+                    currentShotLocation.Text = "Behind Trench";
+                    break;
+                case "2-1":
+                    currentShotLocation.Text = "Power Port Close Center";
+                    break;
+                case "2-2":
+                    currentShotLocation.Text = "Close Initiation Line";
+                    break;
+                case "2-3":
+                    currentShotLocation.Text = "Far Initiation Line";
+                    break;
+                case "2-4":
+                    currentShotLocation.Text = "Next to Rendezvoux";
+                    break;
+                case "2-5":
+                    currentShotLocation.Text = "Next to Rendezvoux";
+                    break;
+                case "2-6":
+                    currentShotLocation.Text = "Against Rendezvoix Bar";
+                    break;
+                case "2-7":
+                    currentShotLocation.Text = "Behind Rendezvoix";
+                    break;
+                case "2-8":
+                    currentShotLocation.Text = "Behind Rendezvoix";
+                    break;
+                case "3-1":
+                    currentShotLocation.Text = "Power Port Close Left";
+                    break;
+                case "3-2":
+                    currentShotLocation.Text = "Close Initiation Line";
+                    break;
+                case "3-3":
+                    currentShotLocation.Text = "Far Initiation Line";
+                    break;
+                case "3-4":
+                    currentShotLocation.Text = "Against Rendezvoix Bar";
+                    break;
+                case "3-5":
+                    currentShotLocation.Text = "In Rendezvoix";
+                    break;
+                case "3-6":
+                    currentShotLocation.Text = "In Rendezvoix";
+                    break;
+                case "3-7":
+                    currentShotLocation.Text = "Behind Rendezvoix";
+                    break;
+                case "3-8":
+                    currentShotLocation.Text = "Behind Rendezvoix";
+                    break;
+                case "4-1":
+                    currentShotLocation.Text = "Enemy Loading Bay Close";
+                    break;
+                case "4-2":
+                    currentShotLocation.Text = "Enemy Loading Bay Counter Defense";
+                    break;
+                case "4-3":
+                    currentShotLocation.Text = "Enemy Loading Bay Counter Defense";
+                    break;
+                case "4-4":
+                    currentShotLocation.Text = "Next to Rendezvoux";
+                    break;
+                case "4-5":
+                    currentShotLocation.Text = "In Rendezvoix";
+                    break;
+                case "4-6":
+                    currentShotLocation.Text = "In Rendezvoix";
+                    break;
+                case "4-7":
+                    currentShotLocation.Text = "Behind Rendezvoix";
+                    break;
+                case "4-8":
+                    currentShotLocation.Text = "Behind Rendezvoix";
+                    break;
+                case "5-1":
+                    currentShotLocation.Text = "Enemy Loading Bay Close";
+                    break;
+                case "5-2":
+                    currentShotLocation.Text = "Enemy Loading Bay";
+                    break;
+                case "5-3":
+                    currentShotLocation.Text = "Enemy Loading Bay Counter Defense";
+                    break;
+                case "5-4":
+                    currentShotLocation.Text = "Next to Rendezvoux";
+                    break;
+                case "5-5":
+                    currentShotLocation.Text = "Against Rendezvoix Bar";
+                    break;
+                case "5-6":
+                    currentShotLocation.Text = "In Rendezvoix";
+                    break;
+                case "5-7":
+                    currentShotLocation.Text = "Behind Rendezvoix";
+                    break;
+                case "5-8":
+                    currentShotLocation.Text = "Behind Rendezvoix";
+                    break;
+                case "6-1":
+                    currentShotLocation.Text = "Enemy Loading Bay Corner";
+                    break;
+                case "6-2":
+                    currentShotLocation.Text = "Enemy Loading Bay Edge";
+                    break;
+                case "6-3":
+                    currentShotLocation.Text = "Enemy Loading Bay Edge";
+                    break;
+                case "6-4":
+                    currentShotLocation.Text = "Enemy Close End of Trench";
+                    break;
+                case "6-5":
+                    currentShotLocation.Text = "Enemy Mid of Trench";
+                    break;
+                case "6-6":
+                    currentShotLocation.Text = "Enemy Mid of Trench";
+                    break;
+                case "6-7":
+                    currentShotLocation.Text = "Enemy Far Trench";
+                    break;
+                case "6-8":
+                    currentShotLocation.Text = "Behind Enemy Trench";
+                    break;
+            }
+            await currentShotLocation.FadeTo(1, 200, Easing.CubicInOut);
+            locsho_opt1.Style = Resources["lightSecondarySelected"] as Style;
+            locsho_opt1.Text = currentShotLocation.Text;
+            trackingLogs.Add(SecondsScouting.ToString() + ":8000:" + currentLoadLocation.Text);
         }
+        private async void SelectLoadFieldPosition(object sender, EventArgs e)
+        {
+            Button selectedButton = (Button)sender as Button;
+            string rawclassid = selectedButton.ClassId;
+            LoadCoordinates[0] = int.Parse(rawclassid.Split('-')[0]);
+            LoadCoordinates[1] = int.Parse(rawclassid.Split('-')[1]);
+            if(oldSelectedLoadButton != null)
+            {
+                oldSelectedLoadButton.FadeTo(0, easing: Easing.CubicInOut);
+            }
+            selectedButton.FadeTo(0.75, easing: Easing.CubicInOut);
+            oldSelectedLoadButton = selectedButton;
+            await currentLoadLocation.FadeTo(0, 200, Easing.CubicInOut);
+            switch (rawclassid)
+            {
+                case "1-1":
+                    currentLoadLocation.Text = "Clean Up";
+                    break;
+                case "1-2":
+                    currentLoadLocation.Text = "Clean Up";
+                    break;
+                case "1-3":
+                    currentLoadLocation.Text = "Clean Up";
+                    break;
+                case "1-4":
+                    currentLoadLocation.Text = "Trench";
+                    break;
+                case "1-5":
+                    currentLoadLocation.Text = "Trench";
+                    break;
+                case "1-6":
+                    currentLoadLocation.Text = "Trench";
+                    break;
+                case "1-7":
+                    currentLoadLocation.Text = "Trench";
+                    break;
+                case "1-8":
+                    currentLoadLocation.Text = "Trench";
+                    break;
+                case "1-9":
+                    currentLoadLocation.Text = "Loading Bay";
+                    break;
+                case "1-10":
+                    currentLoadLocation.Text = "Loading Bay";
+                    break;
+                case "2-1":
+                    currentLoadLocation.Text = "Clean Up";
+                    break;
+                case "2-2":
+                    currentLoadLocation.Text = "Clean Up";
+                    break;
+                case "2-3":
+                    currentLoadLocation.Text = "Clean Up";
+                    break;
+                case "2-4":
+                    currentLoadLocation.Text = "Rendezvoux";
+                    break;
+                case "2-5":
+                    currentLoadLocation.Text = "Rendezvoux";
+                    break;
+                case "2-6":
+                    currentLoadLocation.Text = "Rendezvoix";
+                    break;
+                case "2-7":
+                    currentLoadLocation.Text = "Rendezvoix";
+                    break;
+                case "2-8":
+                    currentLoadLocation.Text = "Loading Bay";
+                    break;
+                case "2-9":
+                    currentLoadLocation.Text = "Loading Bay";
+                    break;
+                case "2-10":
+                    currentLoadLocation.Text = "Loading Bay";
+                    break;
+                case "3-1":
+                    currentLoadLocation.Text = "Clean Up";
+                    break;
+                case "3-2":
+                    currentLoadLocation.Text = "Clean Up";
+                    break;
+                case "3-3":
+                    currentLoadLocation.Text = "Clean Up";
+                    break;
+                case "3-4":
+                    currentLoadLocation.Text = "Rendezvoix";
+                    break;
+                case "3-5":
+                    currentLoadLocation.Text = "Rendezvoix";
+                    break;
+                case "3-6":
+                    currentLoadLocation.Text = "Rendezvoix";
+                    break;
+                case "3-7":
+                    currentLoadLocation.Text = "Rendezvoix";
+                    break;
+                case "3-8":
+                    currentLoadLocation.Text = "Loading Bay";
+                    break;
+                case "3-9":
+                    currentLoadLocation.Text = "Loading Bay";
+                    break;                      
+                case "3-10":                    
+                    currentLoadLocation.Text = "Loading Bay";
+                    break;
+                case "4-1":
+                    currentLoadLocation.Text = "Enemy Loading Bay";
+                    break;
+                case "4-2":
+                    currentLoadLocation.Text = "Enemy Loading Bay";
+                    break;
+                case "4-3":
+                    currentLoadLocation.Text = "Enemy Loading Bay";
+                    break;
+                case "4-4":
+                    currentLoadLocation.Text = "Rendezvoux";
+                    break;
+                case "4-5":
+                    currentLoadLocation.Text = "Rendezvoix";
+                    break;
+                case "4-6":
+                    currentLoadLocation.Text = "Rendezvoix";
+                    break;
+                case "4-7":
+                    currentLoadLocation.Text = "Rendezvoix";
+                    break;
+                case "4-8":
+                    currentLoadLocation.Text = "Enemy Clean Up";
+                    break;
+                case "4-9":
+                    currentLoadLocation.Text = "Enemy Clean Up";
+                    break;
+                case "4-10":
+                    currentLoadLocation.Text = "Enemy Clean Up";
+                    break;
+                case "5-1":
+                    currentLoadLocation.Text = "Enemy Loading Bay";
+                    break;
+                case "5-2":
+                    currentLoadLocation.Text = "Enemy Loading Bay";
+                    break;
+                case "5-3":
+                    currentLoadLocation.Text = "Enemy Loading Bay";
+                    break;
+                case "5-4":
+                    currentLoadLocation.Text = "Rendezvoux";
+                    break;
+                case "5-5":
+                    currentLoadLocation.Text = "Rendezvoix";
+                    break;
+                case "5-6":
+                    currentLoadLocation.Text = "Rendezvoix";
+                    break;
+                case "5-7":
+                    currentLoadLocation.Text = "Rendezvoix";
+                    break;
+                case "5-8":
+                    currentLoadLocation.Text = "Enemy Clean Up";
+                    break;
+                case "5-9":
+                    currentLoadLocation.Text = "Enemy Clean Up";
+                    break;
+                case "5-10":
+                    currentLoadLocation.Text = "Enemy Clean Up";
+                    break;
+                case "6-1":
+                    currentLoadLocation.Text = "Enemy Loading Bay";
+                    break;
+                case "6-2":
+                    currentLoadLocation.Text = "Enemy Loading Bay";
+                    break;
+                case "6-3":
+                    currentLoadLocation.Text = "Enemy Loading Bay";
+                    break;
+                case "6-4":
+                    currentLoadLocation.Text = "Enemy Trench";
+                    break;
+                case "6-5":
+                    currentLoadLocation.Text = "Enemy Trench";
+                    break;
+                case "6-6":
+                    currentLoadLocation.Text = "Enemy Trench";
+                    break;
+                case "6-7":
+                    currentLoadLocation.Text = "Enemy Trench";
+                    break;
+                case "6-8":
+                    currentLoadLocation.Text = "Enemy Clean Up";
+                    break;
+                case "6-9":
+                    currentLoadLocation.Text = "Enemy Clean Up";
+                    break;
+                case "6-10":
+                    currentLoadLocation.Text = "Enemy Clean Up";
+                    break;
+            }
+            await currentLoadLocation.FadeTo(1, 200, Easing.CubicInOut);
+            locloa_opt1.Style = Resources["lightSecondarySelected"] as Style;
+            locloa_opt1.Text = currentLoadLocation.Text;
+            trackingLogs.Add(SecondsScouting.ToString() + ":8001:" + currentLoadLocation.Text);
+        }
+
     }
 }

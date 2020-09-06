@@ -1298,7 +1298,7 @@ namespace LightScout
             {
                 deffor_opt1.Style = Resources["lightSecondarySelected"] as Style;
                 deffor_opt1.Text = "Yes";
-                //trackingLogs.Add(SecondsScouting.ToString() + ":2000");
+                //trackingLogs.Add(SecondsScouting.ToString() + ":2000");*
                 trackingLogs.Add(SecondsScouting.ToString() + ":8010:");
             }
             else

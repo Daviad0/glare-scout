@@ -2237,15 +2237,20 @@ namespace LightScout
         }
         private async void SelectShotFieldPosition(object sender, EventArgs e)
         {
+            var converter = new ColorTypeConverter();
             Button selectedButton = (Button)sender as Button;
             string rawclassid = selectedButton.ClassId;
             ShotCoordinates[0] = int.Parse(rawclassid.Split('-')[0]);
             ShotCoordinates[1] = int.Parse(rawclassid.Split('-')[1]);
             if (oldSelectedShotButton != null)
             {
-                oldSelectedShotButton.FadeTo(0, easing: Easing.CubicInOut);
+                oldSelectedShotButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Transparent");
+                oldSelectedShotButton.TextColor = (Color)converter.ConvertFromInvariantString("Transparent");
+                oldSelectedShotButton.BorderColor = (Color)converter.ConvertFromInvariantString("Transparent");
             }
-            selectedButton.FadeTo(0.75, easing: Easing.CubicInOut);
+            selectedButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightBlue");
+            selectedButton.TextColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+            selectedButton.BorderColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
             oldSelectedShotButton = selectedButton;
             await currentShotLocation.FadeTo(0, 200, Easing.CubicInOut);
             switch (rawclassid)
@@ -2402,15 +2407,20 @@ namespace LightScout
         }
         private async void SelectLoadFieldPosition(object sender, EventArgs e)
         {
+            var converter = new ColorTypeConverter();
             Button selectedButton = (Button)sender as Button;
             string rawclassid = selectedButton.ClassId;
             LoadCoordinates[0] = int.Parse(rawclassid.Split('-')[0]);
             LoadCoordinates[1] = int.Parse(rawclassid.Split('-')[1]);
-            if(oldSelectedLoadButton != null)
+            if (oldSelectedShotButton != null)
             {
-                oldSelectedLoadButton.FadeTo(0, easing: Easing.CubicInOut);
+                oldSelectedShotButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Transparent");
+                oldSelectedShotButton.TextColor = (Color)converter.ConvertFromInvariantString("Transparent");
+                oldSelectedShotButton.BorderColor = (Color)converter.ConvertFromInvariantString("Transparent");
             }
-            selectedButton.FadeTo(0.75, easing: Easing.CubicInOut);
+            selectedButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightBlue");
+            selectedButton.TextColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
+            selectedButton.BorderColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
             oldSelectedLoadButton = selectedButton;
             await currentLoadLocation.FadeTo(0, 200, Easing.CubicInOut);
             switch (rawclassid)

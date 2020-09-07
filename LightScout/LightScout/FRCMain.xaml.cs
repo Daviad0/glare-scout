@@ -2244,7 +2244,7 @@ namespace LightScout
             ShotCoordinates[1] = int.Parse(rawclassid.Split('-')[1]);
             if (oldSelectedShotButton != null)
             {
-                oldSelectedShotButton.FadeTo(0.01, easing: Easing.CubicInOut);
+                oldSelectedShotButton.FadeTo(0.1, easing: Easing.CubicInOut);
                 
             }
             await selectedButton.FadeTo(0.75, easing: Easing.CubicInOut);
@@ -2420,7 +2420,7 @@ namespace LightScout
             LoadCoordinates[1] = int.Parse(rawclassid.Split('-')[1]);
             if (oldSelectedLoadButton != null)
             {
-                oldSelectedLoadButton.FadeTo(0.01, easing: Easing.CubicInOut);
+                oldSelectedLoadButton.FadeTo(0.1, easing: Easing.CubicInOut);
 
             }
             selectedButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightBlue");

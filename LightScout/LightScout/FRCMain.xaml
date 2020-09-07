@@ -295,7 +295,7 @@
                         </OnPlatform>
                     </Label.FontFamily>
                 </Label>
-                <Grid Margin="10,10,10,0" x:Name="defenseForMenu">
+                <Grid Margin="10,20,10,0" x:Name="defenseForMenu">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="200"/>
@@ -737,6 +737,7 @@
                                 </Grid>
                             </Grid>
                             <Label Text="No Selected Location" HorizontalOptions="Center" TextColor="#0f3f8c" x:Name="currentShotLocation" Margin="0,10,0,0"/>
+                            <Button Text="Reset Shot Location" Clicked="ResetShotLocation" HorizontalOptions="Center" Margin="10,10,10,0"/>
                             <Button Text="&#xeed8;" WidthRequest="50" Clicked="HideChangeShot" FontFamily="{StaticResource IconFont}" HorizontalOptions="End" Margin="3,15,0,0" FontSize="30" Padding="0" BackgroundColor="White" TextColor="Green"/>
                         </StackLayout>
                     </Frame>
@@ -1018,6 +1019,7 @@
                                 </Grid>
                             </Grid>
                             <Label Text="No Selected Location" HorizontalOptions="Center" TextColor="#0f3f8c" x:Name="currentLoadLocation" Margin="0,10,0,0"/>
+                            <Button Text="Reset Load Location" Clicked="ResetLoadLocation" HorizontalOptions="Center" Margin="10,10,10,0"/>
                             <Button Text="&#xeed8;" Clicked="HideChangeLoad" FontFamily="{StaticResource IconFont}" HorizontalOptions="End" Margin="3,15,0,0" FontSize="30" Padding="0" BackgroundColor="White" TextColor="Green"/>
                         </StackLayout>
                     </Frame>

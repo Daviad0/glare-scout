@@ -1883,13 +1883,11 @@ namespace LightScout
             else if (CurrentSubPage == 4)
             {
                 trackingLogs.Add(SecondsScouting.ToString() + ":1005");
-                nextForm.IsEnabled = false;
-                finishForm.IsVisible = true;
                 endgameForm.FadeTo(0, 250);
                 endgameForm.IsVisible = false;
                 afterMatchForm.IsVisible = true;
                 afterMatchForm.FadeTo(1, 250);
-                toolTipLabel.Text = "Confirm Entry";
+                toolTipLabel.Text = "After Match";
             }
             else if (CurrentSubPage == 5)
             {
@@ -2623,6 +2621,36 @@ namespace LightScout
             locloa_opt1.Style = Resources["lightSecondarySelected"] as Style;
             locloa_opt1.Text = currentLoadLocation.Text;
             trackingLogs.Add(SecondsScouting.ToString() + ":8001:" + currentLoadLocation.Text);
+        }
+        private async void ResetShotLocation(object sender, EventArgs e)
+        {
+            var converter = new ColorTypeConverter();
+            LoadCoordinates[0] = 0;
+            LoadCoordinates[1] = 0;
+            if (oldSelectedLoadButton != null)
+            {
+                await oldSelectedLoadButton.FadeTo(0.1, easing: Easing.CubicInOut);
+                oldSelectedLoadButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Transparent");
+                oldSelectedLoadButton.TextColor = (Color)converter.ConvertFromInvariantString("Transparent");
+                oldSelectedLoadButton.BorderColor = (Color)converter.ConvertFromInvariantString("Transparent");
+            }
+
+            oldSelectedLoadButton = null;
+        }
+        private async void ResetLoadLocation(object sender, EventArgs e)
+        {
+            var converter = new ColorTypeConverter();
+            LoadCoordinates[0] = 0;
+            LoadCoordinates[1] = 0;
+            if (oldSelectedLoadButton != null)
+            {
+                await oldSelectedLoadButton.FadeTo(0.1, easing: Easing.CubicInOut);
+                oldSelectedLoadButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Transparent");
+                oldSelectedLoadButton.TextColor = (Color)converter.ConvertFromInvariantString("Transparent");
+                oldSelectedLoadButton.BorderColor = (Color)converter.ConvertFromInvariantString("Transparent");
+            }
+
+            oldSelectedLoadButton = null;
         }
 
     }

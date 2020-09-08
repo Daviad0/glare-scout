@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Plugin.BLE;
+using Plugin.BLE.Abstractions.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +13,14 @@ using Xamarin.Forms.Xaml;
 namespace LightScout
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
+    
     public partial class SetNewData : ContentPage
     {
+        private TabletType currentlySelectedTabletType;
+        public EventHandler<Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs> DeviceDiscovered;
+        private Button lastTabletButton;
+        private List<IDevice> foundDevices = new List<IDevice>();
+        public static IAdapter adapter = CrossBluetoothLE.Current.Adapter;
         public SetNewData()
         {
             InitializeComponent();
@@ -58,12 +67,25 @@ namespace LightScout
             setTabletTypePanel.IsVisible = false;
             await Task.Delay(10);
             setTabletTypePanel.TranslationX = 0;
+            finishForm.TranslationY = 100;
             
+            await Task.Delay(15);
+            finishForm.IsVisible = true;
+            await finishForm.TranslateTo(finishForm.TranslationX, finishForm.TranslationY + 10, 75, Easing.CubicOut);
+            await finishForm.TranslateTo(finishForm.TranslationX, finishForm.TranslationY - 110, 250, Easing.CubicOut);
+            
+
         }
         private async void RestartForm(object sender, EventArgs e)
         {
             if (!setTeamNumberPanel.IsVisible)
             {
+                
+                await finishForm.TranslateTo(finishForm.TranslationX, finishForm.TranslationY - 10, 75, Easing.CubicOut);
+                await finishForm.TranslateTo(finishForm.TranslationX, finishForm.TranslationY + 110, 250, Easing.CubicOut);
+                finishForm.IsVisible = false;
+                await Task.Delay(15);
+                finishForm.TranslationY = 0;
                 resetForm.IsEnabled = false;
                 setTabletTypePanel.TranslateTo(setTabletTypePanel.TranslationX, setTabletTypePanel.TranslationY + 600, 500, Easing.CubicInOut);
                 setCodePanel.TranslateTo(setCodePanel.TranslationX, setCodePanel.TranslationY + 600, 500, Easing.CubicInOut);
@@ -97,6 +119,112 @@ namespace LightScout
             }
             
 
+        }
+        public async void SelectTabletType(object sender, EventArgs e)
+        {
+            var converter = new ColorTypeConverter();
+            Button selectedButton = (Button)sender as Button;
+            switch (selectedButton.ClassId)
+            {
+                case "Red1":
+                    currentlySelectedTabletType = TabletType.Red1;
+                    break;
+                case "Red2":
+                    currentlySelectedTabletType = TabletType.Red2;
+                    break;
+                case "Red3":
+                    currentlySelectedTabletType = TabletType.Red3;
+                    break;
+                case "Blue1":
+                    currentlySelectedTabletType = TabletType.Blue1;
+                    break;
+                case "Blue2":
+                    currentlySelectedTabletType = TabletType.Blue2;
+                    break;
+                case "Blue3":
+                    currentlySelectedTabletType = TabletType.Blue3;
+                    break;
+            }
+            if (selectedButton.ClassId.StartsWith("B"))
+            {
+                selectedButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Blue");
+                selectedButton.TextColor = (Color)converter.ConvertFromInvariantString("Color.White");
+            }
+            else
+            {
+                selectedButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Red");
+                selectedButton.TextColor = (Color)converter.ConvertFromInvariantString("Color.White");
+            }
+            if (lastTabletButton != null)
+            {
+                if (lastTabletButton.ClassId.StartsWith("B"))
+                {
+                    lastTabletButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
+                    lastTabletButton.TextColor = (Color)converter.ConvertFromInvariantString("Color.Blue");
+                }
+                else
+                {
+                    lastTabletButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
+                    lastTabletButton.TextColor = (Color)converter.ConvertFromInvariantString("Color.Red");
+                }
+            }
+            lastTabletButton = selectedButton;
+            DeviceDiscovered = new EventHandler<Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs>(async (s, a) =>
+            {
+                foundDevices.Add(a.Device);
+            });
+            
+            adapter.DeviceDiscovered += DeviceDiscovered;
+            await adapter.StartScanningForDevicesAsync();
+            Task.Delay(3000);
+            bluetoothDevices.ItemsSource = foundDevices;
+            adapter.DeviceDiscovered -= DeviceDiscovered;
+            await adapter.StopScanningForDevicesAsync();
+            
+        }
+        private async void SubmitNewData(object sender, EventArgs e)
+        {
+            await finishForm.TranslateTo(finishForm.TranslationX, finishForm.TranslationY - 10, 75, Easing.CubicOut);
+            await finishForm.TranslateTo(finishForm.TranslationX, finishForm.TranslationY + 110, 250, Easing.CubicOut);
+            finishForm.IsVisible = false;
+            await Task.Delay(15);
+            finishForm.TranslationY = 0;
+            switch (currentlySelectedTabletType)
+            {
+                case TabletType.Red1:
+                    DependencyService.Get<DataStore>().SaveConfigurationFile("tabletId", "R1");
+                    break;
+                case TabletType.Red2:
+                    DependencyService.Get<DataStore>().SaveConfigurationFile("tabletId", "R2");
+                    break;
+                case TabletType.Red3:
+                    DependencyService.Get<DataStore>().SaveConfigurationFile("tabletId", "R3");
+                    break;
+                case TabletType.Blue1:
+                    DependencyService.Get<DataStore>().SaveConfigurationFile("tabletId", "B1");
+                    break;
+                case TabletType.Blue2:
+                    DependencyService.Get<DataStore>().SaveConfigurationFile("tabletId", "B2");
+                    break;
+                case TabletType.Blue3:
+                    DependencyService.Get<DataStore>().SaveConfigurationFile("tabletId", "B3");
+                   
+                    break;
+            }
+            DependencyService.Get<DataStore>().SaveConfigurationFile("ownerTeamChange", setupTeamNumber.Text);
+            DependencyService.Get<DataStore>().SaveConfigurationFile("ownerScoutChange", setupScoutName.Text);
+            Navigation.PushAsync(new MainPage());
+            
+
+        }
+        public enum TabletType
+        {
+            Red1,
+            Red2,
+            Red3,
+            Blue1,
+            Blue2,
+            Blue3
         }
     }
 }

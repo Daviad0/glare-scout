@@ -281,6 +281,9 @@ namespace LightScout.Droid
                 case "eventCode":
                     modeltochange.CurrentEventCode = (string)newvalue;
                     break;
+                case "selectedMaster":
+                    modeltochange.SelectedDeviceInformation = (DeviceInformation)newvalue;
+                    break;
             }
             try
             {

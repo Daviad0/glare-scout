@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using LightScout.Models;
+using Newtonsoft.Json;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
 using System;
@@ -19,6 +20,7 @@ namespace LightScout
         private TabletType currentlySelectedTabletType;
         public EventHandler<Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs> DeviceDiscovered;
         private Button lastTabletButton;
+        private IDevice connectedDevice;
         private List<IDevice> foundDevices = new List<IDevice>();
         public static IAdapter adapter = CrossBluetoothLE.Current.Adapter;
         public SetNewData()
@@ -39,6 +41,12 @@ namespace LightScout
             setTeamNumberPanel.IsVisible = false;
             await Task.Delay(10);
             setTeamNumberPanel.TranslationX = 0;
+            await useQRCode.TranslateTo(useQRCode.TranslationX, useQRCode.TranslationY - 10, 75, Easing.CubicOut);
+            await useQRCode.TranslateTo(useQRCode.TranslationX, useQRCode.TranslationY + 110, 250, Easing.CubicOut);
+            useQRCode.IsVisible = false;
+            await Task.Delay(15);
+            useQRCode.TranslationY = 0;
+
         }
         private async void FinishedScoutName(object sender, EventArgs e)
         {
@@ -67,13 +75,25 @@ namespace LightScout
             setTabletTypePanel.IsVisible = false;
             await Task.Delay(10);
             setTabletTypePanel.TranslationX = 0;
-            finishForm.TranslationY = 100;
             
-            await Task.Delay(15);
-            finishForm.IsVisible = true;
-            await finishForm.TranslateTo(finishForm.TranslationX, finishForm.TranslationY + 10, 75, Easing.CubicOut);
-            await finishForm.TranslateTo(finishForm.TranslationX, finishForm.TranslationY - 110, 250, Easing.CubicOut);
             
+
+        }
+        private async void FinishedScoutCode(object sender, EventArgs e)
+        {
+            setCodePanel.TranslateTo(setCodePanel.TranslationX - 600, setCodePanel.TranslationY, 500, Easing.CubicInOut);
+            await Task.Delay(150);
+            setSelectedMaster.TranslationX = 600;
+            setSelectedMaster.TranslationY = 0;
+            await Task.Delay(50);
+            setSelectedMaster.IsVisible = true;
+            setSelectedMaster.TranslateTo(setSelectedMaster.TranslationX - 600, setSelectedMaster.TranslationY, 500, Easing.CubicInOut);
+            await Task.Delay(290);
+            setCodePanel.IsVisible = false;
+            await Task.Delay(10);
+            setCodePanel.TranslationX = 0;
+
+
 
         }
         private async void RestartForm(object sender, EventArgs e)
@@ -90,11 +110,13 @@ namespace LightScout
                 setTabletTypePanel.TranslateTo(setTabletTypePanel.TranslationX, setTabletTypePanel.TranslationY + 600, 500, Easing.CubicInOut);
                 setCodePanel.TranslateTo(setCodePanel.TranslationX, setCodePanel.TranslationY + 600, 500, Easing.CubicInOut);
                 setScoutNamePanel.TranslateTo(setScoutNamePanel.TranslationX, setScoutNamePanel.TranslationY + 600, 500, Easing.CubicInOut);
+                setSelectedMaster.TranslateTo(setSelectedMaster.TranslationX, setSelectedMaster.TranslationY + 600, 500, Easing.CubicInOut);
                 await Task.Delay(200);
                 setTeamNumberPanel.TranslationX = 600;
                 setupScoutName.Text = "";
                 setupTeamNumber.Text = "";
                 setupCode.Text = "";
+                foundDevices.Clear();
                 await Task.Delay(50);
                 setTeamNumberPanel.IsVisible = true;
                 setTeamNumberPanel.TranslateTo(setTeamNumberPanel.TranslationX - 600, setTeamNumberPanel.TranslationY, 500, Easing.CubicInOut);
@@ -102,11 +124,20 @@ namespace LightScout
                 setTabletTypePanel.IsVisible = false;
                 setCodePanel.IsVisible = false;
                 setScoutNamePanel.IsVisible = false;
+                setSelectedMaster.IsVisible = false;
+                useQRCode.TranslationY = 100;
+
+                await Task.Delay(15);
+                useQRCode.IsVisible = true;
+                await useQRCode.TranslateTo(useQRCode.TranslationX, useQRCode.TranslationY + 10, 75, Easing.CubicOut);
+                await useQRCode.TranslateTo(useQRCode.TranslationX, useQRCode.TranslationY - 110, 250, Easing.CubicOut);
                 await Task.Delay(10);
                 setTabletTypePanel.TranslationY = 0;
                 setTabletTypePanel.TranslationX = 0;
                 setCodePanel.TranslationY = 0;
                 setCodePanel.TranslationX = 0;
+                setSelectedMaster.TranslationY = 0;
+                setSelectedMaster.TranslationX = 0;
                 setScoutNamePanel.TranslationY = 0;
                 setScoutNamePanel.TranslationX = 0;
                 resetForm.IsEnabled = true;
@@ -177,10 +208,21 @@ namespace LightScout
             adapter.DeviceDiscovered += DeviceDiscovered;
             await adapter.StartScanningForDevicesAsync();
             Task.Delay(3000);
+            bluetoothLoading.IsVisible = false;
             bluetoothDevices.ItemsSource = foundDevices;
             adapter.DeviceDiscovered -= DeviceDiscovered;
             await adapter.StopScanningForDevicesAsync();
             
+        }
+        private async void SkipTabletConnection(object sender, EventArgs e)
+        {
+            finishForm.TranslationY = 100;
+
+            await Task.Delay(15);
+            finishForm.IsVisible = true;
+            await finishForm.TranslateTo(finishForm.TranslationX, finishForm.TranslationY + 10, 75, Easing.CubicOut);
+            await finishForm.TranslateTo(finishForm.TranslationX, finishForm.TranslationY - 110, 250, Easing.CubicOut);
+            bluetoothDevices.IsEnabled = false;
         }
         private async void SubmitNewData(object sender, EventArgs e)
         {
@@ -213,6 +255,19 @@ namespace LightScout
             }
             DependencyService.Get<DataStore>().SaveConfigurationFile("ownerTeamChange", setupTeamNumber.Text);
             DependencyService.Get<DataStore>().SaveConfigurationFile("ownerScoutChange", setupScoutName.Text);
+            if(connectedDevice != null)
+            {
+                DependencyService.Get<DataStore>().SaveConfigurationFile("selectedMaster", new DeviceInformation() { DeviceName = connectedDevice.Name, DeviceID = connectedDevice.Id.ToString() });
+            }
+            
+            try
+            {
+                adapter.DisconnectDeviceAsync(connectedDevice);
+            }
+            catch(Exception ex)
+            {
+
+            }
             Navigation.PushAsync(new MainPage());
             
 
@@ -225,6 +280,37 @@ namespace LightScout
             Blue1,
             Blue2,
             Blue3
+        }
+
+        private async void bluetoothDevices_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            bool successful;
+            try
+            {
+                await adapter.ConnectToDeviceAsync((IDevice)e.Item);
+                successful = true;
+            }
+            catch(Exception ex)
+            {
+                successful = false;
+            }
+            if (successful)
+            {
+                finishForm.TranslationY = 100;
+
+                await Task.Delay(15);
+                finishForm.IsVisible = true;
+                await finishForm.TranslateTo(finishForm.TranslationX, finishForm.TranslationY + 10, 75, Easing.CubicOut);
+                await finishForm.TranslateTo(finishForm.TranslationX, finishForm.TranslationY - 110, 250, Easing.CubicOut);
+                bluetoothDevices.IsEnabled = false;
+                bluetoothSelected.IsVisible = true;
+            }
+            
+        }
+
+        private void StartUpQRReader(object sender, EventArgs e)
+        {
+
         }
     }
 }

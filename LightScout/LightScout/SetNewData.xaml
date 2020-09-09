@@ -25,13 +25,13 @@
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Margin="50,50,50,80" x:Name="setTeamNumberPanel">
                 <Label Text="Your Team Number" FontSize="35" HorizontalOptions="Center"/>
                 <Label Margin="10,0" FontSize="15" Text="To better improve the quality, security, and consistency of the software and app, we will save your team number to allow both the software and the app to security communicate with one another!" LineBreakMode="WordWrap" HorizontalTextAlignment="Center"/>
-                <Entry Placeholder="1023" x:Name="setupTeamNumber" TextColor="#2a7afa" WidthRequest="100" Keyboard="Numeric" HorizontalOptions="Center" FontSize="40" MaxLength="4" HorizontalTextAlignment="Center"/>
+                <Entry BackgroundColor="Transparent" Placeholder="1023" x:Name="setupTeamNumber" TextColor="#2a7afa" WidthRequest="150" Keyboard="Numeric" HorizontalOptions="Center" FontSize="40" MaxLength="4" HorizontalTextAlignment="Center"/>
                 <Button Margin="0,30" HorizontalOptions="Center" WidthRequest="100" Clicked="FinishedTeamNumber" Text="Next" FontSize="20" BackgroundColor="#2a7afa" CornerRadius="6" TextColor="White" FontAttributes="Bold"/>
             </StackLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Margin="50,50,50,80" x:Name="setScoutNamePanel" IsVisible="False">
                 <Label Text="Lead Scouter Name" FontSize="35" HorizontalOptions="Center"/>
                 <Label Margin="10,0" FontSize="15" Text="We only need this information to notify the users of this tablet who they should find if they have an issue. Whoever is managing the LightSwitch software should be the person entered in this box" LineBreakMode="WordWrap" HorizontalTextAlignment="Center"/>
-                <Entry Placeholder="John Doe" x:Name="setupScoutName" TextColor="#2a7afa" WidthRequest="250" HorizontalOptions="Center" FontSize="30" HorizontalTextAlignment="Center"/>
+                <Entry BackgroundColor="Transparent" Placeholder="John Doe" x:Name="setupScoutName" TextColor="#2a7afa" WidthRequest="300" HorizontalOptions="Center" FontSize="30" HorizontalTextAlignment="Center"/>
                 <Button Margin="0,30" Clicked="FinishedScoutName" HorizontalOptions="Center" WidthRequest="100" Text="Next" FontSize="20" BackgroundColor="#2a7afa" CornerRadius="6" TextColor="White" FontAttributes="Bold"/>
             </StackLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Margin="50,50,50,80" x:Name="setTabletTypePanel" IsVisible="False">
@@ -47,19 +47,19 @@
                         <RowDefinition Height="60"/>
                         <RowDefinition Height="60"/>
                     </Grid.RowDefinitions>
-                    <Button ClassId="Red1" BorderColor="Red" BorderWidth="2" TextColor="Red" FontAttributes="Bold" BackgroundColor="Transparent" Text="Red 1" Grid.Row="0" Grid.Column="0" Margin="5" HorizontalOptions="Center" CornerRadius="4" Clicked="SelectTabletType"/>
-                    <Button ClassId="Red2" BorderColor="Red" BorderWidth="2" TextColor="Red" FontAttributes="Bold" BackgroundColor="Transparent" Text="Red 2" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalOptions="Center" CornerRadius="4" Clicked="SelectTabletType"/>
-                    <Button ClassId="Red3" BorderColor="Red" BorderWidth="2" TextColor="Red" FontAttributes="Bold" BackgroundColor="Transparent" Text="Red 3" Grid.Row="0" Grid.Column="2" Margin="5" HorizontalOptions="Center" CornerRadius="4" Clicked="SelectTabletType"/>
-                    <Button ClassId="Blue1" BorderColor="Blue" BorderWidth="2" TextColor="Blue" FontAttributes="Bold" BackgroundColor="Transparent" Text="Blue 1" Grid.Row="1" Grid.Column="0" Margin="5" HorizontalOptions="Center" CornerRadius="4" Clicked="SelectTabletType"/>
-                    <Button ClassId="Blue2" BorderColor="Blue" BorderWidth="2" TextColor="Blue" FontAttributes="Bold" BackgroundColor="Transparent" Text="Blue 2" Grid.Row="1" Grid.Column="1" Margin="5" HorizontalOptions="Center" CornerRadius="4" Clicked="SelectTabletType"/>
-                    <Button ClassId="Blue3" BorderColor="Blue" BorderWidth="2" TextColor="Blue" FontAttributes="Bold" BackgroundColor="Transparent" Text="Blue 3" Grid.Row="1" Grid.Column="2" Margin="5" HorizontalOptions="Center" CornerRadius="4" Clicked="SelectTabletType"/>
+                    <Button ClassId="Red1" BorderColor="Red" BorderWidth="2" TextColor="Red" FontAttributes="Bold" BackgroundColor="Transparent" Text="Red 1" Grid.Row="0" Grid.Column="0" Margin="5" HorizontalOptions="Center" CornerRadius="4" Clicked="SelectTabletType" WidthRequest="100"/>
+                    <Button ClassId="Red2" BorderColor="Red" BorderWidth="2" TextColor="Red" FontAttributes="Bold" BackgroundColor="Transparent" Text="Red 2" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalOptions="Center" CornerRadius="4" Clicked="SelectTabletType" WidthRequest="100"/>
+                    <Button ClassId="Red3" BorderColor="Red" BorderWidth="2" TextColor="Red" FontAttributes="Bold" BackgroundColor="Transparent" Text="Red 3" Grid.Row="0" Grid.Column="2" Margin="5" HorizontalOptions="Center" CornerRadius="4" Clicked="SelectTabletType" WidthRequest="100"/>
+                    <Button ClassId="Blue1" BorderColor="Blue" BorderWidth="2" TextColor="Blue" FontAttributes="Bold" BackgroundColor="Transparent" Text="Blue 1" Grid.Row="1" Grid.Column="0" Margin="5" HorizontalOptions="Center" CornerRadius="4" Clicked="SelectTabletType" WidthRequest="100"/>
+                    <Button ClassId="Blue2" BorderColor="Blue" BorderWidth="2" TextColor="Blue" FontAttributes="Bold" BackgroundColor="Transparent" Text="Blue 2" Grid.Row="1" Grid.Column="1" Margin="5" HorizontalOptions="Center" CornerRadius="4" Clicked="SelectTabletType" WidthRequest="100"/>
+                    <Button ClassId="Blue3" BorderColor="Blue" BorderWidth="2" TextColor="Blue" FontAttributes="Bold" BackgroundColor="Transparent" Text="Blue 3" Grid.Row="1" Grid.Column="2" Margin="5" HorizontalOptions="Center" CornerRadius="4" Clicked="SelectTabletType" WidthRequest="100"/>
                 </Grid>
                 <Button Margin="0,14" Clicked="FinishedTabletType" HorizontalOptions="Center" WidthRequest="100" Text="Next" FontSize="20" BackgroundColor="#2a7afa" CornerRadius="6" TextColor="White" FontAttributes="Bold"/>
             </StackLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Margin="50,50,50,80" x:Name="setCodePanel" IsVisible="False">
                 <Label Text="Set Scouter Code" FontSize="35" HorizontalOptions="Center"/>
                 <Label Margin="10,0" FontSize="15" Text="This is a code that only the strategy / scout leader should know. It unlocks access to destructive access! BEWARE: This can only be changed using the software if you forget your password." LineBreakMode="WordWrap" HorizontalTextAlignment="Center"/>
-                <Entry Placeholder="0000" x:Name="setupCode" TextColor="#2a7afa" IsPassword="True" WidthRequest="100" Keyboard="Numeric" HorizontalOptions="Center" FontSize="40" MaxLength="4" HorizontalTextAlignment="Center"/>
+                <Entry BackgroundColor="Transparent" Placeholder="0000" x:Name="setupCode" TextColor="#2a7afa" IsPassword="True" WidthRequest="150" Keyboard="Numeric" HorizontalOptions="Center" FontSize="40" MaxLength="4" HorizontalTextAlignment="Center"/>
                 <Button Margin="0,30" Clicked="FinishedScoutCode" HorizontalOptions="Center" WidthRequest="100" Text="Next" FontSize="20" BackgroundColor="#2a7afa" CornerRadius="6" TextColor="White" FontAttributes="Bold"/>
             </StackLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Margin="50,50,50,80" x:Name="setSelectedMaster" IsVisible="False">

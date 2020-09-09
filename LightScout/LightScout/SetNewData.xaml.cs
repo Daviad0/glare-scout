@@ -30,6 +30,7 @@ namespace LightScout
 
         private async void FinishedTeamNumber(object sender, EventArgs e)
         {
+            DependencyService.Get<IKeyboardHelper>().HideKeyboard();
             setTeamNumberPanel.TranslateTo(setTeamNumberPanel.TranslationX - 600, setTeamNumberPanel.TranslationY, 500, Easing.CubicInOut);
             await Task.Delay(150);
             setScoutNamePanel.TranslationX = 600;
@@ -50,6 +51,7 @@ namespace LightScout
         }
         private async void FinishedScoutName(object sender, EventArgs e)
         {
+            DependencyService.Get<IKeyboardHelper>().HideKeyboard();
             setScoutNamePanel.TranslateTo(setScoutNamePanel.TranslationX - 600, setScoutNamePanel.TranslationY, 500, Easing.CubicInOut);
             await Task.Delay(150);
             setTabletTypePanel.TranslationX = 600;
@@ -64,6 +66,7 @@ namespace LightScout
         }
         private async void FinishedTabletType(object sender, EventArgs e)
         {
+            DependencyService.Get<IKeyboardHelper>().HideKeyboard();
             setTabletTypePanel.TranslateTo(setTabletTypePanel.TranslationX - 600, setTabletTypePanel.TranslationY, 500, Easing.CubicInOut);
             await Task.Delay(150);
             setCodePanel.TranslationX = 600;
@@ -81,6 +84,7 @@ namespace LightScout
         }
         private async void FinishedScoutCode(object sender, EventArgs e)
         {
+            DependencyService.Get<IKeyboardHelper>().HideKeyboard();
             setCodePanel.TranslateTo(setCodePanel.TranslationX - 600, setCodePanel.TranslationY, 500, Easing.CubicInOut);
             await Task.Delay(150);
             setSelectedMaster.TranslationX = 600;
@@ -100,7 +104,7 @@ namespace LightScout
         {
             if (!setTeamNumberPanel.IsVisible)
             {
-                
+                DependencyService.Get<IKeyboardHelper>().HideKeyboard();
                 await finishForm.TranslateTo(finishForm.TranslationX, finishForm.TranslationY - 10, 75, Easing.CubicOut);
                 await finishForm.TranslateTo(finishForm.TranslationX, finishForm.TranslationY + 110, 250, Easing.CubicOut);
                 finishForm.IsVisible = false;

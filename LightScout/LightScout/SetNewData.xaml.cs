@@ -47,7 +47,8 @@ namespace LightScout
             useQRCode.IsVisible = false;
             await Task.Delay(15);
             useQRCode.TranslationY = 0;
-
+            BarcodeScanView.IsVisible = true;
+            BarcodeScanView.IsScanning = true;
         }
         private async void FinishedScoutName(object sender, EventArgs e)
         {
@@ -315,6 +316,11 @@ namespace LightScout
         private void StartUpQRReader(object sender, EventArgs e)
         {
 
+        }
+
+        private void BarcodeScanView_OnScanResult(ZXing.Result result)
+        {
+            Console.WriteLine(result.ToString());
         }
     }
 }

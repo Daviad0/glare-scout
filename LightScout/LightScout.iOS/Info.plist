@@ -47,9 +47,11 @@
 		<string>bluetooth-peripheral</string>
 	</array>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Bluwutooth?</string>
+	<string>Please allow usage of Bluetooth for data tracking!</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Bluwutooth?</string>
+	<string>Please allow usage of Bluetooth for data tracking!</string>
+  <key>NSCameraUsageDescription</key>
+  <string>Please allow the camera to be used for scanning barcodes!</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>

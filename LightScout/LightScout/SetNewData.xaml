@@ -16,7 +16,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
-            <Frame BackgroundColor="#2a7afa" Grid.Row="0">
+            <Frame BackgroundColor="#2a7afa" Grid.Row="0" CornerRadius="0">
                 <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
                     
                     <Label TextColor="White" Text="Welcome to LightScout" FontSize="30" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
@@ -28,15 +28,15 @@
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Margin="50,50,50,80" x:Name="setTeamNumberPanel">
                 <Label Text="Your Team Number" FontSize="35" HorizontalOptions="Center"/>
                 <Label Margin="10,0" FontSize="15" Text="To better improve the quality, security, and consistency of the software and app, we will save your team number to allow both the software and the app to security communicate with one another!" LineBreakMode="WordWrap" HorizontalTextAlignment="Center"/>
-                <Entry BackgroundColor="Transparent" Placeholder="1023" x:Name="setupTeamNumber" TextColor="#2a7afa" WidthRequest="150" Keyboard="Numeric" HorizontalOptions="Center" FontSize="40" MaxLength="4" HorizontalTextAlignment="Center"/>
+                <Entry Margin="0,10,0,0" BackgroundColor="LightBlue" PlaceholderColor="White" Placeholder="1023" x:Name="setupTeamNumber" TextColor="#2a7afa" WidthRequest="150" Keyboard="Numeric" HorizontalOptions="Center" FontSize="40" MaxLength="4" HorizontalTextAlignment="Center"/>
                 <Button Margin="0,30" HorizontalOptions="Center" WidthRequest="100" Clicked="FinishedTeamNumber" Text="Next" FontSize="20" BackgroundColor="#2a7afa" CornerRadius="6" TextColor="White" FontAttributes="Bold"/>
             </StackLayout>
-            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Margin="50,50,50,80" x:Name="scanQRCodePanel">
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Margin="50,50,50,80" x:Name="scanQRCodePanel" IsVisible="False">
                 <Label Text="Scan a QR Code" FontSize="35" HorizontalOptions="Center"/>
                 <Label Margin="10,0" FontSize="15" Text="The LightSwitch software will provide you a custom QR code that provides all of the tablet setup information." LineBreakMode="WordWrap" HorizontalTextAlignment="Center"/>
-                <Grid>
-                    <zxing:ZXingScannerView Grid.Row="0" Grid.Column="0" IsScanning="False"  x:Name="BarcodeScanView" IsVisible="false" HeightRequest="300" OnScanResult="BarcodeScanView_OnScanResult" />
-                    <zxing:ZXingDefaultOverlay Grid.Row="0" Grid.Column="0" TopText="LightScout"/>
+                <Grid Margin="0,10,0,0">
+                    <zxing:ZXingScannerView Grid.Row="0" Grid.Column="0" IsScanning="False"  x:Name="BarcodeScanView" IsVisible="false" HeightRequest="700" OnScanResult="BarcodeScanView_OnScanResult"/>
+                    <zxing:ZXingDefaultOverlay Grid.Row="0" Grid.Column="0"/>
                 </Grid>
                 
                 <Button Margin="0,30" HorizontalOptions="Center" WidthRequest="100" Clicked="CancelQRReader" Text="Cancel" FontSize="20" BackgroundColor="Red" CornerRadius="6" TextColor="White" FontAttributes="Bold"/>
@@ -44,7 +44,7 @@
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Margin="50,50,50,80" x:Name="setScoutNamePanel" IsVisible="False">
                 <Label Text="Lead Scouter Name" FontSize="35" HorizontalOptions="Center"/>
                 <Label Margin="10,0" FontSize="15" Text="We only need this information to notify the users of this tablet who they should find if they have an issue. Whoever is managing the LightSwitch software should be the person entered in this box" LineBreakMode="WordWrap" HorizontalTextAlignment="Center"/>
-                <Entry BackgroundColor="Transparent" Placeholder="John Doe" x:Name="setupScoutName" TextColor="#2a7afa" WidthRequest="300" HorizontalOptions="Center" FontSize="30" HorizontalTextAlignment="Center"/>
+                <Entry Margin="0,10,0,0" BackgroundColor="LightBlue" PlaceholderColor="White" Placeholder="John Doe" x:Name="setupScoutName" TextColor="#2a7afa" WidthRequest="300" HorizontalOptions="Center" FontSize="30" HorizontalTextAlignment="Center"/>
                 <Button Margin="0,30" Clicked="FinishedScoutName" HorizontalOptions="Center" WidthRequest="100" Text="Next" FontSize="20" BackgroundColor="#2a7afa" CornerRadius="6" TextColor="White" FontAttributes="Bold"/>
             </StackLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Margin="50,50,50,80" x:Name="setTabletTypePanel" IsVisible="False">
@@ -72,7 +72,7 @@
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Margin="50,50,50,80" x:Name="setCodePanel" IsVisible="False">
                 <Label Text="Set Scouter Code" FontSize="35" HorizontalOptions="Center"/>
                 <Label Margin="10,0" FontSize="15" Text="This is a code that only the strategy / scout leader should know. It unlocks access to destructive access! BEWARE: This can only be changed using the software if you forget your password." LineBreakMode="WordWrap" HorizontalTextAlignment="Center"/>
-                <Entry BackgroundColor="Transparent" Placeholder="0000" x:Name="setupCode" TextColor="#2a7afa" IsPassword="True" WidthRequest="150" Keyboard="Numeric" HorizontalOptions="Center" FontSize="40" MaxLength="4" HorizontalTextAlignment="Center"/>
+                <Entry Margin="0,10,0,0" BackgroundColor="LightBlue" Placeholder="0000" PlaceholderColor="White" x:Name="setupCode" TextColor="#2a7afa" IsPassword="True" WidthRequest="150" Keyboard="Numeric" HorizontalOptions="Center" FontSize="40" MaxLength="4" HorizontalTextAlignment="Center"/>
                 <Button Margin="0,30" Clicked="FinishedScoutCode" HorizontalOptions="Center" WidthRequest="100" Text="Next" FontSize="20" BackgroundColor="#2a7afa" CornerRadius="6" TextColor="White" FontAttributes="Bold"/>
             </StackLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Margin="50,50,50,80" x:Name="setSelectedMaster" IsVisible="False">

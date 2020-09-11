@@ -47,8 +47,7 @@ namespace LightScout
             useQRCode.IsVisible = false;
             await Task.Delay(15);
             useQRCode.TranslationY = 0;
-            //BarcodeScanView.IsVisible = true;
-            //BarcodeScanView.IsScanning = true;
+            
         }
         private async void FinishedScoutName(object sender, EventArgs e)
         {
@@ -309,6 +308,11 @@ namespace LightScout
                 await finishForm.TranslateTo(finishForm.TranslationX, finishForm.TranslationY - 110, 250, Easing.CubicOut);
                 bluetoothDevices.IsEnabled = false;
                 bluetoothSelected.IsVisible = true;
+                await resetForm.TranslateTo(resetForm.TranslationX, resetForm.TranslationY - 10, 75, Easing.CubicOut);
+                await resetForm.TranslateTo(resetForm.TranslationX, resetForm.TranslationY + 110, 250, Easing.CubicOut);
+                resetForm.IsVisible = false;
+                await Task.Delay(15);
+                resetForm.TranslationY = 0;
             }
             
         }
@@ -316,6 +320,13 @@ namespace LightScout
         private async void StartUpQRReader(object sender, EventArgs e)
         {
             DependencyService.Get<IKeyboardHelper>().HideKeyboard();
+            await useQRCode.TranslateTo(useQRCode.TranslationX, useQRCode.TranslationY - 10, 75, Easing.CubicOut);
+            await useQRCode.TranslateTo(useQRCode.TranslationX, useQRCode.TranslationY + 110, 250, Easing.CubicOut);
+            useQRCode.IsVisible = false;
+            await Task.Delay(15);
+            useQRCode.TranslationY = 0;
+            BarcodeScanView.IsVisible = true;
+            BarcodeScanView.IsScanning = true;
             setTeamNumberPanel.TranslateTo(setTeamNumberPanel.TranslationX, setTeamNumberPanel.TranslationY+1200, 500, Easing.CubicInOut);
             await Task.Delay(150);
             scanQRCodePanel.TranslationX = 0;
@@ -328,11 +339,7 @@ namespace LightScout
             await Task.Delay(10);
             setTeamNumberPanel.TranslationX = 0;
             setTeamNumberPanel.TranslationY = 0;
-            await useQRCode.TranslateTo(useQRCode.TranslationX, useQRCode.TranslationY - 10, 75, Easing.CubicOut);
-            await useQRCode.TranslateTo(useQRCode.TranslationX, useQRCode.TranslationY + 110, 250, Easing.CubicOut);
-            useQRCode.IsVisible = false;
-            await Task.Delay(15);
-            useQRCode.TranslationY = 0;
+            
         }
         private async void CancelQRReader(object sender, EventArgs e)
         {
@@ -349,7 +356,9 @@ namespace LightScout
             await Task.Delay(10);
             scanQRCodePanel.TranslationX = 0;
             scanQRCodePanel.TranslationY = 0;
+            useQRCode.TranslationY = 100;
             await Task.Delay(15);
+            
             useQRCode.IsVisible = true;
             await useQRCode.TranslateTo(useQRCode.TranslationX, useQRCode.TranslationY + 10, 75, Easing.CubicOut);
             await useQRCode.TranslateTo(useQRCode.TranslationX, useQRCode.TranslationY - 110, 250, Easing.CubicOut);

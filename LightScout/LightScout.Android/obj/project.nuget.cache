@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "sOKMJ6K5ahxJ3KBtgsrgZ5eaH0YhvQM2G2vAlPqd+maTwuAgNXWvQQ9wO3KCc/rdPWxSod2d5lvmza+in0aeQw==",
+  "dgSpecHash": "GGxX3B3BkOEiupVecugyLt5aRcKDmof0x4SMf4yfqb4o+1kclJd2DZ1CjYP8Fs1idcwRGA2swYHJ5GSwE4fQuA==",
   "success": true,
   "projectFilePath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout.Android\\LightScout.Android.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\djree\\.nuget\\packages\\fastandroidcamera\\2.0.0\\fastandroidcamera.2.0.0.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\lusovu.xamarinusbserialforandroid\\0.2.3\\lusovu.xamarinusbserialforandroid.0.2.3.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
@@ -64,7 +65,9 @@
     "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.android.support.versionedparcelable\\28.0.0.3\\xamarin.android.support.versionedparcelable.28.0.0.3.nupkg.sha512",
     "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.android.support.viewpager\\28.0.0.3\\xamarin.android.support.viewpager.28.0.0.3.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\xamarin.essentials\\1.5.3.2\\xamarin.essentials.1.5.3.2.nupkg.sha512",
-    "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.forms\\4.4.0.991265\\xamarin.forms.4.4.0.991265.nupkg.sha512"
+    "C:\\Microsoft\\Xamarin\\NuGet\\xamarin.forms\\4.4.0.991265\\xamarin.forms.4.4.0.991265.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\zxing.net.mobile\\2.4.1\\zxing.net.mobile.2.4.1.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\zxing.net.mobile.forms\\2.4.1\\zxing.net.mobile.forms.2.4.1.nupkg.sha512"
   ],
   "logs": []
 }

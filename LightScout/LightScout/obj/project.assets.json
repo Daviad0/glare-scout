@@ -2151,6 +2151,7 @@
       "Xam.Plugin.DeviceInfo >= 4.1.1",
       "Xamarin.Essentials >= 1.5.3.2",
       "Xamarin.Forms >= 4.4.0.991265",
+      "ZXing.Net.Mobile >= 2.4.1",
       "ZXing.Net.Mobile.Forms >= 2.4.1"
     ]
   },
@@ -2231,6 +2232,10 @@
           "Xamarin.Forms": {
             "target": "Package",
             "version": "[4.4.0.991265, )"
+          },
+          "ZXing.Net.Mobile": {
+            "target": "Package",
+            "version": "[2.4.1, )"
           },
           "ZXing.Net.Mobile.Forms": {
             "target": "Package",

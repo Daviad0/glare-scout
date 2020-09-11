@@ -313,14 +313,52 @@ namespace LightScout
             
         }
 
-        private void StartUpQRReader(object sender, EventArgs e)
+        private async void StartUpQRReader(object sender, EventArgs e)
         {
-
+            DependencyService.Get<IKeyboardHelper>().HideKeyboard();
+            setTeamNumberPanel.TranslateTo(setTeamNumberPanel.TranslationX, setTeamNumberPanel.TranslationY+1200, 500, Easing.CubicInOut);
+            await Task.Delay(150);
+            scanQRCodePanel.TranslationX = 0;
+            scanQRCodePanel.TranslationY = 1200;
+            await Task.Delay(50);
+            scanQRCodePanel.IsVisible = true;
+            scanQRCodePanel.TranslateTo(scanQRCodePanel.TranslationX, scanQRCodePanel.TranslationY-1200, 500, Easing.CubicInOut);
+            await Task.Delay(290);
+            setTeamNumberPanel.IsVisible = false;
+            await Task.Delay(10);
+            setTeamNumberPanel.TranslationX = 0;
+            setTeamNumberPanel.TranslationY = 0;
+            await useQRCode.TranslateTo(useQRCode.TranslationX, useQRCode.TranslationY - 10, 75, Easing.CubicOut);
+            await useQRCode.TranslateTo(useQRCode.TranslationX, useQRCode.TranslationY + 110, 250, Easing.CubicOut);
+            useQRCode.IsVisible = false;
+            await Task.Delay(15);
+            useQRCode.TranslationY = 0;
+        }
+        private async void CancelQRReader(object sender, EventArgs e)
+        {
+            DependencyService.Get<IKeyboardHelper>().HideKeyboard();
+            scanQRCodePanel.TranslateTo(scanQRCodePanel.TranslationX, scanQRCodePanel.TranslationY + 1200, 500, Easing.CubicInOut);
+            await Task.Delay(150);
+            setTeamNumberPanel.TranslationX = 0;
+            setTeamNumberPanel.TranslationY = 1200;
+            await Task.Delay(50);
+            setTeamNumberPanel.IsVisible = true;
+            setTeamNumberPanel.TranslateTo(setTeamNumberPanel.TranslationX, setTeamNumberPanel.TranslationY - 1200, 500, Easing.CubicInOut);
+            await Task.Delay(290);
+            scanQRCodePanel.IsVisible = false;
+            await Task.Delay(10);
+            scanQRCodePanel.TranslationX = 0;
+            scanQRCodePanel.TranslationY = 0;
+            await Task.Delay(15);
+            useQRCode.IsVisible = true;
+            await useQRCode.TranslateTo(useQRCode.TranslationX, useQRCode.TranslationY + 10, 75, Easing.CubicOut);
+            await useQRCode.TranslateTo(useQRCode.TranslationX, useQRCode.TranslationY - 110, 250, Easing.CubicOut);
+            await Task.Delay(10);
         }
 
-        //private void BarcodeScanView_OnScanResult(ZXing.Result result)
-        //{
-        //    Console.WriteLine(result.ToString());
-        //}
+        private void BarcodeScanView_OnScanResult(ZXing.Result result)
+        {
+            Console.WriteLine(result.ToString());
+        }
     }
 }

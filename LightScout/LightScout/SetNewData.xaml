@@ -3,13 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms" 
+             xmlns:zxcm="clr-namespace:ZXing.Common;assembly=zxing.portable"
              mc:Ignorable="d"
              x:Class="LightScout.SetNewData"
              NavigationPage.HasNavigationBar="False"
              NavigationPage.HasBackButton="False">
-    <!--xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms" 
-             xmlns:zxcm="clr-namespace:ZXing.Common;assembly=zxing.portable"-->
     <ContentPage.Content>
         <Grid VerticalOptions="Fill">
             <Grid.RowDefinitions>
@@ -32,11 +31,20 @@
                 <Entry BackgroundColor="Transparent" Placeholder="1023" x:Name="setupTeamNumber" TextColor="#2a7afa" WidthRequest="150" Keyboard="Numeric" HorizontalOptions="Center" FontSize="40" MaxLength="4" HorizontalTextAlignment="Center"/>
                 <Button Margin="0,30" HorizontalOptions="Center" WidthRequest="100" Clicked="FinishedTeamNumber" Text="Next" FontSize="20" BackgroundColor="#2a7afa" CornerRadius="6" TextColor="White" FontAttributes="Bold"/>
             </StackLayout>
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Margin="50,50,50,80" x:Name="scanQRCodePanel">
+                <Label Text="Scan a QR Code" FontSize="35" HorizontalOptions="Center"/>
+                <Label Margin="10,0" FontSize="15" Text="The LightSwitch software will provide you a custom QR code that provides all of the tablet setup information." LineBreakMode="WordWrap" HorizontalTextAlignment="Center"/>
+                <Grid>
+                    <zxing:ZXingScannerView Grid.Row="0" Grid.Column="0" IsScanning="False"  x:Name="BarcodeScanView" IsVisible="false" HeightRequest="300" OnScanResult="BarcodeScanView_OnScanResult" />
+                    <zxing:ZXingDefaultOverlay Grid.Row="0" Grid.Column="0" TopText="LightScout"/>
+                </Grid>
+                
+                <Button Margin="0,30" HorizontalOptions="Center" WidthRequest="100" Clicked="CancelQRReader" Text="Cancel" FontSize="20" BackgroundColor="Red" CornerRadius="6" TextColor="White" FontAttributes="Bold"/>
+            </StackLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Margin="50,50,50,80" x:Name="setScoutNamePanel" IsVisible="False">
                 <Label Text="Lead Scouter Name" FontSize="35" HorizontalOptions="Center"/>
                 <Label Margin="10,0" FontSize="15" Text="We only need this information to notify the users of this tablet who they should find if they have an issue. Whoever is managing the LightSwitch software should be the person entered in this box" LineBreakMode="WordWrap" HorizontalTextAlignment="Center"/>
                 <Entry BackgroundColor="Transparent" Placeholder="John Doe" x:Name="setupScoutName" TextColor="#2a7afa" WidthRequest="300" HorizontalOptions="Center" FontSize="30" HorizontalTextAlignment="Center"/>
-                <!--<zxing:ZXingScannerView x:Name="BarcodeScanView" IsVisible="false" HeightRequest="200" OnScanResult="BarcodeScanView_OnScanResult" />-->
                 <Button Margin="0,30" Clicked="FinishedScoutName" HorizontalOptions="Center" WidthRequest="100" Text="Next" FontSize="20" BackgroundColor="#2a7afa" CornerRadius="6" TextColor="White" FontAttributes="Bold"/>
             </StackLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Margin="50,50,50,80" x:Name="setTabletTypePanel" IsVisible="False">
@@ -86,7 +94,8 @@
                     </Frame>
                 </Grid>
                 
-                <Button Margin="0,30" Clicked="SkipTabletConnection" HorizontalOptions="Center" WidthRequest="100" Text="Skip" FontSize="20" BackgroundColor="#2a7afa" CornerRadius="6" TextColor="White" FontAttributes="Bold"/>
+                <Button Margin="0,30" Clicked="SkipTabletConnection" HorizontalOptions="Center" WidthRequest="100" Text="Skip" FontSize="20" BackgroundColor="Gray" CornerRadius="6" TextColor="White" FontAttributes="Bold"/>
+                
             </StackLayout>
             <Button x:Name="resetForm" Clicked="RestartForm" HorizontalOptions="Start" WidthRequest="60" VerticalOptions="End" Margin="0,5" Text="&#xefd1;" FontFamily="{StaticResource IconFont}" FontSize="30" BackgroundColor="Transparent" TextColor="#2a7afa" Grid.Row="2"/>
             <Button x:Name="finishForm" Clicked="SubmitNewData" HorizontalOptions="End" WidthRequest="60" VerticalOptions="End" Margin="0,5" Text="&#xeed8;" FontFamily="{StaticResource IconFont}" FontSize="30" BackgroundColor="Transparent" TextColor="Green" Grid.Row="2" IsVisible="False"/>

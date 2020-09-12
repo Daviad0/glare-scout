@@ -41,43 +41,43 @@
                 
                 <Button Margin="0,30" HorizontalOptions="Center" WidthRequest="100" Clicked="CancelQRReader" Text="Cancel" FontSize="20" BackgroundColor="Red" CornerRadius="6" TextColor="White" FontAttributes="Bold"/>
             </StackLayout>
-            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Margin="50,50,50,80" x:Name="checkScanValues" IsVisible="False">
-                <Grid Margin="10,5">
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Margin="35,50,35,80" x:Name="checkScanValues" IsVisible="False">
+                <Grid Margin="0,5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="150"/>
                     </Grid.ColumnDefinitions>
-                    <Label Text="Team Number" FontSize="20" FontAttributes="Bold" Grid.Column="0" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
-                    <Entry x:Name="checkTeamNumber" Text="862" Grid.Column="1" HorizontalTextAlignment="Center" HorizontalOptions="Center" WidthRequest="100" FontSize="20"/>
+                    <Label LineBreakMode="WordWrap" Text="Team Number" FontSize="20" FontAttributes="Bold" Grid.Column="0" HorizontalTextAlignment="Start" HorizontalOptions="Start"/>
+                    <Entry IsEnabled="False" x:Name="checkTeamNumber" Text="862" Grid.Column="1" HorizontalTextAlignment="Center" HorizontalOptions="End" WidthRequest="150" FontSize="20"/>
                 </Grid>
-                <Grid Margin="10,5">
+                <Grid Margin="0,5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="150"/>
                     </Grid.ColumnDefinitions>
-                    <Label Text="Scout Name" FontSize="20" FontAttributes="Bold" Grid.Column="0" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
-                    <Entry x:Name="checkScoutName" Text="David Reeves" Grid.Column="1" HorizontalTextAlignment="Center" HorizontalOptions="Center" WidthRequest="200" FontSize="20"/>
+                    <Label LineBreakMode="WordWrap" Text="Scout Name" FontSize="20" FontAttributes="Bold" Grid.Column="0" HorizontalTextAlignment="Start" HorizontalOptions="Start"/>
+                    <Entry IsEnabled="False" x:Name="checkScoutName" Text="David Reeves" Grid.Column="1" HorizontalTextAlignment="Center" HorizontalOptions="End" WidthRequest="150" FontSize="15"/>
                 </Grid>
-                <Grid Margin="10,5">
+                <Grid Margin="0,5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="150"/>
                     </Grid.ColumnDefinitions>
-                    <Label Text="Tablet Type" FontSize="20" FontAttributes="Bold" Grid.Column="0" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
-                    <Frame x:Name="checkTabletIdBox" Grid.Column="1" WidthRequest="100" HorizontalOptions="Center" BackgroundColor="Red" CornerRadius="2" Padding="5">
-                        <Label x:Name="checkTabletIdLabel" Text="Red 1" TextColor="White" HorizontalOptions="Center" FontSize="15"/>
+                    <Label LineBreakMode="WordWrap" Text="Tablet Type" FontSize="20" FontAttributes="Bold" Grid.Column="0" HorizontalTextAlignment="Start" HorizontalOptions="Start"/>
+                    <Frame x:Name="checkTabletIdBox" Grid.Column="1" WidthRequest="150" HorizontalOptions="End" BackgroundColor="Red" CornerRadius="4" Padding="5">
+                        <Label VerticalOptions="Center" x:Name="checkTabletIdLabel" Text="Red 1" TextColor="White" HorizontalOptions="Center" FontSize="15"/>
                     </Frame>
                 </Grid>
-                <Grid Margin="10,5">
+                <Grid Margin="0,5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
-                    <Label Text="Scouter Code" FontSize="20" FontAttributes="Bold" Grid.Column="0" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
-                    <Entry x:Name="checkScoutCode" Text="0000" Grid.Column="1" HorizontalTextAlignment="Center" HorizontalOptions="Center" WidthRequest="100" FontSize="20"/>
+                    <Label LineBreakMode="WordWrap" Text="Scouter Code" FontSize="20" FontAttributes="Bold" Grid.Column="0" HorizontalTextAlignment="Start" HorizontalOptions="Start"/>
+                    <Entry IsEnabled="False" x:Name="checkScoutCode" Text="0000" Grid.Column="1" HorizontalTextAlignment="Center" HorizontalOptions="End" WidthRequest="150" FontSize="20"/>
                 </Grid>
-                <Button x:Name="nextFromScanResult" Margin="0,30" Clicked="CorrectScanValues" HorizontalOptions="Center" WidthRequest="100" Text="Next" FontSize="20" BackgroundColor="#2a7afa" CornerRadius="6" TextColor="White" FontAttributes="Bold" IsEnabled="False"/>
-                <Button x:Name="backToQRScan" Margin="0,30" Clicked="IncorrectScanValues" HorizontalOptions="Center" WidthRequest="100" Text="Re-Scan" FontSize="20" BackgroundColor="Red" CornerRadius="6" TextColor="White" FontAttributes="Bold" IsEnabled="False"/>
+                <Button x:Name="nextFromScanResult" Margin="0,30,0,5" Clicked="CorrectScanValues" HorizontalOptions="Center" WidthRequest="100" Text="Next" FontSize="20" BackgroundColor="#2a7afa" CornerRadius="6" TextColor="White" FontAttributes="Bold"/>
+                <Button x:Name="backToQRScan" Margin="0,5,0,30" Clicked="IncorrectScanValues" HorizontalOptions="Center" WidthRequest="100" Text="Re-Scan" FontSize="20" BackgroundColor="Red" CornerRadius="6" TextColor="White" FontAttributes="Bold"/>
             </StackLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Margin="50,50,50,80" x:Name="setScoutNamePanel" IsVisible="False">
                 <Label Text="Lead Scouter Name" FontSize="35" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
@@ -118,22 +118,22 @@
                 <Label Text="Select Your LightSwitch" FontSize="35" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
                 <Label Margin="10,0" FontSize="15" Text="Choose a device from the list below. If the device is not listed, make sure the software is active and the Bluetooth symbol is lit up!" LineBreakMode="WordWrap" HorizontalTextAlignment="Center"/>
                 <Grid Margin="0,10,0,0">
-                    <ListView BackgroundColor="White" x:Name="bluetoothDevices" HeightRequest="400" ItemTapped="bluetoothDevices_ItemTapped" Grid.Row="0" Grid.Column="0">
+                    <ListView BackgroundColor="White" x:Name="bluetoothDevices" HeightRequest="500" ItemTapped="bluetoothDevices_ItemTapped" Grid.Row="0" Grid.Column="0">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <TextCell TextColor="Gray" Text="{Binding Name}" />
+                                <TextCell TextColor="DimGray" Text="{Binding Name}" />
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="LightGray" HeightRequest="400" Opacity="0.4" x:Name="bluetoothLoading">
+                    <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="LightGray" HeightRequest="500" Opacity="0.4" x:Name="bluetoothLoading">
                         <Label Text="Loading..." TextColor="DimGray" FontAttributes="Bold" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
                     </Frame>
-                    <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="LightGreen" HeightRequest="400" Opacity="0.4" x:Name="bluetoothSelected" IsVisible="False">
+                    <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="LightGreen" HeightRequest="500" Opacity="0.4" x:Name="bluetoothSelected" IsVisible="False">
                         <Label Text="Device Selected!" TextColor="ForestGreen" FontAttributes="Bold" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
                     </Frame>
                 </Grid>
                 
-                <Button Margin="0,30" Clicked="SkipTabletConnection" HorizontalOptions="Center" WidthRequest="100" Text="Skip" FontSize="20" BackgroundColor="Gray" CornerRadius="6" TextColor="White" FontAttributes="Bold"/>
+                <Button x:Name="skipTablet" Margin="0,30" Clicked="SkipTabletConnection" HorizontalOptions="Center" WidthRequest="100" Text="Skip" FontSize="20" BackgroundColor="Gray" CornerRadius="6" TextColor="White" FontAttributes="Bold"/>
                 
             </StackLayout>
             <Button x:Name="resetForm" Clicked="RestartForm" HorizontalOptions="Start" WidthRequest="60" VerticalOptions="End" Margin="0,5" Text="&#xefd1;" FontFamily="{StaticResource IconFont}" FontSize="30" BackgroundColor="Transparent" TextColor="#2a7afa" Grid.Row="2"/>

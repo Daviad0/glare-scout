@@ -207,7 +207,11 @@ namespace LightScout
             lastTabletButton = selectedButton;
             DeviceDiscovered = new EventHandler<Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs>(async (s, a) =>
             {
-                foundDevices.Add(a.Device);
+                if(a.Device.Name != null && a.Device.Name != "")
+                {
+                    foundDevices.Add(a.Device);
+                }
+                
             });
             
             adapter.DeviceDiscovered += DeviceDiscovered;
@@ -312,13 +316,15 @@ namespace LightScout
             if (successful)
             {
                 finishForm.TranslationY = 100;
-
+                connectedDevice = (IDevice)e.Item;
                 await Task.Delay(15);
                 finishForm.IsVisible = true;
                 await finishForm.TranslateTo(finishForm.TranslationX, finishForm.TranslationY + 10, 75, Easing.CubicOut);
                 await finishForm.TranslateTo(finishForm.TranslationX, finishForm.TranslationY - 110, 250, Easing.CubicOut);
+                bluetoothDevices.FadeTo(.5);
                 bluetoothDevices.IsEnabled = false;
                 bluetoothSelected.IsVisible = true;
+                skipTablet.IsEnabled = false;
                 await resetForm.TranslateTo(resetForm.TranslationX, resetForm.TranslationY - 10, 75, Easing.CubicOut);
                 await resetForm.TranslateTo(resetForm.TranslationX, resetForm.TranslationY + 110, 250, Easing.CubicOut);
                 resetForm.IsVisible = false;
@@ -369,55 +375,78 @@ namespace LightScout
             scanQRCodePanel.TranslationY = 0;
             useQRCode.TranslationY = 100;
             await Task.Delay(15);
-            BarcodeScanView.IsVisible = false;
-            BarcodeScanView.IsScanning = false;
+            
             useQRCode.IsVisible = true;
             await useQRCode.TranslateTo(useQRCode.TranslationX, useQRCode.TranslationY + 10, 75, Easing.CubicOut);
             await useQRCode.TranslateTo(useQRCode.TranslationX, useQRCode.TranslationY - 110, 250, Easing.CubicOut);
-            await Task.Delay(10);
+            await Task.Delay(150);
+            BarcodeScanView.IsVisible = false;
+            BarcodeScanView.IsScanning = false;
         }
 
         private async void BarcodeScanView_OnScanResult(ZXing.Result result)
         {
+            var converter = new ColorTypeConverter();
             var rawresultstring = result.ToString();
             string[] differentValues = rawresultstring.Split('>');
-            setupTeamNumber.Text = differentValues[1];
-            setupScoutName.Text = differentValues[2];
-            setupCode.Text = differentValues[4];
-            switch (differentValues[3])
+            Device.BeginInvokeOnMainThread(async () =>
             {
-                case "R1":
-                    currentlySelectedTabletType = TabletType.Red1;
-                    break;
-                case "R2":
-                    currentlySelectedTabletType = TabletType.Red2;
-                    break;
-                case "R3":
-                    currentlySelectedTabletType = TabletType.Red3;
-                    break;
-                case "B1":
-                    currentlySelectedTabletType = TabletType.Blue1;
-                    break;
-                case "B2":
-                    currentlySelectedTabletType = TabletType.Blue2;
-                    break;
-                case "B3":
-                    currentlySelectedTabletType = TabletType.Blue3;
-                    break;
-            }
-            scanQRCodePanel.TranslateTo(scanQRCodePanel.TranslationX - 600, scanQRCodePanel.TranslationY, 500, Easing.CubicInOut);
-            await Task.Delay(150);
-            checkScanValues.TranslationX = 600;
-            checkScanValues.TranslationY = 0;
-            await Task.Delay(50);
-            checkScanValues.IsVisible = true;
-            checkScanValues.TranslateTo(checkScanValues.TranslationX - 600, checkScanValues.TranslationY, 500, Easing.CubicInOut);
-            await Task.Delay(290);
-            scanQRCodePanel.IsVisible = false;
-            await Task.Delay(10);
-            scanQRCodePanel.TranslationX = 0;
-            BarcodeScanView.IsVisible = false;
-            BarcodeScanView.IsScanning = false;
+                setupScoutName.Text = differentValues[2];
+                checkScoutName.Text = differentValues[2];
+                setupTeamNumber.Text = differentValues[1];
+                checkTeamNumber.Text = differentValues[1];
+                setupCode.Text = differentValues[4];
+                checkScoutCode.Text = differentValues[4];
+                switch (differentValues[3])
+                {
+                    case "R1":
+                        currentlySelectedTabletType = TabletType.Red1;
+                        checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Red");
+                        checkTabletIdLabel.Text = "Red 1";
+                        break;
+                    case "R2":
+                        currentlySelectedTabletType = TabletType.Red2;
+                        checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Red");
+                        checkTabletIdLabel.Text = "Red 2";
+                        break;
+                    case "R3":
+                        currentlySelectedTabletType = TabletType.Red3;
+                        checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Red");
+                        checkTabletIdLabel.Text = "Red 3";
+                        break;
+                    case "B1":
+                        currentlySelectedTabletType = TabletType.Blue1;
+                        checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Blue");
+                        checkTabletIdLabel.Text = "Blue 1";
+                        break;
+                    case "B2":
+                        currentlySelectedTabletType = TabletType.Blue2;
+                        checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Blue");
+                        checkTabletIdLabel.Text = "Blue 2";
+                        break;
+                    case "B3":
+                        currentlySelectedTabletType = TabletType.Blue3;
+                        checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Blue");
+                        checkTabletIdLabel.Text = "Blue 3";
+                        break;
+                }
+                scanQRCodePanel.TranslateTo(scanQRCodePanel.TranslationX - 600, scanQRCodePanel.TranslationY, 500, Easing.CubicInOut);
+                await Task.Delay(150);
+                checkScanValues.TranslationX = 600;
+                checkScanValues.TranslationY = 0;
+                await Task.Delay(50);
+                checkScanValues.IsVisible = true;
+                checkScanValues.TranslateTo(checkScanValues.TranslationX - 600, checkScanValues.TranslationY, 500, Easing.CubicInOut);
+                await Task.Delay(290);
+                scanQRCodePanel.IsVisible = false;
+                await Task.Delay(10);
+                scanQRCodePanel.TranslationX = 0;
+                await Task.Delay(140);
+                BarcodeScanView.IsVisible = false;
+                BarcodeScanView.IsScanning = false;
+                
+            });
+            
         }
         private void setupTeamNumber_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -456,7 +485,21 @@ namespace LightScout
             checkScanValues.IsVisible = false;
             await Task.Delay(10);
             checkScanValues.TranslationX = 0;
+            DeviceDiscovered = new EventHandler<Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs>(async (s, a) =>
+            {
+                if (a.Device.Name != null && a.Device.Name != "")
+                {
+                    foundDevices.Add(a.Device);
+                }
+            });
 
+            adapter.DeviceDiscovered += DeviceDiscovered;
+            await adapter.StartScanningForDevicesAsync();
+            Task.Delay(3000);
+            bluetoothLoading.IsVisible = false;
+            bluetoothDevices.ItemsSource = foundDevices;
+            adapter.DeviceDiscovered -= DeviceDiscovered;
+            await adapter.StopScanningForDevicesAsync();
 
 
         }

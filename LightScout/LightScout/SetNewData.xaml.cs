@@ -369,7 +369,8 @@ namespace LightScout
             scanQRCodePanel.TranslationY = 0;
             useQRCode.TranslationY = 100;
             await Task.Delay(15);
-            
+            BarcodeScanView.IsVisible = false;
+            BarcodeScanView.IsScanning = false;
             useQRCode.IsVisible = true;
             await useQRCode.TranslateTo(useQRCode.TranslationX, useQRCode.TranslationY + 10, 75, Easing.CubicOut);
             await useQRCode.TranslateTo(useQRCode.TranslationX, useQRCode.TranslationY - 110, 250, Easing.CubicOut);
@@ -406,15 +407,17 @@ namespace LightScout
             }
             scanQRCodePanel.TranslateTo(scanQRCodePanel.TranslationX - 600, scanQRCodePanel.TranslationY, 500, Easing.CubicInOut);
             await Task.Delay(150);
-            setSelectedMaster.TranslationX = 600;
-            setSelectedMaster.TranslationY = 0;
+            checkScanValues.TranslationX = 600;
+            checkScanValues.TranslationY = 0;
             await Task.Delay(50);
-            setSelectedMaster.IsVisible = true;
-            setSelectedMaster.TranslateTo(setSelectedMaster.TranslationX - 600, setSelectedMaster.TranslationY, 500, Easing.CubicInOut);
+            checkScanValues.IsVisible = true;
+            checkScanValues.TranslateTo(checkScanValues.TranslationX - 600, checkScanValues.TranslationY, 500, Easing.CubicInOut);
             await Task.Delay(290);
             scanQRCodePanel.IsVisible = false;
             await Task.Delay(10);
             scanQRCodePanel.TranslationX = 0;
+            BarcodeScanView.IsVisible = false;
+            BarcodeScanView.IsScanning = false;
         }
         private void setupTeamNumber_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -438,6 +441,43 @@ namespace LightScout
             {
                 nextFromScouterCode.IsEnabled = true;
             }
+        }
+        private async void CorrectScanValues(object sender, EventArgs e)
+        {
+            DependencyService.Get<IKeyboardHelper>().HideKeyboard();
+            checkScanValues.TranslateTo(checkScanValues.TranslationX - 600, checkScanValues.TranslationY, 500, Easing.CubicInOut);
+            await Task.Delay(150);
+            setSelectedMaster.TranslationX = 600;
+            setSelectedMaster.TranslationY = 0;
+            await Task.Delay(50);
+            setSelectedMaster.IsVisible = true;
+            setSelectedMaster.TranslateTo(setSelectedMaster.TranslationX - 600, setSelectedMaster.TranslationY, 500, Easing.CubicInOut);
+            await Task.Delay(290);
+            checkScanValues.IsVisible = false;
+            await Task.Delay(10);
+            checkScanValues.TranslationX = 0;
+
+
+
+        }
+        private async void IncorrectScanValues(object sender, EventArgs e)
+        {
+            DependencyService.Get<IKeyboardHelper>().HideKeyboard();
+            checkScanValues.TranslateTo(checkScanValues.TranslationX + 600, checkScanValues.TranslationY, 500, Easing.CubicInOut);
+            await Task.Delay(150);
+            scanQRCodePanel.TranslationX = -600;
+            scanQRCodePanel.TranslationY = 0;
+            await Task.Delay(50);
+            scanQRCodePanel.IsVisible = true;
+            scanQRCodePanel.TranslateTo(scanQRCodePanel.TranslationX + 600, scanQRCodePanel.TranslationY, 500, Easing.CubicInOut);
+            await Task.Delay(290);
+            checkScanValues.IsVisible = false;
+            await Task.Delay(10);
+            checkScanValues.TranslationX = 0;
+            BarcodeScanView.IsVisible = true;
+            BarcodeScanView.IsScanning = true;
+
+
         }
     }
 }

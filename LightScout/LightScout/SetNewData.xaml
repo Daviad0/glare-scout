@@ -41,6 +41,44 @@
                 
                 <Button Margin="0,30" HorizontalOptions="Center" WidthRequest="100" Clicked="CancelQRReader" Text="Cancel" FontSize="20" BackgroundColor="Red" CornerRadius="6" TextColor="White" FontAttributes="Bold"/>
             </StackLayout>
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Margin="50,50,50,80" x:Name="checkScanValues" IsVisible="False">
+                <Grid Margin="10,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Team Number" FontSize="20" FontAttributes="Bold" Grid.Column="0" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
+                    <Entry x:Name="checkTeamNumber" Text="862" Grid.Column="1" HorizontalTextAlignment="Center" HorizontalOptions="Center" WidthRequest="100" FontSize="20"/>
+                </Grid>
+                <Grid Margin="10,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Scout Name" FontSize="20" FontAttributes="Bold" Grid.Column="0" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
+                    <Entry x:Name="checkScoutName" Text="David Reeves" Grid.Column="1" HorizontalTextAlignment="Center" HorizontalOptions="Center" WidthRequest="200" FontSize="20"/>
+                </Grid>
+                <Grid Margin="10,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Tablet Type" FontSize="20" FontAttributes="Bold" Grid.Column="0" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
+                    <Frame x:Name="checkTabletIdBox" Grid.Column="1" WidthRequest="100" HorizontalOptions="Center" BackgroundColor="Red" CornerRadius="2" Padding="5">
+                        <Label x:Name="checkTabletIdLabel" Text="Red 1" TextColor="White" HorizontalOptions="Center" FontSize="15"/>
+                    </Frame>
+                </Grid>
+                <Grid Margin="10,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Scouter Code" FontSize="20" FontAttributes="Bold" Grid.Column="0" HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
+                    <Entry x:Name="checkScoutCode" Text="0000" Grid.Column="1" HorizontalTextAlignment="Center" HorizontalOptions="Center" WidthRequest="100" FontSize="20"/>
+                </Grid>
+                <Button x:Name="nextFromScanResult" Margin="0,30" Clicked="CorrectScanValues" HorizontalOptions="Center" WidthRequest="100" Text="Next" FontSize="20" BackgroundColor="#2a7afa" CornerRadius="6" TextColor="White" FontAttributes="Bold" IsEnabled="False"/>
+                <Button x:Name="backToQRScan" Margin="0,30" Clicked="IncorrectScanValues" HorizontalOptions="Center" WidthRequest="100" Text="Re-Scan" FontSize="20" BackgroundColor="Red" CornerRadius="6" TextColor="White" FontAttributes="Bold" IsEnabled="False"/>
+            </StackLayout>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Margin="50,50,50,80" x:Name="setScoutNamePanel" IsVisible="False">
                 <Label Text="Lead Scouter Name" FontSize="35" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
                 <Label Margin="10,0" FontSize="15" Text="We only need this information to notify the users of this tablet who they should find if they have an issue. Whoever is managing the LightSwitch software should be the person entered in this box" LineBreakMode="WordWrap" HorizontalTextAlignment="Center"/>
@@ -75,6 +113,7 @@
                 <Entry TextChanged="setupCode_TextChanged" Margin="0,10,0,0" BackgroundColor="Transparent" Placeholder="0000" PlaceholderColor="White" x:Name="setupCode" TextColor="#2a7afa" IsPassword="True" WidthRequest="150" Keyboard="Numeric" HorizontalOptions="Center" FontSize="40" MaxLength="4" HorizontalTextAlignment="Center"/>
                 <Button x:Name="nextFromScouterCode" Margin="0,30" Clicked="FinishedScoutCode" HorizontalOptions="Center" WidthRequest="100" Text="Next" FontSize="20" BackgroundColor="#2a7afa" CornerRadius="6" TextColor="White" FontAttributes="Bold" IsEnabled="False"/>
             </StackLayout>
+            
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" Margin="50,50,50,80" x:Name="setSelectedMaster" IsVisible="False">
                 <Label Text="Select Your LightSwitch" FontSize="35" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
                 <Label Margin="10,0" FontSize="15" Text="Choose a device from the list below. If the device is not listed, make sure the software is active and the Bluetooth symbol is lit up!" LineBreakMode="WordWrap" HorizontalTextAlignment="Center"/>

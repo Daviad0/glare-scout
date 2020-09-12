@@ -159,6 +159,7 @@ namespace LightScout
         {
             var converter = new ColorTypeConverter();
             Button selectedButton = (Button)sender as Button;
+            nextFromTabletId.IsEnabled = true;
             switch (selectedButton.ClassId)
             {
                 case "Red1":
@@ -227,6 +228,11 @@ namespace LightScout
             await finishForm.TranslateTo(finishForm.TranslationX, finishForm.TranslationY + 10, 75, Easing.CubicOut);
             await finishForm.TranslateTo(finishForm.TranslationX, finishForm.TranslationY - 110, 250, Easing.CubicOut);
             bluetoothDevices.IsEnabled = false;
+            await resetForm.TranslateTo(resetForm.TranslationX, resetForm.TranslationY - 10, 75, Easing.CubicOut);
+            await resetForm.TranslateTo(resetForm.TranslationX, resetForm.TranslationY + 110, 250, Easing.CubicOut);
+            resetForm.IsVisible = false;
+            await Task.Delay(15);
+            resetForm.TranslationY = 0;
         }
         private async void SubmitNewData(object sender, EventArgs e)
         {
@@ -257,7 +263,7 @@ namespace LightScout
                    
                     break;
             }
-            DependencyService.Get<DataStore>().SaveConfigurationFile("ownerTeamChange", setupTeamNumber.Text);
+            DependencyService.Get<DataStore>().SaveConfigurationFile("ownerTeamChange", int.Parse(setupTeamNumber.Text));
             DependencyService.Get<DataStore>().SaveConfigurationFile("ownerScoutChange", setupScoutName.Text);
             if(connectedDevice != null)
             {
@@ -272,6 +278,11 @@ namespace LightScout
             {
 
             }
+
+
+            var createNewMatches = await DisplayAlert("Default Matches", "Would you like to add sample matches to the software?", "Sure", "No");
+            DependencyService.Get<DataStore>().SaveDummyData("JacksonEvent2020.txt");
+            await Task.Delay(1000);
             Navigation.PushAsync(new MainPage());
             
 
@@ -365,9 +376,68 @@ namespace LightScout
             await Task.Delay(10);
         }
 
-        private void BarcodeScanView_OnScanResult(ZXing.Result result)
+        private async void BarcodeScanView_OnScanResult(ZXing.Result result)
         {
-            Console.WriteLine(result.ToString());
+            var rawresultstring = result.ToString();
+            string[] differentValues = rawresultstring.Split('>');
+            setupTeamNumber.Text = differentValues[1];
+            setupScoutName.Text = differentValues[2];
+            setupCode.Text = differentValues[4];
+            switch (differentValues[3])
+            {
+                case "R1":
+                    currentlySelectedTabletType = TabletType.Red1;
+                    break;
+                case "R2":
+                    currentlySelectedTabletType = TabletType.Red2;
+                    break;
+                case "R3":
+                    currentlySelectedTabletType = TabletType.Red3;
+                    break;
+                case "B1":
+                    currentlySelectedTabletType = TabletType.Blue1;
+                    break;
+                case "B2":
+                    currentlySelectedTabletType = TabletType.Blue2;
+                    break;
+                case "B3":
+                    currentlySelectedTabletType = TabletType.Blue3;
+                    break;
+            }
+            scanQRCodePanel.TranslateTo(scanQRCodePanel.TranslationX - 600, scanQRCodePanel.TranslationY, 500, Easing.CubicInOut);
+            await Task.Delay(150);
+            setSelectedMaster.TranslationX = 600;
+            setSelectedMaster.TranslationY = 0;
+            await Task.Delay(50);
+            setSelectedMaster.IsVisible = true;
+            setSelectedMaster.TranslateTo(setSelectedMaster.TranslationX - 600, setSelectedMaster.TranslationY, 500, Easing.CubicInOut);
+            await Task.Delay(290);
+            scanQRCodePanel.IsVisible = false;
+            await Task.Delay(10);
+            scanQRCodePanel.TranslationX = 0;
+        }
+        private void setupTeamNumber_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(e.NewTextValue != null && e.NewTextValue != "")
+            {
+                nextFromTeamNumber.IsEnabled = true;
+            }
+        }
+
+        private void setupScoutName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue != null && e.NewTextValue != "")
+            {
+                nextFromScoutName.IsEnabled = true;
+            }
+        }
+
+        private void setupCode_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (e.NewTextValue != null && e.NewTextValue != "")
+            {
+                nextFromScouterCode.IsEnabled = true;
+            }
         }
     }
 }

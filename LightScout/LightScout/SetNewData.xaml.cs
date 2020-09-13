@@ -387,66 +387,71 @@ namespace LightScout
 
         private async void BarcodeScanView_OnScanResult(ZXing.Result result)
         {
+            
             var converter = new ColorTypeConverter();
             var rawresultstring = result.ToString();
-            string[] differentValues = rawresultstring.Split('>');
-            Device.BeginInvokeOnMainThread(async () =>
+            if (rawresultstring.StartsWith("LRSSQR"))
             {
-                setupScoutName.Text = differentValues[2];
-                checkScoutName.Text = differentValues[2];
-                setupTeamNumber.Text = differentValues[1];
-                checkTeamNumber.Text = differentValues[1];
-                setupCode.Text = differentValues[4];
-                checkScoutCode.Text = differentValues[4];
-                switch (differentValues[3])
+                string[] differentValues = rawresultstring.Split('>');
+                Device.BeginInvokeOnMainThread(async () =>
                 {
-                    case "R1":
-                        currentlySelectedTabletType = TabletType.Red1;
-                        checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Red");
-                        checkTabletIdLabel.Text = "Red 1";
-                        break;
-                    case "R2":
-                        currentlySelectedTabletType = TabletType.Red2;
-                        checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Red");
-                        checkTabletIdLabel.Text = "Red 2";
-                        break;
-                    case "R3":
-                        currentlySelectedTabletType = TabletType.Red3;
-                        checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Red");
-                        checkTabletIdLabel.Text = "Red 3";
-                        break;
-                    case "B1":
-                        currentlySelectedTabletType = TabletType.Blue1;
-                        checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Blue");
-                        checkTabletIdLabel.Text = "Blue 1";
-                        break;
-                    case "B2":
-                        currentlySelectedTabletType = TabletType.Blue2;
-                        checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Blue");
-                        checkTabletIdLabel.Text = "Blue 2";
-                        break;
-                    case "B3":
-                        currentlySelectedTabletType = TabletType.Blue3;
-                        checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Blue");
-                        checkTabletIdLabel.Text = "Blue 3";
-                        break;
-                }
-                scanQRCodePanel.TranslateTo(scanQRCodePanel.TranslationX - 600, scanQRCodePanel.TranslationY, 500, Easing.CubicInOut);
-                await Task.Delay(150);
-                checkScanValues.TranslationX = 600;
-                checkScanValues.TranslationY = 0;
-                await Task.Delay(50);
-                checkScanValues.IsVisible = true;
-                checkScanValues.TranslateTo(checkScanValues.TranslationX - 600, checkScanValues.TranslationY, 500, Easing.CubicInOut);
-                await Task.Delay(290);
-                scanQRCodePanel.IsVisible = false;
-                await Task.Delay(10);
-                scanQRCodePanel.TranslationX = 0;
-                await Task.Delay(140);
-                BarcodeScanView.IsVisible = false;
-                BarcodeScanView.IsScanning = false;
-                
-            });
+                    setupScoutName.Text = differentValues[2];
+                    checkScoutName.Text = differentValues[2];
+                    setupTeamNumber.Text = differentValues[1];
+                    checkTeamNumber.Text = differentValues[1];
+                    setupCode.Text = differentValues[4];
+                    checkScoutCode.Text = differentValues[4];
+                    switch (differentValues[3])
+                    {
+                        case "R1":
+                            currentlySelectedTabletType = TabletType.Red1;
+                            checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Red");
+                            checkTabletIdLabel.Text = "Red 1";
+                            break;
+                        case "R2":
+                            currentlySelectedTabletType = TabletType.Red2;
+                            checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Red");
+                            checkTabletIdLabel.Text = "Red 2";
+                            break;
+                        case "R3":
+                            currentlySelectedTabletType = TabletType.Red3;
+                            checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Red");
+                            checkTabletIdLabel.Text = "Red 3";
+                            break;
+                        case "B1":
+                            currentlySelectedTabletType = TabletType.Blue1;
+                            checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Blue");
+                            checkTabletIdLabel.Text = "Blue 1";
+                            break;
+                        case "B2":
+                            currentlySelectedTabletType = TabletType.Blue2;
+                            checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Blue");
+                            checkTabletIdLabel.Text = "Blue 2";
+                            break;
+                        case "B3":
+                            currentlySelectedTabletType = TabletType.Blue3;
+                            checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Blue");
+                            checkTabletIdLabel.Text = "Blue 3";
+                            break;
+                    }
+                    scanQRCodePanel.TranslateTo(scanQRCodePanel.TranslationX - 600, scanQRCodePanel.TranslationY, 500, Easing.CubicInOut);
+                    await Task.Delay(150);
+                    checkScanValues.TranslationX = 600;
+                    checkScanValues.TranslationY = 0;
+                    await Task.Delay(50);
+                    checkScanValues.IsVisible = true;
+                    checkScanValues.TranslateTo(checkScanValues.TranslationX - 600, checkScanValues.TranslationY, 500, Easing.CubicInOut);
+                    await Task.Delay(290);
+                    scanQRCodePanel.IsVisible = false;
+                    await Task.Delay(10);
+                    scanQRCodePanel.TranslationX = 0;
+                    await Task.Delay(140);
+                    BarcodeScanView.IsVisible = false;
+                    BarcodeScanView.IsScanning = false;
+
+                });
+            }
+            
             
         }
         private void setupTeamNumber_TextChanged(object sender, TextChangedEventArgs e)

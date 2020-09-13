@@ -23,15 +23,15 @@
 	<key>MinimumOSVersion</key>
 	<string>8.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>LightScout</string>
+	<string>LightScout by 862</string>
 	<key>CFBundleIdentifier</key>
-	<string>B97LKPE9U3.com.team862.LightScout</string>
+	<string>com.team862.LightScout</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1.1</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
-	<string>LightScout</string>
+	<string>LightScout by 862</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>

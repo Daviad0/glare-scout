@@ -2893,39 +2893,32 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\djree\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "/Users/daviado/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout.Android\\LightScout.Android.csproj",
+      "projectUniqueName": "/Users/daviado/Desktop/lightscoutx/LightScout/LightScout.Android/LightScout.Android.csproj",
       "projectName": "LightScout.Android",
-      "projectPath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout.Android\\LightScout.Android.csproj",
-      "packagesPath": "C:\\Users\\djree\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout.Android\\obj\\",
+      "projectPath": "/Users/daviado/Desktop/lightscoutx/LightScout/LightScout.Android/LightScout.Android.csproj",
+      "packagesPath": "/Users/daviado/.nuget/packages/",
+      "outputPath": "/Users/daviado/Desktop/lightscoutx/LightScout/LightScout.Android/obj/",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
-      "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\djree\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "/Users/daviado/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "monoandroid90"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "monoandroid90": {
           "projectReferences": {
-            "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout\\LightScout.csproj": {
-              "projectPath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout\\LightScout.csproj"
+            "/Users/daviado/Desktop/lightscoutx/LightScout/LightScout/LightScout.csproj": {
+              "projectPath": "/Users/daviado/Desktop/lightscoutx/LightScout/LightScout/LightScout.csproj"
             }
           }
         }

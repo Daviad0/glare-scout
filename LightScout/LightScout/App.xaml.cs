@@ -16,15 +16,15 @@ namespace LightScout
             {
                 Application.Current.Properties["TimeLastSubmitted"] = DateTime.Now;
             }
-            /*if (JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TeamOfOwnership != 0)
+            if (JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TeamOfOwnership != 0)
             {
                 MainPage = new NavigationPage(new MainPage());
             }
             else
             {
                 MainPage = new NavigationPage(new SetNewData());
-            }*/
-            MainPage = new NavigationPage(new SetNewData());
+            }
+            //MainPage = new NavigationPage(new SetNewData());
 
         }
 

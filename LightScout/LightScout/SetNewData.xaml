@@ -20,7 +20,7 @@
                 <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
                     
                     <Label TextColor="White" Text="Welcome to LightScout" FontSize="30" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center"/>
-                    <Label TextColor="White" Text="The new POWERFUL and LOCAL scouting system" FontSize="15" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Label TextColor="White" Text="The new POWERFUL and LOCAL scouting system" FontSize="15" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" />
                 </StackLayout>
                 
             </Frame>

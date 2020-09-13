@@ -304,6 +304,7 @@
                     <Button Text="Reset Scout Names" Clicked="CreateNewScoutNames" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
                     <BoxView BackgroundColor="Gray" HeightRequest="2" Margin="5,0"/>
                     <Button Text="Send Notification" Clicked="sendNotification_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
+                    <Button Text="Set Configuration" Clicked="EditConfigInfo" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
 
                     <Picker x:Name="tabletPicker" SelectedIndexChanged="tabletPicker_SelectedIndexChanged"/>
                     <Button Text="Reload" Clicked="ReloadScreen" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
@@ -560,6 +561,66 @@
                     
                     
                     
+                </StackLayout>
+            </AbsoluteLayout>
+        </StackLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" x:Name="editConfigFileInterface" IsVisible="False">
+            <AbsoluteLayout VerticalOptions="FillAndExpand">
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">
+
+                </StackLayout>
+                <StackLayout VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".5,.5,.8,.8" AbsoluteLayout.LayoutFlags="All" x:Name="editConfigFilePanel">
+                    <Frame BackgroundColor="White" Padding="50" CornerRadius="14" WidthRequest="300">
+                        <StackLayout>
+                            <Picker>
+                                <Picker.Items>
+                                    <x:String>Submission Offset</x:String>
+                                    <x:String>Owner: Team Number</x:String>
+                                    <x:String>Owner: Scout Name</x:String>
+                                    <x:String>Bluetooth Failure</x:String>
+                                    <x:String>Current Event Code</x:String>
+                                    <x:String>Scout Auth Code</x:String>
+                                    <x:String>Tablet Identifier</x:String>
+                                </Picker.Items>
+                            </Picker>
+                            <Grid HeightRequest="300">
+                                <Entry IsVisible="False" Placeholder="0" BackgroundColor="Transparent" Keyboard="Numeric" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" x:Name="changeConfigSubmissionOffset"/>
+                                <Entry IsVisible="False" Placeholder="862" BackgroundColor="Transparent" Keyboard="Numeric" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" x:Name="changeConfigTeamNumber"/>
+                                <Entry IsVisible="False" Placeholder="David Reeves" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" x:Name="changeConfigScoutName"/>
+                                <Entry IsVisible="False" Placeholder="0" BackgroundColor="Transparent" Keyboard="Numeric" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" x:Name="changeConfigBluetoothFailure"/>
+                                <Entry IsVisible="False" Placeholder="2020mijac" BackgroundColor="Transparent" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" x:Name="changeConfigEventCode"/>
+                                <Entry IsVisible="False" Placeholder="0000" BackgroundColor="Transparent" Keyboard="Numeric" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" IsPassword="True" x:Name="changeConfigAuthCode"/>
+                                <Grid IsVisible="False" Margin="5" Grid.Row="0" Grid.Column="0" x:Name="changeConfigTabletId" VerticalOptions="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="60"/>
+                                        <RowDefinition Height="60"/>
+                                    </Grid.RowDefinitions>
+                                    <Button ClassId="Red1" BorderColor="Red" BorderWidth="2" TextColor="Red" FontAttributes="Bold" BackgroundColor="Transparent" Text="Red 1" Grid.Row="0" Grid.Column="0" Margin="5" HorizontalOptions="Center" CornerRadius="4" WidthRequest="80"/>
+                                    <Button ClassId="Red2" BorderColor="Red" BorderWidth="2" TextColor="Red" FontAttributes="Bold" BackgroundColor="Transparent" Text="Red 2" Grid.Row="0" Grid.Column="1" Margin="5" HorizontalOptions="Center" CornerRadius="4" WidthRequest="80"/>
+                                    <Button ClassId="Red3" BorderColor="Red" BorderWidth="2" TextColor="Red" FontAttributes="Bold" BackgroundColor="Transparent" Text="Red 3" Grid.Row="0" Grid.Column="2" Margin="5" HorizontalOptions="Center" CornerRadius="4" WidthRequest="80"/>
+                                    <Button ClassId="Blue1" BorderColor="Blue" BorderWidth="2" TextColor="Blue" FontAttributes="Bold" BackgroundColor="Transparent" Text="Blue 1" Grid.Row="1" Grid.Column="0" Margin="5" HorizontalOptions="Center" CornerRadius="4" WidthRequest="80"/>
+                                    <Button ClassId="Blue2" BorderColor="Blue" BorderWidth="2" TextColor="Blue" FontAttributes="Bold" BackgroundColor="Transparent" Text="Blue 2" Grid.Row="1" Grid.Column="1" Margin="5" HorizontalOptions="Center" CornerRadius="4" WidthRequest="80"/>
+                                    <Button ClassId="Blue3" BorderColor="Blue" BorderWidth="2" TextColor="Blue" FontAttributes="Bold" BackgroundColor="Transparent" Text="Blue 3" Grid.Row="1" Grid.Column="2" Margin="5" HorizontalOptions="Center" CornerRadius="4" WidthRequest="80"/>
+                                </Grid>
+                            </Grid>
+                            <Grid HorizontalOptions="End">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50"/>
+                                    <ColumnDefinition Width="50"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Text="&#xeee4;" FontFamily="{StaticResource IconFont}" Margin="3,15,0,0" FontSize="35" Padding="0" Clicked="CloseConfigInfoEdit" BackgroundColor="White" TextColor="Red" Grid.Column="0"/>
+                                <Button Text="&#xee00;" FontFamily="{StaticResource IconFont}" Margin="3,15,0,0" FontSize="35" Padding="0" BackgroundColor="White" TextColor="Green" Grid.Column="1"/>
+                            </Grid>
+                        </StackLayout>
+                    </Frame>
+
+
+
                 </StackLayout>
             </AbsoluteLayout>
         </StackLayout>

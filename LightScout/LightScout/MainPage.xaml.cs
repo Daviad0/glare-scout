@@ -54,7 +54,8 @@ namespace LightScout
         {
             DeleteMatch,
             EditMatch,
-            CreateMatch
+            CreateMatch,
+            EditConfig
         }
 
         public MainPage()
@@ -634,7 +635,7 @@ namespace LightScout
                 codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
                 codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
                 codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2a7afa");
-                if (currentCodeString == "0000")
+                if (currentCodeString == JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).ScoutAuthCode.ToString())
                 {
                     codeButton0.IsEnabled = false;
                     codeButton1.IsEnabled = false;
@@ -739,6 +740,15 @@ namespace LightScout
                             createNewMatchInterface.IsVisible = true;
                             createMatchInfoPanel.TranslateTo(createMatchInfoPanel.TranslationX - 600, createMatchInfoPanel.TranslationY, 500, Easing.CubicInOut);
 
+                            break;
+                        case CodeReason.EditConfig:
+                            editConfigFilePanel.TranslationX = 600;
+                            await Task.Delay(50);
+                            await strategyCodePanel.TranslateTo(strategyCodePanel.TranslationX - 600, strategyCodePanel.TranslationY, 500, Easing.CubicInOut);
+                            strategyCodeInterface.IsVisible = false;
+                            strategyCodePanel.TranslationX = 0;
+                            editConfigFileInterface.IsVisible = true;
+                            editConfigFilePanel.TranslateTo(editConfigFilePanel.TranslationX - 600, editConfigFilePanel.TranslationY, 500, Easing.CubicInOut);
                             break;
                     }
 
@@ -1072,6 +1082,28 @@ namespace LightScout
             createMatchInfoPanel.TranslationX = 0;
             await Task.Delay(2000);
             ReloadMatches();
+        }
+        private async void EditConfigInfo(object sender, EventArgs e)
+        {
+            var converter = new ColorTypeConverter();
+            codeProgress1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+            codeProgress2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+            codeProgress3.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+            codeProgress4.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
+            strategyCodePanel.TranslationX = 600;
+            await Task.Delay(50);
+            strategyCodeInterface.IsVisible = true;
+            strategyCodePanel.TranslateTo(strategyCodePanel.TranslationX - 600, strategyCodePanel.TranslationY, 500, Easing.CubicInOut);
+            currentCodeString = "";
+            currentCodeReason = CodeReason.EditConfig;
+        }
+        private async void CloseConfigInfoEdit(object sender, EventArgs e)
+        {
+            DependencyService.Get<IKeyboardHelper>().HideKeyboard();
+            await editConfigFilePanel.TranslateTo(editConfigFilePanel.TranslationX + 600, editConfigFilePanel.TranslationY, 500, Easing.CubicInOut);
+            editConfigFileInterface.IsVisible = false;
+            editConfigFilePanel.TranslationX = 0;
+
         }
         private void coreEditMatchNumberStepper_ValueChanged(object sender, ValueChangedEventArgs e)
         {

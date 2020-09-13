@@ -269,20 +269,21 @@ namespace LightScout
             }
             DependencyService.Get<DataStore>().SaveConfigurationFile("ownerTeamChange", int.Parse(setupTeamNumber.Text));
             DependencyService.Get<DataStore>().SaveConfigurationFile("ownerScoutChange", setupScoutName.Text);
+            DependencyService.Get<DataStore>().SaveConfigurationFile("scoutCode", int.Parse(setupCode.Text));
             if(connectedDevice != null)
             {
                 DependencyService.Get<DataStore>().SaveConfigurationFile("selectedMaster", new DeviceInformation() { DeviceName = connectedDevice.Name, DeviceID = connectedDevice.Id.ToString() });
+                try
+                {
+                    adapter.DisconnectDeviceAsync(connectedDevice);
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
             
-            try
-            {
-                adapter.DisconnectDeviceAsync(connectedDevice);
-            }
-            catch(Exception ex)
-            {
-
-            }
-
+            
 
             var createNewMatches = await DisplayAlert("Default Matches", "Would you like to add sample matches to the software?", "Sure", "No");
             DependencyService.Get<DataStore>().SaveDummyData("JacksonEvent2020.txt");

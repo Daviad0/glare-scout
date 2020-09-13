@@ -22,5 +22,7 @@
 &lt;/dict&gt;
 &lt;/plist&gt;
 </TargetiOSDevice>
+    <DeveloperId />
+    <DevelopmentTeamId />
   </PropertyGroup>
 </Project>

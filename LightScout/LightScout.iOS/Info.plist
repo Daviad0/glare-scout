@@ -25,7 +25,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>LightScout</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.companyname.LightScout</string>
+	<string>B97LKPE9U3.com.team862.LightScout</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>
@@ -50,8 +50,8 @@
 	<string>Please allow usage of Bluetooth for data tracking!</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Please allow usage of Bluetooth for data tracking!</string>
-  <key>NSCameraUsageDescription</key>
-  <string>Please allow the camera to be used for scanning barcodes!</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Please allow the camera to be used for scanning barcodes!</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>

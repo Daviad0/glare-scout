@@ -16,5 +16,6 @@ namespace LightScout.Models
         public string[] ScouterNames { get; set; }
         public string CurrentEventCode { get; set; }
         public DeviceInformation SelectedDeviceInformation { get; set; }
+        public int ScoutAuthCode { get; set; }
     }
 }

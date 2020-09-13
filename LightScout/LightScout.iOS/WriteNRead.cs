@@ -278,6 +278,9 @@ namespace LightScout.iOS
                 case "selectedMaster":
                     modeltochange.SelectedDeviceInformation = (DeviceInformation)newvalue;
                     break;
+                case "scoutCode":
+                    modeltochange.ScoutAuthCode = (int)newvalue;
+                    break;
             }
             try
             {

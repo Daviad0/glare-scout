@@ -284,6 +284,9 @@ namespace LightScout.Droid
                 case "selectedMaster":
                     modeltochange.SelectedDeviceInformation = (DeviceInformation)newvalue;
                     break;
+                case "scoutCode":
+                    modeltochange.ScoutAuthCode = (int)newvalue;
+                    break;
             }
             try
             {

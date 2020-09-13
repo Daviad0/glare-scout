@@ -4,7 +4,6 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-             xmlns:mr="clr-namespace:MR.Gestures;assembly=MR.Gestures"
              xmlns:local="clr-namespace:LightScout"
              ios:Page.UseSafeArea="True"
              mc:Ignorable="d"

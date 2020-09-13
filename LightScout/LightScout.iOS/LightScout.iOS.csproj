@@ -72,7 +72,7 @@
     <MtouchEnableSGenConc>false</MtouchEnableSGenConc>
     <MtouchFastDev>false</MtouchFastDev>
     <CodesignProvision>LightScout</CodesignProvision>
-    <MtouchLink>Full</MtouchLink>
+    <MtouchLink>SdkOnly</MtouchLink>
     <MtouchExtraArgs>--optimize=experimental-xforms-product-type</MtouchExtraArgs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">

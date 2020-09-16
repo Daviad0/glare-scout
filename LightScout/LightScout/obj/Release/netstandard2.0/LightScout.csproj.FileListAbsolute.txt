@@ -4,7 +4,6 @@
 /Users/daviado/Desktop/lightscoutx/LightScout/LightScout/bin/Release/netstandard2.0/LightScout.pdb
 /Users/daviado/Desktop/lightscoutx/LightScout/LightScout/bin/Release/netstandard2.0/Mono.Android.dll
 /Users/daviado/Desktop/lightscoutx/LightScout/LightScout/bin/Release/netstandard2.0/Mono.Android.pdb
-/Users/daviado/Desktop/lightscoutx/LightScout/LightScout/obj/Release/netstandard2.0/LightScout.csprojAssemblyReference.cache
 /Users/daviado/Desktop/lightscoutx/LightScout/LightScout/obj/Release/netstandard2.0/App.xaml.g.cs
 /Users/daviado/Desktop/lightscoutx/LightScout/LightScout/obj/Release/netstandard2.0/FRCHome.xaml.g.cs
 /Users/daviado/Desktop/lightscoutx/LightScout/LightScout/obj/Release/netstandard2.0/FRCMain.xaml.g.cs
@@ -19,3 +18,4 @@
 /Users/daviado/Desktop/lightscoutx/LightScout/LightScout/obj/Release/netstandard2.0/LightScout.dll
 /Users/daviado/Desktop/lightscoutx/LightScout/LightScout/obj/Release/netstandard2.0/ref/LightScout.dll
 /Users/daviado/Desktop/lightscoutx/LightScout/LightScout/obj/Release/netstandard2.0/LightScout.pdb
+/Users/daviado/Desktop/lightscoutx/LightScout/LightScout/obj/Release/netstandard2.0/LightScout.csprojAssemblyReference.cache

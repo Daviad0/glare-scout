@@ -24,7 +24,7 @@ namespace LightScout
             {
                 MainPage = new NavigationPage(new SetNewData());
             }
-            //MainPage = new NavigationPage(new SetNewData());
+            MainPage = new NavigationPage(new SetNewData());
 
         }
 

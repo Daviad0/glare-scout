@@ -1,39 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout.Android\\LightScout.Android.csproj": {}
+    "/Users/daviado/Desktop/lightscoutx/LightScout/LightScout.Android/LightScout.Android.csproj": {}
   },
   "projects": {
-    "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout.Android\\LightScout.Android.csproj": {
+    "/Users/daviado/Desktop/lightscoutx/LightScout/LightScout.Android/LightScout.Android.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout.Android\\LightScout.Android.csproj",
+        "projectUniqueName": "/Users/daviado/Desktop/lightscoutx/LightScout/LightScout.Android/LightScout.Android.csproj",
         "projectName": "LightScout.Android",
-        "projectPath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout.Android\\LightScout.Android.csproj",
-        "packagesPath": "C:\\Users\\djree\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout.Android\\obj\\",
+        "projectPath": "/Users/daviado/Desktop/lightscoutx/LightScout/LightScout.Android/LightScout.Android.csproj",
+        "packagesPath": "/Users/daviado/.nuget/packages/",
+        "outputPath": "/Users/daviado/Desktop/lightscoutx/LightScout/LightScout.Android/obj/",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\djree\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "/Users/daviado/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "monoandroid90"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "monoandroid90": {
             "projectReferences": {
-              "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout\\LightScout.csproj": {
-                "projectPath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout\\LightScout.csproj"
+              "/Users/daviado/Desktop/lightscoutx/LightScout/LightScout/LightScout.csproj": {
+                "projectPath": "/Users/daviado/Desktop/lightscoutx/LightScout/LightScout/LightScout.csproj"
               }
             }
           }
@@ -68,7 +62,7 @@
             },
             "Xamarin.Forms": {
               "target": "Package",
-              "version": "[4.8.0.1364, )"
+              "version": "[4.4.0.991265, )"
             },
             "ZXing.Net.Mobile": {
               "target": "Package",
@@ -82,29 +76,25 @@
         }
       }
     },
-    "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout\\LightScout.csproj": {
+    "/Users/daviado/Desktop/lightscoutx/LightScout/LightScout/LightScout.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout\\LightScout.csproj",
+        "projectUniqueName": "/Users/daviado/Desktop/lightscoutx/LightScout/LightScout/LightScout.csproj",
         "projectName": "LightScout",
-        "projectPath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout\\LightScout.csproj",
-        "packagesPath": "C:\\Users\\djree\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout\\obj\\",
+        "projectPath": "/Users/daviado/Desktop/lightscoutx/LightScout/LightScout/LightScout.csproj",
+        "packagesPath": "/Users/daviado/.nuget/packages/",
+        "outputPath": "/Users/daviado/Desktop/lightscoutx/LightScout/LightScout/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\djree\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "/Users/daviado/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -153,7 +143,7 @@
             },
             "Xamarin.Forms": {
               "target": "Package",
-              "version": "[4.8.0.1364, )"
+              "version": "[4.4.0.991265, )"
             },
             "ZXing.Net.Mobile": {
               "target": "Package",
@@ -174,7 +164,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.300/RuntimeIdentifierGraph.json"
         }
       }
     }

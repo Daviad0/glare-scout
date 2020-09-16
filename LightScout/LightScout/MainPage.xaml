@@ -86,7 +86,7 @@
                 </ListView>
 
                 <ProgressBar ProgressColor="#2a7afa" Progress="0" x:Name="MatchProgressList" HeightRequest="8"/>
-                <CarouselView x:Name="carouseluwu" HeightRequest="450" CurrentItemChanged="carouseluwu_CurrentItemChanged">
+                <CarouselView BackgroundColor="#f1f1f1" x:Name="carouseluwu" HeightRequest="450" CurrentItemChanged="carouseluwu_CurrentItemChanged">
                     <CarouselView.ItemsLayout>
                         <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
                         

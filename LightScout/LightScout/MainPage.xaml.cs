@@ -1393,6 +1393,13 @@ namespace LightScout
         {
             DependencyService.Get<IKeyboardHelper>().HideKeyboard();
         }
+
+        private void ProtocolV3(object sender, EventArgs e)
+        {
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            CancellationToken token = cancellationTokenSource.Token;
+            submitVIABluetoothInstance.ConnectToDevice(new SubmitVIABluetooth.BLEMessageArguments() { messageType = 00, messageData = "Testing Protocol v3. This is not an emergency.", expectation = SubmitVIABluetooth.ResponseExpectation.Optional }, token);
+        }
     }
     [ContentProperty("Content")]
     public class MultiLineButton : ContentView

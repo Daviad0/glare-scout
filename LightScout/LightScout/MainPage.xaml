@@ -101,6 +101,7 @@
                        Margin="20,20,20,0"
                        HeightRequest="350"
                        HorizontalOptions="Center"
+                                           BackgroundColor="#f1f1f1"
                        VerticalOptions="CenterAndExpand"
                                        WidthRequest="300">
                                         <StackLayout>
@@ -205,6 +206,7 @@
                                        HeightRequest="50"
                                        Grid.Column="0"
                                                        Padding="0"
+                                               BackgroundColor="#f1f1f1"
                                        HorizontalOptions="Center"
                                                        WidthRequest="150">
                                             <Button Text="Scout Match" BackgroundColor="Transparent" BorderColor="Transparent" Clicked="GoToFRCPage"/>
@@ -216,6 +218,7 @@
                                        HeightRequest="50"
                                        Grid.Column="1"
                                                        Padding="0"
+                                               BackgroundColor="#f1f1f1"
                                        HorizontalOptions="Center"
                                                        WidthRequest="70">
                                             <Button Text="&#xee09;" BackgroundColor="Transparent" TextColor="Red" BorderColor="Transparent" FontFamily="{StaticResource IconFont}" Clicked="DeleteEntry"/>
@@ -227,6 +230,7 @@
                                        HeightRequest="50"
                                        Grid.Column="2"
                                                        Padding="0"
+                                               BackgroundColor="#f1f1f1"
                                        HorizontalOptions="Center"
                                                        WidthRequest="70">
                                             <Button Text="&#xec55;" BackgroundColor="Transparent" TextColor="Blue" BorderColor="Transparent" FontFamily="{StaticResource IconFont}" Clicked="EditEntry"/>
@@ -251,6 +255,7 @@
                                        CornerRadius="5"
                                        Margin="10,0,10,20"
                                        HeightRequest="50"
+                                           BackgroundColor="Transparent"
                                                        Padding="0"
                                        HorizontalOptions="Center"
                                                        WidthRequest="250">
@@ -294,19 +299,20 @@
                     
                 </Grid>
                 <StackLayout>
-                    <Label Text="Reset Team Data" Margin="10,0"/>
-                    <Button Text="Get Data VIA Bluetooth" x:Name="getDataFromServer" Clicked="getDataFromServer_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
-                    <Button Text="Send TBA" x:Name="getDataFromTBA" Clicked="SendTBAData" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
-                    <Button Text="Send Dummy Data" Clicked="SendDummyData" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
-                    <BoxView BackgroundColor="Gray" HeightRequest="2" Margin="5,0"/>
-                    <Label Text="Team Scouters" Margin="10,0"/>
+                    <Label Text="Reset Team Data" Margin="10,0" IsVisible="False"/>
+                    <Button Text="Get Data VIA Bluetooth" IsVisible="False" x:Name="getDataFromServer" Clicked="getDataFromServer_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
+                    <Button Text="Send TBA" IsVisible="False" x:Name="getDataFromTBA" Clicked="SendTBAData" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
+                    <Button Text="Reset Data to Example" Clicked="SendDummyData" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
+                    <BoxView BackgroundColor="Gray" IsVisible="False" HeightRequest="2" Margin="5,0"/>
+                    <Label Text="Team Scouters" IsVisible="False" Margin="10,0"/>
                     <Button Text="Reset Scout Names" Clicked="CreateNewScoutNames" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
-                    <BoxView BackgroundColor="Gray" HeightRequest="2" Margin="5,0"/>
-                    <Button Text="Send Notification" Clicked="sendNotification_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
-                    <Button Text="Set Configuration" Clicked="EditConfigInfo" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
+                    <BoxView BackgroundColor="Gray" IsVisible="False" HeightRequest="2" Margin="5,0"/>
+                    <Button Text="Send Test Notification" Clicked="sendNotification_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
+                    <Button Text="Set Configuration" IsVisible="False" Clicked="EditConfigInfo" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
 
-                    <Picker x:Name="tabletPicker" SelectedIndexChanged="tabletPicker_SelectedIndexChanged"/>
-                    <Button Text="Reload" Clicked="ReloadScreen" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
+                    <Picker x:Name="tabletPicker" SelectedIndexChanged="tabletPicker_SelectedIndexChanged" IsVisible="False"/>
+                    <Button Text="Reload Page" Clicked="ReloadScreen" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
+                    <Button Text="Test Protocol v3" Clicked="ReloadScreen" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
 
                 </StackLayout>
             </StackLayout>

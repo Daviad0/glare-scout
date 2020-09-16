@@ -276,7 +276,7 @@
           "lib/Xamarin.iOS10/ZXing.Net.Mobile.Forms.iOS.dll": {}
         }
       },
-      "LightScout/1.0.0": {
+      "LightScout/1.2.5": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
@@ -551,7 +551,7 @@
           "lib/Xamarin.iOS10/ZXing.Net.Mobile.Forms.iOS.dll": {}
         }
       },
-      "LightScout/1.0.0": {
+      "LightScout/1.2.5": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
@@ -829,7 +829,7 @@
           "lib/Xamarin.iOS10/ZXing.Net.Mobile.Forms.iOS.dll": {}
         }
       },
-      "LightScout/1.0.0": {
+      "LightScout/1.2.5": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
@@ -1107,7 +1107,7 @@
           "lib/Xamarin.iOS10/ZXing.Net.Mobile.Forms.iOS.dll": {}
         }
       },
-      "LightScout/1.0.0": {
+      "LightScout/1.2.5": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
@@ -1782,7 +1782,7 @@
         "zxing.net.mobile.forms.nuspec"
       ]
     },
-    "LightScout/1.0.0": {
+    "LightScout/1.2.5": {
       "type": "project",
       "path": "../LightScout/LightScout.csproj",
       "msbuildProject": "../LightScout/LightScout.csproj"
@@ -1790,7 +1790,7 @@
   },
   "projectFileDependencyGroups": {
     "Xamarin.iOS,Version=v1.0": [
-      "LightScout >= 1.0.0",
+      "LightScout >= 1.2.5",
       "Plugin.BLE >= 2.1.1",
       "SkiaSharp.Views.Forms >= 1.68.1",
       "TouchTracking.Forms >= 1.1.0",

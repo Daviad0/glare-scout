@@ -590,5 +590,172 @@ namespace LightScout
 
 
         }
+
+
+
+
+
+        //NEW PROTOCOL BELOW
+
+
+
+
+        public async void ConnectToDevice(BLEMessageArguments args, CancellationToken token)
+        {
+            foreach (var device in adapter.ConnectedDevices)
+            {
+                await adapter.DisconnectDeviceAsync(device);
+            }
+            GdeviceDC = new EventHandler<Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs>(async (s, a) =>
+            {
+                if (!datagotten)
+                {
+                    adapter.DeviceDisconnected -= GdeviceDC;
+                }
+            });
+            GdeviceC = new EventHandler<Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs>(async (s, a) =>
+            {
+                if (!datagotten)
+                {
+                    connectedPeripheral = a.Device;
+                    SendToLightSwitch(a.Device,args);
+                    datagotten = true;
+                    adapter.DeviceConnected -= GdeviceC;
+                }
+            });
+            GdeviceD = new EventHandler<Plugin.BLE.Abstractions.EventArgs.DeviceEventArgs>(async (s, a) =>
+            {
+                if (a.Device.Name == "LRSS" || a.Device.Id == Guid.Parse("16FD1A9B-F36F-7EAB-66B2-499BF4DBB0F2"))
+                {
+                    adapter.ConnectToDeviceAsync(a.Device);
+                    adapter.DeviceDiscovered -= GdeviceD;
+                }
+            });
+            adapter.DeviceDisconnected += GdeviceDC;
+            adapter.DeviceConnected += GdeviceC;
+            adapter.DeviceDiscovered += GdeviceD;
+            try
+            {
+                adapter.ScanMode = ScanMode.LowPower;
+                adapter.StartScanningForDevicesAsync();
+                Device.StartTimer(TimeSpan.FromSeconds(0.1), () =>
+                {
+                    if (datagotten)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            token.ThrowIfCancellationRequested();
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessagingCenter.Send<SubmitVIABluetooth, int>(this, "tbasenddata", -1);
+                            resultsubmitted = true;
+                        }
+                        return true;
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                MessagingCenter.Send<SubmitVIABluetooth, int>(this, "tbasenddata", -1);
+                datagotten = true;
+            }
+        }
+        public async void SendToLightSwitch(IDevice selectedDevice, BLEMessageArguments args)
+        {
+            var rawreturnvalue = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");
+            List<TeamMatch> beforeList = JsonConvert.DeserializeObject<List<TeamMatch>>(rawreturnvalue);
+            DateTime lastSubmitted = (DateTime)Application.Current.Properties["TimeLastSubmitted"];
+            List<TeamMatch> afterMatch = beforeList.Where(x => x.ClientLastSubmitted == null || x.ClientLastSubmitted > lastSubmitted).ToList();
+            string returnvalue = JsonConvert.SerializeObject(afterMatch);
+            var servicetosend = await selectedDevice.GetServiceAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130000"));
+            var uuid = new Guid();
+            var tabletid = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TabletIdentifier;
+            if (tabletid == "R1")
+            {
+                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130001");
+            }
+            else if (tabletid == "R2")
+            {
+                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130002");
+            }
+            else if (tabletid == "R3")
+            {
+                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130003");
+            }
+            else if (tabletid == "B1")
+            {
+                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130004");
+            }
+            else if (tabletid == "B2")
+            {
+                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130005");
+            }
+            else if (tabletid == "B3")
+            {
+                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130006");
+            }
+            else
+            {
+                uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130001");
+            }
+            await selectedDevice.RequestMtuAsync(512);
+            var characteristictosend = await servicetosend.GetCharacteristicAsync(uuid);
+            characteristictosend.ValueUpdated += (s, a) =>
+            {
+                Console.WriteLine(a.Characteristic.Value);
+            };
+            try
+            {
+                var deviceid = "a-12345678";
+                await characteristictosend.StartUpdatesAsync();
+                
+                var stringtoconvert = "S:" + deviceid + ":" + returnvalue;
+                var bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
+                if (bytestotransmit.Length > 460)
+                {
+                    
+                    int numberofmessages = (int)Math.Ceiling((float)bytestotransmit.Length / (float)460);
+                    var leadingmessage = "L!" + deviceid + ":" + args.messageType.ToString("00") + "@" + DateTime.Now.Hour.ToString("00") + ":" + DateTime.Now.Minute.ToString("00")+ ">>" + numberofmessages.ToString();
+                    var followingheader = Encoding.ASCII.GetBytes("F!" + deviceid + ">>");
+                    await characteristictosend.WriteAsync(Encoding.ASCII.GetBytes(leadingmessage));
+                    for (int i = numberofmessages; i > 0; i--)
+                    {
+                        var bytesarray = followingheader.Concat(bytestotransmit.Skip((numberofmessages - i) * 460).Take(460).ToArray()).ToArray();
+                        Console.WriteLine(Encoding.ASCII.GetString(bytesarray));
+                        await characteristictosend.WriteAsync(bytesarray);
+                    }
+                }
+                else
+                {
+                    await characteristictosend.WriteAsync(bytestotransmit);
+                }
+                resultsubmitted = true;
+                Application.Current.Properties["TimeLastSubmitted"] = DateTime.Now;
+                Console.WriteLine(bytestotransmit);
+                await adapter.DisconnectDeviceAsync(connectedPeripheral);
+            }
+            catch (Exception ex)
+            {
+                MessagingCenter.Send<SubmitVIABluetooth, int>(this, "boom", -1);
+            }
+        }
+        public enum ResponseExpectation
+        {
+            Expected,
+            Optional,
+            NoResponse
+        }
+        public class BLEMessageArguments
+        {
+            public int messageType { get; set; }
+            public string messageData { get; set; }
+            public ResponseExpectation expectation { get; set; }
+        }
     }
 }

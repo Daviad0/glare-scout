@@ -668,11 +668,6 @@ namespace LightScout
         }
         public async void SendToLightSwitch(IDevice selectedDevice, BLEMessageArguments args)
         {
-            var rawreturnvalue = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt");
-            List<TeamMatch> beforeList = JsonConvert.DeserializeObject<List<TeamMatch>>(rawreturnvalue);
-            DateTime lastSubmitted = (DateTime)Application.Current.Properties["TimeLastSubmitted"];
-            List<TeamMatch> afterMatch = beforeList.Where(x => x.ClientLastSubmitted == null || x.ClientLastSubmitted > lastSubmitted).ToList();
-            string returnvalue = JsonConvert.SerializeObject(afterMatch);
             var servicetosend = await selectedDevice.GetServiceAsync(Guid.Parse("6ad0f836b49011eab3de0242ac130000"));
             var uuid = new Guid();
             var tabletid = JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TabletIdentifier;
@@ -715,8 +710,7 @@ namespace LightScout
                 var deviceid = "a-12345678";
                 await characteristictosend.StartUpdatesAsync();
                 
-                var stringtoconvert = "S:" + deviceid + ":" + returnvalue;
-                var bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
+                var bytestotransmit = Encoding.ASCII.GetBytes(args.messageData);
                 if (bytestotransmit.Length > 460)
                 {
                     
@@ -733,7 +727,8 @@ namespace LightScout
                 }
                 else
                 {
-                    await characteristictosend.WriteAsync(bytestotransmit);
+                    var singlemessage = "S!" + deviceid + ":" + args.messageType.ToString("00") + "@" + DateTime.Now.Hour.ToString("00") + ":" + DateTime.Now.Minute.ToString("00") + ">>" + args.messageData;
+                    await characteristictosend.WriteAsync(Encoding.ASCII.GetBytes(singlemessage));
                 }
                 resultsubmitted = true;
                 Application.Current.Properties["TimeLastSubmitted"] = DateTime.Now;
@@ -742,7 +737,7 @@ namespace LightScout
             }
             catch (Exception ex)
             {
-                MessagingCenter.Send<SubmitVIABluetooth, int>(this, "boom", -1);
+                
             }
         }
         public enum ResponseExpectation

@@ -12,7 +12,7 @@ using Xamarin.Forms.Xaml;
 namespace LightScout
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class FRCHome : TabbedPage
+    public partial class FRCHome : Xamarin.Forms.TabbedPage
     {
         private static MatchViewModel matchViewModel = new MatchViewModel();
         public FRCHome()

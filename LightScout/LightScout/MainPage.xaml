@@ -86,7 +86,7 @@
                 </ListView>
 
                 <ProgressBar ProgressColor="#2a7afa" Progress="0" x:Name="MatchProgressList" HeightRequest="8"/>
-                <CarouselView BackgroundColor="#f1f1f1" x:Name="carouseluwu" HeightRequest="450" CurrentItemChanged="carouseluwu_CurrentItemChanged">
+                <CarouselView BackgroundColor="Transparent" x:Name="carouseluwu" HeightRequest="450" CurrentItemChanged="carouseluwu_CurrentItemChanged">
                     <CarouselView.ItemsLayout>
                         <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
                         
@@ -101,7 +101,7 @@
                        Margin="20,20,20,0"
                        HeightRequest="350"
                        HorizontalOptions="Center"
-                                           BackgroundColor="#f1f1f1"
+                                           BackgroundColor="Transparent"
                        VerticalOptions="CenterAndExpand"
                                        WidthRequest="300">
                                         <StackLayout>
@@ -128,7 +128,7 @@
                                                         <Label Text="{Binding TabletName}" TextColor="White" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
                                                     </Frame>
                                                 </Grid>
-                                                <Label Text="{Binding MatchNumber, StringFormat='Match #{0}'}"
+                                                <Label TextColor="Black" Text="{Binding MatchNumber, StringFormat='Match #{0}'}"
                                FontAttributes="Bold"
                                FontSize="Large"
                                HorizontalOptions="Center"
@@ -206,7 +206,7 @@
                                        HeightRequest="50"
                                        Grid.Column="0"
                                                        Padding="0"
-                                               BackgroundColor="#f1f1f1"
+                                               BackgroundColor="White"
                                        HorizontalOptions="Center"
                                                        WidthRequest="150">
                                             <Button Text="Scout Match" BackgroundColor="Transparent" BorderColor="Transparent" Clicked="GoToFRCPage"/>
@@ -218,7 +218,7 @@
                                        HeightRequest="50"
                                        Grid.Column="1"
                                                        Padding="0"
-                                               BackgroundColor="#f1f1f1"
+                                               BackgroundColor="White"
                                        HorizontalOptions="Center"
                                                        WidthRequest="70">
                                             <Button Text="&#xee09;" BackgroundColor="Transparent" TextColor="Red" BorderColor="Transparent" FontFamily="{StaticResource IconFont}" Clicked="DeleteEntry"/>
@@ -230,7 +230,7 @@
                                        HeightRequest="50"
                                        Grid.Column="2"
                                                        Padding="0"
-                                               BackgroundColor="#f1f1f1"
+                                               BackgroundColor="White"
                                        HorizontalOptions="Center"
                                                        WidthRequest="70">
                                             <Button Text="&#xec55;" BackgroundColor="Transparent" TextColor="Blue" BorderColor="Transparent" FontFamily="{StaticResource IconFont}" Clicked="EditEntry"/>
@@ -312,7 +312,7 @@
 
                     <Picker x:Name="tabletPicker" SelectedIndexChanged="tabletPicker_SelectedIndexChanged" IsVisible="False"/>
                     <Button Text="Reload Page" Clicked="ReloadScreen" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
-                    <Button Text="Test Protocol v3" Clicked="ReloadScreen" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
+                    <Button Text="Test Protocol v3" Clicked="ProtocolV3" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
 
                 </StackLayout>
             </StackLayout>

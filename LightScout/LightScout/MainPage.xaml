@@ -101,7 +101,7 @@
                        Margin="20,20,20,0"
                        HeightRequest="350"
                        HorizontalOptions="Center"
-                                           BackgroundColor="Transparent"
+                                           BackgroundColor="White"
                        VerticalOptions="CenterAndExpand"
                                        WidthRequest="300">
                                         <StackLayout>

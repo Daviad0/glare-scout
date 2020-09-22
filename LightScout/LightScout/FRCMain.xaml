@@ -1043,18 +1043,39 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <StackLayout Grid.Column="0" Grid.Row="0">
+                <StackLayout Grid.Column="0" Grid.Row="0" Margin="5,0">
                     <Grid>
                         <Image Source="teamnumberselection.png" Margin="5,1" VerticalOptions="Center"/>
-                        <Label Text="862" Margin="8,1" VerticalOptions="Center" HorizontalOptions="End"/>
+                        <Label Text="862" Margin="20,1" VerticalOptions="Center" HorizontalOptions="End" FontAttributes="Bold" FontSize="20">
+                            <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS">Varela Round Regular</On>
+                                    <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                                </OnPlatform>
+                            </Label.FontFamily>
+                        </Label>
                     </Grid>
                     <Grid>
                         <Image Source="teamnumberselection.png" Margin="5,1" VerticalOptions="Center"/>
-                        <Label Text="1023" Margin="8,1" VerticalOptions="Center" HorizontalOptions="End"/>
+                        <Label Text="1023" Margin="20,1" VerticalOptions="Center" HorizontalOptions="End" FontAttributes="Bold" FontSize="20">
+                            <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS">Varela Round Regular</On>
+                                    <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                                </OnPlatform>
+                            </Label.FontFamily>
+                        </Label>
                     </Grid>
                     <Grid>
                         <Image Source="teamnumberselection.png" Margin="5,1" VerticalOptions="Center"/>
-                        <Label Text="2048" Margin="8,1" VerticalOptions="Center" HorizontalOptions="End"/>
+                        <Label Text="2048" Margin="20,1" VerticalOptions="Center" HorizontalOptions="End" FontAttributes="Bold" FontSize="20">
+                            <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS">Varela Round Regular</On>
+                                    <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                                </OnPlatform>
+                            </Label.FontFamily>
+                        </Label>
                     </Grid>
                 </StackLayout>
                 

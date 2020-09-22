@@ -59,7 +59,7 @@
                     <ColumnDefinition Width="60"/>
                 </Grid.ColumnDefinitions>
 
-
+                <Image Source="teamnumberselection.png" Grid.Column="1" Grid.Row="0"/>
                 <Button Text="&#xea97;" TextColor="#2a7afa" IsEnabled="False" x:Name="prevForm" BackgroundColor="White" BorderColor="#2a7afa" BorderWidth="2" Clicked="prevForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
                 <Button Text="&#xeee4;" TextColor="#2a7afa" x:Name="exitForm" BackgroundColor="White" BorderColor="#2a7afa" BorderWidth="2"  FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0" IsVisible="True" Clicked="BackToMainMenu"/>
                 <Label Text="Team 862" x:Name="teamName"  Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" TextColor="White">

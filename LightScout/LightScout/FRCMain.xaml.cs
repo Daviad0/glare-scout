@@ -442,7 +442,7 @@ namespace LightScout
             HiddenLabelDetails.FadeTo(1, 350);
             await Task.Delay(TimeSpan.FromSeconds(.5));
             HiddenButtonGo.FadeTo(1, 500);
-
+            
         }
         private async void StartScouting(object sender, EventArgs e)
         {

@@ -59,7 +59,7 @@
                     <ColumnDefinition Width="60"/>
                 </Grid.ColumnDefinitions>
 
-                <Image Source="teamnumberselection.png" Grid.Column="1" Grid.Row="0"/>
+                
                 <Button Text="&#xea97;" TextColor="#2a7afa" IsEnabled="False" x:Name="prevForm" BackgroundColor="White" BorderColor="#2a7afa" BorderWidth="2" Clicked="prevForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
                 <Button Text="&#xeee4;" TextColor="#2a7afa" x:Name="exitForm" BackgroundColor="White" BorderColor="#2a7afa" BorderWidth="2"  FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0" IsVisible="True" Clicked="BackToMainMenu"/>
                 <Label Text="Team 862" x:Name="teamName"  Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" TextColor="White">
@@ -1043,6 +1043,21 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+                <StackLayout Grid.Column="0" Grid.Row="0">
+                    <Grid>
+                        <Image Source="teamnumberselection.png" Margin="5,1" VerticalOptions="Center"/>
+                        <Label Text="862" Margin="8,1" VerticalOptions="Center" HorizontalOptions="End"/>
+                    </Grid>
+                    <Grid>
+                        <Image Source="teamnumberselection.png" Margin="5,1" VerticalOptions="Center"/>
+                        <Label Text="1023" Margin="8,1" VerticalOptions="Center" HorizontalOptions="End"/>
+                    </Grid>
+                    <Grid>
+                        <Image Source="teamnumberselection.png" Margin="5,1" VerticalOptions="Center"/>
+                        <Label Text="2048" Margin="8,1" VerticalOptions="Center" HorizontalOptions="End"/>
+                    </Grid>
+                </StackLayout>
+                
                 <Label Text="&#xeebd;" FontFamily="{StaticResource IconFont}" FontSize="80" x:Name="logo" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center"/>
                 <Image Source="frcicon.png" IsVisible="False" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" WidthRequest="250" Grid.Row="0" Grid.Column="0"/>
                 <Label Text="Team 862" TextColor="White" x:Name="HiddenLabel" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Opacity="0" Grid.Row="1" Grid.Column="0" FontSize="30" FontAttributes="Bold">

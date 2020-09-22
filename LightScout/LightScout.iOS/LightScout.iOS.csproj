@@ -94,7 +94,7 @@
     <BundleResource Include="Resources\icofont.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\allianceteamnumber.png.imageset\rect17.png">
+    <ImageAsset Include="Assets.xcassets\allianceteamnumber.png.imageset\allianceteamnumber.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-App-20x20@1x1.png">
@@ -352,7 +352,7 @@
     <ImageAsset Include="Assets.xcassets\row6col9.png.imageset\row6col9.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\teamnumberselection.png.imageset\teamnumberselection1.png">
+    <ImageAsset Include="Assets.xcassets\teamnumberselection.png.imageset\teamnumberselection2.png">
       <Visible>false</Visible>
     </ImageAsset>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />

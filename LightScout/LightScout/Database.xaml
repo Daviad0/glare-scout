@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="LightScout.Database"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Margin="0,5">
+                <Grid>
+                    <Frame Grid.Column="0" CornerRadius="8" BackgroundColor="LightGray" HeightRequest="200" Margin="10,5,10,0" IsVisible="False" x:Name="underContainer">
+
+                    </Frame>
+                    <Frame BackgroundColor="White" CornerRadius="8" BorderColor="LightGray" Margin="10,10,10,0" HeightRequest="60" Grid.Column="0" VerticalOptions="Start" x:Name="container">
+                        <Grid Margin="5,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label FontSize="25" Text="862" FontAttributes="Bold" VerticalOptions="Center" Grid.Row="0"/>
+                                <Label FontSize="15" Text="#1" Grid.Row="1"/>
+                            </Grid>
+                            <Label FontSize="25" Text="6 PC" FontAttributes="Bold" VerticalOptions="Center" Grid.Column="1" HorizontalOptions="End"/>
+                        </Grid>
+                    </Frame>
+
+                </Grid>
+                <Expander x:Name="expander1">
+                    <Expander.Header>
+                        <Grid>
+                            <Frame x:Name="testoption" BackgroundColor="Orange" Margin="10,10,10,0" HeightRequest="60" Grid.Row="0" Grid.Column="0" BorderColor="Orange" CornerRadius="8" VerticalOptions="Center">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"/>
+                                </Frame.GestureRecognizers>
+                                <Label Text="&#xef22;" FontFamily="{StaticResource IconFont}" TextColor="White" HorizontalOptions="End" VerticalOptions="Center" FontSize="30"/>
+                            </Frame>
+                            <Frame BackgroundColor="White" CornerRadius="8" BorderColor="LightGray" Margin="10,10,10,0" HeightRequest="60" Grid.Row="0" Grid.Column="0" x:Name="testFrame1">
+                                <Frame.GestureRecognizers>
+                                    <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated_1"/>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                </Frame.GestureRecognizers>
+                                <Grid Margin="5,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Label FontSize="25" Text="862" FontAttributes="Bold" VerticalOptions="Center" Grid.Row="0"/>
+                                        <Label FontSize="15" Text="#1" Grid.Row="1"/>
+                                    </Grid>
+                                    <Label FontSize="25" Text="6 PC" FontAttributes="Bold" VerticalOptions="Center" Grid.Column="1" HorizontalOptions="End"/>
+                                </Grid>
+                            </Frame>
+                            
+                        </Grid>
+                        
+                    </Expander.Header>
+                    <Frame Grid.Column="0" CornerRadius="8" BackgroundColor="LightGray" HeightRequest="200" Margin="10,10,10,0">
+
+                    </Frame>
+                </Expander>
+                <Expander x:Name="expander2">
+                    <Expander.Header>
+                        <Frame BackgroundColor="White" CornerRadius="8" BorderColor="LightGray" Margin="10,10,10,0" HeightRequest="60">
+                            <Grid Margin="5,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Label FontSize="25" Text="862" FontAttributes="Bold" VerticalOptions="Center" Grid.Row="0"/>
+                                    <Label FontSize="15" Text="#1" Grid.Row="1"/>
+                                </Grid>
+                                <Label FontSize="25" Text="6 PC" FontAttributes="Bold" VerticalOptions="Center" Grid.Column="1" HorizontalOptions="End"/>
+                            </Grid>
+                        </Frame>
+                    </Expander.Header>
+                    <Frame Grid.Column="0" CornerRadius="8" BackgroundColor="LightGray" HeightRequest="200" Margin="10,10,10,0">
+
+                    </Frame>
+                </Expander>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

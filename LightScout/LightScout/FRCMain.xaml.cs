@@ -1958,17 +1958,16 @@ namespace LightScout
             });
         }
 
-        private async void SwipeToTeleOpCard(object sender, SwipedEventArgs e)
+        private async void SwipeToTeleOpCard(bool Left)
         {
             var converter = new ColorTypeConverter();
-            if (e.Direction == SwipeDirection.Left)
+            if (Left)
             {
                 if (CurrentCycle < 20)
                 {
                     CurrentCycle++;
-                    await cardToFlip.TranslateTo(cardToFlip.TranslationX + 10, cardToFlip.TranslationY, 175, Easing.CubicOut);
-                    await cardToFlip.TranslateTo(cardToFlip.TranslationX - 510, cardToFlip.TranslationY, 175, Easing.CubicOut);
-                    cardToFlip.TranslationX = cardToFlip.TranslationX + 1000;
+                   
+                    cardToFlip.TranslationX = 400;
                     CurrentCycleNumLabel.Text = "Tele-Op Cycle #" + CurrentCycle.ToString();
                     innerAmount.Text = PowerCellInner[CurrentCycle].ToString() + " PC";
                     outerAmount.Text = PowerCellOuter[CurrentCycle].ToString() + " PC";
@@ -2068,8 +2067,7 @@ namespace LightScout
                         pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
                         pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
                     }
-                    await cardToFlip.TranslateTo(cardToFlip.TranslationX - 510, cardToFlip.TranslationY, 175, Easing.CubicOut);
-                    await cardToFlip.TranslateTo(cardToFlip.TranslationX + 10, cardToFlip.TranslationY, 175, Easing.CubicOut);
+                    await cardToFlip.TranslateTo(0, cardToFlip.TranslationY, 175, Easing.CubicInOut);
                     cardToFlip.TranslationX = 0;
                     cardToFlip.TranslationY = 0;
                 }
@@ -2089,9 +2087,8 @@ namespace LightScout
                 if (CurrentCycle > 1)
                 {
                     CurrentCycle--;
-                    await cardToFlip.TranslateTo(cardToFlip.TranslationX - 10, cardToFlip.TranslationY, 175, Easing.CubicIn);
-                    await cardToFlip.TranslateTo(cardToFlip.TranslationX + 510, cardToFlip.TranslationY, 175, Easing.CubicIn);
-                    cardToFlip.TranslationX = cardToFlip.TranslationX - 1000;
+                    
+                    cardToFlip.TranslationX = -400;
                     CurrentCycleNumLabel.Text = "Tele-Op Cycle #" + CurrentCycle.ToString();
                     innerAmount.Text = PowerCellInner[CurrentCycle].ToString() + " PC";
                     outerAmount.Text = PowerCellOuter[CurrentCycle].ToString() + " PC";
@@ -2191,8 +2188,8 @@ namespace LightScout
                         pcStock2.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
                         pcStock1.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.LightGray");
                     }
-                    await cardToFlip.TranslateTo(cardToFlip.TranslationX + 510, cardToFlip.TranslationY, 175, Easing.CubicOut);
-                    await cardToFlip.TranslateTo(cardToFlip.TranslationX - 10, cardToFlip.TranslationY, 175, Easing.CubicOut);
+                    await cardToFlip.TranslateTo(0, cardToFlip.TranslationY, 175, Easing.CubicInOut);
+                    
                     cardToFlip.TranslationX = 0;
                     cardToFlip.TranslationY = 0;
 
@@ -2651,6 +2648,55 @@ namespace LightScout
             }
 
             oldSelectedLoadButton = null;
+        }
+        private async void PanGestureRecognizer_PanUpdated(object sender, PanUpdatedEventArgs e)
+        {
+            Frame boxView = (Frame)sender as Frame;
+            boxView.TranslationX = boxView.TranslationX + e.TotalX;
+            
+            if (e.StatusType == GestureStatus.Completed)
+            {
+                if (boxView.TranslationX < -130)
+                {
+                    boxView.IsEnabled = false;
+                    
+                    if(CurrentCycle < 20)
+                    {
+                        await boxView.TranslateTo(-400, 0,150 , easing: Easing.CubicInOut);
+                        SwipeToTeleOpCard(true);
+                    }
+                    else
+                    {
+                        await boxView.TranslateTo(10, 0, easing: Easing.CubicInOut);
+                        await boxView.TranslateTo(-10, 0, easing: Easing.CubicInOut);
+                        await boxView.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                    }
+                    boxView.IsEnabled = true;
+                }
+                else if (boxView.TranslationX > 130)
+                {
+                    boxView.IsEnabled = false;
+                    
+                    if (CurrentCycle > 1)
+                    {
+                        await boxView.TranslateTo(400, 0, 150, easing: Easing.CubicInOut);
+                        SwipeToTeleOpCard(false);
+                    }
+                    else
+                    {
+                        await boxView.TranslateTo(-10, 0, easing: Easing.CubicInOut);
+                        await boxView.TranslateTo(10, 0, easing: Easing.CubicInOut);
+                        await boxView.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                    }
+                    boxView.IsEnabled = true;
+
+                }
+                else
+                {
+                    await boxView.TranslateTo(0, 0, 150, easing: Easing.CubicInOut);
+                }
+            }
+            
         }
 
     }

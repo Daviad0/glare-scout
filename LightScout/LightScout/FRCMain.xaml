@@ -112,7 +112,7 @@
                     <Button Text="Not Achieved" Clicked="ChangeInitLine" Style="{StaticResource lightSecondary}" Grid.Column="1" x:Name="initLineToggle"/>
 
                 </Grid>
-                <Frame BorderColor="Transparent" BackgroundColor="#f2f2f2" CornerRadius="4" Margin="10">
+                <Frame BorderColor="Transparent" BackgroundColor="#f2f2f2" CornerRadius="6" Margin="10">
                     <StackLayout>
                         <Label TextColor="Black" Text="Autonomous Cycle" HorizontalOptions="Center" Margin="0,0,0,20" FontSize="Medium"/>
                         <Grid Margin="5,0,5,0">
@@ -154,10 +154,9 @@
             </StackLayout>
             <StackLayout x:Name="teleopForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
 
-                <Frame BorderColor="Transparent" BackgroundColor="#f2f2f2" CornerRadius="4" Margin="10" x:Name="cardToFlip">
+                <Frame BorderColor="Transparent" BackgroundColor="#f2f2f2" CornerRadius="6" Margin="10" x:Name="cardToFlip">
                     <Frame.GestureRecognizers>
-                        <SwipeGestureRecognizer Direction="Left" Swiped="SwipeToTeleOpCard"/>
-                        <SwipeGestureRecognizer Direction="Right" Swiped="SwipeToTeleOpCard"/>
+                        <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"/>
                     </Frame.GestureRecognizers>
                     <StackLayout x:Name="cardContent">
                         <Label TextColor="Black" x:Name="CurrentCycleNumLabel" Text="Tele-Op Cycle #1" HorizontalOptions="Center" Margin="0,0,0,20" FontSize="Medium"/>

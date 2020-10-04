@@ -15,6 +15,7 @@ using Android.Support.V4.App;
 using Android.Content.PM;
 using Android;
 using System.Linq;
+using Xamarin.Forms;
 
 [assembly: UsesFeature("android.hardware.usb.host")]
 
@@ -26,33 +27,15 @@ namespace LightScout.Droid
 
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
-        static readonly string TAG = typeof(MainActivity).Name;
-        const string ACTION_USB_PERMISSION = "com.hoho.android.usbserial.examples.USB_PERMISSION";
-
-        public const string EXTRA_TAG = "PortInfo";
-        const int READ_WAIT_MILLIS = 200;
-        const int WRITE_WAIT_MILLIS = 200;
-
-        UsbManager usbManager;
-        ListView listView;
-        TextView progressBarTitle;
-        ProgressBar progressBar;
-
-        //UsbSerialPortAdapter adapter;
-        BroadcastReceiver detachedReceiver;
-        IUsbSerialPort selectedPort;
-
-        Hoho.Android.UsbSerial.Util.SerialInputOutputManager serialIoManager;
 
         //UsbSerialPort port;
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            Forms.SetFlags("DragAndDrop_Experimental", "Expander_Experimental");
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
             this.Window.AddFlags(WindowManagerFlags.Fullscreen);
             base.OnCreate(savedInstanceState);
-            usbManager = GetSystemService(Context.UsbService) as UsbManager;
-            ZXing.Net.Mobile.Forms.Android.Platform.Init();
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
@@ -215,7 +198,6 @@ namespace LightScout.Droid
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-            ZXing.Net.Mobile.Forms.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
         /*#region UsbSerialPortAdapter implementation

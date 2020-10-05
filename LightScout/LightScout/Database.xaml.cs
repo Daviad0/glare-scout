@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -27,6 +27,7 @@ namespace LightScout
             expander2.ExpandAnimationLength = 500;
             underContainer.AnchorY = underContainer.AnchorY - 50;
             var tapGestureRecognizer = new TapGestureRecognizer();
+            tapGestureRecognizer.NumberOfTapsRequired = 1;
             tapGestureRecognizer.Tapped += async (s, e) => {
                 if (!isOpen)
                 {
@@ -76,63 +77,111 @@ namespace LightScout
         private async void PanGestureRecognizer_PanUpdated_1(object sender, PanUpdatedEventArgs e)
         {
             Frame frame = (Frame)sender as Frame;
-           
-            
 
 
-            if (e.StatusType == GestureStatus.Completed || e.StatusType == GestureStatus.Canceled)
+            if(Device.RuntimePlatform == Device.iOS)
             {
-                if (frame.TranslationX + e.TotalX < -70)
+                Console.WriteLine(e.TotalX);
+                if (e.StatusType == GestureStatus.Completed || e.StatusType == GestureStatus.Canceled)
                 {
-                    if (frame.TranslationX + e.TotalX < -150)
+                    if (frame.TranslationX + e.TotalX < -70)
                     {
-                        frame.TranslateTo(-500, 0, easing: Easing.CubicInOut);
-                        testoption.TranslateTo(-500, 0, easing: Easing.CubicInOut);
-                        //AUTORESET FOR DEBUG
-                        await Task.Delay(2000);
-                        frame.TranslateTo(0, 0, easing: Easing.CubicInOut);
-                        testoption.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                        if (frame.TranslationX + e.TotalX < -150)
+                        {
+                            frame.TranslateTo(-500, 0, 200, easing: Easing.CubicOut);
+                            if (((Expander)frame.Parent.Parent.Parent).IsExpanded)
+                            {
+                                ((Expander)frame.Parent.Parent.Parent).IsExpanded = false;
+                                await Task.Delay(200);
+                            }
+                            await Task.Delay(100);
+                            testoption.FadeTo(0, easing: Easing.CubicInOut);
+                            //AUTORESET FOR DEBUG
+                            await Task.Delay(2000);
+                            frame.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                            testoption.FadeTo(1, easing: Easing.CubicInOut);
+                        }
+                        else
+                        {
+                            frame.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                        }
+
                     }
                     else
                     {
-                        frame.TranslateTo(-70, 0, easing: Easing.CubicInOut);
+                        frame.TranslateTo(0, 0, easing: Easing.CubicInOut);
                     }
-                    
                 }
                 else
                 {
-                    frame.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                    if (e.TotalX < -70)
+                    {
+                        frame.TranslationX = e.TotalX * 0.8;
+
+                    }
+                    else if (e.TotalX > 0)
+                    {
+                        frame.TranslateTo(0, 0, easing: Easing.CubicInOut);
+
+                    }
+                    else
+                    {
+                        frame.TranslationX = e.TotalX;
+                    }
                 }
             }
             else
             {
-                if (frame.TranslationX + e.TotalX < -70)
+                Console.WriteLine(e.TotalX);
+                if (e.StatusType == GestureStatus.Completed || e.StatusType == GestureStatus.Canceled)
                 {
-                    if(frame.TranslationX + e.TotalX < -350)
+                    if (frame.TranslationX + e.TotalX < -70)
                     {
-                        frame.TranslateTo(-500, 0, easing: Easing.CubicInOut);
-                        testoption.TranslateTo(-500, 0, easing: Easing.CubicInOut);
-                        //AUTORESET FOR DEBUG
-                        await Task.Delay(2000);
-                        frame.TranslateTo(0, 0, easing: Easing.CubicInOut);
-                        testoption.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                        if (frame.TranslationX + e.TotalX < -150)
+                        {
+                            frame.TranslateTo(-500, 0, 200, easing: Easing.CubicOut);
+                            if (((Expander)frame.Parent.Parent.Parent).IsExpanded)
+                            {
+                                ((Expander)frame.Parent.Parent.Parent).IsExpanded = false;
+                                await Task.Delay(200);
+                            }
+                            await Task.Delay(100);
+                            testoption.FadeTo(0, easing: Easing.CubicInOut);
+                            //AUTORESET FOR DEBUG
+                            await Task.Delay(2000);
+                            frame.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                            testoption.FadeTo(1, easing: Easing.CubicInOut);
+                        }
+                        else
+                        {
+                            frame.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                        }
+
                     }
                     else
                     {
-                        frame.TranslationX += e.TotalX * 0.8;
+                        frame.TranslateTo(0, 0, easing: Easing.CubicInOut);
                     }
-                    
-                }
-                else if (frame.TranslationX + e.TotalX > 0)
-                {
-                    frame.TranslateTo(0, 0, easing: Easing.CubicInOut);
-
                 }
                 else
                 {
-                    frame.TranslationX += e.TotalX;
+                    if (frame.TranslationX + e.TotalX < -70)
+                    {
+                        frame.TranslationX += e.TotalX * 0.8;
+
+                    }
+                    else if (frame.TranslationX + e.TotalX > 0)
+                    {
+                        frame.TranslateTo(0, 0, easing: Easing.CubicInOut);
+
+                    }
+                    else
+                    {
+                        frame.TranslationX += e.TotalX;
+                    }
                 }
             }
+            
 
             
         }

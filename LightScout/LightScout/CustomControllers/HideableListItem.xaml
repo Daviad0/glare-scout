@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="LightScout.CustomControllers.HideableListItem">
+  <ContentView.Content>
+    <Expander ClassId="{Binding Id}" IsVisible="{Binding Visible}">
+        <Expander.Header>
+            <Grid>
+                <Frame ClassId="below" HasShadow="False" BackgroundColor="Orange" Margin="10,10,10,0" HeightRequest="60" Grid.Row="0" Grid.Column="0" BorderColor="Orange" CornerRadius="8" VerticalOptions="Center">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"/>
+                    </Frame.GestureRecognizers>
+                    <Grid>
+                        <Label ClassId="icon" Text="&#xef22;" FontFamily="{StaticResource IconFont}" Grid.Column="0" Grid.Row="0" TextColor="White" HorizontalOptions="End" VerticalOptions="Center" FontSize="30" Margin="0,0,20,20"/>
+                        <Label ClassId="label" Text="HIDE" FontAttributes="Bold" Grid.Column="0" Grid.Row="0" TextColor="White" HorizontalOptions="End" VerticalOptions="Center" FontSize="20" Margin="15,20,15,0" Opacity="0"/>
+                    </Grid>
+
+                </Frame>
+                <Frame ClassId="above" HasShadow="False" BackgroundColor="White" CornerRadius="8" BorderColor="LightGray" Margin="10,10,10,0" HeightRequest="60" Grid.Row="0" Grid.Column="0">
+                    <Frame.GestureRecognizers>
+                        <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated_1"/>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                    </Frame.GestureRecognizers>
+                    <Grid Margin="5,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label TextColor="Black" FontSize="25" Text="862" FontAttributes="Bold" VerticalOptions="Center" Grid.Row="0"/>
+                            <Label TextColor="Black" FontSize="15" Text="#1" Grid.Row="1"/>
+                        </Grid>
+                        <Label TextColor="Black" FontSize="25" Text="6 PC" FontAttributes="Bold" VerticalOptions="Center" Grid.Column="1" HorizontalOptions="End"/>
+                    </Grid>
+                </Frame>
+
+            </Grid>
+
+        </Expander.Header>
+        <Frame HasShadow="False" Grid.Column="0" CornerRadius="8" BackgroundColor="LightGray" HeightRequest="200" Margin="10,10,10,0">
+
+        </Frame>
+    </Expander>
+    </ContentView.Content>
+</ContentView>

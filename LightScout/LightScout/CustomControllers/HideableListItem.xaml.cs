@@ -1,70 +1,59 @@
-﻿using LightScout.CustomControllers;
-using LightScout.Models;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace LightScout
+namespace LightScout.CustomControllers
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Database : ContentPage
+    public partial class HideableListItem : ContentView
     {
-        private bool isOpen = false;
-        private ObservableCollection<DatabaseItemView> databaseItemViews = new ObservableCollection<DatabaseItemView>();
-        private ObservableCollection<DatabaseItemView> originalDatabaseItemViews = new ObservableCollection<DatabaseItemView>();
-        public Database()
+        public HideableListItemInstance currentInstance { get; set; }
+        public HideableListItem(HideableListItemInstance passedInstance)
         {
-            
             InitializeComponent();
-
-            originalDatabaseItemViews = new ObservableCollection<DatabaseItemView>() { new DatabaseItemView() { Visible = false, Id = "0", SetHeight = 80 }, new DatabaseItemView() { Visible = true, Id = "1", SetHeight = 80 }, new DatabaseItemView() { Visible = true, Id = "2", SetHeight = 80 } };
-            databaseItemViews = new ObservableCollection<DatabaseItemView>(originalDatabaseItemViews);
-            listOfItems.Children.Add(new HideableListItem(new HideableListItemInstance() { Id = 0, Visible = true }));
-            listOfItems.Children.Add(new HideableListItem(new HideableListItemInstance() { Id = 1, Visible = true }));
-            listOfItems.Children.Add(new HideableListItem(new HideableListItemInstance() { Id = 2, Visible = true }));
-            listOfItems.Children.Add(new HideableListItem(new HideableListItemInstance() { Id = 3, Visible = true }));
-            //listOfEntries.ItemsSource = databaseItemViews;
+            currentInstance = passedInstance;
         }
-        protected override async void OnAppearing()
+        public void AnimateRemoveItem()
         {
-            //textBox.TranslateTo(-100, 0, easing: Easing.CubicInOut);
+            this.TranslationY = 70;
+            this.TranslateTo(0, 0, easing: Easing.CubicInOut);
         }
-        private async void RemoveItem(int id)
+        public void AnimateAddItem()
         {
-
+            this.TranslationY = -70;
+            this.TranslateTo(0, 0, easing: Easing.CubicInOut);
         }
-        private void PanGestureRecognizer_PanUpdated(object sender, PanUpdatedEventArgs e)
-        {
-            BoxView boxView = (BoxView)sender as BoxView;
-            boxView.TranslationX = boxView.TranslationX + e.TotalX;
-            if(e.StatusType == GestureStatus.Completed)
-            {
-                
-                if(boxView.TranslationX < -250)
-                {
-                    boxView.TranslateTo(-400, 0, easing: Easing.CubicInOut);
-                }
-                else if (boxView.TranslationX < -25)
-                {
-                    boxView.TranslateTo(-100, 0, easing: Easing.CubicInOut);
-                }
-                else
-                {
-                    boxView.TranslateTo(50, 0, easing: Easing.CubicInOut);
-                }
-            }
-        }
-
-        private async void PanGestureRecognizer_PanUpdated_1(object sender, PanUpdatedEventArgs e)
+        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
             Frame frame = (Frame)sender as Frame;
+            Expander selected = (Expander)frame.Parent.Parent.Parent;
+            selected.ExpandAnimationEasing = Easing.CubicInOut;
+            selected.CollapseAnimationEasing = Easing.CubicInOut;
+            selected.CollapseAnimationLength = 500;
+            selected.ExpandAnimationLength = 500;
+            selected.IsExpanded = !selected.IsExpanded;
+        }
+
+        private async void TapGestureRecognizer_Tapped_1(object sender, EventArgs e)
+        {
+            /*Frame frame = (Frame)sender as Frame;
+            Expander expander = (Expander)frame.Parent.Parent;
+            expander.ExpandAnimationEasing = Easing.CubicInOut;
+            expander.CollapseAnimationEasing = Easing.CubicInOut;
+            expander.CollapseAnimationLength = 500;
+            expander.ExpandAnimationLength = 500;
+            Label hidingIcon = (Label)((Grid)((Frame)((Grid)frame.Parent).Children.Where(x => x.ClassId.Contains("below")).FirstOrDefault()).Content).Children.Where(x => x.ClassId.Contains("label"));
+            Label hidingTag = (Label)((Grid)((Frame)((Grid)frame.Parent).Children.Where(x => x.ClassId.Contains("below")).FirstOrDefault()).Content).Children.Where(x => x.ClassId.Contains("icon"));
+            Frame testoption = (Frame)((Grid)frame.Parent).Children.Where(x => x.ClassId.Contains("below")).FirstOrDefault();*/
+        }
+        private async void PanGestureRecognizer_PanUpdated_1(object sender, PanUpdatedEventArgs e)
+        {
+            /*Frame frame = (Frame)sender as Frame;
             Expander expander = (Expander)frame.Parent.Parent.Parent;
             expander.AnchorY -= 30;
             expander.ExpandAnimationEasing = Easing.CubicInOut;
@@ -78,9 +67,9 @@ namespace LightScout
             Label hidingTag = (Label)parent2.Children[1];
             Frame testoption = (Frame)parent1.Children[0];
 
-            int indexId = databaseItemViews.IndexOf(databaseItemViews.Where(x => x.Id == expander.ClassId).FirstOrDefault());
+            //int indexId = databaseItemViews.IndexOf(databaseItemViews.Where(x => x.Id == expander.ClassId).FirstOrDefault());
 
-            if(Device.RuntimePlatform == Device.iOS)
+            if (Device.RuntimePlatform == Device.iOS)
             {
                 Console.WriteLine(e.TotalX);
                 if (e.StatusType == GestureStatus.Completed || e.StatusType == GestureStatus.Canceled)
@@ -101,7 +90,7 @@ namespace LightScout
                             testoption.FadeTo(0, easing: Easing.CubicInOut);
                             //AUTORESET FOR DEBUG
                             await Task.Delay(500);
-                            databaseItemViews.RemoveAt(indexId);
+                            //databaseItemViews.RemoveAt(indexId);
                             //listOfEntries.ItemsSource = new ObservableCollection<DatabaseItemView>(databaseItemViews);
                             frame.TranslationX = 0;
                         }
@@ -165,7 +154,7 @@ namespace LightScout
                             testoption.FadeTo(0, easing: Easing.CubicInOut);
                             //AUTORESET FOR DEBUG
                             await Task.Delay(500);
-                            databaseItemViews.RemoveAt(indexId);
+                            //databaseItemViews.RemoveAt(indexId);
                             //listOfEntries.ItemsSource = new ObservableCollection<DatabaseItemView>(databaseItemViews);
                             frame.TranslationX = 0;
                         }
@@ -208,39 +197,15 @@ namespace LightScout
                         hidingTag.FadeTo(0, easing: Easing.CubicInOut);
                     }
                 }
-            }
-            
+            }*/
 
-            
-        }
 
-        private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
-        {
-            Frame frame = (Frame)sender as Frame;
-            Expander selected = (Expander)frame.Parent.Parent.Parent;
-            selected.ExpandAnimationEasing = Easing.CubicInOut;
-            selected.CollapseAnimationEasing = Easing.CubicInOut;
-            selected.CollapseAnimationLength = 500;
-            selected.ExpandAnimationLength = 500;
-            selected.IsExpanded = !selected.IsExpanded;
-        }
 
-        private async void TapGestureRecognizer_Tapped_1(object sender, EventArgs e)
-        {
-            /*Frame frame = (Frame)sender as Frame;
-            Expander expander = (Expander)frame.Parent.Parent;
-            expander.ExpandAnimationEasing = Easing.CubicInOut;
-            expander.CollapseAnimationEasing = Easing.CubicInOut;
-            expander.CollapseAnimationLength = 500;
-            expander.ExpandAnimationLength = 500;
-            Label hidingIcon = (Label)((Grid)((Frame)((Grid)frame.Parent).Children.Where(x => x.ClassId.Contains("below")).FirstOrDefault()).Content).Children.Where(x => x.ClassId.Contains("label"));
-            Label hidingTag = (Label)((Grid)((Frame)((Grid)frame.Parent).Children.Where(x => x.ClassId.Contains("below")).FirstOrDefault()).Content).Children.Where(x => x.ClassId.Contains("icon"));
-            Frame testoption = (Frame)((Grid)frame.Parent).Children.Where(x => x.ClassId.Contains("below")).FirstOrDefault();*/
         }
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            databaseItemViews = originalDatabaseItemViews;
-        }
+    }
+    public class HideableListItemInstance
+    {
+        public int Id { get; set; }
+        public bool Visible { get; set; }
     }
 }

@@ -6,6 +6,7 @@
              mc:Ignorable="d"
              x:Class="LightScout.App">
     <Application.Resources>
+        <ResourceDictionary Source="AppThemes/LightTheme.xaml" />
         <ResourceDictionary>
             <OnPlatform x:TypeArguments="x:String" x:Key="IconFont">
                 <On Platform="Android" Value="icofont.ttf#icofont" />

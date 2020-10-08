@@ -9,7 +9,8 @@
              mc:Ignorable="d"
              x:Class="LightScout.MainPage"
              NavigationPage.HasBackButton="False"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             Background="{DynamicResource Background}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="lightPrimary" TargetType="Button">
@@ -50,7 +51,7 @@
         <ScrollView AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" x:Name="logoBackground">
             <Image VerticalOptions="Center" HorizontalOptions="Center" Source="LightScoutGray.png" HeightRequest="300"/>
         </ScrollView>
-        <ScrollView BackgroundColor="#fafafa" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" x:Name="mainInterface">
+        <ScrollView BackgroundColor="{DynamicResource Background}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" x:Name="mainInterface">
             <StackLayout>
                 <Button Text="See FTC" x:Name="FTCShow" Clicked="FTCShow_Clicked" BackgroundColor="#f57e25" TextColor="White" Margin="10,10,10,0" IsVisible="False"/>
                 <ListView x:Name="listOfMatches" ItemTapped="listOfMatches_ItemTapped" RowHeight="60" BackgroundColor="White" IsPullToRefreshEnabled="False" IsVisible="False">
@@ -99,7 +100,7 @@
                        Margin="20,20,20,0"
                        HeightRequest="350"
                        HorizontalOptions="Center"
-                                           BackgroundColor="White"
+                                           BackgroundColor="{DynamicResource Container}"
                        VerticalOptions="CenterAndExpand"
                                        WidthRequest="300">
                                         <StackLayout>
@@ -119,20 +120,20 @@
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="25"/>
                                                     </Grid.RowDefinitions>
-                                                    <Frame HasShadow="False" BackgroundColor="Red" BorderColor="Red" IsVisible="{Binding IsRed}" Grid.Row="0" Grid.Column="0" Padding="0">
+                                                    <Frame HasShadow="False" BackgroundColor="{DynamicResource PRedTag}" BorderColor="{DynamicResource PRedTag}" IsVisible="{Binding IsRed}" Grid.Row="0" Grid.Column="0" Padding="0">
                                                         <Label Text="{Binding TabletName}" TextColor="White" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
                                                     </Frame>
-                                                    <Frame HasShadow="False" BackgroundColor="Blue" BorderColor="Blue" IsVisible="{Binding IsBlue}" Grid.Row="0" Grid.Column="0" Padding="0">
+                                                    <Frame HasShadow="False" BackgroundColor="{DynamicResource PBlueTag}" BorderColor="{DynamicResource PBlueTag}" IsVisible="{Binding IsBlue}" Grid.Row="0" Grid.Column="0" Padding="0">
                                                         <Label Text="{Binding TabletName}" TextColor="White" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold"/>
                                                     </Frame>
                                                 </Grid>
-                                                <Label TextColor="Black" Text="{Binding MatchNumber, StringFormat='Match #{0}'}"
+                                                <Label TextColor="{DynamicResource FramePrimary}" Text="{Binding MatchNumber, StringFormat='Match #{0}'}"
                                FontAttributes="Bold"
                                FontSize="Large"
                                HorizontalOptions="Center"
                                VerticalOptions="Start" Grid.Column="1"/>
-                                                <Label Grid.Column="2" FontFamily="{StaticResource IconFont}" TextColor="Green" FontAttributes="Bold" Text="&#xeed7;" FontSize="25" HorizontalOptions="End" IsVisible="{Binding Completed}"/>
-                                                <Label Grid.Column="2" Text="Up Next!" HorizontalOptions="End" FontAttributes="Bold" TextColor="#0f3f8c" VerticalOptions="Center" IsVisible="{Binding IsUpNext}"/>
+                                                <Label Grid.Column="2" FontFamily="{StaticResource IconFont}" TextColor="{DynamicResource Completed}" FontAttributes="Bold" Text="&#xeed7;" FontSize="25" HorizontalOptions="End" IsVisible="{Binding Completed}"/>
+                                                <Label Grid.Column="2" Text="Up Next!" HorizontalOptions="End" FontAttributes="Bold" TextColor="{DynamicResource UpNext}" VerticalOptions="Center" IsVisible="{Binding IsUpNext}"/>
 
                                             </Grid>
                                             <Grid HeightRequest="60" MinimumHeightRequest="60" HorizontalOptions="Center" Margin="10,0">
@@ -164,30 +165,8 @@
                                                 </Frame>
                                                 
                                             </Grid>
-                                            
-                                            <Grid IsVisible="False" Margin="20,0,20,0">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="3*"/>
-                                                    <ColumnDefinition Width="4*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Frame Grid.Column="0" Margin="10,0">
-                                                    
-                                                </Frame>
-                                                    
-                                                <Grid Grid.Column="1" Margin="0,20">
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="30"/>
-                                                        <RowDefinition Height="70"/>
-                                                    </Grid.RowDefinitions>
-                                                    <Label Text="{Binding TeamNumber, StringFormat='Team {0}'}"
-                                                   FontAttributes="Bold"
-                                                   FontSize="Large" Grid.Row="0"/>
-                                                    <Label Text="{Binding TeamName}"
-                                                   Grid.Row="1" FontSize="Medium" />
-                                                </Grid>
-                                            </Grid>
-                                            <Label IsVisible="False" Text="Is Playing With:" HorizontalOptions="Center"/>
-                                            
+
+
 
                                         </StackLayout>
                                     </Frame>
@@ -204,7 +183,7 @@
                                        HeightRequest="50"
                                        Grid.Column="0"
                                                        Padding="0"
-                                               BackgroundColor="White"
+                                               BackgroundColor="{DynamicResource Container}"
                                        HorizontalOptions="Center"
                                                        WidthRequest="150">
                                             <Button Text="Scout Match" BackgroundColor="Transparent" BorderColor="Transparent" Clicked="GoToFRCPage"/>
@@ -216,7 +195,7 @@
                                        HeightRequest="50"
                                        Grid.Column="1"
                                                        Padding="0"
-                                               BackgroundColor="White"
+                                               BackgroundColor="{DynamicResource Container}"
                                        HorizontalOptions="Center"
                                                        WidthRequest="70">
                                             <Button Text="&#xee09;" BackgroundColor="Transparent" TextColor="Red" BorderColor="Transparent" FontFamily="{StaticResource IconFont}" Clicked="DeleteEntry"/>
@@ -228,7 +207,7 @@
                                        HeightRequest="50"
                                        Grid.Column="2"
                                                        Padding="0"
-                                               BackgroundColor="White"
+                                               BackgroundColor="{DynamicResource Container}"
                                        HorizontalOptions="Center"
                                                        WidthRequest="70">
                                             <Button Text="&#xec55;" BackgroundColor="Transparent" TextColor="Blue" BorderColor="Transparent" FontFamily="{StaticResource IconFont}" Clicked="EditEntry"/>
@@ -273,7 +252,7 @@
         </ScrollView>
         <ScrollView BackgroundColor="#fafafa" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" x:Name="settingsInterface">
             <StackLayout>
-                <Grid Padding="10" BackgroundColor="#2a7afa" ios:Page.UseSafeArea="True">
+                <Grid Padding="10" BackgroundColor="{DynamicResource Header}" ios:Page.UseSafeArea="True">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
@@ -284,7 +263,7 @@
                     </Grid.ColumnDefinitions>
 
 
-                    <Button Text="&#xea97;" TextColor="#2a7afa" BackgroundColor="White" BorderColor="#2a7afa" BorderWidth="2" Clicked="CancelSettingsPage" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
+                    <Button Text="&#xea97;" TextColor="#2a7afa" BackgroundColor="{DynamicResource HeaderButton}" BorderColor="{DynamicResource Header}" BorderWidth="2" Clicked="CancelSettingsPage" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
 
                     <Label Text="Settings" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" TextColor="White">
                         <Label.FontFamily>
@@ -321,7 +300,7 @@
         </ScrollView>
         <ScrollView BackgroundColor="#fafafa" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" x:Name="aboutInterface">
             <StackLayout>
-                <Grid Padding="10" BackgroundColor="#2a7afa" ios:Page.UseSafeArea="True">
+                <Grid Padding="10" BackgroundColor="{DynamicResource Header}" ios:Page.UseSafeArea="True">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
@@ -332,7 +311,7 @@
                     </Grid.ColumnDefinitions>
 
 
-                    <Button Text="&#xea97;" TextColor="#2a7afa" BackgroundColor="White" BorderColor="#2a7afa" BorderWidth="2" Clicked="CancelAboutPage" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
+                    <Button Text="&#xea97;" TextColor="#2a7afa" BackgroundColor="{DynamicResource HeaderButton}" BorderColor="{DynamicResource Header}" BorderWidth="2" Clicked="CancelAboutPage" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
 
                     <Label Text="About" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" TextColor="White">
                         <Label.FontFamily>
@@ -357,7 +336,7 @@
         </ScrollView>
         <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" x:Name="usbInterface" BackgroundColor="#2a7afa">
             <StackLayout>
-                <Grid Padding="10" BackgroundColor="#2a7afa" ios:Page.UseSafeArea="True">
+                <Grid Padding="10" BackgroundColor="{DynamicResource Header}" ios:Page.UseSafeArea="True">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
@@ -368,7 +347,7 @@
                     </Grid.ColumnDefinitions>
 
 
-                    <Button Text="&#xea97;" TextColor="#2a7afa" BackgroundColor="White" BorderColor="#2a7afa" BorderWidth="2" Clicked="CancelUsbPage" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
+                    <Button Text="&#xea97;" TextColor="#2a7afa" BackgroundColor="{DynamicResource HeaderButton}" BorderColor="{DynamicResource Header}" BorderWidth="2" Clicked="CancelUsbPage" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
 
                     <Label Text="USB Transfer" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" TextColor="White">
                         <Label.FontFamily>
@@ -444,13 +423,13 @@
                     <ColumnDefinition Width="64"/>
                     <ColumnDefinition Width="64"/>
                 </Grid.ColumnDefinitions>
-                
-                <Button Clicked="SeeSettingsPage" IsVisible="False" VerticalOptions="End" Grid.Column="0" HorizontalOptions="End" Text="&#xef3b;" x:Name="showSettings" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" TextColor="#2a7afa" BorderColor="#2a7afa" BorderWidth="2"/>
-                <Button Clicked="SeeUsbPage" IsVisible="False" VerticalOptions="End" Grid.Column="1" HorizontalOptions="End" Text="&#xf01f;" x:Name="showUsb" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" TextColor="#2a7afa" BorderColor="#2a7afa" BorderWidth="2"/>
-                <Button Clicked="SeeAboutPage" IsVisible="False" VerticalOptions="End" Grid.Column="2" HorizontalOptions="End" Text="&#xef4e;" x:Name="showAbout" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" TextColor="#2a7afa" BorderColor="#2a7afa" BorderWidth="2"/>
-                <Button Clicked="ToggleMenuItems" x:Name="showMenu" VerticalOptions="End" Grid.Column="3" HorizontalOptions="End" Text="&#xefa2;" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="#2a7afa" TextColor="White" BorderColor="#2a7afa" BorderWidth="2"/>
-                <Button Clicked="ToggleMenuItems" Opacity="0" VerticalOptions="End" Grid.Column="3" HorizontalOptions="End" Text="&#xeee4;" x:Name="cancelToggleMenu" FontFamily="{StaticResource IconFont}" FontSize="35" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="#2a7afa" TextColor="White" BorderColor="#2a7afa" BorderWidth="2"/>
-                <Button Opacity="0" IsVisible="False" VerticalOptions="End" Grid.Column="3" HorizontalOptions="End" Text="&#xefa2;" x:Name="pureblueOverButton" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="#2a7afa" TextColor="#2a7afa" BorderColor="#2a7afa" BorderWidth="2"/>
+
+                <Button Clicked="SeeSettingsPage" IsVisible="False" VerticalOptions="End" Grid.Column="0" HorizontalOptions="End" Text="&#xef3b;" x:Name="showSettings" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" TextColor="#2a7afa" BorderColor="{DynamicResource PrimaryColor}" BorderWidth="2"/>
+                <Button Clicked="SeeUsbPage" IsVisible="False" VerticalOptions="End" Grid.Column="1" HorizontalOptions="End" Text="&#xf01f;" x:Name="showUsb" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" TextColor="#2a7afa" BorderColor="{DynamicResource PrimaryColor}" BorderWidth="2"/>
+                <Button Clicked="SeeAboutPage" IsVisible="False" VerticalOptions="End" Grid.Column="2" HorizontalOptions="End" Text="&#xef4e;" x:Name="showAbout" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" TextColor="#2a7afa" BorderColor="{DynamicResource PrimaryColor}" BorderWidth="2"/>
+                <Button Clicked="ToggleMenuItems" x:Name="showMenu" VerticalOptions="End" Grid.Column="3" HorizontalOptions="End" Text="&#xefa2;" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="#2a7afa" TextColor="White" BorderColor="{DynamicResource PrimaryColor}" BorderWidth="2"/>
+                <Button Clicked="ToggleMenuItems" Opacity="0" VerticalOptions="End" Grid.Column="3" HorizontalOptions="End" Text="&#xeee4;" x:Name="cancelToggleMenu" FontFamily="{StaticResource IconFont}" FontSize="35" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="{DynamicResource PrimaryColor}" TextColor="White" BorderColor="{DynamicResource PrimaryColor}" BorderWidth="2"/>
+                <Button Opacity="0" IsVisible="False" VerticalOptions="End" Grid.Column="3" HorizontalOptions="End" Text="&#xefa2;" x:Name="pureblueOverButton" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="{DynamicResource PrimaryColor}" TextColor="{DynamicResource PrimaryColor}" BorderColor="{DynamicResource PrimaryColor}" BorderWidth="2"/>
 
                 </Grid>
 

@@ -1,6 +1,8 @@
-﻿using LightScout.Models;
+﻿using LightScout.AppThemes;
+using LightScout.Models;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -25,6 +27,10 @@ namespace LightScout
                 MainPage = new NavigationPage(new Database());
             }
             //MainPage = new NavigationPage(new SetNewData());
+            ICollection<ResourceDictionary> mergedDictionaries = Application.Current.Resources.MergedDictionaries;
+            mergedDictionaries.Clear();
+            mergedDictionaries.Add(new DarkTheme());
+
 
         }
 

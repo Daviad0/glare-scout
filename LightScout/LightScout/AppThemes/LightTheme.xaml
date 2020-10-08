@@ -6,6 +6,20 @@
              mc:Ignorable="d"
              x:Class="LightScout.AppThemes.LightTheme">
     <!--FrameBackground-->
-    <Color x:Key="FrameBackground">#ffffff</Color>
-    
+    <Color x:Key="Background">#f3f3f3</Color>
+    <Color x:Key="Container">#ffffff</Color>
+    <Color x:Key="ContainerSelectedPositive">#48b8ff</Color>
+    <Color x:Key="ContainerSelectedNegative">#ff4747</Color>
+    <Color x:Key="PrimaryColor">#2a7afa</Color>
+    <Color x:Key="SecondaryColor">#0f3f8c</Color>
+    <Color x:Key="Header">#2a7afa</Color>
+    <Color x:Key="HeaderButton">White</Color>
+    <Color x:Key="FramePrimary">#434343</Color>
+    <Color x:Key="FrameSecondary">#686868</Color>
+    <Color x:Key="PRedTag">#e53434</Color>
+    <Color x:Key="PBlueTag">#3475da</Color>
+    <Color x:Key="SRedTag">#e67e7e</Color>
+    <Color x:Key="SBlueTag">#82a9e8</Color>
+    <Color x:Key="UpNext">#0f3f8c</Color>
+    <Color x:Key="Completed">Green</Color>
 </ResourceDictionary>

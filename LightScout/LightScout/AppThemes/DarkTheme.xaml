@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="LightScout.AppThemes.DarkTheme">
+    <Color x:Key="Background">#121212</Color>
+    <Color x:Key="Container">#2c2c2c</Color>
+    <Color x:Key="ContainerSelectedPositive">#1d4381</Color>
+    <Color x:Key="ContainerSelectedNegative">#c62a2a</Color>
+    <Color x:Key="PrimaryColor">#1d4381</Color>
+    <Color x:Key="SecondaryColor">#1d4381</Color>
+    <Color x:Key="Header">#353535</Color>
+    <Color x:Key="HeaderButton">#666666</Color>
+    <Color x:Key="FramePrimary">#ffffff</Color>
+    <Color x:Key="FrameSecondary">#f0f0f0</Color>
+    <Color x:Key="PRedTag">#e53434</Color>
+    <Color x:Key="PBlueTag">#3475da</Color>
+    <Color x:Key="SRedTag">#e67e7e</Color>
+    <Color x:Key="SBlueTag">#82a9e8</Color>
+    <Color x:Key="UpNext">#ffffff</Color>
+    <Color x:Key="Completed">LightGreen</Color>
+</ResourceDictionary>

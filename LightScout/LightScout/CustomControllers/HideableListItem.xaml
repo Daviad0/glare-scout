@@ -9,17 +9,17 @@
     <Expander ClassId="{Binding Id}" IsVisible="{Binding Visible}">
         <Expander.Header>
             <Grid>
-                <Frame ClassId="below" HasShadow="False" BackgroundColor="Orange" Margin="10,10,10,0" HeightRequest="60" Grid.Row="0" Grid.Column="0" BorderColor="Orange" CornerRadius="8" VerticalOptions="Center">
+                <Frame ClassId="below" BackgroundColor="Orange" Margin="10,10,10,0" HeightRequest="60" Grid.Row="0" Grid.Column="0" BorderColor="Orange" CornerRadius="8" VerticalOptions="Center">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"/>
                     </Frame.GestureRecognizers>
                     <Grid>
-                        <Label ClassId="icon" Text="&#xef22;" FontFamily="{StaticResource IconFont}" Grid.Column="0" Grid.Row="0" TextColor="White" HorizontalOptions="End" VerticalOptions="Center" FontSize="30" Margin="0,0,20,20"/>
-                        <Label ClassId="label" Text="HIDE" FontAttributes="Bold" Grid.Column="0" Grid.Row="0" TextColor="White" HorizontalOptions="End" VerticalOptions="Center" FontSize="20" Margin="15,20,15,0" Opacity="0"/>
+                        <Label ClassId="icon" Text="&#xef22;" FontFamily="{StaticResource IconFont}" Grid.Column="0" Grid.Row="0" TextColor="White" HorizontalOptions="End" VerticalOptions="Center" IsVisible="False" FontSize="30" Margin="0,0,20,20"/>
+                        <Label ClassId="label" Text="HIDE" FontAttributes="Bold" Grid.Column="0" Grid.Row="0" TextColor="White" HorizontalOptions="End" VerticalOptions="Center" FontSize="20" Margin="15,0,15,0" Opacity="0"/>
                     </Grid>
 
                 </Frame>
-                <Frame ClassId="above" HasShadow="False" BackgroundColor="White" CornerRadius="8" BorderColor="LightGray" Margin="10,10,10,0" HeightRequest="60" Grid.Row="0" Grid.Column="0">
+                <Frame ClassId="above" HasShadow="False" BackgroundColor="White" CornerRadius="8" BorderColor="White" Margin="10,10,10,0" HeightRequest="60" Grid.Row="0" Grid.Column="0">
                     <Frame.GestureRecognizers>
                         <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated_1"/>
                         <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>

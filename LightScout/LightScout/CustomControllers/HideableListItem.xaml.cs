@@ -12,6 +12,9 @@ namespace LightScout.CustomControllers
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class HideableListItem : ContentView
     {
+        public int TimesAnimated = 0;
+        public event Action<int> TriggerDeletion;
+        public void OnDragToDelete(int id) => TriggerDeletion?.Invoke(id);
         public HideableListItemInstance currentInstance { get; set; }
         public HideableListItem(HideableListItemInstance passedInstance)
         {
@@ -20,8 +23,12 @@ namespace LightScout.CustomControllers
         }
         public void AnimateRemoveItem()
         {
-            this.TranslationY = 70;
-            this.TranslateTo(0, 0, easing: Easing.CubicInOut);
+            TimesAnimated++;
+            this.TranslateTo(0, -115, 400, easing: Easing.CubicInOut);
+        }
+        public void ResetTranslation()
+        {
+            this.TranslateTo(0, 0,0, easing: Easing.CubicInOut);
         }
         public void AnimateAddItem()
         {
@@ -53,7 +60,7 @@ namespace LightScout.CustomControllers
         }
         private async void PanGestureRecognizer_PanUpdated_1(object sender, PanUpdatedEventArgs e)
         {
-            /*Frame frame = (Frame)sender as Frame;
+            Frame frame = (Frame)sender as Frame;
             Expander expander = (Expander)frame.Parent.Parent.Parent;
             expander.AnchorY -= 30;
             expander.ExpandAnimationEasing = Easing.CubicInOut;
@@ -71,7 +78,6 @@ namespace LightScout.CustomControllers
 
             if (Device.RuntimePlatform == Device.iOS)
             {
-                Console.WriteLine(e.TotalX);
                 if (e.StatusType == GestureStatus.Completed || e.StatusType == GestureStatus.Canceled)
                 {
                     if (frame.TranslationX + e.TotalX < -90)
@@ -79,7 +85,7 @@ namespace LightScout.CustomControllers
                         if (frame.TranslationX + e.TotalX < -150)
                         {
                             frame.TranslateTo(-500, 0, 200, easing: Easing.CubicOut);
-                            hidingIcon.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                            //hidingIcon.TranslateTo(0, 0, easing: Easing.CubicInOut);
                             hidingTag.FadeTo(1, easing: Easing.CubicInOut);
                             if (((Expander)frame.Parent.Parent.Parent).IsExpanded)
                             {
@@ -89,14 +95,12 @@ namespace LightScout.CustomControllers
                             await Task.Delay(100);
                             testoption.FadeTo(0, easing: Easing.CubicInOut);
                             //AUTORESET FOR DEBUG
-                            await Task.Delay(500);
-                            //databaseItemViews.RemoveAt(indexId);
-                            //listOfEntries.ItemsSource = new ObservableCollection<DatabaseItemView>(databaseItemViews);
-                            frame.TranslationX = 0;
+                            OnDragToDelete(currentInstance.Id);
+                            
                         }
                         else
                         {
-                            hidingIcon.TranslateTo(0, 10, easing: Easing.CubicInOut);
+                            //hidingIcon.TranslateTo(0, 10, easing: Easing.CubicInOut);
                             frame.TranslateTo(0, 0, easing: Easing.CubicInOut);
                             hidingTag.FadeTo(0, easing: Easing.CubicInOut);
                         }
@@ -104,7 +108,7 @@ namespace LightScout.CustomControllers
                     }
                     else
                     {
-                        hidingIcon.TranslateTo(0, 10, easing: Easing.CubicInOut);
+                        //hidingIcon.TranslateTo(0, 10, easing: Easing.CubicInOut);
                         frame.TranslateTo(0, 0, easing: Easing.CubicInOut);
                         hidingTag.FadeTo(0, easing: Easing.CubicInOut);
                     }
@@ -116,18 +120,18 @@ namespace LightScout.CustomControllers
                         var testdouble = ((Math.Abs(Math.Abs(e.TotalX))) - 90) * 0.05 + 0.4;
                         frame.TranslationX = e.TotalX * 0.8;
                         hidingTag.FadeTo(testdouble, easing: Easing.CubicInOut);
-                        hidingIcon.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                        //hidingIcon.TranslateTo(0, 0, easing: Easing.CubicInOut);
 
                     }
                     else if (e.TotalX > 0)
                     {
-                        hidingIcon.TranslateTo(0, 10, easing: Easing.CubicInOut);
+                        //hidingIcon.TranslateTo(0, 10, easing: Easing.CubicInOut);
                         frame.TranslateTo(0, 0, easing: Easing.CubicInOut);
 
                     }
                     else
                     {
-                        hidingIcon.TranslateTo(0, 10, easing: Easing.CubicInOut);
+                        //hidingIcon.TranslateTo(0, 10, easing: Easing.CubicInOut);
                         frame.TranslationX = e.TotalX;
                         hidingTag.FadeTo(0, easing: Easing.CubicInOut);
                     }
@@ -135,7 +139,6 @@ namespace LightScout.CustomControllers
             }
             else
             {
-                Console.WriteLine(e.TotalX);
                 if (e.StatusType == GestureStatus.Completed || e.StatusType == GestureStatus.Canceled)
                 {
                     if (frame.TranslationX + e.TotalX < -90)
@@ -143,7 +146,7 @@ namespace LightScout.CustomControllers
                         if (frame.TranslationX + e.TotalX < -150)
                         {
                             frame.TranslateTo(-500, 0, 200, easing: Easing.CubicOut);
-                            hidingIcon.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                            //hidingIcon.TranslateTo(0, 0, easing: Easing.CubicInOut);
                             hidingTag.FadeTo(1, easing: Easing.CubicInOut);
                             if (((Expander)frame.Parent.Parent.Parent).IsExpanded)
                             {
@@ -153,14 +156,11 @@ namespace LightScout.CustomControllers
                             await Task.Delay(100);
                             testoption.FadeTo(0, easing: Easing.CubicInOut);
                             //AUTORESET FOR DEBUG
-                            await Task.Delay(500);
-                            //databaseItemViews.RemoveAt(indexId);
-                            //listOfEntries.ItemsSource = new ObservableCollection<DatabaseItemView>(databaseItemViews);
-                            frame.TranslationX = 0;
+                            OnDragToDelete(currentInstance.Id);
                         }
                         else
                         {
-                            hidingIcon.TranslateTo(0, 10, easing: Easing.CubicInOut);
+                            //hidingIcon.TranslateTo(0, 10, easing: Easing.CubicInOut);
                             frame.TranslateTo(0, 0, easing: Easing.CubicInOut);
                             hidingTag.FadeTo(0, easing: Easing.CubicInOut);
                         }
@@ -168,7 +168,7 @@ namespace LightScout.CustomControllers
                     }
                     else
                     {
-                        hidingIcon.TranslateTo(0, 10, easing: Easing.CubicInOut);
+                        //hidingIcon.TranslateTo(0, 10, easing: Easing.CubicInOut);
                         frame.TranslateTo(0, 0, easing: Easing.CubicInOut);
                         hidingTag.FadeTo(0, easing: Easing.CubicInOut);
                     }
@@ -177,7 +177,7 @@ namespace LightScout.CustomControllers
                 {
                     if (frame.TranslationX + e.TotalX < -90)
                     {
-                        hidingIcon.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                        //hidingIcon.TranslateTo(0, 0, easing: Easing.CubicInOut);
                         var testdouble = ((Math.Abs(Math.Abs(e.TotalX) + Math.Abs(frame.TranslationX))) - 90) * 0.05 + 0.4;
                         frame.TranslationX += e.TotalX * 0.8;
                         hidingTag.FadeTo(testdouble, easing: Easing.CubicInOut);
@@ -185,19 +185,19 @@ namespace LightScout.CustomControllers
                     }
                     else if (frame.TranslationX + e.TotalX > 0)
                     {
-                        hidingIcon.TranslateTo(0, 10, easing: Easing.CubicInOut);
+                        //hidingIcon.TranslateTo(0, 10, easing: Easing.CubicInOut);
                         frame.TranslateTo(0, 0, easing: Easing.CubicInOut);
                         hidingTag.FadeTo(0, easing: Easing.CubicInOut);
 
                     }
                     else
                     {
-                        hidingIcon.TranslateTo(0, 10, easing: Easing.CubicInOut);
+                        //hidingIcon.TranslateTo(0, 10, easing: Easing.CubicInOut);
                         frame.TranslationX += e.TotalX;
                         hidingTag.FadeTo(0, easing: Easing.CubicInOut);
                     }
                 }
-            }*/
+            }
 
 
 

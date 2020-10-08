@@ -6,9 +6,10 @@
              xmlns:anim="clr-namespace:LightScout.CustomControllers"
              mc:Ignorable="d"
              x:Class="LightScout.Database"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             Background="#F3F3F3">
     <ContentPage.Content>
-        <ScrollView>
+        <ScrollView x:Name="entireScroll">
             <StackLayout Margin="0,5">
                 <StackLayout x:Name="listOfItems">
                     
@@ -23,7 +24,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>-->
-                <Button Text="Add Items" Clicked="Button_Clicked"/>
+                <Button x:Name="readdItems" Text="Add Items" Clicked="Button_Clicked"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

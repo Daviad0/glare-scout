@@ -19,17 +19,71 @@ namespace LightScout
         private bool isOpen = false;
         private ObservableCollection<DatabaseItemView> databaseItemViews = new ObservableCollection<DatabaseItemView>();
         private ObservableCollection<DatabaseItemView> originalDatabaseItemViews = new ObservableCollection<DatabaseItemView>();
+        private List<HideableListItem> itemReferences = new List<HideableListItem>();
         public Database()
         {
             
             InitializeComponent();
-
+            
             originalDatabaseItemViews = new ObservableCollection<DatabaseItemView>() { new DatabaseItemView() { Visible = false, Id = "0", SetHeight = 80 }, new DatabaseItemView() { Visible = true, Id = "1", SetHeight = 80 }, new DatabaseItemView() { Visible = true, Id = "2", SetHeight = 80 } };
             databaseItemViews = new ObservableCollection<DatabaseItemView>(originalDatabaseItemViews);
-            listOfItems.Children.Add(new HideableListItem(new HideableListItemInstance() { Id = 0, Visible = true }));
-            listOfItems.Children.Add(new HideableListItem(new HideableListItemInstance() { Id = 1, Visible = true }));
-            listOfItems.Children.Add(new HideableListItem(new HideableListItemInstance() { Id = 2, Visible = true }));
-            listOfItems.Children.Add(new HideableListItem(new HideableListItemInstance() { Id = 3, Visible = true }));
+            for(int item = 0; item < 20; item++)
+            {
+                itemReferences.Add(new HideableListItem(new HideableListItemInstance() { Id = item, Visible = true }));
+                itemReferences.ToArray()[item].TriggerDeletion += async (id) =>
+                {
+                    var indexof = itemReferences.IndexOf(itemReferences.Where(x => x.currentInstance.Id == id).FirstOrDefault());
+                    Console.WriteLine("Test Index: " + indexof.ToString());
+                    try
+                    {
+                        for (int i = indexof; i < itemReferences.Count; i++)
+                        {
+                            itemReferences.ToArray()[i].AnimateRemoveItem();
+                        }
+
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                    readdItems.TranslateTo(0, -115, 400, easing: Easing.CubicInOut);
+                    await Task.Delay(150);
+                    if(entireScroll.ContentSize.Height > 820)
+                    {
+                        if (entireScroll.ContentSize.Height - entireScroll.ScrollY < 810)
+                        {
+                            await entireScroll.ScrollToAsync(0, entireScroll.ScrollY - 115, true);
+                        }
+                        else
+                        {
+                            await Task.Delay(250);
+                        }
+                    }
+                    else
+                    {
+                        await Task.Delay(250);
+                    }
+
+                    listOfItems.Children.Remove(itemReferences.Where(x => x.currentInstance.Id == id).FirstOrDefault());
+                    itemReferences.Remove(itemReferences.Where(x => x.currentInstance.Id == id).FirstOrDefault());
+                    try
+                    {
+                        for (int i = 0; i < itemReferences.Count; i++)
+                        {
+                            itemReferences.ToArray()[i].ResetTranslation();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                    Console.WriteLine("Height: " + entireScroll.ScrollY.ToString() + " / " + entireScroll.ContentSize.Height.ToString());
+                    readdItems.TranslateTo(0, 0, 0, easing: Easing.CubicInOut);
+                };
+                listOfItems.Children.Add(itemReferences.ToArray()[item]);
+            }
+            
             //listOfEntries.ItemsSource = databaseItemViews;
         }
         protected override async void OnAppearing()
@@ -240,7 +294,64 @@ namespace LightScout
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            databaseItemViews = originalDatabaseItemViews;
+            itemReferences.Clear();
+            listOfItems.Children.Clear();
+            for (int item = 0; item < 20; item++)
+            {
+                itemReferences.Add(new HideableListItem(new HideableListItemInstance() { Id = item, Visible = true }));
+                itemReferences.ToArray()[item].TriggerDeletion += async (id) =>
+                {
+                    var indexof = itemReferences.IndexOf(itemReferences.Where(x => x.currentInstance.Id == id).FirstOrDefault());
+                    Console.WriteLine("Test Index: " + indexof.ToString());
+                    try
+                    {
+                        for (int i = indexof; i < itemReferences.Count; i++)
+                        {
+                            itemReferences.ToArray()[i].AnimateRemoveItem();
+                        }
+
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                    readdItems.TranslateTo(0, -115, 400, easing: Easing.CubicInOut);
+                    await Task.Delay(150);
+                    if (entireScroll.ContentSize.Height > 820)
+                    {
+                        if (entireScroll.ContentSize.Height - entireScroll.ScrollY < 810)
+                        {
+                            await entireScroll.ScrollToAsync(0, entireScroll.ScrollY - 115, true);
+                        }
+                        else
+                        {
+                            await Task.Delay(250);
+                        }
+                    }
+                    else
+                    {
+                        await Task.Delay(250);
+                    }
+
+                    listOfItems.Children.Remove(itemReferences.Where(x => x.currentInstance.Id == id).FirstOrDefault());
+                    itemReferences.Remove(itemReferences.Where(x => x.currentInstance.Id == id).FirstOrDefault());
+                    try
+                    {
+                        for (int i = 0; i < itemReferences.Count; i++)
+                        {
+                            itemReferences.ToArray()[i].ResetTranslation();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                    Console.WriteLine("Height: " + entireScroll.ScrollY.ToString() + " / " + entireScroll.ContentSize.Height.ToString());
+                    readdItems.TranslateTo(0, 0, 0, easing: Easing.CubicInOut);
+                };
+                listOfItems.Children.Add(itemReferences.ToArray()[item]);
+            }
         }
     }
 }

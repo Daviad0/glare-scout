@@ -48,8 +48,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <AbsoluteLayout>
-        <ScrollView AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" x:Name="logoBackground">
-            <Image VerticalOptions="Center" HorizontalOptions="Center" Source="LightScoutGray.png" HeightRequest="300"/>
+        <ScrollView AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" x:Name="logoBackground" BackgroundColor="{DynamicResource BackDrop}">
+            <Image VerticalOptions="Center" HorizontalOptions="Center" Source="LightScoutGray.png" HeightRequest="300" Opacity="0.2"/>
         </ScrollView>
         <ScrollView BackgroundColor="{DynamicResource Background}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" x:Name="mainInterface">
             <StackLayout>
@@ -95,7 +95,7 @@
                             <Grid>
                                 <StackLayout IsVisible="{Binding ActualMatch}">
                                     <Frame HasShadow="True"
-                       BorderColor="DarkGray"
+                       BorderColor="{DynamicResource Container}"
                        CornerRadius="5"
                        Margin="20,20,20,0"
                        HeightRequest="350"
@@ -177,7 +177,7 @@
                                             <ColumnDefinition Width="70"/>
                                         </Grid.ColumnDefinitions>
                                         <Frame HasShadow="True"
-                                       BorderColor="DarkGray"
+                                       BorderColor="{DynamicResource Container}"
                                        CornerRadius="5"
                                        Margin="10,0,10,20"
                                        HeightRequest="50"
@@ -186,10 +186,10 @@
                                                BackgroundColor="{DynamicResource Container}"
                                        HorizontalOptions="Center"
                                                        WidthRequest="150">
-                                            <Button Text="Scout Match" BackgroundColor="Transparent" BorderColor="Transparent" Clicked="GoToFRCPage"/>
+                                            <Button Text="Scout Match" BackgroundColor="Transparent" BorderColor="Transparent" Clicked="GoToFRCPage" TextColor="{DynamicResource FramePrimary}"/>
                                         </Frame>
                                         <Frame HasShadow="True"
-                                       BorderColor="DarkGray"
+                                       BorderColor="{DynamicResource Container}"
                                        CornerRadius="5"
                                        Margin="5,0,5,20"
                                        HeightRequest="50"
@@ -198,10 +198,10 @@
                                                BackgroundColor="{DynamicResource Container}"
                                        HorizontalOptions="Center"
                                                        WidthRequest="70">
-                                            <Button Text="&#xee09;" BackgroundColor="Transparent" TextColor="Red" BorderColor="Transparent" FontFamily="{StaticResource IconFont}" Clicked="DeleteEntry"/>
+                                            <Button Text="&#xee09;" BackgroundColor="Transparent" TextColor="{DynamicResource ContainerSelectedNegative}" BorderColor="Transparent" FontFamily="{StaticResource IconFont}" Clicked="DeleteEntry"/>
                                         </Frame>
                                         <Frame HasShadow="True"
-                                       BorderColor="DarkGray"
+                                       BorderColor="{DynamicResource Container}"
                                        CornerRadius="5"
                                        Margin="5,0,5,20"
                                        HeightRequest="50"
@@ -210,7 +210,7 @@
                                                BackgroundColor="{DynamicResource Container}"
                                        HorizontalOptions="Center"
                                                        WidthRequest="70">
-                                            <Button Text="&#xec55;" BackgroundColor="Transparent" TextColor="Blue" BorderColor="Transparent" FontFamily="{StaticResource IconFont}" Clicked="EditEntry"/>
+                                            <Button Text="&#xec55;" BackgroundColor="Transparent" TextColor="{DynamicResource ContainerSelectedPositive}" BorderColor="Transparent" FontFamily="{StaticResource IconFont}" Clicked="EditEntry"/>
                                         </Frame>
                                     </Grid>
 
@@ -250,7 +250,7 @@
             </StackLayout>
             
         </ScrollView>
-        <ScrollView BackgroundColor="#fafafa" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" x:Name="settingsInterface">
+        <ScrollView BackgroundColor="{DynamicResource Background}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" x:Name="settingsInterface">
             <StackLayout>
                 <Grid Padding="10" BackgroundColor="{DynamicResource Header}" ios:Page.UseSafeArea="True">
                     <Grid.RowDefinitions>
@@ -263,7 +263,7 @@
                     </Grid.ColumnDefinitions>
 
 
-                    <Button Text="&#xea97;" TextColor="#2a7afa" BackgroundColor="{DynamicResource HeaderButton}" BorderColor="{DynamicResource Header}" BorderWidth="2" Clicked="CancelSettingsPage" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
+                    <Button Text="&#xea97;" TextColor="{DynamicResource HeaderButtonText}" BackgroundColor="{DynamicResource HeaderButton}" BorderColor="{DynamicResource Header}" BorderWidth="2" Clicked="CancelSettingsPage" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
 
                     <Label Text="Settings" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" TextColor="White">
                         <Label.FontFamily>
@@ -298,7 +298,7 @@
 
 
         </ScrollView>
-        <ScrollView BackgroundColor="#fafafa" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" x:Name="aboutInterface">
+        <ScrollView BackgroundColor="{DynamicResource Background}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" x:Name="aboutInterface">
             <StackLayout>
                 <Grid Padding="10" BackgroundColor="{DynamicResource Header}" ios:Page.UseSafeArea="True">
                     <Grid.RowDefinitions>
@@ -311,7 +311,7 @@
                     </Grid.ColumnDefinitions>
 
 
-                    <Button Text="&#xea97;" TextColor="#2a7afa" BackgroundColor="{DynamicResource HeaderButton}" BorderColor="{DynamicResource Header}" BorderWidth="2" Clicked="CancelAboutPage" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
+                    <Button Text="&#xea97;" TextColor="{DynamicResource HeaderButtonText}" BackgroundColor="{DynamicResource HeaderButton}" BorderColor="{DynamicResource Header}" BorderWidth="2" Clicked="CancelAboutPage" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
 
                     <Label Text="About" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" TextColor="White">
                         <Label.FontFamily>
@@ -334,78 +334,80 @@
 
 
         </ScrollView>
-        <ScrollView AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" x:Name="usbInterface" BackgroundColor="#2a7afa">
-            <StackLayout>
-                <Grid Padding="10" BackgroundColor="{DynamicResource Header}" ios:Page.UseSafeArea="True">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="60"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="60"/>
-                    </Grid.ColumnDefinitions>
-
-
-                    <Button Text="&#xea97;" TextColor="#2a7afa" BackgroundColor="{DynamicResource HeaderButton}" BorderColor="{DynamicResource Header}" BorderWidth="2" Clicked="CancelUsbPage" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
-
-                    <Label Text="USB Transfer" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" TextColor="White">
-                        <Label.FontFamily>
-                            <OnPlatform x:TypeArguments="x:String">
-                                <On Platform="iOS">Varela Round Regular</On>
-                                <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
-                            </OnPlatform>
-                        </Label.FontFamily>
-                    </Label>
-
-                </Grid>
+        <Frame AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" x:Name="usbInterface" BackgroundColor="{DynamicResource Header}" CornerRadius="4" Margin="0,10,0,0">
+            <ScrollView>
                 <StackLayout>
-                    <Grid Margin="20,0">
+                    <Grid Padding="10" BackgroundColor="{DynamicResource Header}" ios:Page.UseSafeArea="True">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="60"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="60"/>
                         </Grid.ColumnDefinitions>
-                        <Button Text="&#xeebe;" TextColor="#2a7afa" FontFamily="{StaticResource IconFont}" FontSize="70" Clicked="SelectGenComm" Margin="5" Padding="5" BackgroundColor="White" Grid.Column="0" HeightRequest="150" CornerRadius="8" x:Name="bluetoothGeneral"/>
-                        <Button Text="&#xf01f;" TextColor="#2a7afa" FontFamily="{StaticResource IconFont}" FontSize="70" Clicked="SelectGenComm" Margin="5" Padding="5" BackgroundColor="White" Grid.Column="1" HeightRequest="150" CornerRadius="8" x:Name="usbGeneral"/>
+
+
+                        <Button Text="&#xea97;" TextColor="{DynamicResource HeaderButtonText}" BackgroundColor="{DynamicResource HeaderButton}" BorderColor="{DynamicResource Header}" BorderWidth="2" Clicked="CancelUsbPage" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
+
+                        <Label Text="USB Transfer" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" TextColor="White">
+                            <Label.FontFamily>
+                                <OnPlatform x:TypeArguments="x:String">
+                                    <On Platform="iOS">Varela Round Regular</On>
+                                    <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
+                                </OnPlatform>
+                            </Label.FontFamily>
+                        </Label>
+
+                    </Grid>
+                    <StackLayout>
+                        <Grid Margin="20,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Button Text="&#xeebe;" TextColor="#2a7afa" FontFamily="{StaticResource IconFont}" FontSize="70" Clicked="SelectGenComm" Margin="5" Padding="5" BackgroundColor="White" Grid.Column="0" HeightRequest="150" CornerRadius="8" x:Name="bluetoothGeneral"/>
+                            <Button Text="&#xf01f;" TextColor="#2a7afa" FontFamily="{StaticResource IconFont}" FontSize="70" Clicked="SelectGenComm" Margin="5" Padding="5" BackgroundColor="White" Grid.Column="1" HeightRequest="150" CornerRadius="8" x:Name="usbGeneral"/>
                         
-                    </Grid>
-                    <Grid Margin="20,0,20,20">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <BoxView HeightRequest="6" Opacity="0" Margin="30,3,30,5" BackgroundColor="White" CornerRadius="3" WidthRequest="100" HorizontalOptions="Center" Grid.Column="0" x:Name="bluetoothSelected"/>
-                        <BoxView HeightRequest="6" Opacity="0" Margin="30,3,30,5" BackgroundColor="White" CornerRadius="3" WidthRequest="100" HorizontalOptions="Center" Grid.Column="1" x:Name="usbSelected"/>
-                    </Grid>
-                    <StackLayout x:Name="commOptions" Opacity="0">
-                        <Grid>
-                            <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="0" FontFamily="{StaticResource IconFont}" Text="&#xeed8;" TextColor="White" FontSize="40" Margin="20,0,0,0" VerticalOptions="Center" Opacity="0" x:Name="comm_sendCurrent_check"/>
-                            <Button Grid.Row="0" Grid.Column="0" CornerRadius="6" BackgroundColor="White" Margin="25,0" Text="Send Current Scores" TextColor="#2a7afa" x:Name="comm_sendCurrent" ClassId="comm_sendCurrent" Clicked="SelectCommOption"/>
                         </Grid>
-                        <Grid>
-                            <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="0" FontFamily="{StaticResource IconFont}" Text="&#xeed8;" TextColor="White" FontSize="40" Margin="20,0,0,0" VerticalOptions="Center" Opacity="0" x:Name="comm_getMatchData_check"/>
-                            <Button Grid.Row="0" Grid.Column="0" CornerRadius="6" BackgroundColor="White" Text="Get Match Data" Margin="25,0" TextColor="#2a7afa" x:Name="comm_getMatchData" ClassId="comm_getMatchData" Clicked="SelectCommOption"/>
+                        <Grid Margin="20,0,20,20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <BoxView HeightRequest="6" Opacity="0" Margin="30,3,30,5" BackgroundColor="White" CornerRadius="3" WidthRequest="100" HorizontalOptions="Center" Grid.Column="0" x:Name="bluetoothSelected"/>
+                            <BoxView HeightRequest="6" Opacity="0" Margin="30,3,30,5" BackgroundColor="White" CornerRadius="3" WidthRequest="100" HorizontalOptions="Center" Grid.Column="1" x:Name="usbSelected"/>
                         </Grid>
-                        <Grid>
-                            <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="0" FontFamily="{StaticResource IconFont}" Text="&#xeed8;" TextColor="White" FontSize="40" Margin="20,0,0,0" VerticalOptions="Center" Opacity="0" x:Name="comm_checkTBA_check"/>
-                            <Button Grid.Row="0" Grid.Column="0" CornerRadius="6" BackgroundColor="White" Margin="25,0" Text="Send TBA Data" TextColor="#2a7afa" x:Name="comm_checkTBA" ClassId="comm_checkTBA" Clicked="SelectCommOption"/>
-                        </Grid>
-                        <Grid>
-                            <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="0" FontFamily="{StaticResource IconFont}" Text="&#xeed8;" TextColor="White" FontSize="40" Margin="20,0,0,0" VerticalOptions="Center" Opacity="0" x:Name="comm_preloadTBA_check"/>
-                            <Button Grid.Row="0" Grid.Column="0" CornerRadius="6" BackgroundColor="White" Margin="25,0" Text="Preload TBA Data" TextColor="#2a7afa" x:Name="comm_preloadTBA" ClassId="comm_preloadTBA" Clicked="SelectCommOption"/>
-                        </Grid>
-                        <BoxView HeightRequest="2" Margin="50,5" BackgroundColor="White" CornerRadius="1" WidthRequest="100"/>
-                        <Button CornerRadius="4" BackgroundColor="White" Margin="30,0" Text="Start Request" HeightRequest="70" TextColor="#2a7afa" FontSize="30"/>
-                    </StackLayout>
+                        <StackLayout x:Name="commOptions" Opacity="0">
+                            <Grid>
+                                <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="0" FontFamily="{StaticResource IconFont}" Text="&#xeed8;" TextColor="White" FontSize="40" Margin="20,0,0,0" VerticalOptions="Center" Opacity="0" x:Name="comm_sendCurrent_check"/>
+                                <Button Grid.Row="0" Grid.Column="0" CornerRadius="6" BackgroundColor="White" Margin="25,0" Text="Send Current Scores" TextColor="#2a7afa" x:Name="comm_sendCurrent" ClassId="comm_sendCurrent" Clicked="SelectCommOption"/>
+                            </Grid>
+                            <Grid>
+                                <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="0" FontFamily="{StaticResource IconFont}" Text="&#xeed8;" TextColor="White" FontSize="40" Margin="20,0,0,0" VerticalOptions="Center" Opacity="0" x:Name="comm_getMatchData_check"/>
+                                <Button Grid.Row="0" Grid.Column="0" CornerRadius="6" BackgroundColor="White" Text="Get Match Data" Margin="25,0" TextColor="#2a7afa" x:Name="comm_getMatchData" ClassId="comm_getMatchData" Clicked="SelectCommOption"/>
+                            </Grid>
+                            <Grid>
+                                <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="0" FontFamily="{StaticResource IconFont}" Text="&#xeed8;" TextColor="White" FontSize="40" Margin="20,0,0,0" VerticalOptions="Center" Opacity="0" x:Name="comm_checkTBA_check"/>
+                                <Button Grid.Row="0" Grid.Column="0" CornerRadius="6" BackgroundColor="White" Margin="25,0" Text="Send TBA Data" TextColor="#2a7afa" x:Name="comm_checkTBA" ClassId="comm_checkTBA" Clicked="SelectCommOption"/>
+                            </Grid>
+                            <Grid>
+                                <Label HorizontalOptions="Start" Grid.Column="0" Grid.Row="0" FontFamily="{StaticResource IconFont}" Text="&#xeed8;" TextColor="White" FontSize="40" Margin="20,0,0,0" VerticalOptions="Center" Opacity="0" x:Name="comm_preloadTBA_check"/>
+                                <Button Grid.Row="0" Grid.Column="0" CornerRadius="6" BackgroundColor="White" Margin="25,0" Text="Preload TBA Data" TextColor="#2a7afa" x:Name="comm_preloadTBA" ClassId="comm_preloadTBA" Clicked="SelectCommOption"/>
+                            </Grid>
+                            <BoxView HeightRequest="2" Margin="50,5" BackgroundColor="White" CornerRadius="1" WidthRequest="100"/>
+                            <Button CornerRadius="4" BackgroundColor="White" Margin="30,0" Text="Start Request" HeightRequest="70" TextColor="#2a7afa" FontSize="30"/>
+                        </StackLayout>
                     
+                    </StackLayout>
                 </StackLayout>
-            </StackLayout>
             
 
-        </ScrollView>
+            </ScrollView>
+        </Frame>
         <StackLayout x:Name="moreinfoMenu" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
             <AbsoluteLayout VerticalOptions="FillAndExpand">
-                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Black" Opacity=".5">
 
                 </StackLayout>
                 <StackLayout BackgroundColor="White" VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".6,.6,.8,.8" AbsoluteLayout.LayoutFlags="All">
@@ -424,10 +426,10 @@
                     <ColumnDefinition Width="64"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Clicked="SeeSettingsPage" IsVisible="False" VerticalOptions="End" Grid.Column="0" HorizontalOptions="End" Text="&#xef3b;" x:Name="showSettings" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" TextColor="#2a7afa" BorderColor="{DynamicResource PrimaryColor}" BorderWidth="2"/>
-                <Button Clicked="SeeUsbPage" IsVisible="False" VerticalOptions="End" Grid.Column="1" HorizontalOptions="End" Text="&#xf01f;" x:Name="showUsb" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" TextColor="#2a7afa" BorderColor="{DynamicResource PrimaryColor}" BorderWidth="2"/>
-                <Button Clicked="SeeAboutPage" IsVisible="False" VerticalOptions="End" Grid.Column="2" HorizontalOptions="End" Text="&#xef4e;" x:Name="showAbout" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" TextColor="#2a7afa" BorderColor="{DynamicResource PrimaryColor}" BorderWidth="2"/>
-                <Button Clicked="ToggleMenuItems" x:Name="showMenu" VerticalOptions="End" Grid.Column="3" HorizontalOptions="End" Text="&#xefa2;" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="#2a7afa" TextColor="White" BorderColor="{DynamicResource PrimaryColor}" BorderWidth="2"/>
+                <Button Clicked="SeeSettingsPage" IsVisible="False" VerticalOptions="End" Grid.Column="0" HorizontalOptions="End" Text="&#xef3b;" x:Name="showSettings" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" TextColor="{DynamicResource PrimaryColor}" BorderColor="{DynamicResource PrimaryColor}" BorderWidth="2"/>
+                <Button Clicked="SeeUsbPage" IsVisible="False" VerticalOptions="End" Grid.Column="1" HorizontalOptions="End" Text="&#xf01f;" x:Name="showUsb" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" TextColor="{DynamicResource PrimaryColor}" BorderColor="{DynamicResource PrimaryColor}" BorderWidth="2"/>
+                <Button Clicked="SeeAboutPage" IsVisible="False" VerticalOptions="End" Grid.Column="2" HorizontalOptions="End" Text="&#xef4e;" x:Name="showAbout" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="Transparent" TextColor="{DynamicResource PrimaryColor}" BorderColor="{DynamicResource PrimaryColor}" BorderWidth="2"/>
+                <Button Clicked="ToggleMenuItems" x:Name="showMenu" VerticalOptions="End" Grid.Column="3" HorizontalOptions="End" Text="&#xefa2;" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="{DynamicResource PrimaryColor}" TextColor="White" BorderColor="{DynamicResource PrimaryColor}" BorderWidth="2"/>
                 <Button Clicked="ToggleMenuItems" Opacity="0" VerticalOptions="End" Grid.Column="3" HorizontalOptions="End" Text="&#xeee4;" x:Name="cancelToggleMenu" FontFamily="{StaticResource IconFont}" FontSize="35" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="{DynamicResource PrimaryColor}" TextColor="White" BorderColor="{DynamicResource PrimaryColor}" BorderWidth="2"/>
                 <Button Opacity="0" IsVisible="False" VerticalOptions="End" Grid.Column="3" HorizontalOptions="End" Text="&#xefa2;" x:Name="pureblueOverButton" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="{DynamicResource PrimaryColor}" TextColor="{DynamicResource PrimaryColor}" BorderColor="{DynamicResource PrimaryColor}" BorderWidth="2"/>
 
@@ -439,7 +441,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="110"/>
                 </Grid.RowDefinitions>
-                <Frame BackgroundColor="#2a7afa" HeightRequest="100" VerticalOptions="End" Margin="10" x:Name="notificationContainer">
+                <Frame BackgroundColor="{DynamicResource PrimaryColor}" HeightRequest="100" VerticalOptions="End" Margin="10" x:Name="notificationContainer">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50"/>
@@ -457,14 +459,14 @@
         </StackLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" x:Name="strategyCodeInterface" IsVisible="False">
             <AbsoluteLayout VerticalOptions="FillAndExpand">
-                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Black" Opacity=".5">
 
                 </StackLayout>
                 <StackLayout VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".5,.5,.8,.8" AbsoluteLayout.LayoutFlags="All" x:Name="strategyCodePanel">
 
-                    <Frame CornerRadius="14" BackgroundColor="White" Padding="50" HasShadow="False">
+                    <Frame CornerRadius="14" BackgroundColor="{DynamicResource Overlay}" Padding="50" HasShadow="False">
                         <StackLayout>
-                            <Label Text="Code Required!" HorizontalOptions="Center" FontSize="23" FontAttributes="Bold"/>
+                            <Label Text="Code Required!" HorizontalOptions="Center" FontSize="23" FontAttributes="Bold" TextColor="{DynamicResource FramePrimary}"/>
                             <Grid HeightRequest="13" ColumnSpacing="2" Margin="0,15,0,0" HorizontalOptions="Center" x:Name="codeProgressContainer">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="25"/>
@@ -489,18 +491,18 @@
                                     <RowDefinition Height="70"/>
                                     <RowDefinition Height="70"/>
                                 </Grid.RowDefinitions>
-                                <Button Text="1" Grid.Column="0" Grid.Row="0" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton1"/>
-                                <Button Text="2" Grid.Column="1" Grid.Row="0" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton2"/>
-                                <Button Text="3" Grid.Column="2" Grid.Row="0" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton3"/>
-                                <Button Text="4" Grid.Column="0" Grid.Row="1" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton4"/>
-                                <Button Text="5" Grid.Column="1" Grid.Row="1" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton5"/>
-                                <Button Text="6" Grid.Column="2" Grid.Row="1" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton6"/>
-                                <Button Text="7" Grid.Column="0" Grid.Row="2" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton7"/>
-                                <Button Text="8" Grid.Column="1" Grid.Row="2" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton8"/>
-                                <Button Text="9" Grid.Column="2" Grid.Row="2" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton9"/>
-                                <Button Text="&#xea9d;" Grid.Column="0" Grid.Row="3" Margin="5" FontSize="20" CornerRadius="30" TextColor="#2a7afa" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="#2a7afa" BorderWidth="2" Clicked="CancelCodePanel" FontFamily="{StaticResource IconFont}"/>
-                                <Button Text="0" Grid.Column="1" Grid.Row="3" Margin="5" FontSize="20" CornerRadius="30" TextColor="Gray" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Gray" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton0"/>
-                                <Button Opacity="0" Text="&#xeee4;" Grid.Column="2" Grid.Row="3" Margin="5" FontSize="20" CornerRadius="30" TextColor="Red" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Red" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButtonCancel" FontFamily="{StaticResource IconFont}"/>
+                                <Button Text="1" Grid.Column="0" Grid.Row="0" Margin="5" FontSize="20" CornerRadius="30" TextColor="{DynamicResource FramePrimary}" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="{DynamicResource FramePrimary}" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton1"/>
+                                <Button Text="2" Grid.Column="1" Grid.Row="0" Margin="5" FontSize="20" CornerRadius="30" TextColor="{DynamicResource FramePrimary}" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="{DynamicResource FramePrimary}" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton2"/>
+                                <Button Text="3" Grid.Column="2" Grid.Row="0" Margin="5" FontSize="20" CornerRadius="30" TextColor="{DynamicResource FramePrimary}" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="{DynamicResource FramePrimary}" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton3"/>
+                                <Button Text="4" Grid.Column="0" Grid.Row="1" Margin="5" FontSize="20" CornerRadius="30" TextColor="{DynamicResource FramePrimary}" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="{DynamicResource FramePrimary}" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton4"/>
+                                <Button Text="5" Grid.Column="1" Grid.Row="1" Margin="5" FontSize="20" CornerRadius="30" TextColor="{DynamicResource FramePrimary}" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="{DynamicResource FramePrimary}" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton5"/>
+                                <Button Text="6" Grid.Column="2" Grid.Row="1" Margin="5" FontSize="20" CornerRadius="30" TextColor="{DynamicResource FramePrimary}" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="{DynamicResource FramePrimary}" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton6"/>
+                                <Button Text="7" Grid.Column="0" Grid.Row="2" Margin="5" FontSize="20" CornerRadius="30" TextColor="{DynamicResource FramePrimary}" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="{DynamicResource FramePrimary}" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton7"/>
+                                <Button Text="8" Grid.Column="1" Grid.Row="2" Margin="5" FontSize="20" CornerRadius="30" TextColor="{DynamicResource FramePrimary}" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="{DynamicResource FramePrimary}" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton8"/>
+                                <Button Text="9" Grid.Column="2" Grid.Row="2" Margin="5" FontSize="20" CornerRadius="30" TextColor="{DynamicResource FramePrimary}" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="{DynamicResource FramePrimary}" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton9"/>
+                                <Button Text="&#xea9d;" Grid.Column="0" Grid.Row="3" Margin="5" FontSize="20" CornerRadius="30" TextColor="#2a7afa" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="{DynamicResource PrimaryColor}" BorderWidth="2" Clicked="CancelCodePanel" FontFamily="{StaticResource IconFont}"/>
+                                <Button Text="0" Grid.Column="1" Grid.Row="3" Margin="5" FontSize="20" CornerRadius="30" TextColor="{DynamicResource FramePrimary}" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="{DynamicResource FramePrimary}" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButton0"/>
+                                <Button Opacity="0" Text="&#xeee4;" Grid.Column="2" Grid.Row="3" Margin="5" FontSize="20" CornerRadius="30" TextColor="{DynamicResource PRedTag}" FontAttributes="Bold" BackgroundColor="Transparent" BorderColor="Red" BorderWidth="2" Clicked="AddCodeNumber" x:Name="codeButtonCancel" FontFamily="{StaticResource IconFont}"/>
                             </Grid>
                         </StackLayout>
                     </Frame>
@@ -510,25 +512,25 @@
         </StackLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" x:Name="editCoreInfoInterface" IsVisible="False">
             <AbsoluteLayout VerticalOptions="FillAndExpand">
-                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Black" Opacity=".5">
 
                 </StackLayout>
                 <StackLayout VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".5,.5,.8,.8" AbsoluteLayout.LayoutFlags="All" x:Name="editCoreInfoPanel">
-                    <Frame BackgroundColor="White" Padding="50" CornerRadius="14">
+                    <Frame BackgroundColor="{DynamicResource Overlay}" Padding="50" CornerRadius="14">
                         <StackLayout>
-                            <Label Text="Edit Core Match Info" FontSize="20" FontAttributes="Bold" Margin="0,0,0,15" HorizontalOptions="Center"/>
-                            <Label Text="Team Number"/>
+                            <Label Text="Edit Core Match Info" FontSize="20" FontAttributes="Bold" Margin="0,0,0,15" HorizontalOptions="Center" TextColor="{DynamicResource FramePrimary}"/>
+                            <Label Text="Team Number" TextColor="{DynamicResource FrameSecondary}"/>
                             <Entry Unfocused="OverlayEntryUnfocused" Keyboard="Numeric" Placeholder="862" x:Name="coreEditTeamNumber"/>
-                            <Label Text="Team Name"/>
+                            <Label Text="Team Name" TextColor="{DynamicResource FrameSecondary}"/>
                             <Entry Unfocused="OverlayEntryUnfocused" Placeholder="FRC Team" x:Name="coreEditTeamName"/>
-                            <Label Text="Match Number"/>
+                            <Label Text="Match Number" TextColor="{DynamicResource FrameSecondary}"/>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Stepper Minimum="1" Value="1" ValueChanged="coreEditMatchNumberStepper_ValueChanged" x:Name="coreEditMatchNumberStepper" Grid.Column="0"/>
-                                <Label Margin="10,0,0,0" Text="#1" Grid.Column="1" FontSize="20" x:Name="coreEditMatchNumberLabel" VerticalOptions="Center"/>
+                                <Label Margin="10,0,0,0" Text="#1" Grid.Column="1" FontSize="20" x:Name="coreEditMatchNumberLabel" VerticalOptions="Center" TextColor="{DynamicResource FrameSecondary}"/>
                             </Grid>
                             <Grid HorizontalOptions="End">
                                 <Grid.ColumnDefinitions>
@@ -548,7 +550,7 @@
         </StackLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" x:Name="editConfigFileInterface" IsVisible="False">
             <AbsoluteLayout VerticalOptions="FillAndExpand">
-                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Black" Opacity=".5">
 
                 </StackLayout>
                 <StackLayout VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".5,.5,.8,.8" AbsoluteLayout.LayoutFlags="All" x:Name="editConfigFilePanel">
@@ -608,25 +610,25 @@
         </StackLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" x:Name="createNewMatchInterface" IsVisible="False">
             <AbsoluteLayout VerticalOptions="FillAndExpand">
-                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Black" Opacity=".5">
 
                 </StackLayout>
                 <StackLayout VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".5,.5,.8,.8" AbsoluteLayout.LayoutFlags="All" x:Name="createMatchInfoPanel">
-                    <Frame BackgroundColor="White" Padding="50" CornerRadius="14">
+                    <Frame BackgroundColor="{DynamicResource Overlay}" Padding="50" CornerRadius="14">
                         <StackLayout>
-                            <Label Text="Create New Match" FontSize="20" FontAttributes="Bold" Margin="0,0,0,15" HorizontalOptions="Center"/>
-                            <Label Text="Team Number"/>
+                            <Label Text="Create New Match" FontSize="20" FontAttributes="Bold" Margin="0,0,0,15" HorizontalOptions="Center" TextColor="{DynamicResource FramePrimary}"/>
+                            <Label Text="Team Number" TextColor="{DynamicResource FrameSecondary}"/>
                             <Entry Unfocused="OverlayEntryUnfocused" Keyboard="Numeric" Placeholder="862" x:Name="createNewTeamNumber"/>
-                            <Label Text="Team Name"/>
+                            <Label Text="Team Name" TextColor="{DynamicResource FrameSecondary}"/>
                             <Entry Unfocused="OverlayEntryUnfocused" Placeholder="FRC Team" x:Name="createNewTeamName"/>
-                            <Label Text="Match Number"/>
+                            <Label Text="Match Number" TextColor="{DynamicResource FrameSecondary}"/>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Stepper Minimum="1" Value="1" HeightRequest="50" ValueChanged="createMatchNumberStepper_ValueChanged" x:Name="createNewMatchNumberStepper" Grid.Column="0"/>
-                                <Label Margin="10,0,0,0" Text="#1" Grid.Column="1" FontSize="20" x:Name="createNewMatchNumberLabel" VerticalOptions="Center"/>
+                                <Label Margin="10,0,0,0" Text="#1" Grid.Column="1" FontSize="20" x:Name="createNewMatchNumberLabel" VerticalOptions="Center" TextColor="{DynamicResource FramePrimary}"/>
                             </Grid>
                             <Grid HorizontalOptions="End">
                                 <Grid.ColumnDefinitions>

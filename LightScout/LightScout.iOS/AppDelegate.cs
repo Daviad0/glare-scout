@@ -26,7 +26,6 @@ namespace LightScout.iOS
             Forms.SetFlags("DragAndDrop_Experimental", "Expander_Experimental");
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
-            ZXing.Net.Mobile.Forms.iOS.Platform.Init();
             UIApplication.SharedApplication.StatusBarHidden = true;
             return base.FinishedLaunching(app, options);
         }

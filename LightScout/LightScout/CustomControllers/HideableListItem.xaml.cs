@@ -58,6 +58,7 @@ namespace LightScout.CustomControllers
             Label hidingTag = (Label)((Grid)((Frame)((Grid)frame.Parent).Children.Where(x => x.ClassId.Contains("below")).FirstOrDefault()).Content).Children.Where(x => x.ClassId.Contains("icon"));
             Frame testoption = (Frame)((Grid)frame.Parent).Children.Where(x => x.ClassId.Contains("below")).FirstOrDefault();*/
         }
+        
         private async void PanGestureRecognizer_PanUpdated_1(object sender, PanUpdatedEventArgs e)
         {
             Frame frame = (Frame)sender as Frame;

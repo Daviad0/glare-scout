@@ -1400,6 +1400,270 @@ namespace LightScout
             CancellationToken token = cancellationTokenSource.Token;
             submitVIABluetoothInstance.ConnectToDevice(new SubmitVIABluetooth.BLEMessageArguments() { messageType = 00, messageData = "Testing Protocol v3. This is not an emergency.", expectation = SubmitVIABluetooth.ResponseExpectation.Optional }, token);
         }
+        private async void MenuPanSettings(object sender, PanUpdatedEventArgs e)
+        {
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                if (e.StatusType == GestureStatus.Canceled || e.StatusType == GestureStatus.Completed)
+                {
+                    if (settingsInterface.TranslationY > 250)
+                    {
+                        settingsInterface.TranslateTo(settingsInterface.TranslationX, settingsInterface.TranslationY + 1200, easing: Easing.SinIn);
+                        
+                        await Task.Delay(350);
+                        settingsInterface.IsVisible = false;
+                        settingsInterface.TranslationY = 0;
+                        pureblueOverButton.IsVisible = false;
+                        pureblueOverButton.Opacity = 0;
+                        mainInterface.TranslationX = -600;
+                        mainInterface.TranslateTo(mainInterface.TranslationX + 600, mainInterface.TranslationY, 500, Easing.SinOut);
+                        settingsButton.TranslationY = 100;
+                        settingsButton.IsVisible = true;
+                        MenuAnimationActive = true;
+                        await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY - 110, 400, Easing.CubicIn);
+                        await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY + 10, 100, Easing.CubicIn);
+                        MenuAnimationActive = false;
+                    }
+                    else
+                    {
+                        settingsInterface.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                        settingsInterface.FadeTo(1, 250, easing: Easing.CubicInOut);
+                    }
+                }
+                else
+                {
+                    if (e.TotalY < 0)
+                    {
+                        settingsInterface.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                        settingsInterface.Opacity = 1;
+                    }
+                    else
+                    {
+                        settingsInterface.TranslationY = e.TotalY;
+                        
+                    }
+
+                }
+            }
+            else
+            {
+                if (e.StatusType == GestureStatus.Canceled || e.StatusType == GestureStatus.Completed)
+                {
+                    if (e.TotalY + settingsInterface.TranslationY > 250)
+                    {
+                        settingsInterface.TranslateTo(settingsInterface.TranslationX, settingsInterface.TranslationY + 1200, easing: Easing.SinIn);
+                        
+                        await Task.Delay(350);
+                        settingsInterface.IsVisible = false;
+                        settingsInterface.TranslationY = 0;
+                        pureblueOverButton.IsVisible = false;
+                        pureblueOverButton.Opacity = 0;
+                        mainInterface.TranslationX = -600;
+                        mainInterface.TranslateTo(mainInterface.TranslationX + 600, mainInterface.TranslationY, 500, Easing.SinOut);
+                        settingsButton.TranslationY = 100;
+                        settingsButton.IsVisible = true;
+                        MenuAnimationActive = true;
+                        await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY - 110, 400, Easing.CubicIn);
+                        await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY + 10, 100, Easing.CubicIn);
+                        MenuAnimationActive = false;
+                    }
+                    else
+                    {
+                        settingsInterface.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                        settingsInterface.FadeTo(1, 250, easing: Easing.CubicInOut);
+                    }
+                }
+                else
+                {
+                    if (e.TotalY < 0)
+                    {
+                        settingsInterface.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                        settingsInterface.Opacity = 1;
+                    }
+                    else
+                    {
+                        settingsInterface.TranslationY += e.TotalY;
+                        
+                    }
+
+                }
+
+            }
+        }
+        private async void MenuPanUSB(object sender, PanUpdatedEventArgs e)
+        {
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                if (e.StatusType == GestureStatus.Canceled || e.StatusType == GestureStatus.Completed)
+                {
+                    if (usbInterface.TranslationY > 250)
+                    {
+                        usbInterface.TranslateTo(usbInterface.TranslationX, usbInterface.TranslationY + 1200, easing: Easing.SinIn);
+                        
+                        await Task.Delay(350);
+                        usbInterface.IsVisible = false;
+                        usbInterface.TranslationY = 0;
+                        pureblueOverButton.IsVisible = false;
+                        pureblueOverButton.Opacity = 0;
+                        mainInterface.TranslationX = -600;
+                        mainInterface.TranslateTo(mainInterface.TranslationX + 600, mainInterface.TranslationY, 500, Easing.SinOut);
+                        settingsButton.TranslationY = 100;
+                        settingsButton.IsVisible = true;
+                        MenuAnimationActive = true;
+                        await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY - 110, 400, Easing.CubicIn);
+                        await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY + 10, 100, Easing.CubicIn);
+                        MenuAnimationActive = false;
+                    }
+                    else
+                    {
+                        usbInterface.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                        usbInterface.FadeTo(1, 250, easing: Easing.CubicInOut);
+                    }
+                }
+                else
+                {
+                    if(e.TotalY < 0)
+                    {
+                        usbInterface.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                        
+                    }
+                    else
+                    {
+                        usbInterface.TranslationY = e.TotalY;
+                        
+                    }
+                    
+                }
+            }
+            else
+            {
+                if (e.StatusType == GestureStatus.Canceled || e.StatusType == GestureStatus.Completed)
+                {
+                    if (e.TotalY + usbInterface.TranslationY > 250)
+                    {
+                        usbInterface.TranslateTo(usbInterface.TranslationX, usbInterface.TranslationY + 1200, easing: Easing.SinIn);
+                        
+                        await Task.Delay(350);
+                        usbInterface.IsVisible = false;
+                        usbInterface.TranslationY = 0;
+                        pureblueOverButton.IsVisible = false;
+                        pureblueOverButton.Opacity = 0;
+                        mainInterface.TranslationX = -600;
+                        mainInterface.TranslateTo(mainInterface.TranslationX + 600, mainInterface.TranslationY, 500, Easing.SinOut);
+                        settingsButton.TranslationY = 100;
+                        settingsButton.IsVisible = true;
+                        MenuAnimationActive = true;
+                        await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY - 110, 400, Easing.CubicIn);
+                        await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY + 10, 100, Easing.CubicIn);
+                        MenuAnimationActive = false;
+                    }
+                    else
+                    {
+                        usbInterface.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                        usbInterface.FadeTo(1, 250, easing: Easing.CubicInOut);
+                    }
+                }
+                else
+                {
+                    if (e.TotalY < 0)
+                    {
+                        usbInterface.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                     
+                    }
+                    else
+                    {
+                        usbInterface.TranslationY += e.TotalY;
+                       
+                    }
+
+                }
+                
+            }
+        }
+        private async void MenuPanAbout(object sender, PanUpdatedEventArgs e)
+        {
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                if (e.StatusType == GestureStatus.Canceled || e.StatusType == GestureStatus.Completed)
+                {
+                    if (aboutInterface.TranslationY > 250)
+                    {
+                        aboutInterface.TranslateTo(aboutInterface.TranslationX, aboutInterface.TranslationY + 1200, easing: Easing.SinIn);
+                        await Task.Delay(350);
+                        aboutInterface.IsVisible = false;
+                        aboutInterface.TranslationY = 0;
+                        pureblueOverButton.IsVisible = false;
+                        pureblueOverButton.Opacity = 0;
+                        mainInterface.TranslationX = -600;
+                        mainInterface.TranslateTo(mainInterface.TranslationX + 600, mainInterface.TranslationY, 500, Easing.SinOut);
+                        settingsButton.TranslationY = 100;
+                        settingsButton.IsVisible = true;
+                        MenuAnimationActive = true;
+                        await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY - 110, 400, Easing.CubicIn);
+                        await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY + 10, 100, Easing.CubicIn);
+                        MenuAnimationActive = false;
+                    }
+                    else
+                    {
+                        aboutInterface.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                        aboutInterface.FadeTo(1, 250, easing: Easing.CubicInOut);
+                    }
+                }
+                else
+                {
+                    if (e.TotalY < 0)
+                    {
+                        aboutInterface.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                    }
+                    else
+                    {
+                        aboutInterface.TranslationY = e.TotalY;
+                    }
+
+                }
+            }
+            else
+            {
+                if (e.StatusType == GestureStatus.Canceled || e.StatusType == GestureStatus.Completed)
+                {
+                    if (e.TotalY + aboutInterface.TranslationY > 250)
+                    {
+                        aboutInterface.TranslateTo(settingsInterface.TranslationX, settingsInterface.TranslationY + 1200, easing: Easing.SinIn);
+                        await Task.Delay(350);
+                        aboutInterface.IsVisible = false;
+                        aboutInterface.TranslationY = 0;
+                        pureblueOverButton.IsVisible = false;
+                        pureblueOverButton.Opacity = 0;
+                        mainInterface.TranslationX = -600;
+                        mainInterface.TranslateTo(mainInterface.TranslationX + 600, mainInterface.TranslationY, 500, Easing.SinOut);
+                        settingsButton.TranslationY = 100;
+                        settingsButton.IsVisible = true;
+                        MenuAnimationActive = true;
+                        await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY - 110, 400, Easing.CubicIn);
+                        await settingsButton.TranslateTo(settingsButton.TranslationX, settingsButton.TranslationY + 10, 100, Easing.CubicIn);
+                        MenuAnimationActive = false;
+                    }
+                    else
+                    {
+                        aboutInterface.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                        aboutInterface.FadeTo(1, 250, easing: Easing.CubicInOut);
+                    }
+                }
+                else
+                {
+                    if (e.TotalY < 0)
+                    {
+                        aboutInterface.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                    }
+                    else
+                    {
+                        aboutInterface.TranslationY += e.TotalY;
+                    }
+
+                }
+
+            }
+        }
     }
     [ContentProperty("Content")]
     public class MultiLineButton : ContentView
@@ -1502,5 +1766,6 @@ namespace LightScout
             if (Clicked != null)
                 Clicked(this, new EventArgs());
         }
+
     }
 }

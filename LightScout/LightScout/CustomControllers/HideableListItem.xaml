@@ -3,48 +3,94 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sh="http://sharpnado.com"
              mc:Ignorable="d"
-             x:Class="LightScout.CustomControllers.HideableListItem">
+             x:Class="LightScout.CustomControllers.HideableListItem"
+             BackgroundColor="{DynamicResource Background}">
   <ContentView.Content>
     <Expander ClassId="{Binding Id}" IsVisible="{Binding Visible}">
         <Expander.Header>
-            <Grid>
-                <Frame ClassId="below" BackgroundColor="Orange" Margin="10,10,10,0" HeightRequest="60" Grid.Row="0" Grid.Column="0" BorderColor="Orange" CornerRadius="8" VerticalOptions="Center">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"/>
-                    </Frame.GestureRecognizers>
+                <!--<sh:Shadows CornerRadius="8">
+                    <sh:Shadows.Shades>
+                        <sh:ImmutableShades>
+                            <sh:Shade BlurRadius="5"
+                      Opacity="0.5"
+                      Offset="0,2"
+                      Color="{DynamicResource ContainerShadow}" />
+                        </sh:ImmutableShades>
+                    </sh:Shadows.Shades>
                     <Grid>
-                        <Label ClassId="icon" Text="&#xef22;" FontFamily="{StaticResource IconFont}" Grid.Column="0" Grid.Row="0" TextColor="White" HorizontalOptions="End" VerticalOptions="Center" IsVisible="False" FontSize="30" Margin="0,0,20,20"/>
-                        <Label ClassId="label" Text="HIDE" FontAttributes="Bold" Grid.Column="0" Grid.Row="0" TextColor="White" HorizontalOptions="End" VerticalOptions="Center" FontSize="20" Margin="15,0,15,0" Opacity="0"/>
-                    </Grid>
+                        <Frame ClassId="below" HasShadow="False" BackgroundColor="Orange" Margin="10,10,10,0" HeightRequest="60" Grid.Row="0" Grid.Column="0" BorderColor="Orange" CornerRadius="8" VerticalOptions="Center">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"/>
+                            </Frame.GestureRecognizers>
+                            <Grid>
+                                <Label ClassId="icon" Text="&#xef22;" FontFamily="{StaticResource IconFont}" Grid.Column="0" Grid.Row="0" TextColor="White" HorizontalOptions="End" VerticalOptions="Center" IsVisible="False" FontSize="30" Margin="0,0,20,20"/>
+                                <Label ClassId="label" Text="HIDE" FontAttributes="Bold" Grid.Column="0" Grid.Row="0" TextColor="White" HorizontalOptions="End" VerticalOptions="Center" FontSize="20" Margin="15,0,15,0" Opacity="0"/>
+                            </Grid>
 
-                </Frame>
-                <Frame ClassId="above" HasShadow="False" BackgroundColor="White" CornerRadius="8" BorderColor="White" Margin="10,10,10,0" HeightRequest="60" Grid.Row="0" Grid.Column="0">
-                    <Frame.GestureRecognizers>
-                        <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated_1"/>
-                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-                    </Frame.GestureRecognizers>
-                    <Grid Margin="5,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                        </Frame>
+                        <Frame ClassId="above" HasShadow="False" BackgroundColor="{DynamicResource Container}" CornerRadius="8" BorderColor="{DynamicResource Container}" Margin="10,10,10,0" HeightRequest="60" Grid.Row="0" Grid.Column="0">
+                            <Frame.GestureRecognizers>
+                                <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated_1"/>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                            </Frame.GestureRecognizers>
+                            <Grid Margin="5,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Label TextColor="{DynamicResource FramePrimary}" FontSize="25" Text="862" FontAttributes="Bold" VerticalOptions="Center" Grid.Row="0"/>
+                                    <Label TextColor="{DynamicResource FramePrimary}" FontSize="15" Text="#1" Grid.Row="1"/>
+                                </Grid>
+                                <Label TextColor="{DynamicResource FramePrimary}" FontSize="25" Text="6 PC" FontAttributes="Bold" VerticalOptions="Center" Grid.Column="1" HorizontalOptions="End"/>
+                            </Grid>
+                        </Frame>
+
+                    </Grid>
+                </sh:Shadows>-->
+                <Grid>
+                    <Frame ClassId="below" HasShadow="False" BackgroundColor="Orange" Margin="10,10,10,0" HeightRequest="60" Grid.Row="0" Grid.Column="0" BorderColor="Orange" CornerRadius="8" VerticalOptions="Center">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"/>
+                        </Frame.GestureRecognizers>
                         <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Label TextColor="Black" FontSize="25" Text="862" FontAttributes="Bold" VerticalOptions="Center" Grid.Row="0"/>
-                            <Label TextColor="Black" FontSize="15" Text="#1" Grid.Row="1"/>
+                            <Label ClassId="icon" Text="&#xef22;" FontFamily="{StaticResource IconFont}" Grid.Column="0" Grid.Row="0" TextColor="White" HorizontalOptions="End" VerticalOptions="Center" IsVisible="False" FontSize="30" Margin="0,0,20,20"/>
+                            <Label ClassId="label" Text="HIDE" FontAttributes="Bold" Grid.Column="0" Grid.Row="0" TextColor="White" HorizontalOptions="End" VerticalOptions="Center" FontSize="20" Margin="15,0,15,0" Opacity="0"/>
                         </Grid>
-                        <Label TextColor="Black" FontSize="25" Text="6 PC" FontAttributes="Bold" VerticalOptions="Center" Grid.Column="1" HorizontalOptions="End"/>
-                    </Grid>
-                </Frame>
 
-            </Grid>
+                    </Frame>
+                    <Frame ClassId="above" HasShadow="False" BackgroundColor="{DynamicResource Container}" CornerRadius="8" BorderColor="{DynamicResource Container}" Margin="10,10,10,0" HeightRequest="60" Grid.Row="0" Grid.Column="0">
+                        <Frame.GestureRecognizers>
+                            <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated_1"/>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </Frame.GestureRecognizers>
+                        <Grid Margin="5,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label TextColor="{DynamicResource FramePrimary}" FontSize="25" Text="862" FontAttributes="Bold" VerticalOptions="Center" Grid.Row="0"/>
+                                <Label TextColor="{DynamicResource FramePrimary}" FontSize="15" Text="#1" Grid.Row="1"/>
+                            </Grid>
+                            <Label TextColor="{DynamicResource FramePrimary}" FontSize="25" Text="6 PC" FontAttributes="Bold" VerticalOptions="Center" Grid.Column="1" HorizontalOptions="End"/>
+                        </Grid>
+                    </Frame>
 
-        </Expander.Header>
-        <Frame HasShadow="False" Grid.Column="0" CornerRadius="8" BackgroundColor="LightGray" HeightRequest="200" Margin="10,10,10,0">
+                </Grid>
+
+            </Expander.Header>
+            <Frame HasShadow="False" Grid.Column="0" CornerRadius="8" BackgroundColor="{DynamicResource Header}" HeightRequest="200" Margin="10,10,10,0">
 
         </Frame>
     </Expander>

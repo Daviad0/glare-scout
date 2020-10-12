@@ -20,11 +20,11 @@ namespace LightScout
             }
             if (JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TeamOfOwnership != 0)
             {
-                MainPage = new NavigationPage(new MainPage());
+                MainPage = new NavigationPage(new Database());
             }
             else
             {
-                MainPage = new NavigationPage(new MainPage());
+                MainPage = new NavigationPage(new Database());
             }
             //MainPage = new NavigationPage(new SetNewData());
             ICollection<ResourceDictionary> mergedDictionaries = Application.Current.Resources.MergedDictionaries;

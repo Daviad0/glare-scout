@@ -10,37 +10,38 @@
              NavigationPage.HasBackButton="False"
              NavigationPage.HasNavigationBar="False"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-             ios:Page.UseSafeArea="False">
+             ios:Page.UseSafeArea="False"
+             BackgroundColor="{DynamicResource Background}">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="lightPrimary" TargetType="Button">
-                <Setter Property="BorderColor" Value="#2a7afa"/>
-                <Setter Property="BackgroundColor" Value="#ffffff"/>
-                <Setter Property="TextColor" Value="#2a7afa"/>
+                <Setter Property="BorderColor" Value="{DynamicResource PrimaryColor}"/>
+                <Setter Property="BackgroundColor" Value="{DynamicResource Background}"/>
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryColor}"/>
                 <Setter Property="BorderWidth" Value="2"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="CornerRadius" Value="5"/>
             </Style>
             <Style x:Key="lightPrimarySelected" TargetType="Button">
-                <Setter Property="BorderColor" Value="#2a7afa"/>
-                <Setter Property="BackgroundColor" Value="#2a7afa"/>
-                <Setter Property="TextColor" Value="#ffffff"/>
+                <Setter Property="BorderColor" Value="{DynamicResource PrimaryColor}"/>
+                <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}"/>
+                <Setter Property="TextColor" Value="{DynamicResource Background}"/>
                 <Setter Property="BorderWidth" Value="2"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="CornerRadius" Value="5"/>
             </Style>
             <Style x:Key="lightSecondary" TargetType="Button">
-                <Setter Property="BorderColor" Value="#0f3f8c"/>
-                <Setter Property="BackgroundColor" Value="#ffffff"/>
-                <Setter Property="TextColor" Value="#0f3f8c"/>
+                <Setter Property="BorderColor" Value="{DynamicResource PrimaryColor}"/>
+                <Setter Property="BackgroundColor" Value="{DynamicResource Background}"/>
+                <Setter Property="TextColor" Value="{DynamicResource PrimaryColor}"/>
                 <Setter Property="BorderWidth" Value="2"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="CornerRadius" Value="5"/>
             </Style>
             <Style x:Key="lightSecondarySelected" TargetType="Button">
-                <Setter Property="BorderColor" Value="#0f3f8c"/>
-                <Setter Property="BackgroundColor" Value="#0f3f8c"/>
-                <Setter Property="TextColor" Value="#ffffff"/>
+                <Setter Property="BorderColor" Value="{DynamicResource PrimaryColor}"/>
+                <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}"/>
+                <Setter Property="TextColor" Value="{DynamicResource Background}"/>
                 <Setter Property="BorderWidth" Value="2"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="CornerRadius" Value="5"/>
@@ -48,8 +49,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <AbsoluteLayout>
-        <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" >
-            <Grid Padding="10" BackgroundColor="#2a7afa" ios:Page.UseSafeArea="True">
+        <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="{DynamicResource Background}">
+            <Grid Padding="10" BackgroundColor="{DynamicResource Header}" ios:Page.UseSafeArea="True">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
@@ -59,9 +60,9 @@
                     <ColumnDefinition Width="60"/>
                 </Grid.ColumnDefinitions>
 
-                
-                <Button Text="&#xea97;" TextColor="#2a7afa" IsEnabled="False" x:Name="prevForm" BackgroundColor="White" BorderColor="#2a7afa" BorderWidth="2" Clicked="prevForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
-                <Button Text="&#xeee4;" TextColor="#2a7afa" x:Name="exitForm" BackgroundColor="White" BorderColor="#2a7afa" BorderWidth="2"  FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0" IsVisible="True" Clicked="BackToMainMenu"/>
+
+                <Button Text="&#xea97;" TextColor="{DynamicResource HeaderButtonText}" IsEnabled="False" x:Name="prevForm" BackgroundColor="{DynamicResource HeaderButton}" BorderColor="{DynamicResource Header}" BorderWidth="2" Clicked="prevForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0"/>
+                <Button Text="&#xeee4;" TextColor="{DynamicResource HeaderButtonText}" x:Name="exitForm" BackgroundColor="{DynamicResource HeaderButton}" BorderColor="{DynamicResource Header}" BorderWidth="2"  FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="0" IsVisible="True" Clicked="BackToMainMenu"/>
                 <Label Text="Team 862" x:Name="teamName"  Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center" FontSize="25" TextColor="White">
                     <Label.FontFamily>
                         <OnPlatform x:TypeArguments="x:String">
@@ -78,11 +79,11 @@
                         </OnPlatform>
                     </Label.FontFamily>
                 </Label>
-                <Button Text="&#xea98;" TextColor="#2a7afa" x:Name="nextForm" BorderColor="#2a7afa" BorderWidth="2" BackgroundColor="White" Clicked="nextForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="2" IsVisible="False"/>
-                <Button Text="&#xeed8;" TextColor="#2a7afa" x:Name="finishForm" BorderColor="#2a7afa" BorderWidth="2" BackgroundColor="White" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="2" IsVisible="False" Clicked="ConfirmForm"/>
+                <Button Text="&#xea98;" TextColor="{DynamicResource HeaderButtonText}" x:Name="nextForm" BorderColor="{DynamicResource Header}" BorderWidth="2" BackgroundColor="{DynamicResource HeaderButton}" Clicked="nextForm_Clicked" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="2" IsVisible="False"/>
+                <Button Text="&#xeed8;" TextColor="{DynamicResource HeaderButtonText}" x:Name="finishForm" BorderColor="{DynamicResource Header}" BorderWidth="2" BackgroundColor="{DynamicResource HeaderButton}" FontSize="30" CornerRadius="8" FontFamily="{StaticResource IconFont}" Grid.Row="0" Grid.Column="2" IsVisible="False" Clicked="ConfirmForm"/>
             </Grid>
             <StackLayout x:Name="nameForm" VerticalOptions="FillAndExpand">
-                <Label TextColor="Black" Text="First," FontSize="80" HorizontalOptions="Center" Margin="0,20,0,0">
+                <Label TextColor="{DynamicResource FramePrimary}" Text="First," FontSize="80" HorizontalOptions="Center" Margin="0,20,0,0">
                     <Label.FontFamily>
                         <OnPlatform x:TypeArguments="x:String">
                             <On Platform="iOS">Varela Round Regular</On>
@@ -90,7 +91,7 @@
                         </OnPlatform>
                     </Label.FontFamily>
                 </Label>
-                <Label TextColor="Black" Text="Who should we credit this to?" FontAttributes="Bold" Margin="11,0,0,0" FontSize="20" HorizontalOptions="Center">
+                <Label TextColor="{DynamicResource FramePrimary}" Text="Who should we credit this to?" FontAttributes="Bold" Margin="11,0,0,0" FontSize="20" HorizontalOptions="Center">
                     <Label.FontFamily>
                         <OnPlatform x:TypeArguments="x:String">
                             <On Platform="iOS">Varela Round Regular</On>
@@ -98,7 +99,7 @@
                         </OnPlatform>
                     </Label.FontFamily>
                 </Label>
-                <Picker x:Name="scouterPicker" WidthRequest="200" SelectedIndexChanged="scoutName_Completed" HorizontalOptions="Center" Margin="0,5,0,0"/>
+                <Picker x:Name="scouterPicker" WidthRequest="200" TextColor="{DynamicResource FrameSecondary}" SelectedIndexChanged="scoutName_Completed" HorizontalOptions="Center" Margin="0,5,0,0"/>
 
 
             </StackLayout>
@@ -108,13 +109,13 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
-                    <Label TextColor="Black" Text="Initiation Line" Grid.Column="0" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="Initiation Line" Grid.Column="0" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
                     <Button Text="Not Achieved" Clicked="ChangeInitLine" Style="{StaticResource lightSecondary}" Grid.Column="1" x:Name="initLineToggle"/>
 
                 </Grid>
-                <Frame BorderColor="Transparent" BackgroundColor="#f2f2f2" CornerRadius="6" Margin="10">
+                <Frame BorderColor="Transparent" BackgroundColor="{DynamicResource Container}" CornerRadius="6" Margin="10">
                     <StackLayout>
-                        <Label TextColor="Black" Text="Autonomous Cycle" HorizontalOptions="Center" Margin="0,0,0,20" FontSize="Medium"/>
+                        <Label TextColor="{DynamicResource FramePrimary}" Text="Autonomous Cycle" HorizontalOptions="Center" Margin="0,0,0,20" FontSize="Medium"/>
                         <Grid Margin="5,0,5,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -128,22 +129,22 @@
                                 <RowDefinition Height="40"/>
                                 <RowDefinition Height="40"/>
                             </Grid.RowDefinitions>
-                            <Label TextColor="Black" Text="Scored in Inner" FontSize="14" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
-                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="1" Grid.Row="0" FontSize="20" x:Name="AinnerDown" IsEnabled="False" Clicked="APowerCellsDown"/>
-                            <Label TextColor="Black" Text="0 PC" Grid.Column="2" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" x:Name="AinnerAmount"/>
-                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="3" Grid.Row="0" FontSize="20" x:Name="AinnerUp" Clicked="APowerCellsUp"/>
-                            <Label TextColor="Black" Text="Scored in Outer" FontSize="14" Grid.Column="0" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center"/>
-                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="1" Grid.Row="1" FontSize="20" x:Name="AouterDown" IsEnabled="False" Clicked="APowerCellsDown"/>
-                            <Label TextColor="Black" Text="0 PC" Grid.Column="2" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" x:Name="AouterAmount"/>
-                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="3" Grid.Row="1" FontSize="20" x:Name="AouterUp" Clicked="APowerCellsUp"/>
-                            <Label TextColor="Black" Text="Scored in Lower" FontSize="14" Grid.Column="0" Grid.Row="2" VerticalOptions="Center" HorizontalOptions="Center"/>
-                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="1" Grid.Row="2" FontSize="20" x:Name="AlowerDown" IsEnabled="False" Clicked="APowerCellsDown"/>
-                            <Label TextColor="Black" Text="0 PC" Grid.Column="2" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" x:Name="AlowerAmount"/>
-                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="3" Grid.Row="2" FontSize="20" x:Name="AlowerUp" Clicked="APowerCellsUp"/>
-                            <Label TextColor="Black" Text="Shot, but Missed" FontSize="14" Grid.Column="0" Grid.Row="3" VerticalOptions="Center" HorizontalOptions="Center"/>
-                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="1" Grid.Row="3" FontSize="20" x:Name="AmissedDown" IsEnabled="False" Clicked="APowerCellsDown"/>
-                            <Label TextColor="Black" Text="0 PC" Grid.Column="2" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" x:Name="AmissedAmount"/>
-                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="3" Grid.Row="3" FontSize="20" x:Name="AmissedUp" Clicked="APowerCellsUp"/>
+                            <Label TextColor="{DynamicResource FramePrimary}" Text="Scored in Inner" FontSize="14" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="{DynamicResource PrimaryColor}" BorderColor="{DynamicResource PrimaryColor}" Grid.Column="1" Grid.Row="0" FontSize="20" x:Name="AinnerDown" IsEnabled="False" Clicked="APowerCellsDown" TextColor="{DynamicResource FramePrimary}"/>
+                            <Label TextColor="{DynamicResource FramePrimary}" Text="0 PC" Grid.Column="2" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" x:Name="AinnerAmount"/>
+                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="{DynamicResource PrimaryColor}" BorderColor="{DynamicResource PrimaryColor}" Grid.Column="3" Grid.Row="0" FontSize="20" x:Name="AinnerUp" Clicked="APowerCellsUp" TextColor="{DynamicResource FramePrimary}"/>
+                            <Label TextColor="{DynamicResource FramePrimary}" Text="Scored in Outer" FontSize="14" Grid.Column="0" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="{DynamicResource PrimaryColor}" BorderColor="{DynamicResource PrimaryColor}" Grid.Column="1" Grid.Row="1" FontSize="20" x:Name="AouterDown" IsEnabled="False" Clicked="APowerCellsDown" TextColor="{DynamicResource FramePrimary}"/>
+                            <Label TextColor="{DynamicResource FramePrimary}" Text="0 PC" Grid.Column="2" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" x:Name="AouterAmount"/>
+                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="{DynamicResource PrimaryColor}" BorderColor="{DynamicResource PrimaryColor}" Grid.Column="3" Grid.Row="1" FontSize="20" x:Name="AouterUp" Clicked="APowerCellsUp" TextColor="{DynamicResource FramePrimary}"/>
+                            <Label TextColor="{DynamicResource FramePrimary}" Text="Scored in Lower" FontSize="14" Grid.Column="0" Grid.Row="2" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="{DynamicResource PrimaryColor}" BorderColor="{DynamicResource PrimaryColor}" Grid.Column="1" Grid.Row="2" FontSize="20" x:Name="AlowerDown" IsEnabled="False" Clicked="APowerCellsDown" TextColor="{DynamicResource FramePrimary}"/>
+                            <Label TextColor="{DynamicResource FramePrimary}" Text="0 PC" Grid.Column="2" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" x:Name="AlowerAmount"/>
+                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="{DynamicResource PrimaryColor}" BorderColor="{DynamicResource PrimaryColor}" Grid.Column="3" Grid.Row="2" FontSize="20" x:Name="AlowerUp" Clicked="APowerCellsUp" TextColor="{DynamicResource FramePrimary}"/>
+                            <Label TextColor="{DynamicResource FramePrimary}" Text="Shot, but Missed" FontSize="14" Grid.Column="0" Grid.Row="3" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="{DynamicResource PrimaryColor}" BorderColor="{DynamicResource PrimaryColor}" Grid.Column="1" Grid.Row="3" FontSize="20" x:Name="AmissedDown" IsEnabled="False" Clicked="APowerCellsDown" TextColor="{DynamicResource FramePrimary}"/>
+                            <Label TextColor="{DynamicResource FramePrimary}" Text="0 PC" Grid.Column="2" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" x:Name="AmissedAmount"/>
+                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="{DynamicResource PrimaryColor}" BorderColor="{DynamicResource PrimaryColor}" Grid.Column="3" Grid.Row="3" FontSize="20" x:Name="AmissedUp" Clicked="APowerCellsUp" TextColor="{DynamicResource FramePrimary}"/>
 
                         </Grid>
 
@@ -154,12 +155,12 @@
             </StackLayout>
             <StackLayout x:Name="teleopForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
 
-                <Frame BorderColor="Transparent" BackgroundColor="#f2f2f2" CornerRadius="6" Margin="10" x:Name="cardToFlip">
+                <Frame BorderColor="Transparent" BackgroundColor="{DynamicResource Container}" CornerRadius="6" Margin="10" x:Name="cardToFlip">
                     <Frame.GestureRecognizers>
                         <PanGestureRecognizer PanUpdated="PanGestureRecognizer_PanUpdated"/>
                     </Frame.GestureRecognizers>
                     <StackLayout x:Name="cardContent">
-                        <Label TextColor="Black" x:Name="CurrentCycleNumLabel" Text="Tele-Op Cycle #1" HorizontalOptions="Center" Margin="0,0,0,20" FontSize="Medium"/>
+                        <Label TextColor="{DynamicResource FramePrimary}" x:Name="CurrentCycleNumLabel" Text="Tele-Op Cycle #1" HorizontalOptions="Center" Margin="0,0,0,20" FontSize="Medium"/>
                         <Grid Margin="5,0,5,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -173,22 +174,22 @@
                                 <RowDefinition Height="40"/>
                                 <RowDefinition Height="40"/>
                             </Grid.RowDefinitions>
-                            <Label TextColor="Black" Text="Scored in Inner" FontSize="14" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
-                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="1" Grid.Row="0" FontSize="20" x:Name="innerDown" IsEnabled="False" Clicked="PowerCellsDown"/>
-                            <Label TextColor="Black" Text="0 PC" Grid.Column="2" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" x:Name="innerAmount"/>
-                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="3" Grid.Row="0" FontSize="20" x:Name="innerUp" Clicked="PowerCellsUp"/>
-                            <Label TextColor="Black" Text="Scored in Outer" FontSize="14" Grid.Column="0" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center"/>
-                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="1" Grid.Row="1" FontSize="20" x:Name="outerDown" IsEnabled="False" Clicked="PowerCellsDown"/>
-                            <Label TextColor="Black" Text="0 PC" Grid.Column="2" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" x:Name="outerAmount"/>
-                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="3" Grid.Row="1" FontSize="20" x:Name="outerUp" Clicked="PowerCellsUp"/>
-                            <Label TextColor="Black" Text="Scored in Lower" FontSize="14" Grid.Column="0" Grid.Row="2" VerticalOptions="Center" HorizontalOptions="Center"/>
-                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="1" Grid.Row="2" FontSize="20" x:Name="lowerDown" IsEnabled="False" Clicked="PowerCellsDown"/>
-                            <Label TextColor="Black" Text="0 PC" Grid.Column="2" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" x:Name="lowerAmount"/>
-                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="3" Grid.Row="2" FontSize="20" x:Name="lowerUp" Clicked="PowerCellsUp"/>
-                            <Label TextColor="Black" Text="Shot, but Missed" FontSize="14" Grid.Column="0" Grid.Row="3" VerticalOptions="Center" HorizontalOptions="Center"/>
-                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="1" Grid.Row="3" FontSize="20" x:Name="missedDown" IsEnabled="False" Clicked="PowerCellsDown"/>
-                            <Label TextColor="Black" Text="0 PC" Grid.Column="2" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" x:Name="missedAmount"/>
-                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="#0f3f8c" BorderColor="#0f3f8c" Grid.Column="3" Grid.Row="3" FontSize="20" x:Name="missedUp" Clicked="PowerCellsUp"/>
+                            <Label TextColor="{DynamicResource FramePrimary}" Text="Scored in Inner" FontSize="14" Grid.Column="0" Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="{DynamicResource PrimaryColor}" BorderColor="{DynamicResource PrimaryColor}" Grid.Column="1" Grid.Row="0" FontSize="20" x:Name="innerDown" IsEnabled="False" Clicked="PowerCellsDown" TextColor="{DynamicResource FramePrimary}"/>
+                            <Label TextColor="{DynamicResource FramePrimary}" Text="0 PC" Grid.Column="2" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" x:Name="innerAmount"/>
+                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="{DynamicResource PrimaryColor}" BorderColor="{DynamicResource PrimaryColor}" Grid.Column="3" Grid.Row="0" FontSize="20" x:Name="innerUp" Clicked="PowerCellsUp" TextColor="{DynamicResource FramePrimary}"/>
+                            <Label TextColor="{DynamicResource FramePrimary}" Text="Scored in Outer" FontSize="14" Grid.Column="0" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="{DynamicResource PrimaryColor}" BorderColor="{DynamicResource PrimaryColor}" Grid.Column="1" Grid.Row="1" FontSize="20" x:Name="outerDown" IsEnabled="False" Clicked="PowerCellsDown" TextColor="{DynamicResource FramePrimary}"/>
+                            <Label TextColor="{DynamicResource FramePrimary}" Text="0 PC" Grid.Column="2" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" x:Name="outerAmount"/>
+                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="{DynamicResource PrimaryColor}" BorderColor="{DynamicResource PrimaryColor}" Grid.Column="3" Grid.Row="1" FontSize="20" x:Name="outerUp" Clicked="PowerCellsUp" TextColor="{DynamicResource FramePrimary}"/>
+                            <Label TextColor="{DynamicResource FramePrimary}" Text="Scored in Lower" FontSize="14" Grid.Column="0" Grid.Row="2" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="{DynamicResource PrimaryColor}" BorderColor="{DynamicResource PrimaryColor}" Grid.Column="1" Grid.Row="2" FontSize="20" x:Name="lowerDown" IsEnabled="False" Clicked="PowerCellsDown" TextColor="{DynamicResource FramePrimary}"/>
+                            <Label TextColor="{DynamicResource FramePrimary}" Text="0 PC" Grid.Column="2" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center" x:Name="lowerAmount"/>
+                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="{DynamicResource PrimaryColor}" BorderColor="{DynamicResource PrimaryColor}" Grid.Column="3" Grid.Row="2" FontSize="20" x:Name="lowerUp" Clicked="PowerCellsUp" TextColor="{DynamicResource FramePrimary}"/>
+                            <Label TextColor="{DynamicResource FramePrimary}" Text="Shot, but Missed" FontSize="14" Grid.Column="0" Grid.Row="3" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            <Button Text="&#xea67;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="{DynamicResource PrimaryColor}" BorderColor="{DynamicResource PrimaryColor}" Grid.Column="1" Grid.Row="3" FontSize="20" x:Name="missedDown" IsEnabled="False" Clicked="PowerCellsDown" TextColor="{DynamicResource FramePrimary}"/>
+                            <Label TextColor="{DynamicResource FramePrimary}" Text="0 PC" Grid.Column="2" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center" x:Name="missedAmount"/>
+                            <Button Text="&#xea6a;" FontFamily="{StaticResource IconFont}" Style="{StaticResource lightPrimarySelected}" BackgroundColor="{DynamicResource PrimaryColor}" BorderColor="{DynamicResource PrimaryColor}" Grid.Column="3" Grid.Row="3" FontSize="20" x:Name="missedUp" Clicked="PowerCellsUp" TextColor="{DynamicResource FramePrimary}"/>
 
                         </Grid>
                         <Grid HorizontalOptions="Center" Margin="0,15,0,7">
@@ -199,11 +200,11 @@
                                 <ColumnDefinition Width="20"/>
                                 <ColumnDefinition Width="20"/>
                             </Grid.ColumnDefinitions>
-                            <BoxView BackgroundColor="#2a7afa" HeightRequest="20" WidthRequest="20" CornerRadius="10" Grid.Column="0" x:Name="pcStock1"/>
-                            <BoxView BackgroundColor="#2a7afa" HeightRequest="20" WidthRequest="20" CornerRadius="10" Grid.Column="1" x:Name="pcStock2"/>
-                            <BoxView BackgroundColor="#2a7afa" HeightRequest="20" WidthRequest="20" CornerRadius="10" Grid.Column="2" x:Name="pcStock3"/>
-                            <BoxView BackgroundColor="#2a7afa" HeightRequest="20" WidthRequest="20" CornerRadius="10" Grid.Column="3" x:Name="pcStock4"/>
-                            <BoxView BackgroundColor="#2a7afa" HeightRequest="20" WidthRequest="20" CornerRadius="10" Grid.Column="4" x:Name="pcStock5"/>
+                            <BoxView BackgroundColor="{DynamicResource PCFillBack}" HeightRequest="20" WidthRequest="20" CornerRadius="10" Grid.Column="0" x:Name="pcStock1"/>
+                            <BoxView BackgroundColor="{DynamicResource PCFillBack}" HeightRequest="20" WidthRequest="20" CornerRadius="10" Grid.Column="1" x:Name="pcStock2"/>
+                            <BoxView BackgroundColor="{DynamicResource PCFillBack}" HeightRequest="20" WidthRequest="20" CornerRadius="10" Grid.Column="2" x:Name="pcStock3"/>
+                            <BoxView BackgroundColor="{DynamicResource PCFillBack}" HeightRequest="20" WidthRequest="20" CornerRadius="10" Grid.Column="3" x:Name="pcStock4"/>
+                            <BoxView BackgroundColor="{DynamicResource PCFillBack}" HeightRequest="20" WidthRequest="20" CornerRadius="10" Grid.Column="4" x:Name="pcStock5"/>
                         </Grid>
                     </StackLayout>
 
@@ -214,8 +215,8 @@
                         <ColumnDefinition Width="40"/>
                         <ColumnDefinition Width="40"/>
                     </Grid.ColumnDefinitions>
-                    <Button Style="{StaticResource lightPrimarySelected}" Text="&#xea5c;" HeightRequest="35" FontSize="20" FontFamily="{StaticResource IconFont}" Grid.Column="1" Clicked="PrevTeleOpCard" Padding="5"/>
-                    <Button Style="{StaticResource lightPrimarySelected}" Text="&#xea5d;" HeightRequest="35" FontSize="20" FontFamily="{StaticResource IconFont}" Grid.Column="2" Clicked="NextTeleOpCard" Padding="5"/>
+                    <Button Style="{StaticResource lightPrimarySelected}" Text="&#xea5c;" HeightRequest="35" FontSize="20" FontFamily="{StaticResource IconFont}" Grid.Column="1" Clicked="PrevTeleOpCard" Padding="5" BorderColor="{DynamicResource SecondaryColor}" BackgroundColor="{DynamicResource SecondaryColor}"/>
+                    <Button Style="{StaticResource lightPrimarySelected}" Text="&#xea5d;" HeightRequest="35" FontSize="20" FontFamily="{StaticResource IconFont}" Grid.Column="2" Clicked="NextTeleOpCard" Padding="5" BorderColor="{DynamicResource SecondaryColor}" BackgroundColor="{DynamicResource SecondaryColor}"/>
                 </Grid>
                 <Grid Margin="10,20,10,0">
                     <Grid.RowDefinitions>
@@ -228,7 +229,7 @@
                     </Grid.ColumnDefinitions>
 
 
-                    <Label TextColor="Black" Text="Control Panel" 
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="Control Panel" 
                    HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center"/>
                     <Button Text="Spun" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="cp_lv1" Clicked="CPChange"/>
                     <Button Text="Positioned" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" x:Name="cp_lv2" Clicked="CPChange"/>
@@ -240,7 +241,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
-                    <Label TextColor="Black" Text="Robot Parked?" 
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="Robot Parked?" 
                    HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
                     <Button Text="Not Parked" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="park_opt1" Clicked="ParkChange"/>
 
@@ -250,7 +251,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
-                    <Label TextColor="Black" Text="Climb Attemped?" 
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="Climb Attemped?" 
                    HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
                     <Button Text="Not Attemped" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="attempted_opt1" Clicked="AttempedChange"/>
 
@@ -260,7 +261,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
-                    <Label TextColor="Black" Text="Climb Successful?" 
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="Climb Successful?" 
                    HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
                     <Button Text="Not Successful" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="climb_opt1" Clicked="ClimbChange"/>
 
@@ -271,14 +272,14 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
-                    <Label TextColor="Black" Text="Balanced?" 
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="Balanced?" 
                    HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
                     <Button Text="Did Not Contribute" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="balanced_opt1" Clicked="BalancedChange"/>
 
                 </Grid>
             </StackLayout>
             <StackLayout x:Name="afterMatchForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
-                <Label TextColor="Black" Text="After Match" HorizontalOptions="Center" Margin="10,20,10,0" FontSize="30">
+                <Label TextColor="{DynamicResource FramePrimary}" Text="After Match" HorizontalOptions="Center" Margin="10,20,10,0" FontSize="30">
                     <Label.FontFamily>
                         <OnPlatform x:TypeArguments="x:String">
                             <On Platform="iOS">Varela Round Regular</On>
@@ -286,7 +287,7 @@
                         </OnPlatform>
                     </Label.FontFamily>
                 </Label>
-                <Label TextColor="DimGray" Text="Please full this area out after the match has ended. If you do not know the anwser to the location specific questions, please do not answer." HorizontalOptions="Center" Margin="10,10,10,0" FontSize="15" HorizontalTextAlignment="Center" LineBreakMode="WordWrap">
+                <Label TextColor="{DynamicResource FrameSecondary}" Text="Please full this area out after the match has ended. If you do not know the anwser to the location specific questions, please do not answer." HorizontalOptions="Center" Margin="10,10,10,0" FontSize="15" HorizontalTextAlignment="Center" LineBreakMode="WordWrap">
                     <Label.FontFamily>
                         <OnPlatform x:TypeArguments="x:String">
                             <On Platform="iOS">Varela Round Regular</On>
@@ -299,7 +300,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
-                    <Label TextColor="Black" Text="Played Defense?" 
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="Played Defense?" 
                    HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
                     <Button Text="No" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="deffor_opt1" Clicked="ChangeDefenseFor"/>
 
@@ -309,7 +310,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
-                    <Label TextColor="Black" Text="Got Defended Against?" 
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="Got Defended Against?" 
                    HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
                     <Button Text="No" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="defagn_opt1" Clicked="ChangeDefenseAgainst"/>
 
@@ -319,7 +320,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
-                    <Label TextColor="Black" Text="Shooting Location" 
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="Shooting Location" 
                    HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
                     <Button Text="Nowhere" Clicked="ShowChangeShot" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="locsho_opt1"/>
 
@@ -329,14 +330,14 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
-                    <Label TextColor="Black" Text="Loading Location" 
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="Loading Location" 
                    HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
                     <Button Text="Nowhere" Clicked="ShowChangeLoad" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="locloa_opt1"/>
 
                 </Grid>
             </StackLayout>
             <StackLayout x:Name="confirmForm" IsVisible="False" Opacity="0" VerticalOptions="FillAndExpand">
-                <Frame Padding="10" HorizontalOptions="Center" Margin="0,10" BackgroundColor="#2a7afa" CornerRadius="10" BorderColor="Transparent">
+                <Frame Padding="10" HorizontalOptions="Center" Margin="0,10" BackgroundColor="{DynamicResource PrimaryColor}" CornerRadius="10" BorderColor="Transparent">
                     <Label Text="Overview of Match 5" FontSize="Medium" FontAttributes="Bold" TextColor="White"/>
                 </Frame>
                 <Grid Margin="20,0" HorizontalOptions="Center">
@@ -358,18 +359,18 @@
                     <Frame BorderColor="Blue" BackgroundColor="Transparent" CornerRadius="10" Padding="3" Grid.Row="0" Grid.Column="2">
                         <Label Text="T" TextColor="Blue" FontAttributes="Bold" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
                     </Frame>
-                    <Label TextColor="Black" Text="Total Inner PC" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Label TextColor="Black" Text="Total Outer PC" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Label TextColor="Black" Text="Total Lower PC" Grid.Row="3" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Label TextColor="Black" Text="Total Missed PC" Grid.Row="4" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Label TextColor="Black" Text="0" Grid.Row="1" Grid.Column="1" FontSize="25" FontAttributes="Bold" x:Name="totalAInnerPC" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Label TextColor="Black" Text="0" Grid.Row="2" Grid.Column="1" FontSize="25" FontAttributes="Bold" x:Name="totalAOuterPC" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Label TextColor="Black" Text="0" Grid.Row="3" Grid.Column="1" FontSize="25" FontAttributes="Bold" x:Name="totalALowerPC" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Label TextColor="Black" Text="0" Grid.Row="4" Grid.Column="1" FontSize="25" FontAttributes="Bold" x:Name="totalAMissedPC" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Label TextColor="Black" Text="0" Grid.Row="1" Grid.Column="2" FontSize="25" FontAttributes="Bold" x:Name="totalTInnerPC" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Label TextColor="Black" Text="0" Grid.Row="2" Grid.Column="2" FontSize="25" FontAttributes="Bold" x:Name="totalTOuterPC" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Label TextColor="Black" Text="0" Grid.Row="3" Grid.Column="2" FontSize="25" FontAttributes="Bold" x:Name="totalTLowerPC" HorizontalOptions="Center" VerticalOptions="Center"/>
-                    <Label TextColor="Black" Text="0" Grid.Row="4" Grid.Column="2" FontSize="25" FontAttributes="Bold" x:Name="totalTMissedPC" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="Total Inner PC" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="Total Outer PC" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="Total Lower PC" Grid.Row="3" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="Total Missed PC" Grid.Row="4" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="0" Grid.Row="1" Grid.Column="1" FontSize="25" FontAttributes="Bold" x:Name="totalAInnerPC" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="0" Grid.Row="2" Grid.Column="1" FontSize="25" FontAttributes="Bold" x:Name="totalAOuterPC" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="0" Grid.Row="3" Grid.Column="1" FontSize="25" FontAttributes="Bold" x:Name="totalALowerPC" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="0" Grid.Row="4" Grid.Column="1" FontSize="25" FontAttributes="Bold" x:Name="totalAMissedPC" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="0" Grid.Row="1" Grid.Column="2" FontSize="25" FontAttributes="Bold" x:Name="totalTInnerPC" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="0" Grid.Row="2" Grid.Column="2" FontSize="25" FontAttributes="Bold" x:Name="totalTOuterPC" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="0" Grid.Row="3" Grid.Column="2" FontSize="25" FontAttributes="Bold" x:Name="totalTLowerPC" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label TextColor="{DynamicResource FramePrimary}" Text="0" Grid.Row="4" Grid.Column="2" FontSize="25" FontAttributes="Bold" x:Name="totalTMissedPC" HorizontalOptions="Center" VerticalOptions="Center"/>
                 </Grid>
             </StackLayout>
             <!-- Place new controls here -->
@@ -378,11 +379,11 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Frame Grid.Column="0" BackgroundColor="Gray" Padding="5" CornerRadius="5" Margin="20" x:Name="toolTip" Opacity="0">
+                <Frame Grid.Column="0" BackgroundColor="{DynamicResource Header}" Padding="5" CornerRadius="5" Margin="20" x:Name="toolTip" Opacity="0">
                     <Label TextColor="White" Text="Ready for Match" HorizontalOptions="Center" VerticalOptions="Center" FontSize="16" x:Name="toolTipLabel"/>
                 </Frame>
 
-                <Button VerticalOptions="End" Clicked="EnableDisabledMenu" IsVisible="False" Grid.Column="1" Grid.Row="0" HorizontalOptions="End" Text="&#xef1b;" x:Name="enableDisabled" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" Margin="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="#2a7afa" TextColor="White"/>
+                <Button VerticalOptions="End" Clicked="EnableDisabledMenu" IsVisible="False" Grid.Column="1" Grid.Row="0" HorizontalOptions="End" Text="&#xef1b;" x:Name="enableDisabled" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" Margin="10" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="{DynamicResource PrimaryColor}" TextColor="White"/>
 
             </Grid>
 
@@ -390,11 +391,11 @@
         </StackLayout>
         <StackLayout x:Name="disabledMenu" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
             <AbsoluteLayout VerticalOptions="FillAndExpand">
-                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Black" Opacity=".5">
 
                 </StackLayout>
                 <StackLayout VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".5,.5,.8,.8" AbsoluteLayout.LayoutFlags="All" x:Name="disabledMenuPanel">
-                    <Frame BackgroundColor="White" Padding="20" CornerRadius="14">
+                    <Frame BackgroundColor="{DynamicResource Overlay}" Padding="20" CornerRadius="14">
                         <StackLayout>
                             <Grid Margin="0,50,0,10">
                                 <Grid.ColumnDefinitions>
@@ -403,7 +404,7 @@
                                 <Image x:Name="OnSLLight" Source="BlueSLOnG.png" Grid.Column="0" Grid.Row="0" HeightRequest="100"/>
                                 <Image x:Name="OffSLLight" Source="OffSL.png" Grid.Column="0" Grid.Row="0" HeightRequest="100" IsVisible="False"/>
                             </Grid>
-                            <Label TextColor="Black" Text="Robot Disabled!" Margin="40,0,40,0" FontSize="30" HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                            <Label TextColor="{DynamicResource FramePrimary}" Text="Robot Disabled!" Margin="40,0,40,0" FontSize="30" HorizontalOptions="Center" HorizontalTextAlignment="Center">
                                 <Label.FontFamily>
                                     <OnPlatform x:TypeArguments="x:String">
                                         <On Platform="iOS">Varela Round Regular</On>
@@ -411,7 +412,7 @@
                                     </OnPlatform>
                                 </Label.FontFamily>
                             </Label>
-                            <Label TextColor="Black" Text="The robot has been disabled for..." Margin="40,0" HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                            <Label TextColor="{DynamicResource FramePrimary}" Text="The robot has been disabled for..." Margin="40,0" HorizontalOptions="Center" HorizontalTextAlignment="Center">
                                 <Label.FontFamily>
                                     <OnPlatform x:TypeArguments="x:String">
                                         <On Platform="iOS">Varela Round Regular</On>
@@ -419,7 +420,7 @@
                                     </OnPlatform>
                                 </Label.FontFamily>
                             </Label>
-                            <Label Text="0s" FontSize="60" TextColor="#0f3f8c" HorizontalOptions="Center" x:Name="disabledSeconds">
+                            <Label Text="0s" FontSize="60" TextColor="{DynamicResource PrimaryColor}" HorizontalOptions="Center" x:Name="disabledSeconds">
                                 <Label.FontFamily>
                                     <OnPlatform x:TypeArguments="x:String">
                                         <On Platform="iOS">Varela Round Regular</On>
@@ -428,8 +429,8 @@
                                 </Label.FontFamily>
                             </Label>
 
-                            <Button Text="Robot Was Re-Enabled" Clicked="DisableDisabledMenu" x:Name="disableDisabled" Margin="30,0,30,0"/>
-                            <Button Text="Reset Disabled Timer" Clicked="resetDisabled_Clicked" x:Name="resetDisabled" Margin="30,0,30,50"/>
+                            <Button Text="Robot Was Re-Enabled" CornerRadius="6" Clicked="DisableDisabledMenu" BackgroundColor="{DynamicResource FrameButton}" TextColor="{DynamicResource FrameButtonText}" x:Name="disableDisabled" Margin="30,0,30,0"/>
+                            <Button Text="Reset Disabled Timer" CornerRadius="6" Clicked="resetDisabled_Clicked" BackgroundColor="{DynamicResource FrameButton}" TextColor="{DynamicResource FrameButtonText}" x:Name="resetDisabled" Margin="30,0,30,50"/>
                         </StackLayout>
                     </Frame>
 
@@ -439,20 +440,20 @@
         </StackLayout>
         <StackLayout x:Name="submittingOverlay" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
             <AbsoluteLayout VerticalOptions="FillAndExpand">
-                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Black" Opacity=".5">
 
                 </StackLayout>
                 <StackLayout VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".5,.5,.8,.8" AbsoluteLayout.LayoutFlags="All" x:Name="submittingOverlayPanel">
-                    <Frame BackgroundColor="White" Padding="40" CornerRadius="14">
+                    <Frame BackgroundColor="{DynamicResource Overlay}" Padding="40" CornerRadius="14">
                         <StackLayout>
-                            <Image Source="LightScoutGray.png" HeightRequest="150" Margin="20,50,20,0"/>
+                            <Image Source="LightScoutGray.png" Opacity="0.3" HeightRequest="150" Margin="20,50,20,0"/>
                             <Grid>
                                 <StackLayout Grid.Row="0" Grid.Column="0" x:Name="waitingWithSubmit" IsVisible="True" HeightRequest="170">
-                                    <Label HorizontalOptions="Center" Text="Loading..." Margin="20,30,20,0" FontSize="30" TextColor="Gray"/>
-                                    <Label HorizontalOptions="Center" Text="Connecting to File System" Margin="20,0,20,30" x:Name="progressStep" TextColor="Gray"/>
+                                    <Label HorizontalOptions="Center" Text="Loading..." Margin="20,30,20,0" FontSize="30" TextColor="{DynamicResource FramePrimary}"/>
+                                    <Label HorizontalOptions="Center" Text="Connecting to File System" Margin="20,0,20,30" x:Name="progressStep" TextColor="{DynamicResource FramePrimary}"/>
                                 </StackLayout>
                                 <StackLayout Grid.Row="0" Grid.Column="0" x:Name="doneWithSubmit" IsVisible="False" HeightRequest="170">
-                                    <Label HorizontalOptions="Center" VerticalOptions="Center" Text="&#xeed8;" Margin="20,30,20,0" FontSize="50" TextColor="Gray" FontFamily="{StaticResource IconFont}"/>
+                                    <Label HorizontalOptions="Center" VerticalOptions="Center" Text="&#xeed8;" Margin="20,30,20,0" FontSize="50" TextColor="{DynamicResource FramePrimary}" FontFamily="{StaticResource IconFont}"/>
 
                                 </StackLayout>
                             </Grid>
@@ -465,14 +466,14 @@
         </StackLayout>
         <StackLayout x:Name="changeShotLocationOverlay" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
             <AbsoluteLayout VerticalOptions="FillAndExpand">
-                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Black" Opacity=".5">
 
                 </StackLayout>
                 <StackLayout VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".5,.5,.8,.8" AbsoluteLayout.LayoutFlags="All" x:Name="changeShotLocationPanel">
-                    <Frame BackgroundColor="White" Padding="20" CornerRadius="14">
+                    <Frame BackgroundColor="{DynamicResource Overlay}" Padding="20" CornerRadius="14">
                         <StackLayout>
-                            <Label TextColor="Black" Text="Shooting Location" HorizontalOptions="Center" FontSize="20" Margin="10,20,10,0"/>
-                            <Label TextColor="DimGray" Text="Click anywhere on the image to select a point where the robot shot most of the power cells at. You may change your location." HorizontalOptions="Center" FontSize="13" Margin="10,0" HorizontalTextAlignment="Center"/>
+                            <Label TextColor="{DynamicResource FramePrimary}" Text="Shooting Location" HorizontalOptions="Center" FontSize="20" Margin="10,20,10,0"/>
+                            <Label TextColor="{DynamicResource FrameSecondary}" Text="Click anywhere on the image to select a point where the robot shot most of the power cells at. You may change your location." HorizontalOptions="Center" FontSize="13" Margin="10,0" HorizontalTextAlignment="Center"/>
                             <Grid HorizontalOptions="Center" RowSpacing="0" ColumnSpacing="0" Margin="0,10,0,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -735,9 +736,9 @@
                                     <Button Text="&#xeee4;" FontSize="15" FontAttributes="Bold" FontFamily="{StaticResource IconFont}" TextColor="DimGray" BackgroundColor="DarkGray" Grid.Row="0" Grid.Column="0" Margin="0" BorderWidth="2" HorizontalOptions="Center" VerticalOptions="Center" BorderColor="DimGray" CornerRadius="0" Padding="0" WidthRequest="28" Opacity="0.75" HeightRequest="24" ClassId="6-10" Clicked="SelectShotFieldPosition" IsEnabled="False"/>
                                 </Grid>
                             </Grid>
-                            <Label Text="No Selected Location" HorizontalOptions="Center" TextColor="#0f3f8c" x:Name="currentShotLocation" Margin="0,10,0,0"/>
-                            <Button Text="Reset Shot Location" Clicked="ResetShotLocation" HorizontalOptions="Center" Margin="10,10,10,0"/>
-                            <Button Text="&#xeed8;" WidthRequest="50" Clicked="HideChangeShot" FontFamily="{StaticResource IconFont}" HorizontalOptions="End" Margin="3,15,0,0" FontSize="30" Padding="0" BackgroundColor="White" TextColor="Green"/>
+                            <Label Text="No Selected Location" HorizontalOptions="Center" TextColor="{DynamicResource SecondaryColor}" x:Name="currentShotLocation" Margin="0,10,0,0"/>
+                            <Button Text="Reset Shot Location" Clicked="ResetShotLocation" CornerRadius="6" HorizontalOptions="Center" Margin="10,10,10,0" BackgroundColor="{DynamicResource FrameButton}" TextColor="{DynamicResource FrameButtonText}"/>
+                            <Button Text="&#xeed8;" WidthRequest="50" Clicked="HideChangeShot" FontFamily="{StaticResource IconFont}" HorizontalOptions="End" Margin="3,15,0,0" FontSize="30" Padding="0" CornerRadius="4" BackgroundColor="{DynamicResource FrameButton}" TextColor="{DynamicResource FrameButtonText}"/>
                         </StackLayout>
                     </Frame>
 
@@ -747,14 +748,14 @@
         </StackLayout>
         <StackLayout x:Name="changeLoadLocationOverlay" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
             <AbsoluteLayout VerticalOptions="FillAndExpand">
-                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Gray" Opacity=".5">
+                <StackLayout AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="Black" Opacity=".5">
 
                 </StackLayout>
                 <StackLayout VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".5,.5,.8,.8" AbsoluteLayout.LayoutFlags="All" x:Name="changeLoadLocationPanel">
-                    <Frame BackgroundColor="White" Padding="20" CornerRadius="14">
+                    <Frame BackgroundColor="{DynamicResource Overlay}" Padding="20" CornerRadius="14">
                         <StackLayout>
-                            <Label TextColor="Black" Text="Loading Location" HorizontalOptions="Center" FontSize="20" Margin="10,20,10,0"/>
-                            <Label TextColor="DimGray" Text="Click anywhere on the image to select a point where the robot shot collects most power cells. You may change your location." HorizontalOptions="Center" FontSize="13" Margin="10,0" HorizontalTextAlignment="Center"/>
+                            <Label TextColor="{DynamicResource FramePrimary}" Text="Loading Location" HorizontalOptions="Center" FontSize="20" Margin="10,20,10,0"/>
+                            <Label TextColor="{DynamicResource FrameSecondary}" Text="Click anywhere on the image to select a point where the robot shot collects most power cells. You may change your location." HorizontalOptions="Center" FontSize="13" Margin="10,0" HorizontalTextAlignment="Center"/>
                             <Grid HorizontalOptions="Center" RowSpacing="0" ColumnSpacing="0" Margin="0,10,0,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -1017,9 +1018,9 @@
                                     <Button Text="&#xeed8;" FontSize="15" FontAttributes="Bold" FontFamily="{StaticResource IconFont}" TextColor="Transparent" BackgroundColor="Gray" Grid.Row="0" Grid.Column="0" Margin="0" BorderWidth="2" HorizontalOptions="Center" VerticalOptions="Center" BorderColor="Transparent" CornerRadius="0" Padding="0" WidthRequest="28" Opacity="0.1" HeightRequest="24" ClassId="6-10" Clicked="SelectLoadFieldPosition"/>
                                 </Grid>
                             </Grid>
-                            <Label Text="No Selected Location" HorizontalOptions="Center" TextColor="#0f3f8c" x:Name="currentLoadLocation" Margin="0,10,0,0"/>
-                            <Button Text="Reset Load Location" Clicked="ResetLoadLocation" HorizontalOptions="Center" Margin="10,10,10,0"/>
-                            <Button Text="&#xeed8;" Clicked="HideChangeLoad" FontFamily="{StaticResource IconFont}" HorizontalOptions="End" Margin="3,15,0,0" FontSize="30" Padding="0" BackgroundColor="White" TextColor="Green"/>
+                            <Label Text="No Selected Location" HorizontalOptions="Center" TextColor="{DynamicResource SecondaryColor}" x:Name="currentLoadLocation" Margin="0,10,0,0"/>
+                            <Button Text="Reset Load Location" Clicked="ResetLoadLocation" CornerRadius="6" HorizontalOptions="Center" Margin="10,10,10,0" BackgroundColor="{DynamicResource FrameButton}" TextColor="{DynamicResource FrameButtonText}"/>
+                            <Button Text="&#xeed8;" WidthRequest="50" Clicked="HideChangeLoad" FontFamily="{StaticResource IconFont}" HorizontalOptions="End" Margin="3,15,0,0" FontSize="30" Padding="0" CornerRadius="4" BackgroundColor="{DynamicResource FrameButton}" TextColor="{DynamicResource FrameButtonText}"/>
                         </StackLayout>
                     </Frame>
 
@@ -1027,7 +1028,7 @@
             </AbsoluteLayout>
 
         </StackLayout>
-        <StackLayout x:Name="overLay" Opacity="1" BackgroundColor="#2a7afa" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+        <StackLayout x:Name="overLay" Opacity="1" BackgroundColor="{DynamicResource Header}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
 
             <Button Text="&#xea7b;" WidthRequest="50" FontFamily="{StaticResource IconFont}" TextColor="White" BackgroundColor="Transparent" BorderColor="Transparent" FontSize="30" HorizontalOptions="Start" Margin="10,10,0,0" Clicked="BackToMainMenu">
 
@@ -1045,7 +1046,7 @@
                 <StackLayout Grid.Column="0" Grid.Row="0" Margin="5,0">
                     <Grid>
                         <Image Source="teamnumberselection.png" Margin="5,1" VerticalOptions="Center"/>
-                        <Label Text="862" Margin="20,1" VerticalOptions="Center" HorizontalOptions="End" FontAttributes="Bold" FontSize="20">
+                        <Label Text="862" Margin="20,1" VerticalOptions="Center" HorizontalOptions="End" FontAttributes="Bold" FontSize="20" TextColor="White">
                             <Label.FontFamily>
                                 <OnPlatform x:TypeArguments="x:String">
                                     <On Platform="iOS">Varela Round Regular</On>
@@ -1056,7 +1057,7 @@
                     </Grid>
                     <Grid>
                         <Image Source="teamnumberselection.png" Margin="5,1" VerticalOptions="Center"/>
-                        <Label Text="1023" Margin="20,1" VerticalOptions="Center" HorizontalOptions="End" FontAttributes="Bold" FontSize="20">
+                        <Label Text="1023" Margin="20,1" VerticalOptions="Center" HorizontalOptions="End" FontAttributes="Bold" FontSize="20" TextColor="White">
                             <Label.FontFamily>
                                 <OnPlatform x:TypeArguments="x:String">
                                     <On Platform="iOS">Varela Round Regular</On>
@@ -1067,7 +1068,7 @@
                     </Grid>
                     <Grid>
                         <Image Source="teamnumberselection.png" Margin="5,1" VerticalOptions="Center"/>
-                        <Label Text="2048" Margin="20,1" VerticalOptions="Center" HorizontalOptions="End" FontAttributes="Bold" FontSize="20">
+                        <Label Text="2048" Margin="20,1" VerticalOptions="Center" HorizontalOptions="End" FontAttributes="Bold" FontSize="20" TextColor="White">
                             <Label.FontFamily>
                                 <OnPlatform x:TypeArguments="x:String">
                                     <On Platform="iOS">Varela Round Regular</On>
@@ -1108,7 +1109,7 @@
 
                 <!--<Button Text="Let's Do This!" BackgroundColor="White" TextColor="#009cd7" CornerRadius="6" FontFamily=""/>-->
             </Grid>
-            <Button Text="Let's Scout!" TextColor="#2a7afa" x:Name="HiddenButtonGo" BackgroundColor="White" VerticalOptions="End" HorizontalOptions="CenterAndExpand" Opacity="0" Margin="0,0,0,10" Clicked="StartScouting" WidthRequest="300" CornerRadius="8">
+            <Button Text="Let's Scout!" TextColor="{DynamicResource HeaderButtonText}" x:Name="HiddenButtonGo" BackgroundColor="{DynamicResource HeaderButton}" VerticalOptions="End" HorizontalOptions="CenterAndExpand" Opacity="0" Margin="0,0,0,10" Clicked="StartScouting" WidthRequest="300" CornerRadius="8">
 
             </Button>
         </StackLayout>

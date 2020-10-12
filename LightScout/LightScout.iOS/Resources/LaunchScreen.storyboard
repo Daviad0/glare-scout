@@ -17,6 +17,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" colorSpace="calibratedRGB" red="0.16470588235294117" green="0.47843137254901963" blue="0.98039215686274506" alpha="1"/>
                         <color key="tintColor" colorSpace="calibratedRGB" red="0.0392156862745098" green="0.37647058823529411" blue="1" alpha="1"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="222" translatesAutoresizingMaskIntoConstraints="NO" fixedFrame="YES" text="uwu">
+                                <rect key="frame" x="60" y="334" width="294" height="68"/>
+                                <color key="textColor" colorSpace="calibratedRGB" red="0.098039215686274508" green="0.32549019607843138" blue="0.85882352941176465" alpha="1"/>
+                                <nil key="highlightedColor"/>
+                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="38"/>
+                            </label>
+                        </subviews>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XAI-xm-WK6" userLabel="First Responder" sceneMemberID="firstResponder"/>

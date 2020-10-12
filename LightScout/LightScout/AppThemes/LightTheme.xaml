@@ -9,6 +9,7 @@
     <Color x:Key="Background">#f3f3f3</Color>
     <Color x:Key="BackDrop">#f7f7f7</Color>
     <Color x:Key="Container">#ffffff</Color>
+    <Color x:Key="ContainerShadow">#666666</Color>
     <Color x:Key="ContainerSelectedPositive">#48b8ff</Color>
     <Color x:Key="ContainerSelectedNegative">#ff4747</Color>
     <Color x:Key="PrimaryColor">#2a7afa</Color>
@@ -20,6 +21,9 @@
     <Color x:Key="HeaderButtonText">#2a7afa</Color>
     <Color x:Key="FramePrimary">#434343</Color>
     <Color x:Key="FrameSecondary">#686868</Color>
+    <Color x:Key="FrameButton">White</Color>
+    <Color x:Key="FrameButtonText">#434356</Color>
+    <Color x:Key="PCFillBack">LightGray</Color>
     <Color x:Key="PRedTag">#e53434</Color>
     <Color x:Key="PBlueTag">#3475da</Color>
     <Color x:Key="SRedTag">#e67e7e</Color>

@@ -88,13 +88,13 @@ namespace LightScout.CustomControllers
                             frame.TranslateTo(-500, 0, 200, easing: Easing.CubicOut);
                             //hidingIcon.TranslateTo(0, 0, easing: Easing.CubicInOut);
                             hidingTag.FadeTo(1, easing: Easing.CubicInOut);
+                            testoption.FadeTo(0, easing: Easing.CubicInOut);
                             if (((Expander)frame.Parent.Parent.Parent).IsExpanded)
                             {
                                 ((Expander)frame.Parent.Parent.Parent).IsExpanded = false;
                                 await Task.Delay(200);
                             }
                             await Task.Delay(100);
-                            testoption.FadeTo(0, easing: Easing.CubicInOut);
                             //AUTORESET FOR DEBUG
                             OnDragToDelete(currentInstance.Id);
                             
@@ -149,13 +149,14 @@ namespace LightScout.CustomControllers
                             frame.TranslateTo(-500, 0, 200, easing: Easing.CubicOut);
                             //hidingIcon.TranslateTo(0, 0, easing: Easing.CubicInOut);
                             hidingTag.FadeTo(1, easing: Easing.CubicInOut);
+                            testoption.FadeTo(0, easing: Easing.CubicInOut);
                             if (((Expander)frame.Parent.Parent.Parent).IsExpanded)
                             {
                                 ((Expander)frame.Parent.Parent.Parent).IsExpanded = false;
                                 await Task.Delay(200);
                             }
                             await Task.Delay(100);
-                            testoption.FadeTo(0, easing: Easing.CubicInOut);
+                            
                             //AUTORESET FOR DEBUG
                             OnDragToDelete(currentInstance.Id);
                         }

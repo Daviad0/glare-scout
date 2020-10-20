@@ -24,12 +24,12 @@ namespace LightScout
             }
             else
             {
-                MainPage = new NavigationPage(new Database());
+                MainPage = new NavigationPage(new SetNewData());
             }
             //MainPage = new NavigationPage(new SetNewData());
             ICollection<ResourceDictionary> mergedDictionaries = Application.Current.Resources.MergedDictionaries;
             mergedDictionaries.Clear();
-            mergedDictionaries.Add(new LightTheme());
+            mergedDictionaries.Add(new DarkTheme());
 
 
         }

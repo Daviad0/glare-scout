@@ -3,18 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:anim="clr-namespace:LightScout.CustomControllers"
              mc:Ignorable="d"
              x:Class="LightScout.Database"
              NavigationPage.HasNavigationBar="False"
-             Background="#F3F3F3">
+             BackgroundColor="{DynamicResource Background}">
     <ContentPage.Content>
-        <ScrollView x:Name="entireScroll">
-            <StackLayout Margin="0,5">
-                <StackLayout x:Name="listOfItems">
-                    
-                </StackLayout>
-                <!--<ListView  SelectionMode="None" SeparatorColor="Transparent" x:Name="listOfEntries" VerticalOptions="FillAndExpand" HasUnevenRows="true">
+        <AbsoluteLayout>
+            <Grid AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <ScrollView x:Name="entireScroll" Grid.Row="0" Grid.Column="0">
+                    <StackLayout Margin="0,5">
+                        <StackLayout x:Name="listOfItems">
+
+                        </StackLayout>
+                        <!--<ListView  SelectionMode="None" SeparatorColor="Transparent" x:Name="listOfEntries" VerticalOptions="FillAndExpand" HasUnevenRows="true">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -24,8 +27,51 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>-->
-                <Button x:Name="readdItems" Text="Add Items" Clicked="Button_Clicked"/>
-            </StackLayout>
-        </ScrollView>
+                    </StackLayout>
+                </ScrollView>
+                <Frame Margin="25,0" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" x:Name="noEntriesDialogue" BackgroundColor="{DynamicResource Container}" Padding="10,30" CornerRadius="6" IsVisible="False" Opacity="0">
+                    <StackLayout>
+                        <Label Text="There's nothing here!" FontAttributes="Bold" HorizontalOptions="Center" TextColor="{DynamicResource FramePrimary}"/>
+                        <Label Margin="0,0,0,10" Text="How about you QUERY?" HorizontalOptions="Center" TextColor="{DynamicResource FramePrimary}"/>
+                        <Button Text="Make a QUERY" Margin="30,0" Clicked="Button_Clicked_1" CornerRadius="4" TextColor="{DynamicResource FrameButtonText}" BackgroundColor="{DynamicResource FrameButton}"/>
+                    </StackLayout>
+                </Frame>
+                <Frame Margin="25,0" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" x:Name="everythingHiddenDialogue" BackgroundColor="{DynamicResource Container}" Padding="10,30" CornerRadius="6" IsVisible="False" Opacity="0">
+                    <StackLayout>
+                        <Label Text="Everything's hidden!" FontAttributes="Bold" HorizontalOptions="Center" TextColor="{DynamicResource FramePrimary}"/>
+                        <Label Margin="0,0,0,10" Text="You got too slidey slidey" HorizontalOptions="Center" TextColor="{DynamicResource FramePrimary}"/>
+                        <Button Text="Show All Entries" Margin="30,0" Clicked="Button_Clicked" CornerRadius="4" TextColor="{DynamicResource FrameButtonText}" BackgroundColor="{DynamicResource FrameButton}"/>
+                    </StackLayout>
+                </Frame>
+                
+                
+            </Grid>
+            <Frame BackgroundColor="{DynamicResource Header}" CornerRadius="8" Margin="0,10,0,0" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" x:Name="queryInterface">
+                <StackLayout>
+                    <Frame BackgroundColor="{DynamicResource Header}" HasShadow="False" Margin="5,0" HeightRequest="7">
+                        <Frame.GestureRecognizers>
+                            <PanGestureRecognizer PanUpdated="NewQueryDrag"/>
+                        </Frame.GestureRecognizers>
+                        <BoxView WidthRequest="50" CornerRadius="3" HeightRequest="5" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="{DynamicResource HeaderButton}"/>
+                    </Frame>
+                    <ScrollView>
+                        <StackLayout>
+
+                            <Label Text="New Query Test"/>
+
+                        </StackLayout>
+
+
+                    </ScrollView>
+                </StackLayout>
+
+            </Frame>
+            <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" VerticalOptions="End" HorizontalOptions="End">
+
+                <Button VerticalOptions="End" IsVisible="True" Grid.Column="0" Grid.Row="0" HorizontalOptions="End" Text="&#xeefc;" x:Name="enableDisabled" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" Margin="20" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="{DynamicResource PrimaryColor}" TextColor="White"/>
+
+            </Grid>
+        </AbsoluteLayout>
+        
     </ContentPage.Content>
 </ContentPage>

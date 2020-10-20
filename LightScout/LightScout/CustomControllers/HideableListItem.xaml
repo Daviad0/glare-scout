@@ -6,7 +6,7 @@
              xmlns:sh="http://sharpnado.com"
              mc:Ignorable="d"
              x:Class="LightScout.CustomControllers.HideableListItem"
-             BackgroundColor="{DynamicResource Background}">
+             BackgroundColor="Transparent">
   <ContentView.Content>
     <Expander ClassId="{Binding Id}" IsVisible="{Binding Visible}">
         <Expander.Header>

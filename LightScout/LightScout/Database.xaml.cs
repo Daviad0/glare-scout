@@ -27,7 +27,7 @@ namespace LightScout
             
             originalDatabaseItemViews = new ObservableCollection<DatabaseItemView>() { new DatabaseItemView() { Visible = false, Id = "0", SetHeight = 80 }, new DatabaseItemView() { Visible = true, Id = "1", SetHeight = 80 }, new DatabaseItemView() { Visible = true, Id = "2", SetHeight = 80 } };
             databaseItemViews = new ObservableCollection<DatabaseItemView>(originalDatabaseItemViews);
-            for(int item = 0; item < 20; item++)
+            for(int item = 0; item < 3; item++)
             {
                 itemReferences.Add(new HideableListItem(new HideableListItemInstance() { Id = item, Visible = true }));
                 itemReferences.ToArray()[item].TriggerDeletion += async (id) =>
@@ -47,7 +47,6 @@ namespace LightScout
                     {
 
                     }
-                    readdItems.TranslateTo(0, -115, 400, easing: Easing.CubicInOut);
                     await Task.Delay(150);
                     if(entireScroll.ContentSize.Height > 820)
                     {
@@ -79,11 +78,25 @@ namespace LightScout
 
                     }
                     Console.WriteLine("Height: " + entireScroll.ScrollY.ToString() + " / " + entireScroll.ContentSize.Height.ToString());
-                    readdItems.TranslateTo(0, 0, 0, easing: Easing.CubicInOut);
+                    
+                    if (listOfItems.Children.Count <= 0)
+                    {
+                        everythingHiddenDialogue.IsVisible = true;
+                        everythingHiddenDialogue.FadeTo(1, easing: Easing.CubicInOut);
+                    }
+                    else
+                    {
+                        everythingHiddenDialogue.IsVisible = false;
+
+                    }
                 };
                 listOfItems.Children.Add(itemReferences.ToArray()[item]);
             }
-            
+            if(listOfItems.Children.Count <= 0)
+            {
+                noEntriesDialogue.IsVisible = true;
+                noEntriesDialogue.Opacity = 1;
+            }
             //listOfEntries.ItemsSource = databaseItemViews;
         }
         protected override async void OnAppearing()
@@ -292,7 +305,7 @@ namespace LightScout
             Frame testoption = (Frame)((Grid)frame.Parent).Children.Where(x => x.ClassId.Contains("below")).FirstOrDefault();*/
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private async void Button_Clicked(object sender, EventArgs e)
         {
             itemReferences.Clear();
             listOfItems.Children.Clear();
@@ -316,7 +329,6 @@ namespace LightScout
                     {
 
                     }
-                    readdItems.TranslateTo(0, -115, 400, easing: Easing.CubicInOut);
                     await Task.Delay(150);
                     if (entireScroll.ContentSize.Height > 820)
                     {
@@ -348,10 +360,102 @@ namespace LightScout
 
                     }
                     Console.WriteLine("Height: " + entireScroll.ScrollY.ToString() + " / " + entireScroll.ContentSize.Height.ToString());
-                    readdItems.TranslateTo(0, 0, 0, easing: Easing.CubicInOut);
+                    if (listOfItems.Children.Count <= 0)
+                    {
+                        everythingHiddenDialogue.IsVisible = true;
+                        everythingHiddenDialogue.FadeTo(1, easing: Easing.CubicInOut);
+                    }
+                    else
+                    {
+                        everythingHiddenDialogue.IsVisible = false;
+
+                    }
                 };
                 listOfItems.Children.Add(itemReferences.ToArray()[item]);
             }
+            if (listOfItems.Children.Count <= 0)
+            {
+                noEntriesDialogue.IsVisible = true;
+                noEntriesDialogue.FadeTo(1,easing:Easing.CubicInOut);
+            }
+            else
+            {
+                
+                await everythingHiddenDialogue.FadeTo(0, easing: Easing.CubicInOut);
+                everythingHiddenDialogue.IsVisible = false;
+            }
+        }
+        private async void NewQueryDrag(object sender, PanUpdatedEventArgs e)
+        {
+            if (Device.RuntimePlatform == Device.iOS)
+            {
+                if (e.StatusType == GestureStatus.Canceled || e.StatusType == GestureStatus.Completed)
+                {
+                    if (queryInterface.TranslationY > 250)
+                    {
+                        queryInterface.TranslateTo(queryInterface.TranslationX, queryInterface.TranslationY + 1200, easing: Easing.SinIn);
+                        await Task.Delay(350);
+                        queryInterface.IsVisible = false;
+                        queryInterface.TranslationY = 0;
+                    }
+                    else
+                    {
+                        queryInterface.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                        queryInterface.FadeTo(1, 250, easing: Easing.CubicInOut);
+                    }
+                }
+                else
+                {
+                    if (e.TotalY < 0)
+                    {
+                        queryInterface.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                    }
+                    else
+                    {
+                        queryInterface.TranslationY = e.TotalY;
+                    }
+
+                }
+            }
+            else
+            {
+                if (e.StatusType == GestureStatus.Canceled || e.StatusType == GestureStatus.Completed)
+                {
+                    if (e.TotalY + queryInterface.TranslationY > 250)
+                    {
+                        queryInterface.TranslateTo(queryInterface.TranslationX, queryInterface.TranslationY + 1200, easing: Easing.SinIn);
+                        await Task.Delay(350);
+                        queryInterface.IsVisible = false;
+                        queryInterface.TranslationY = 0;
+                    }
+                    else
+                    {
+                        queryInterface.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                        queryInterface.FadeTo(1, 250, easing: Easing.CubicInOut);
+                    }
+                }
+                else
+                {
+                    if (e.TotalY < 0)
+                    {
+                        queryInterface.TranslateTo(0, 0, easing: Easing.CubicInOut);
+                    }
+                    else
+                    {
+                        queryInterface.TranslationY += e.TotalY;
+                    }
+
+                }
+
+            }
+        }
+
+        private async void Button_Clicked_1(object sender, EventArgs e)
+        {
+            queryInterface.TranslationY = 1200;
+            await Task.Delay(100);
+            queryInterface.IsVisible = true;
+            queryInterface.TranslateTo(queryInterface.TranslationX, queryInterface.TranslationY - 1200, 500, Easing.SinOut);
         }
     }
 }

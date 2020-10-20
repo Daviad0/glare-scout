@@ -183,25 +183,25 @@ namespace LightScout
             }
             if (selectedButton.ClassId.StartsWith("B"))
             {
-                selectedButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Blue");
+                selectedButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("#3475da");
                 selectedButton.TextColor = (Color)converter.ConvertFromInvariantString("Color.White");
             }
             else
             {
-                selectedButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Red");
+                selectedButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("#e53434");
                 selectedButton.TextColor = (Color)converter.ConvertFromInvariantString("Color.White");
             }
             if (lastTabletButton != null)
             {
                 if (lastTabletButton.ClassId.StartsWith("B"))
                 {
-                    lastTabletButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
-                    lastTabletButton.TextColor = (Color)converter.ConvertFromInvariantString("Color.Blue");
+                    lastTabletButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Transparent");
+                    lastTabletButton.TextColor = (Color)converter.ConvertFromInvariantString("#3475da");
                 }
                 else
                 {
-                    lastTabletButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.White");
-                    lastTabletButton.TextColor = (Color)converter.ConvertFromInvariantString("Color.Red");
+                    lastTabletButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Transparent");
+                    lastTabletButton.TextColor = (Color)converter.ConvertFromInvariantString("#e53434");
                 }
             }
             lastTabletButton = selectedButton;
@@ -405,32 +405,32 @@ namespace LightScout
                     {
                         case "R1":
                             currentlySelectedTabletType = TabletType.Red1;
-                            checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Red");
+                            checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("#e53434");
                             checkTabletIdLabel.Text = "Red 1";
                             break;
                         case "R2":
                             currentlySelectedTabletType = TabletType.Red2;
-                            checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Red");
+                            checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("#e53434");
                             checkTabletIdLabel.Text = "Red 2";
                             break;
                         case "R3":
                             currentlySelectedTabletType = TabletType.Red3;
-                            checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Red");
+                            checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("#e53434");
                             checkTabletIdLabel.Text = "Red 3";
                             break;
                         case "B1":
                             currentlySelectedTabletType = TabletType.Blue1;
-                            checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Blue");
+                            checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("#3475da");
                             checkTabletIdLabel.Text = "Blue 1";
                             break;
                         case "B2":
                             currentlySelectedTabletType = TabletType.Blue2;
-                            checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Blue");
+                            checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("#3475da");
                             checkTabletIdLabel.Text = "Blue 2";
                             break;
                         case "B3":
                             currentlySelectedTabletType = TabletType.Blue3;
-                            checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Blue");
+                            checkTabletIdBox.BackgroundColor = (Color)converter.ConvertFromInvariantString("#3475da");
                             checkTabletIdLabel.Text = "Blue 3";
                             break;
                     }

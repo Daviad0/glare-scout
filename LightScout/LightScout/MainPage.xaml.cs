@@ -1628,7 +1628,7 @@ namespace LightScout
                 {
                     if (e.TotalY + aboutInterface.TranslationY > 250)
                     {
-                        aboutInterface.TranslateTo(settingsInterface.TranslationX, settingsInterface.TranslationY + 1200, easing: Easing.SinIn);
+                        aboutInterface.TranslateTo(aboutInterface.TranslationX, aboutInterface.TranslationY + 1200, easing: Easing.SinIn);
                         await Task.Delay(350);
                         aboutInterface.IsVisible = false;
                         aboutInterface.TranslationY = 0;

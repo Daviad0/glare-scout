@@ -457,5 +457,10 @@ namespace LightScout
             queryInterface.IsVisible = true;
             queryInterface.TranslateTo(queryInterface.TranslationX, queryInterface.TranslationY - 1200, 500, Easing.SinOut);
         }
+
+        private void Button_Clicked_2(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new MainPage());
+        }
     }
 }

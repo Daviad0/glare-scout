@@ -20,7 +20,7 @@ namespace LightScout
             }
             if (JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TeamOfOwnership != 0)
             {
-                MainPage = new NavigationPage(new Database());
+                MainPage = new NavigationPage(new MainPage());
             }
             else
             {

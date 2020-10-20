@@ -12,7 +12,8 @@
     <ContentPage.Content>
         <AbsoluteLayout>
             <Grid AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
-                <ScrollView x:Name="entireScroll" Grid.Row="0" Grid.Column="0">
+                <Button Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Start" Text="Back" BackgroundColor="Transparent" TextColor="{DynamicResource FramePrimary}" Clicked="Button_Clicked_2"/>
+                <ScrollView x:Name="entireScroll" Grid.Row="0" Grid.Column="0" Margin="0,30,0,0">
                     <StackLayout Margin="0,5">
                         <StackLayout x:Name="listOfItems">
 
@@ -46,6 +47,11 @@
                 
                 
             </Grid>
+            <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" VerticalOptions="End" HorizontalOptions="End">
+
+                <Button VerticalOptions="End" Clicked="Button_Clicked_1" IsVisible="True" Grid.Column="0" Grid.Row="0" HorizontalOptions="End" Text="&#xeefc;" x:Name="enableDisabled" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" Margin="20" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="{DynamicResource PrimaryColor}" TextColor="White"/>
+
+            </Grid>
             <Frame BackgroundColor="{DynamicResource Header}" CornerRadius="8" Margin="0,10,0,0" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False" x:Name="queryInterface">
                 <StackLayout>
                     <Frame BackgroundColor="{DynamicResource Header}" HasShadow="False" Margin="5,0" HeightRequest="7">
@@ -57,7 +63,7 @@
                     <ScrollView>
                         <StackLayout>
 
-                            <Label Text="New Query Test"/>
+                            <Label Text="New Query Test" TextColor="{DynamicResource FramePrimary}"/>
 
                         </StackLayout>
 
@@ -66,11 +72,7 @@
                 </StackLayout>
 
             </Frame>
-            <Grid AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" VerticalOptions="End" HorizontalOptions="End">
-
-                <Button VerticalOptions="End" IsVisible="True" Grid.Column="0" Grid.Row="0" HorizontalOptions="End" Text="&#xeefc;" x:Name="enableDisabled" FontFamily="{StaticResource IconFont}" FontSize="30" Padding="10" Margin="20" CornerRadius="30" WidthRequest="60" HeightRequest="60" BackgroundColor="{DynamicResource PrimaryColor}" TextColor="White"/>
-
-            </Grid>
+            
         </AbsoluteLayout>
         
     </ContentPage.Content>

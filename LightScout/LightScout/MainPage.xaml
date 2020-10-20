@@ -295,7 +295,9 @@
                             <BoxView BackgroundColor="Gray" IsVisible="False" HeightRequest="2" Margin="5,0"/>
                             <Button Text="Send Test Notification" Clicked="sendNotification_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
                             <Button Text="Set Configuration" IsVisible="False" Clicked="EditConfigInfo" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
-
+                            <BoxView BackgroundColor="Gray" IsVisible="False" HeightRequest="2" Margin="5,0"/>
+                            <Button Text="Query Database" Clicked="Button_Clicked_1" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
+                            
                             <Picker x:Name="tabletPicker" SelectedIndexChanged="tabletPicker_SelectedIndexChanged" IsVisible="False"/>
                             <Button Text="Reload Page" Clicked="ReloadScreen" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
                             <Button Text="Test Protocol v3" Clicked="ProtocolV3" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>

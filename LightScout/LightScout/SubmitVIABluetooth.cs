@@ -617,6 +617,7 @@ namespace LightScout
             {
                 if (!datagotten)
                 {
+                    MessagingCenter.Send<SubmitVIABluetooth, BluetoothControllerData>(this, "bluetoothController", new BluetoothControllerData() { timestamp = DateTime.Now, data = "Connected to " + a.Device.Name, status = BluetoothControllerDataStatus.Connected });
                     connectedPeripheral = a.Device;
                     SendToLightSwitch(a.Device,args);
                     datagotten = true;
@@ -653,7 +654,7 @@ namespace LightScout
                         }
                         catch (Exception ex)
                         {
-                            MessagingCenter.Send<SubmitVIABluetooth, int>(this, "tbasenddata", -1);
+                            MessagingCenter.Send<SubmitVIABluetooth, BluetoothControllerData>(this, "bluetoothController", new BluetoothControllerData() { timestamp = DateTime.Now, data = ex.ToString(), status = BluetoothControllerDataStatus.Abort });
                             resultsubmitted = true;
                         }
                         return true;
@@ -662,7 +663,7 @@ namespace LightScout
             }
             catch (Exception ex)
             {
-                MessagingCenter.Send<SubmitVIABluetooth, int>(this, "tbasenddata", -1);
+                MessagingCenter.Send<SubmitVIABluetooth, BluetoothControllerData>(this, "bluetoothController", new BluetoothControllerData() { timestamp = DateTime.Now, data = ex.ToString(), status = BluetoothControllerDataStatus.Abort });
                 datagotten = true;
             }
         }
@@ -700,14 +701,71 @@ namespace LightScout
                 uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130001");
             }
             await selectedDevice.RequestMtuAsync(512);
+            var messagesleft = 0;
+            var fullmessage = "";
+            bool iscompleted = false;
+            var deviceid = "a-12345678";
             var characteristictosend = await servicetosend.GetCharacteristicAsync(uuid);
-            characteristictosend.ValueUpdated += (s, a) =>
+            characteristictosend.ValueUpdated += async (s, a) =>
             {
+
+                var convertedmessage = Encoding.ASCII.GetString(a.Characteristic.Value);
+                if (convertedmessage.Substring(4,10).Contains(deviceid))
+                {
+                    var data = convertedmessage.Substring(16);
+                    if (messagesleft > 0)
+                    {
+                        if (convertedmessage.StartsWith("F!"))
+                        {
+                            messagesleft--;
+                            fullmessage = fullmessage + data;
+                            if (messagesleft == 0)
+                            {
+                                await adapter.DisconnectDeviceAsync(connectedPeripheral);
+                                iscompleted = true;
+                                //SEND BACK TO HANDLER DATA
+                                MessagingCenter.Send<SubmitVIABluetooth, BluetoothControllerData>(this, "bluetoothController", new BluetoothControllerData() { timestamp = DateTime.Now, data = "Got multiple messages!", status = BluetoothControllerDataStatus.DataGet });
+
+
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Expected a following message, got " + convertedmessage.Substring(0, 2));
+                            MessagingCenter.Send<SubmitVIABluetooth, BluetoothControllerData>(this, "bluetoothController", new BluetoothControllerData() { timestamp = DateTime.Now, data = "Unexpected handler!", status = BluetoothControllerDataStatus.Abort });
+                        }
+                        
+                    }
+                    else
+                    {
+                        
+                        if (convertedmessage.StartsWith("L!"))
+                        {
+                            fullmessage = "";
+                            messagesleft = int.Parse(data);
+                        }
+                        else if(convertedmessage.StartsWith("S!"))
+                        {
+                            //SEND BACK TO HANDLER DATA
+                            MessagingCenter.Send<SubmitVIABluetooth, BluetoothControllerData>(this, "bluetoothController", new BluetoothControllerData() { timestamp = DateTime.Now, data = "Got a single message!", status = BluetoothControllerDataStatus.DataGet });
+                            await adapter.DisconnectDeviceAsync(connectedPeripheral);
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Expected a leading or single message, got " + convertedmessage.Substring(0, 2));
+                            MessagingCenter.Send<SubmitVIABluetooth, BluetoothControllerData>(this, "bluetoothController", new BluetoothControllerData() { timestamp = DateTime.Now, data = "Unexpected handler!", status = BluetoothControllerDataStatus.Abort });
+                        }
+                    }
+                    Console.WriteLine(a.Characteristic.Value);
+                }
+
+
                 Console.WriteLine(a.Characteristic.Value);
             };
             try
             {
-                var deviceid = "a-12345678";
+                
                 await characteristictosend.StartUpdatesAsync();
                 
                 var bytestotransmit = Encoding.ASCII.GetBytes(args.messageData);
@@ -732,12 +790,16 @@ namespace LightScout
                 }
                 resultsubmitted = true;
                 Application.Current.Properties["TimeLastSubmitted"] = DateTime.Now;
+                MessagingCenter.Send<SubmitVIABluetooth, BluetoothControllerData>(this, "bluetoothController", new BluetoothControllerData() { timestamp = DateTime.Now, data = "Sent " + bytestotransmit.Length.ToString() + " message bytes successfully!", status = BluetoothControllerDataStatus.DataSent });
                 Console.WriteLine(bytestotransmit);
-                await adapter.DisconnectDeviceAsync(connectedPeripheral);
+                if(args.expectation == ResponseExpectation.NoResponse)
+                {
+                    await adapter.DisconnectDeviceAsync(connectedPeripheral);
+                }
             }
             catch (Exception ex)
             {
-                
+                MessagingCenter.Send<SubmitVIABluetooth, BluetoothControllerData>(this, "bluetoothController", new BluetoothControllerData() { timestamp = DateTime.Now, data = ex.ToString(), status = BluetoothControllerDataStatus.Abort });
             }
         }
         public enum ResponseExpectation
@@ -752,5 +814,19 @@ namespace LightScout
             public string messageData { get; set; }
             public ResponseExpectation expectation { get; set; }
         }
+    }
+    public class BluetoothControllerData
+    {
+        public BluetoothControllerDataStatus status { get; set; }
+        public string data { get; set; }
+        public DateTime timestamp { get; set; }
+    }
+    public enum BluetoothControllerDataStatus
+    {
+        Abort = 0,
+        Initialize = 1,
+        Connected = 2,
+        DataSent = 3,
+        DataGet = 4, 
     }
 }

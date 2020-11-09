@@ -1396,9 +1396,45 @@ namespace LightScout
 
         private void ProtocolV3(object sender, EventArgs e)
         {
+            var argumentsToUse = new SubmitVIABluetooth.BLEMessageArguments() { messageType = 10, messageData = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt"), expectation = SubmitVIABluetooth.ResponseExpectation.Optional };
+
+            MessagingCenter.Subscribe<SubmitVIABluetooth, BluetoothControllerData>(this, "bluetoothController", async (mssender, value) =>
+            {
+                switch (value.status)
+                {
+                    case BluetoothControllerDataStatus.Initialize:
+                        await DismissNotification();
+                        await NewNotification("Bluetooth Handshake Started; Method Called;");
+                        break;
+                    case BluetoothControllerDataStatus.Connected:
+                        await DismissNotification();
+                        await NewNotification("Bluetooth Handshake Successful; Sending Data");
+                        break;
+                    case BluetoothControllerDataStatus.DataSent:
+                        await DismissNotification();
+                        await NewNotification("Bluetooth Data Sent Successfully; Waiting for Data");
+                        if(argumentsToUse.expectation == SubmitVIABluetooth.ResponseExpectation.NoResponse)
+                        {
+                            MessagingCenter.Unsubscribe<SubmitVIABluetooth, int>(this, "bluetoothController");
+                        }
+                        break;
+                    case BluetoothControllerDataStatus.DataGet:
+                        await DismissNotification();
+                        await NewNotification("Bluetooth Data Sent Successfully; Waiting for Data");
+                        MessagingCenter.Unsubscribe<SubmitVIABluetooth, int>(this, "bluetoothController");
+                        break;
+                    case BluetoothControllerDataStatus.Abort:
+                        await DismissNotification();
+                        await NewNotification("Bluetooth Communication Failure");
+                        MessagingCenter.Unsubscribe<SubmitVIABluetooth, int>(this, "bluetoothController");
+                        break;
+                }
+            });
+
+
             CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
             CancellationToken token = cancellationTokenSource.Token;
-            submitVIABluetoothInstance.ConnectToDevice(new SubmitVIABluetooth.BLEMessageArguments() { messageType = 00, messageData = "Testing Protocol v3. This is not an emergency.", expectation = SubmitVIABluetooth.ResponseExpectation.Optional }, token);
+            submitVIABluetoothInstance.ConnectToDevice(argumentsToUse, token);
         }
         private async void MenuPanSettings(object sender, PanUpdatedEventArgs e)
         {
@@ -1669,6 +1705,7 @@ namespace LightScout
         {
             Navigation.PushAsync(new Database());
         }
+
     }
     [ContentProperty("Content")]
     public class MultiLineButton : ContentView

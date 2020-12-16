@@ -22,7 +22,7 @@ using Xamarin.Forms;
 
 namespace LightScout.Droid
 {
-    [Activity(Label = "LightScout", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "LightScout", Icon = "@mipmap/icon", Theme = "@style/MainTheme.Splash", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     [IntentFilter(new[] { UsbManager.ActionUsbDeviceAttached })]
 
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
@@ -53,10 +53,10 @@ namespace LightScout.Droid
             
             
         }
-        /*protected override async void OnResume()
+        protected override async void OnResume()
         {
             base.OnResume();
-            var portInfo = Intent.GetParcelableExtra(EXTRA_TAG) as Hoho.Android.UsbSerial.Util.UsbSerialPortInfo;
+            /*var portInfo = Intent.GetParcelableExtra(EXTRA_TAG) as Hoho.Android.UsbSerial.Util.UsbSerialPortInfo;
             if(portInfo != null)
             {
                 int vendorId = portInfo.VendorId;
@@ -118,12 +118,12 @@ namespace LightScout.Droid
                 //register the broadcast receivers
                 detachedReceiver = new UsbDeviceDetachedReceiver(this);
                 RegisterReceiver(detachedReceiver, new IntentFilter(UsbManager.ActionUsbDeviceDetached));
-            }
+            }*/
             
         }
         protected override void OnPause()
         {
-            if (serialIoManager != null && serialIoManager.IsOpen)
+            /*if (serialIoManager != null && serialIoManager.IsOpen)
             {
                 Log.Info(TAG, "Stopping IO manager ..");
                 try
@@ -140,9 +140,9 @@ namespace LightScout.Droid
             // unregister the broadcast receivers
             var temp = detachedReceiver; // copy reference for thread safety
             if (temp != null)
-                UnregisterReceiver(temp);
+                UnregisterReceiver(temp);*/
         }
-        internal static Task<IList<IUsbSerialDriver>> FindAllDriversAsync(UsbManager usbManager)
+        /*internal static Task<IList<IUsbSerialDriver>> FindAllDriversAsync(UsbManager usbManager)
         {
             // using the default probe table
             // return UsbSerialProber.DefaultProber.FindAllDriversAsync (usbManager);

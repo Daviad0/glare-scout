@@ -269,7 +269,7 @@ namespace LightScout
             }
             DependencyService.Get<DataStore>().SaveConfigurationFile("ownerTeamChange", int.Parse(setupTeamNumber.Text));
             DependencyService.Get<DataStore>().SaveConfigurationFile("ownerScoutChange", setupScoutName.Text);
-            DependencyService.Get<DataStore>().SaveConfigurationFile("scoutCode", int.Parse(setupCode.Text));
+            DependencyService.Get<DataStore>().SaveConfigurationFile("scoutCode", int.Parse(setupCode.Text).ToString("0000"));
             if(connectedDevice != null)
             {
                 DependencyService.Get<DataStore>().SaveConfigurationFile("selectedMaster", new DeviceInformation() { DeviceName = connectedDevice.Name, DeviceID = connectedDevice.Id.ToString() });

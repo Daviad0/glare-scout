@@ -53,39 +53,8 @@
         </ScrollView>
         <ScrollView BackgroundColor="{DynamicResource Background}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" x:Name="mainInterface">
             <StackLayout>
-                <Button Text="See FTC" x:Name="FTCShow" Clicked="FTCShow_Clicked" BackgroundColor="#f57e25" TextColor="White" Margin="10,10,10,0" IsVisible="False"/>
-                <ListView x:Name="listOfMatches" ItemTapped="listOfMatches_ItemTapped" RowHeight="60" BackgroundColor="White" IsPullToRefreshEnabled="False" IsVisible="False">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Margin="10,5,10,5">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <Label Text="{Binding MatchNumber, StringFormat='Match #{0}'}" Grid.Row="0" VerticalOptions="Center" FontSize="20" FontAttributes="Bold" Margin="0,3,0,0" />
-                                    <Grid Grid.Row="1">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Text="{Binding TeamNumber, StringFormat='{0} - '}" VerticalOptions="Center" Grid.Column="0" FontSize="14"/>
-                                        <Label Text="{Binding TeamName, FallbackValue='No Name'}" VerticalOptions="Center" Grid.Column="1" FontSize="14"/>
-                                    </Grid>
-
-                                </Grid>
-                                <Label FontFamily="{StaticResource IconFont}" FontSize="30" Grid.Column="1" Text="&#xeed8;" HorizontalOptions="End" VerticalOptions="Center" IsVisible="{Binding ClientSubmitted}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-
                 <ProgressBar ProgressColor="#2a7afa" Progress="0" x:Name="MatchProgressList" HeightRequest="8"/>
-                <CarouselView BackgroundColor="Transparent" x:Name="carouseluwu" HeightRequest="450" CurrentItemChanged="carouseluwu_CurrentItemChanged">
+                <CarouselView BackgroundColor="Transparent" x:Name="carouseluwu" HeightRequest="500" CurrentItemChanged="carouseluwu_CurrentItemChanged">
                     <CarouselView.ItemsLayout>
                         <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
                         
@@ -98,11 +67,11 @@
                        BorderColor="{DynamicResource Container}"
                        CornerRadius="5"
                        Margin="20,20,20,0"
-                       HeightRequest="350"
+                       HeightRequest="400"
                        HorizontalOptions="Center"
                                            BackgroundColor="{DynamicResource Container}"
                        VerticalOptions="CenterAndExpand"
-                                       WidthRequest="300">
+                                       WidthRequest="350">
                                         <StackLayout>
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
@@ -111,7 +80,7 @@
                                                     <ColumnDefinition Width="70"/>
                                                 </Grid.ColumnDefinitions>
                                                 <Grid.RowDefinitions>
-                                                    <RowDefinition Height="30"/>
+                                                    <RowDefinition Height="50"/>
                                                 </Grid.RowDefinitions>
                                                 <Grid HorizontalOptions="Start" Grid.Column="0" Margin="0,3,0,0">
                                                     <Grid.ColumnDefinitions>
@@ -132,8 +101,8 @@
                                FontSize="Large"
                                HorizontalOptions="Center"
                                VerticalOptions="Start" Grid.Column="1"/>
-                                                <Label Grid.Column="2" FontFamily="{StaticResource IconFont}" TextColor="{DynamicResource Completed}" FontAttributes="Bold" Text="&#xeed7;" FontSize="25" HorizontalOptions="End" IsVisible="{Binding Completed}"/>
-                                                <Label Grid.Column="2" Text="Up Next!" HorizontalOptions="End" FontAttributes="Bold" TextColor="{DynamicResource UpNext}" VerticalOptions="Center" IsVisible="{Binding IsUpNext}"/>
+                                                <Label Grid.Column="2" TextColor="{DynamicResource Completed}" FontAttributes="Bold" Text="&#xeed7;" FontSize="25" HorizontalOptions="End" IsVisible="{Binding Completed}"/>
+                                                <Label Grid.Column="2" FontFamily="{StaticResource IconFont}" HorizontalOptions="End" Text="&#xeedc;" FontSize="25" FontAttributes="Bold" TextColor="{DynamicResource UpNext}" VerticalOptions="Center" IsVisible="{Binding IsUpNext}"/>
 
                                             </Grid>
                                             <Grid HeightRequest="60" MinimumHeightRequest="60" HorizontalOptions="Center" Margin="10,0">

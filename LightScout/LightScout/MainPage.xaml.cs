@@ -1,10 +1,7 @@
 ﻿using LightScout.Models;
 using Newtonsoft.Json;
 using Plugin.BLE;
-using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
-using Plugin.BLE.Abstractions.EventArgs;
-using Plugin.BLE.Abstractions.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,8 +10,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -40,15 +35,12 @@ namespace LightScout
         private static bool Balanced;
         private List<TeamMatch> listofmatches = new List<TeamMatch>();
         private List<TeamMatchViewItem> listofviewmatches = new List<TeamMatchViewItem>();
-        private List<string> MatchNames = new List<string>();
-        private static int BluetoothDevices = 0;
         private static bool TimerAlreadyCreated = false;
         private static int timesalive = 0;
         private string currentCodeString = "";
         private CodeReason currentCodeReason;
         private static SubmitVIABluetooth submitVIABluetoothInstance = new SubmitVIABluetooth();
         private List<string> tabletlist = new List<string>();
-        private static Socket iosSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
         public enum CodeReason
         {
@@ -181,7 +173,7 @@ namespace LightScout
                 placeholdermatch.ActualMatch = false;
                 placeholdermatch.NewPlaceholder = true;
                 listofviewmatches.Add(placeholdermatch);
-                listOfMatches.ItemsSource = listofviewmatches;
+                //listOfMatches.ItemsSource = listofviewmatches;
                 carouseluwu.ItemsSource = listofviewmatches;
                 if (selectedItem != null)
                 {
@@ -283,16 +275,6 @@ namespace LightScout
                 await adapter.ConnectToDeviceAsync(selectedDevice);
                 deviceIWant = selectedDevice;
             }
-        }
-
-        private async void sendDataToBT_Clicked(object sender, EventArgs e)
-        {
-            /*var servicetosend = await deviceIWant.GetServiceAsync(Guid.Parse("50dae772-d8aa-4378-9602-792b3e4c198d"));
-            var characteristictosend = await servicetosend.GetCharacteristicAsync(Guid.Parse("50dae772-d8aa-4378-9602-792b3e4c198e"));
-            var stringtoconvert = "Test!";
-            var bytestotransmit = Encoding.ASCII.GetBytes(stringtoconvert);
-            await characteristictosend.WriteAsync(bytestotransmit);
-            Console.WriteLine(bytestotransmit);*/
         }
 
         private void dcFromBT_Clicked(object sender, EventArgs e)
@@ -523,17 +505,21 @@ namespace LightScout
         }
         private async Task NewNotification(string NotificationText)
         {
-            NotificationActive = true;
-            NotificationLabel.Text = NotificationText;
-            notificationContainer.TranslationY = 150;
-            notificationMedium.IsVisible = true;
-            await notificationContainer.TranslateTo(notificationContainer.TranslationX, notificationContainer.TranslationY - 150, 500, Easing.CubicInOut);
-            await NotificationIcon.RotateTo(25, 100, Easing.CubicIn);
-            await NotificationIcon.RotateTo(0, 100, Easing.CubicIn);
-            await NotificationIcon.RotateTo(25, 100, Easing.CubicIn);
-            await NotificationIcon.RotateTo(0, 100, Easing.CubicIn);
-            await NotificationIcon.RotateTo(25, 100, Easing.CubicIn);
-            await NotificationIcon.RotateTo(0, 100, Easing.CubicIn);
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                NotificationActive = true;
+                NotificationLabel.Text = NotificationText;
+                notificationContainer.TranslationY = 150;
+                notificationMedium.IsVisible = true;
+                await notificationContainer.TranslateTo(notificationContainer.TranslationX, notificationContainer.TranslationY - 150, 500, Easing.CubicInOut);
+                await NotificationIcon.RotateTo(25, 100, Easing.CubicIn);
+                await NotificationIcon.RotateTo(0, 100, Easing.CubicIn);
+                await NotificationIcon.RotateTo(25, 100, Easing.CubicIn);
+                await NotificationIcon.RotateTo(0, 100, Easing.CubicIn);
+                await NotificationIcon.RotateTo(25, 100, Easing.CubicIn);
+                await NotificationIcon.RotateTo(0, 100, Easing.CubicIn);
+            });
+            
         }
         private async Task DismissNotification()
         {
@@ -1384,7 +1370,7 @@ namespace LightScout
             placeholdermatch.ActualMatch = false;
             placeholdermatch.NewPlaceholder = true;
             listofviewmatches.Add(placeholdermatch);
-            listOfMatches.ItemsSource = listofviewmatches;
+            //listOfMatches.ItemsSource = listofviewmatches;
             carouseluwu.ItemsSource = listofviewmatches;
             MatchProgressList.Progress = (float)((float)1 / (float)(listofviewmatches.Count - 1));
         }
@@ -1420,7 +1406,9 @@ namespace LightScout
                         break;
                     case BluetoothControllerDataStatus.DataGet:
                         await DismissNotification();
-                        await NewNotification("Bluetooth Data Sent Successfully; Waiting for Data");
+                        await NewNotification("Bluetooth Data Got Successfully!");
+                        var listofmatches = JsonConvert.DeserializeObject<List<TeamMatch>>(value.data);
+                        Console.WriteLine(listofmatches);
                         MessagingCenter.Unsubscribe<SubmitVIABluetooth, int>(this, "bluetoothController");
                         break;
                     case BluetoothControllerDataStatus.Abort:

@@ -600,8 +600,9 @@ namespace LightScout
 
 
 
-        public async void ConnectToDevice(BLEMessageArguments args, CancellationToken token)
+        public async Task ConnectToDevice(BLEMessageArguments args, CancellationToken token)
         {
+            datagotten = false;
             foreach (var device in adapter.ConnectedDevices)
             {
                 await adapter.DisconnectDeviceAsync(device);
@@ -724,7 +725,7 @@ namespace LightScout
                                 await adapter.DisconnectDeviceAsync(connectedPeripheral);
                                 iscompleted = true;
                                 //SEND BACK TO HANDLER DATA
-                                MessagingCenter.Send<SubmitVIABluetooth, BluetoothControllerData>(this, "bluetoothController", new BluetoothControllerData() { timestamp = DateTime.Now, data = "Got multiple messages!", status = BluetoothControllerDataStatus.DataGet });
+                                MessagingCenter.Send<SubmitVIABluetooth, BluetoothControllerData>(this, "bluetoothController", new BluetoothControllerData() { timestamp = DateTime.Now, data = fullmessage, status = BluetoothControllerDataStatus.DataGet });
 
 
                             }
@@ -773,7 +774,7 @@ namespace LightScout
                 {
                     
                     int numberofmessages = (int)Math.Ceiling((float)bytestotransmit.Length / (float)460);
-                    var leadingmessage = "L!" + deviceid + ":" + args.messageType.ToString("00") + "@" + DateTime.Now.Hour.ToString("00") + ":" + DateTime.Now.Minute.ToString("00")+ ">>" + numberofmessages.ToString();
+                    var leadingmessage = "L!" + deviceid + ":" + args.messageType.ToString("00") + "@" + DateTime.Now.Hour.ToString("00") + ":" + DateTime.Now.Minute.ToString("00")+ "*1>>" + numberofmessages.ToString();
                     var followingheader = Encoding.ASCII.GetBytes("F!" + deviceid + ">>");
                     await characteristictosend.WriteAsync(Encoding.ASCII.GetBytes(leadingmessage));
                     for (int i = numberofmessages; i > 0; i--)
@@ -785,7 +786,7 @@ namespace LightScout
                 }
                 else
                 {
-                    var singlemessage = "S!" + deviceid + ":" + args.messageType.ToString("00") + "@" + DateTime.Now.Hour.ToString("00") + ":" + DateTime.Now.Minute.ToString("00") + ">>" + args.messageData;
+                    var singlemessage = "S!" + deviceid + ":" + args.messageType.ToString("00") + "@" + DateTime.Now.Hour.ToString("00") + ":" + DateTime.Now.Minute.ToString("00") + "*1>>" + args.messageData;
                     await characteristictosend.WriteAsync(Encoding.ASCII.GetBytes(singlemessage));
                 }
                 resultsubmitted = true;

@@ -1423,44 +1423,53 @@ namespace LightScout
                     {
                         CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
                         CancellationToken token = cancellationTokenSource.Token;
-
+                        var argumentsToUse = new SubmitVIABluetooth.BLEMessageArguments() { messageType = 10, messageData = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt"), expectation = SubmitVIABluetooth.ResponseExpectation.Optional };
                         var highestlevelresponse = 0;
-                        MessagingCenter.Subscribe<SubmitVIABluetooth, int>(this, "boom", (messagesender, value) => {
-                            switch (value)
+                        MessagingCenter.Subscribe<SubmitVIABluetooth, BluetoothControllerData>(this, "bluetoothController", async (mssender, value) =>
+                        {
+                            switch (value.status)
                             {
-                                case 1:
-                                    savingProgress.ProgressTo(0.20, 1000, Easing.CubicInOut);
+                                case BluetoothControllerDataStatus.Initialize:
                                     if (highestlevelresponse < 1)
                                     {
                                         highestlevelresponse = 1;
                                     }
                                     break;
-                                case 2:
-                                    savingProgress.ProgressTo(0.60, 1000, Easing.CubicInOut);
+                                case BluetoothControllerDataStatus.Connected:
                                     if (highestlevelresponse < 2)
                                     {
                                         highestlevelresponse = 2;
                                     }
                                     break;
-                                case 3:
-                                    savingProgress.ProgressTo(1, 1000, Easing.CubicInOut);
+                                case BluetoothControllerDataStatus.DataSent:
                                     DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 0);
                                     if (highestlevelresponse < 3)
                                     {
                                         highestlevelresponse = 3;
                                     }
-                                    MessagingCenter.Unsubscribe<SubmitVIABluetooth, int>(this, "boom");
+                                    if (argumentsToUse.expectation == SubmitVIABluetooth.ResponseExpectation.NoResponse)
+                                    {
+                                        MessagingCenter.Unsubscribe<SubmitVIABluetooth, int>(this, "bluetoothController");
+                                    }
                                     break;
-                                case -1:
-                                    savingProgress.ProgressTo(0, 1000, Easing.CubicInOut);
+                                case BluetoothControllerDataStatus.DataGet:
+                                    DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 0);
+                                    if (highestlevelresponse < 3)
+                                    {
+                                        highestlevelresponse = 3;
+                                    }
+                                    var listofmatches = JsonConvert.DeserializeObject<List<TeamMatch>>(value.data);
+                                    Console.WriteLine(listofmatches);
+                                    MessagingCenter.Unsubscribe<SubmitVIABluetooth, int>(this, "bluetoothController");
+                                    break;
+                                case BluetoothControllerDataStatus.Abort:
                                     DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 1);
                                     if (JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).BluetoothFailureStage == 1)
                                     {
                                         DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 2);
                                         DisplayAlert("Something Went Wrong!", "We encountered an error trying to transmit your data to the host computer. We tried this twice and it failed both times. Please notify the scouter managing tablets soon!", "I'll Do That!");
                                     }
-                                    MessagingCenter.Unsubscribe<SubmitVIABluetooth, int>(this, "boom");
-                                    taskcompleted = true;
+                                    MessagingCenter.Unsubscribe<SubmitVIABluetooth, int>(this, "bluetoothController");
                                     break;
                             }
                         });
@@ -1552,7 +1561,8 @@ namespace LightScout
                         {
                             //var bluetoothclass = new SubmitVIABluetooth();
                             //await bluetoothclass.SubmitBluetooth(token);
-                            await (Application.Current.Properties["BluetoothMethod"] as SubmitVIABluetooth).SubmitBluetooth(token);
+                            
+                            await (Application.Current.Properties["BluetoothMethod"] as SubmitVIABluetooth).ConnectToDevice(argumentsToUse,token);
                             adapter = CrossBluetoothLE.Current.Adapter;
                             if (adapter.ConnectedDevices.Count > 0)
                             {
@@ -1573,7 +1583,7 @@ namespace LightScout
                         await Task.Delay(15);
                         submittingOverlay.IsVisible = true;
                         submittingOverlayPanel.TranslateTo(submittingOverlayPanel.TranslationX - 600, submittingOverlayPanel.TranslationY, 500, Easing.CubicInOut);
-                        await DisplayAlert("Uh Oh", "It didn't work the first time, it probably won't work now. Please get the person in charge of the tablets to unlock the Bluetooth feature once they transfer the data VIA USB. We are saving the data to the tablet for now.", "Ok!");
+                        await DisplayAlert("Uh Oh", "We are unable to connect to Bluetooth. Please notify the person in charge of tablet scouting!", "Ok!");
                         Device.StartTimer(TimeSpan.FromSeconds(1), () =>
                         {
                             if (!taskcompleted)

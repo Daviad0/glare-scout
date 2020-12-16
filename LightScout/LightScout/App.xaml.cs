@@ -29,7 +29,7 @@ namespace LightScout
             //MainPage = new NavigationPage(new SetNewData());
             ICollection<ResourceDictionary> mergedDictionaries = Application.Current.Resources.MergedDictionaries;
             mergedDictionaries.Clear();
-            mergedDictionaries.Add(new DarkTheme());
+            mergedDictionaries.Add(new LightTheme());
 
 
         }

@@ -67,7 +67,7 @@
                        BorderColor="{DynamicResource Container}"
                        CornerRadius="5"
                        Margin="20,20,20,0"
-                       HeightRequest="400"
+                       HeightRequest="350"
                        HorizontalOptions="Center"
                                            BackgroundColor="{DynamicResource Container}"
                        VerticalOptions="CenterAndExpand"
@@ -80,7 +80,7 @@
                                                     <ColumnDefinition Width="70"/>
                                                 </Grid.ColumnDefinitions>
                                                 <Grid.RowDefinitions>
-                                                    <RowDefinition Height="50"/>
+                                                    <RowDefinition Height="30"/>
                                                 </Grid.RowDefinitions>
                                                 <Grid HorizontalOptions="Start" Grid.Column="0" Margin="0,3,0,0">
                                                     <Grid.ColumnDefinitions>
@@ -101,7 +101,7 @@
                                FontSize="Large"
                                HorizontalOptions="Center"
                                VerticalOptions="Start" Grid.Column="1"/>
-                                                <Label Grid.Column="2" TextColor="{DynamicResource Completed}" FontAttributes="Bold" Text="&#xeed7;" FontSize="25" HorizontalOptions="End" IsVisible="{Binding Completed}"/>
+                                                <Label Grid.Column="2" FontFamily="{StaticResource IconFont}" TextColor="{DynamicResource Completed}" FontAttributes="Bold" Text="&#xeed7;" FontSize="25" HorizontalOptions="End" IsVisible="{Binding Completed}"/>
                                                 <Label Grid.Column="2" FontFamily="{StaticResource IconFont}" HorizontalOptions="End" Text="&#xeedc;" FontSize="25" FontAttributes="Bold" TextColor="{DynamicResource UpNext}" VerticalOptions="Center" IsVisible="{Binding IsUpNext}"/>
 
                                             </Grid>
@@ -255,21 +255,21 @@
                         </Grid>
                         <StackLayout>
                             <Label Text="Reset Team Data" Margin="10,0" IsVisible="False"/>
-                            <Button Text="Get Data VIA Bluetooth" IsVisible="False" x:Name="getDataFromServer" Clicked="getDataFromServer_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
-                            <Button Text="Send TBA" IsVisible="False" x:Name="getDataFromTBA" Clicked="SendTBAData" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
-                            <Button Text="Reset Data to Example" Clicked="SendDummyData" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
+                            <Button Text="Get Data VIA Bluetooth" IsVisible="False" x:Name="getDataFromServer" Clicked="getDataFromServer_Clicked" BackgroundColor="{DynamicResource HeaderButton}" TextColor="{DynamicResource HeaderButtonText}" Margin="10,5"/>
+                            <Button Text="Send TBA" IsVisible="False" x:Name="getDataFromTBA" Clicked="SendTBAData" BackgroundColor="{DynamicResource HeaderButton}" TextColor="{DynamicResource HeaderButtonText}" Margin="10,5"/>
+                            <Button Text="Reset Data to Example" Clicked="SendDummyData" BackgroundColor="{DynamicResource HeaderButton}" TextColor="{DynamicResource HeaderButtonText}" Margin="10,5"/>
                             <BoxView BackgroundColor="Gray" IsVisible="False" HeightRequest="2" Margin="5,0"/>
                             <Label Text="Team Scouters" IsVisible="False" Margin="10,0"/>
-                            <Button Text="Reset Scout Names" Clicked="CreateNewScoutNames" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
+                            <Button Text="Reset Scout Names" Clicked="CreateNewScoutNames" BackgroundColor="{DynamicResource HeaderButton}" TextColor="{DynamicResource HeaderButtonText}" Margin="10,5"/>
                             <BoxView BackgroundColor="Gray" IsVisible="False" HeightRequest="2" Margin="5,0"/>
-                            <Button Text="Send Test Notification" Clicked="sendNotification_Clicked" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
-                            <Button Text="Set Configuration" IsVisible="False" Clicked="EditConfigInfo" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
+                            <Button Text="Send Test Notification" Clicked="sendNotification_Clicked" BackgroundColor="{DynamicResource HeaderButton}" TextColor="{DynamicResource HeaderButtonText}" Margin="10,5"/>
+                            <Button Text="Set Configuration" IsVisible="False" Clicked="EditConfigInfo" BackgroundColor="{DynamicResource HeaderButton}" TextColor="{DynamicResource HeaderButtonText}" Margin="10,5"/>
                             <BoxView BackgroundColor="Gray" IsVisible="False" HeightRequest="2" Margin="5,0"/>
-                            <Button Text="Query Database" Clicked="Button_Clicked_1" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
+                            <Button Text="Query Database" Clicked="Button_Clicked_1" BackgroundColor="{DynamicResource HeaderButton}" TextColor="{DynamicResource HeaderButtonText}" Margin="10,5"/>
                             
                             <Picker x:Name="tabletPicker" SelectedIndexChanged="tabletPicker_SelectedIndexChanged" IsVisible="False"/>
-                            <Button Text="Reload Page" Clicked="ReloadScreen" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
-                            <Button Text="Test Protocol v3" Clicked="ProtocolV3" BackgroundColor="#009cd7" TextColor="White" Margin="10,5"/>
+                            <Button Text="Reload Page" Clicked="ReloadScreen" BackgroundColor="{DynamicResource HeaderButton}" TextColor="{DynamicResource HeaderButtonText}" Margin="10,5"/>
+                            <Button Text="Test Protocol v3" Clicked="ProtocolV3" BackgroundColor="{DynamicResource HeaderButton}" TextColor="{DynamicResource HeaderButtonText}" Margin="10,5"/>
 
                         </StackLayout>
                     </StackLayout>

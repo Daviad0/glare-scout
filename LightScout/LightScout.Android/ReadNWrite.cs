@@ -293,7 +293,7 @@ namespace LightScout.Droid
                     modeltochange.SelectedDeviceInformation = (DeviceInformation)newvalue;
                     break;
                 case "scoutCode":
-                    modeltochange.ScoutAuthCode = (int)newvalue;
+                    modeltochange.ScoutAuthCode = int.Parse((string)newvalue).ToString("0000");
                     break;
             }
             try

@@ -22,7 +22,7 @@ using Xamarin.Forms;
 
 namespace LightScout.Droid
 {
-    [Activity(Label = "LightScout", Icon = "@mipmap/icon", Theme = "@style/MainTheme.Splash", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "LightScout", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     [IntentFilter(new[] { UsbManager.ActionUsbDeviceAttached })]
 
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity

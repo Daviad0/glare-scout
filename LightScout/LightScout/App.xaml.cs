@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Xamarin.Essentials;
+using System.Linq;
 
 namespace LightScout
 {
@@ -26,6 +28,27 @@ namespace LightScout
             {
                 MainPage = new NavigationPage(new SetNewData());
             }
+            if(!Application.Current.Properties.ContainsKey("UniqueID"))
+            {
+                var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                var stringChars = new char[8];
+                var random = new Random();
+
+                for (int i = 0; i < stringChars.Length; i++)
+                {
+                    stringChars[i] = chars[random.Next(chars.Length)];
+                }
+
+                var finalString = new String(stringChars);
+                string deviceOSString = (DeviceInfo.Platform == DevicePlatform.iOS ? "i" : "a");
+                Application.Current.Properties["UniqueID"] = deviceOSString + "-" + finalString;
+                Console.WriteLine(Application.Current.Properties["UniqueID"]);
+                
+            }
+            else {
+                Console.WriteLine(Application.Current.Properties["UniqueID"]);
+            }
+            Application.Current.SavePropertiesAsync();
             //MainPage = new NavigationPage(new SetNewData());
             ICollection<ResourceDictionary> mergedDictionaries = Application.Current.Resources.MergedDictionaries;
             mergedDictionaries.Clear();

@@ -523,14 +523,18 @@ namespace LightScout
         }
         private async Task DismissNotification()
         {
-            if (NotificationActive)
+            Device.BeginInvokeOnMainThread(async () =>
             {
-                NotificationActive = false;
-                await notificationContainer.TranslateTo(notificationContainer.TranslationX, notificationContainer.TranslationY + 150, 500, Easing.CubicInOut);
+                if (NotificationActive)
+                {
+                    NotificationActive = false;
+                    await notificationContainer.TranslateTo(notificationContainer.TranslationX, notificationContainer.TranslationY + 150, 500, Easing.CubicInOut);
 
-                notificationMedium.IsVisible = false;
-                notificationContainer.TranslationY = 0;
-            }
+                    notificationMedium.IsVisible = false;
+                    notificationContainer.TranslationY = 0;
+                }
+            });
+            
 
 
         }

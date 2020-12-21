@@ -705,7 +705,7 @@ namespace LightScout
             var messagesleft = 0;
             var fullmessage = "";
             bool iscompleted = false;
-            var deviceid = "a-12345678";
+            var deviceid = Application.Current.Properties["UniqueID"].ToString();
             var characteristictosend = await servicetosend.GetCharacteristicAsync(uuid);
             characteristictosend.ValueUpdated += async (s, a) =>
             {

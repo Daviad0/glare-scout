@@ -1,4 +1,5 @@
-﻿using LightScout.Models;
+﻿using Akavache;
+using LightScout.Models;
 using Newtonsoft.Json;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions;
@@ -705,7 +706,7 @@ namespace LightScout
             var messagesleft = 0;
             var fullmessage = "";
             bool iscompleted = false;
-            var deviceid = Application.Current.Properties["UniqueID"].ToString();
+            var deviceid = await BlobCache.UserAccount.GetObject<string>("UniqueID");
             var characteristictosend = await servicetosend.GetCharacteristicAsync(uuid);
             characteristictosend.ValueUpdated += async (s, a) =>
             {

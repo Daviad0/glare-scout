@@ -1,4 +1,5 @@
-﻿using LightScout.Models;
+﻿using Akavache;
+using LightScout.Models;
 using Newtonsoft.Json;
 using Plugin.BLE;
 using Plugin.BLE.Abstractions.Contracts;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Reactive.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -1394,30 +1396,31 @@ namespace LightScout
                 thismatch.T_ControlPanelPosition = ControlPanel[1];
                 thismatch.ClientSubmitted = true;
                 DependencyService.Get<DataStore>().SaveData("JacksonEvent2020.txt", thismatch);
-                if (Application.Current.Properties.ContainsKey("MatchesSubmitted"))
+                try
                 {
-                    Application.Current.Properties["MatchesSubmitted"] = ((int)Application.Current.Properties["MatchesSubmitted"]) + 1;
-                    DependencyService.Get<DataStore>().SaveConfigurationFile("numMatches", Application.Current.Properties["MatchesSubmitted"]);
+                    int locmatches = await BlobCache.UserAccount.GetObject<int>("MatchesSubmitted");
+                    await BlobCache.UserAccount.InsertObject("MatchesSubmitted", locmatches + 1);
+                    DependencyService.Get<DataStore>().SaveConfigurationFile("numMatches", locmatches + 1);
                 }
-                else
+                catch(Exception noKey)
                 {
                     var configurationfile = DependencyService.Get<DataStore>().LoadConfigFile();
                     try
                     {
                         LSConfiguration configFile = JsonConvert.DeserializeObject<LSConfiguration>(configurationfile);
-                        Application.Current.Properties["MatchesSubmitted"] = configFile.NumberOfMatches + 1;
-                        DependencyService.Get<DataStore>().SaveConfigurationFile("numMatches", Application.Current.Properties["MatchesSubmitted"]);
+                        await BlobCache.UserAccount.InsertObject("MatchesSubmitted", configFile.NumberOfMatches + 1);
+                        DependencyService.Get<DataStore>().SaveConfigurationFile("numMatches", configFile.NumberOfMatches + 1);
                     }
                     catch (Exception ex)
                     {
-                        Application.Current.Properties["MatchesSubmitted"] = 1;
-                        DependencyService.Get<DataStore>().SaveConfigurationFile("numMatches", Application.Current.Properties["MatchesSubmitted"]);
+                        await BlobCache.UserAccount.InsertObject("MatchesSubmitted", 1);
+                        DependencyService.Get<DataStore>().SaveConfigurationFile("numMatches", 1);
                     }
-
                 }
                 int i = 0;
                 bool taskcompleted = false;
-                if (((int)Application.Current.Properties["MatchesSubmitted"] % 3) == 0 || JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).BluetoothFailureStage == 1)
+                int matches = await BlobCache.UserAccount.GetObject<int>("MatchesSubmitted");
+                if ((matches % 3) == 0 || JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).BluetoothFailureStage == 1)
                 {
                     if (JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).BluetoothFailureStage < 2)
                     {
@@ -1562,7 +1565,7 @@ namespace LightScout
                             //var bluetoothclass = new SubmitVIABluetooth();
                             //await bluetoothclass.SubmitBluetooth(token);
                             
-                            await (Application.Current.Properties["BluetoothMethod"] as SubmitVIABluetooth).ConnectToDevice(argumentsToUse,token);
+                            await (await BlobCache.UserAccount.GetObject<SubmitVIABluetooth>("BluetoothMethod")).ConnectToDevice(argumentsToUse,token);
                             adapter = CrossBluetoothLE.Current.Adapter;
                             if (adapter.ConnectedDevices.Count > 0)
                             {

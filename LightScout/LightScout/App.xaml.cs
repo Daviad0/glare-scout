@@ -4,9 +4,11 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
+using System.Reactive.Linq;
 using Xamarin.Forms.Xaml;
 using Xamarin.Essentials;
 using System.Linq;
+using Akavache;
 
 namespace LightScout
 {
@@ -14,21 +16,25 @@ namespace LightScout
     {
         public App()
         {
+            Akavache.Registrations.Start("LightScout");
             InitializeComponent();
-            Application.Current.Properties["BluetoothMethod"] = new SubmitVIABluetooth();
-            if(!Application.Current.Properties.ContainsKey("TimeLastSubmitted"))
+            try
             {
-                Application.Current.Properties["TimeLastSubmitted"] = DateTime.Now;
+                BlobCache.UserAccount.InsertObject("BluetoothMethod", new SubmitVIABluetooth());
             }
-            if (JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TeamOfOwnership != 0)
+            catch(Exception e)
             {
-                MainPage = new NavigationPage(new MainPage());
+
             }
-            else
+            try
             {
-                MainPage = new NavigationPage(new SetNewData());
+                BlobCache.UserAccount.InsertObject("TimeLastSubmitted", DateTime.Now);
             }
-            if(!Application.Current.Properties.ContainsKey("UniqueID"))
+            catch (Exception e)
+            {
+
+            }
+            try
             {
                 var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
                 var stringChars = new char[8];
@@ -41,12 +47,19 @@ namespace LightScout
 
                 var finalString = new String(stringChars);
                 string deviceOSString = (DeviceInfo.Platform == DevicePlatform.iOS ? "i" : "a");
-                Application.Current.Properties["UniqueID"] = deviceOSString + "-" + finalString;
-                Console.WriteLine(Application.Current.Properties["UniqueID"]);
-                
+                BlobCache.UserAccount.InsertObject("UniqueID", deviceOSString + "-" + finalString);
             }
-            else {
-                Console.WriteLine(Application.Current.Properties["UniqueID"]);
+            catch (Exception e)
+            {
+
+            }
+            if (JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TeamOfOwnership != 0)
+            {
+                MainPage = new NavigationPage(new MainPage());
+            }
+            else
+            {
+                MainPage = new NavigationPage(new SetNewData());
             }
             Application.Current.SavePropertiesAsync();
             //MainPage = new NavigationPage(new SetNewData());
@@ -59,14 +72,17 @@ namespace LightScout
 
         protected override void OnStart()
         {
+
         }
 
         protected override void OnSleep()
         {
+            BlobCache.Shutdown().Wait();
         }
 
         protected override void OnResume()
         {
+
         }
     }
 }

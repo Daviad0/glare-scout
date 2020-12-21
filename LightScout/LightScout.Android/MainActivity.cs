@@ -16,6 +16,7 @@ using Android.Content.PM;
 using Android;
 using System.Linq;
 using Xamarin.Forms;
+using Akavache;
 
 [assembly: UsesFeature("android.hardware.usb.host")]
 
@@ -123,6 +124,8 @@ namespace LightScout.Droid
         }
         protected override void OnPause()
         {
+            //BlobCache.Shutdown().Wait();
+            base.OnPause();
             /*if (serialIoManager != null && serialIoManager.IsOpen)
             {
                 Log.Info(TAG, "Stopping IO manager ..");
@@ -135,7 +138,7 @@ namespace LightScout.Droid
                     // ignore
                 }
             }
-            base.OnPause();
+            
 
             // unregister the broadcast receivers
             var temp = detachedReceiver; // copy reference for thread safety

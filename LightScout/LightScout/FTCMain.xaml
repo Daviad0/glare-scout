@@ -6,7 +6,8 @@
              mc:Ignorable="d"
              x:Class="LightScout.FTCMain"
              NavigationPage.HasBackButton="False"
-             NavigationPage.HasNavigationBar="False">
+             NavigationPage.HasNavigationBar="False"
+             xmlns:control="clr-namespace:ProgressRingControl.Forms.Plugin;assembly=ProgressRing.Forms.Plugin">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style x:Key="lightPrimary" TargetType="Button">
@@ -45,55 +46,9 @@
     </ContentPage.Resources>
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" >
-            <!-- Place new controls here -->
-            <Grid Margin="10,20,10,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Text="Control Panel" 
-                   HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center"/>
-                <Button Text="Spun" Style="{StaticResource lightPrimary}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="cp_lv1" Clicked="CPChange"/>
-                <Button Text="Positioned" Style="{StaticResource lightPrimary}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" x:Name="cp_lv2" Clicked="CPChange"/>
-            </Grid>
-            <Grid Margin="10,20,10,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Text="Balanced?" 
-                   HorizontalOptions="Center" Grid.Row="0" Grid.Column="0" VerticalTextAlignment="Center" />
-                <Button Text="Yes" Style="{StaticResource lightSecondarySelected}" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" x:Name="balanced_opt1" Clicked="BalancedChange"/>
-                <Button Text="No" Style="{StaticResource lightSecondary}" Grid.Row="0" Grid.Column="2" VerticalOptions="Center" x:Name="balanced_opt2" Clicked="BalancedChange"/>
-            </Grid>
-            <Button Text="Send Data" Clicked="SendTheData"/>
-            <Button Text="Load Data" Clicked="LoadTheData"/>
-            <Label Text="" x:Name="showData"/>
-            <Button Text="Reload" Clicked="Button_Clicked"/>
+            <control:ProgressRing RingThickness="20" Progress="0.5" x:Name="progressTest"/>
+            <Button x:Name="progressRandom" Clicked="progressRandom_Clicked"/>
         </StackLayout>
-        <StackLayout x:Name="overLay" Opacity="1" BackgroundColor="#f57e25" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
-            <Grid VerticalOptions="CenterAndExpand" Margin="0,50,0,0" x:Name="animatedelement">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="200"/>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="30"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Image Source="ftcicon.png" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" WidthRequest="250" x:Name="logo" Grid.Row="0" Grid.Column="0"/>
-                <Label Text="Team 10176" TextColor="White" x:Name="HiddenLabel" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Opacity="0" Grid.Row="1" Grid.Column="0" FontSize="30" FontAttributes="Bold" Margin="0,5,0,0"/>
-                <Label Text="Robotex" TextColor="White" x:Name="HiddenLabelName" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Opacity="0" Grid.Row="2" Grid.Column="0" FontSize="20" FontAttributes="Italic"/>
-            </Grid>
 
-        </StackLayout>
     </AbsoluteLayout>
 </ContentPage>

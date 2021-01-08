@@ -66,6 +66,10 @@
               "target": "Package",
               "version": "[1.1.0, )"
             },
+            "Xam.Plugins.Forms.ProgressRing": {
+              "target": "Package",
+              "version": "[0.1.2, )"
+            },
             "Xamarin.Essentials": {
               "target": "Package",
               "version": "[1.5.3.2, )"
@@ -160,6 +164,10 @@
             "Xam.Plugin.DeviceInfo": {
               "target": "Package",
               "version": "[4.1.1, )"
+            },
+            "Xam.Plugins.Forms.ProgressRing": {
+              "target": "Package",
+              "version": "[0.1.2, )"
             },
             "Xamarin.Essentials": {
               "target": "Package",

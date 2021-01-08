@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "QRjM2t303GQ+SjhCdC9tN7Y3pfM5UF1S/Ml5d0sfojULlPifj1wiIaO+EaGV+zthmquTYjuELc/xve64yzTWEg==",
+  "dgSpecHash": "ReGoCNm1cv1/dETixVLM8DzeZEjDJj1LT7gQh8oJZUk/xrKEJ/vuaQ5ybj/huxp5GJb7MA7X2AF/JhZbH4xGIQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout\\LightScout.csproj",
   "expectedPackageFiles": [
@@ -65,10 +65,22 @@
     "C:\\Users\\djree\\.nuget\\packages\\touchtracking\\1.1.0\\touchtracking.1.1.0.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\touchtracking.forms\\1.1.0\\touchtracking.forms.1.1.0.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\xam.plugin.deviceinfo\\4.1.1\\xam.plugin.deviceinfo.4.1.1.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\xam.plugins.forms.progressring\\0.1.2\\xam.plugins.forms.progressring.0.1.2.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\xamarin.essentials\\1.5.3.2\\xamarin.essentials.1.5.3.2.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\xamarin.forms\\4.8.0.1534\\xamarin.forms.4.8.0.1534.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\zxing.net.mobile\\2.4.1\\zxing.net.mobile.2.4.1.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\zxing.net.mobile.forms\\2.4.1\\zxing.net.mobile.forms.2.4.1.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Xam.Plugins.Forms.ProgressRing 0.1.2' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETStandard,Version=v2.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Xam.Plugins.Forms.ProgressRing",
+      "targetGraphs": [
+        ".NETStandard,Version=v2.0"
+      ]
+    }
+  ]
 }

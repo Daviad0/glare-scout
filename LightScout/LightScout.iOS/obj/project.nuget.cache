@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "yaog8KURp9qVGDvxOjrKrC/5ry4r1X+8TtKbMejAIKJGqRcEtQqxXZi1AqIinCZh0fyWV1grcQEeOktnRanwiw==",
+  "dgSpecHash": "vxFNL/4OAZZ3sMzRVGGiLZOzgBFnGSCVvYA6rY6SPvpJKNu/eY7/1hd61NVsqGIJIq2NAAXnBdo6mLlM+58SwA==",
   "success": true,
   "projectFilePath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout.iOS\\LightScout.iOS.csproj",
   "expectedPackageFiles": [
@@ -41,6 +41,7 @@
     "C:\\Users\\djree\\.nuget\\packages\\touchtracking\\1.1.0\\touchtracking.1.1.0.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\touchtracking.forms\\1.1.0\\touchtracking.forms.1.1.0.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\xam.plugin.deviceinfo\\4.1.1\\xam.plugin.deviceinfo.4.1.1.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\xam.plugins.forms.progressring\\0.1.2\\xam.plugins.forms.progressring.0.1.2.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\xamarin.essentials\\1.5.3.2\\xamarin.essentials.1.5.3.2.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\xamarin.forms\\4.8.0.1364\\xamarin.forms.4.8.0.1364.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\zxing.net.mobile\\2.4.1\\zxing.net.mobile.2.4.1.nupkg.sha512",

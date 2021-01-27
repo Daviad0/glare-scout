@@ -704,6 +704,7 @@ namespace LightScout
                 uuid = Guid.Parse("6ad0f836b49011eab3de0242ac130001");
             }
             await selectedDevice.RequestMtuAsync(512);
+            selectedDevice.UpdateConnectionInterval(ConnectionInterval.High);
             var messagesleft = 0;
             var fullmessage = "";
             bool iscompleted = false;
@@ -721,6 +722,7 @@ namespace LightScout
                         if (convertedmessage.StartsWith("F!"))
                         {
                             messagesleft--;
+                            Console.WriteLine(messagesleft.ToString() + " left!");
                             fullmessage = fullmessage + data;
                             if (messagesleft == 0)
                             {
@@ -781,6 +783,7 @@ namespace LightScout
                     await characteristictosend.WriteAsync(Encoding.ASCII.GetBytes(leadingmessage));
                     for (int i = numberofmessages; i > 0; i--)
                     {
+                        MessagingCenter.Send<SubmitVIABluetooth, BluetoothControllerData>(this, "bluetoothController", new BluetoothControllerData() { timestamp = DateTime.Now, data = (100-((float)i/(float)numberofmessages)).ToString(), status = BluetoothControllerDataStatus.DataSent });
                         var bytesarray = followingheader.Concat(bytestotransmit.Skip((numberofmessages - i) * 460).Take(460).ToArray()).ToArray();
                         Console.WriteLine(Encoding.ASCII.GetString(bytesarray));
                         await characteristictosend.WriteAsync(bytesarray);
@@ -792,6 +795,7 @@ namespace LightScout
                     await characteristictosend.WriteAsync(Encoding.ASCII.GetBytes(singlemessage));
                 }
                 resultsubmitted = true;
+                MessagingCenter.Send<SubmitVIABluetooth, BluetoothControllerData>(this, "bluetoothController", new BluetoothControllerData() { timestamp = DateTime.Now, data = "100", status = BluetoothControllerDataStatus.DataSent });
                 Application.Current.Properties["TimeLastSubmitted"] = DateTime.Now;
                 MessagingCenter.Send<SubmitVIABluetooth, BluetoothControllerData>(this, "bluetoothController", new BluetoothControllerData() { timestamp = DateTime.Now, data = "Sent " + bytestotransmit.Length.ToString() + " message bytes successfully!", status = BluetoothControllerDataStatus.DataSent });
                 Console.WriteLine(bytestotransmit);
@@ -830,6 +834,7 @@ namespace LightScout
         Initialize = 1,
         Connected = 2,
         DataSent = 3,
-        DataGet = 4, 
+        DataGet = 4,
+        Progress = 8
     }
 }

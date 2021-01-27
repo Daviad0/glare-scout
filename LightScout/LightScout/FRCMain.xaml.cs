@@ -1452,10 +1452,12 @@ namespace LightScout
                                     }
                                     if (argumentsToUse.expectation == SubmitVIABluetooth.ResponseExpectation.NoResponse)
                                     {
+                                        taskcompleted = true;
                                         MessagingCenter.Unsubscribe<SubmitVIABluetooth, int>(this, "bluetoothController");
                                     }
                                     break;
                                 case BluetoothControllerDataStatus.DataGet:
+                                    taskcompleted = true;
                                     DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 0);
                                     if (highestlevelresponse < 3)
                                     {
@@ -1466,17 +1468,24 @@ namespace LightScout
                                     MessagingCenter.Unsubscribe<SubmitVIABluetooth, int>(this, "bluetoothController");
                                     break;
                                 case BluetoothControllerDataStatus.Abort:
-                                    DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 1);
-                                    if (JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).BluetoothFailureStage == 1)
-                                    {
-                                        DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 2);
-                                        DisplayAlert("Something Went Wrong!", "We encountered an error trying to transmit your data to the host computer. We tried this twice and it failed both times. Please notify the scouter managing tablets soon!", "I'll Do That!");
-                                    }
                                     MessagingCenter.Unsubscribe<SubmitVIABluetooth, int>(this, "bluetoothController");
+                                    //handle errors below in the time catch
+                                    if (submissionProgressLabel.Text.Contains("%"))
+                                    {
+                                       submissionProgressLabel.Text = "Something's Went Wrong! Please Wait...";
+                                    }
+                                    
+
+                                    break;
+                                case BluetoothControllerDataStatus.Progress:
+                                    submissionProgressBar.ProgressTo((float)int.Parse(value.data) / 100, 500, Easing.CubicInOut);
+                                    submissionProgressLabel.Text = value.data + "% Complete";
                                     break;
                             }
                         });
                         savingMessage.Text = "Sending to Computer...";
+                        compImage.IsVisible = true;
+                        phoneImage.IsVisible = false;
                         submittingOverlayPanel.TranslationX = 600;
                         await Task.Delay(15);
                         submittingOverlay.IsVisible = true;
@@ -1499,8 +1508,13 @@ namespace LightScout
                                 {
                                     if (highestlevelresponse < 3)
                                     {
-
+                                        DisplayAlert("Something Went Wrong!", "We encountered an error trying to transmit your data to the host computer. We tried this twice and it failed both times. Please notify the scouter managing tablets soon!", "I'll Do That!");
                                         DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 1);
+                                        if (JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).BluetoothFailureStage == 1)
+                                        {
+                                            DependencyService.Get<DataStore>().SaveConfigurationFile("bluetoothStage", 2);
+
+                                        }
                                     }
                                     waitingWithSubmit.IsVisible = false;
                                     doneWithSubmit.IsVisible = true;
@@ -1583,10 +1597,12 @@ namespace LightScout
                         savingProgress.ProgressTo(1, 1000, Easing.CubicInOut);
                         savingMessage.Text = "Saving to Database...";
                         submittingOverlayPanel.TranslationX = 600;
+                        compImage.IsVisible = false;
+                        phoneImage.IsVisible = true;
                         await Task.Delay(15);
                         submittingOverlay.IsVisible = true;
                         submittingOverlayPanel.TranslateTo(submittingOverlayPanel.TranslationX - 600, submittingOverlayPanel.TranslationY, 500, Easing.CubicInOut);
-                        await DisplayAlert("Uh Oh", "We are unable to connect to Bluetooth. Please notify the person in charge of tablet scouting!", "Ok!");
+                        await DisplayAlert("Unexpected Error", "We are unable to connect to Bluetooth. Please notify the person in charge of tablet scouting!", "Ok!");
                         Device.StartTimer(TimeSpan.FromSeconds(1), () =>
                         {
                             if (!taskcompleted)
@@ -1644,6 +1660,9 @@ namespace LightScout
                 {
                     savingProgress.ProgressTo(1, 500, Easing.CubicInOut);
                     savingMessage.Text = "Saving to Database...";
+                    compImage.IsVisible = false;
+                    phoneImage.IsVisible = true;
+
                     submittingOverlayPanel.TranslationX = 600;
                     await Task.Delay(15);
                     submittingOverlay.IsVisible = true;
@@ -1656,6 +1675,8 @@ namespace LightScout
                             {
                                 if (i == 2)
                                 {
+                                    submissionProgressBar.ProgressTo(1, 500, Easing.CubicInOut);
+                                    submissionProgressLabel.Text = "100% Complete";
                                     waitingWithSubmit.IsVisible = false;
                                     doneWithSubmit.IsVisible = true;
                                 }

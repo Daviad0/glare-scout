@@ -23,14 +23,14 @@ namespace LightScout
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-
+            
         }
         
 
         private void progressRandom_Clicked(object sender, EventArgs e)
         {
             var progress = (float)new Random().Next(0, 100) / (float)100;
-            progressTest.Progress = progress;
+            progressTest.AnimatedProgress = progress;
         }
     }
 }

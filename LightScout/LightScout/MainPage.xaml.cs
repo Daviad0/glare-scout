@@ -114,7 +114,7 @@ namespace LightScout
                 TeamMatchViewItem selectedItem = new TeamMatchViewItem();
                 var upnextselected = false;
                 int i = 0;
-                foreach (var match in listofmatches)
+                foreach (var match in listofmatches.OrderBy(x => x.MatchNumber).ToList())
                 {
 
                     var newmatchviewitem = new TeamMatchViewItem();
@@ -1386,7 +1386,7 @@ namespace LightScout
 
         private void ProtocolV3(object sender, EventArgs e)
         {
-            var argumentsToUse = new SubmitVIABluetooth.BLEMessageArguments() { messageType = 10, messageData = DependencyService.Get<DataStore>().LoadData("JacksonEvent2020.txt"), expectation = SubmitVIABluetooth.ResponseExpectation.Optional };
+            var argumentsToUse = new SubmitVIABluetooth.BLEMessageArguments() { messageType = 20, messageData = "I WANT IT NOWWWWW", expectation = SubmitVIABluetooth.ResponseExpectation.Expected };
 
             MessagingCenter.Subscribe<SubmitVIABluetooth, BluetoothControllerData>(this, "bluetoothController", async (mssender, value) =>
             {
@@ -1412,7 +1412,7 @@ namespace LightScout
                         await DismissNotification();
                         await NewNotification("Bluetooth Data Got Successfully!");
                         var listofmatches = JsonConvert.DeserializeObject<List<TeamMatch>>(value.data);
-                        Console.WriteLine(listofmatches);
+                        DependencyService.Get<DataStore>().SaveDefaultData("JacksonEvent2020.txt", listofmatches);
                         MessagingCenter.Unsubscribe<SubmitVIABluetooth, int>(this, "bluetoothController");
                         break;
                     case BluetoothControllerDataStatus.Abort:

@@ -445,19 +445,32 @@
                 </StackLayout>
                 <StackLayout VerticalOptions="Center" Opacity="1" HorizontalOptions="Center" AbsoluteLayout.LayoutBounds=".5,.5,.8,.8" AbsoluteLayout.LayoutFlags="All" x:Name="submittingOverlayPanel">
                     <Frame BackgroundColor="{DynamicResource Overlay}" Padding="40" CornerRadius="14">
-                        <StackLayout>
-                            <Image Source="LightScoutGray.png" Opacity="0.3" HeightRequest="150" Margin="20,50,20,0"/>
-                            <Grid>
-                                <StackLayout Grid.Row="0" Grid.Column="0" x:Name="waitingWithSubmit" IsVisible="True" HeightRequest="170">
-                                    <Label HorizontalOptions="Center" Text="Loading..." Margin="20,30,20,0" FontSize="30" TextColor="{DynamicResource FramePrimary}"/>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="compimage.png" Grid.Column="0" Grid.Row="0" Opacity="0.8" HeightRequest="150" Margin="20,50,20,0" x:Name="compImage" IsVisible="False"/>
+                            <Image Source="phoneimage.png" Grid.Column="0" Grid.Row="0" Opacity="0.8" HeightRequest="150" Margin="20,50,20,0" x:Name="phoneImage"/>
+                            <Grid Grid.Column="0" Grid.Row="1">
+                                <StackLayout Grid.Row="0" Grid.Column="0" x:Name="waitingWithSubmit" IsVisible="True" HeightRequest="170" VerticalOptions="Center">
+                                    <Label HorizontalOptions="Center" Text="Match Complete!" Margin="20,30,20,0" FontSize="30" TextColor="{DynamicResource FramePrimary}"/>
                                     <Label HorizontalOptions="Center" Text="Connecting to File System" Margin="20,0,20,30" x:Name="progressStep" TextColor="{DynamicResource FramePrimary}"/>
                                 </StackLayout>
-                                <StackLayout Grid.Row="0" Grid.Column="0" x:Name="doneWithSubmit" IsVisible="False" HeightRequest="170">
+                                <StackLayout Grid.Row="0" Grid.Column="0" x:Name="doneWithSubmit" IsVisible="False" HeightRequest="170" VerticalOptions="Center">
                                     <Label HorizontalOptions="Center" VerticalOptions="Center" Text="&#xeed8;" Margin="20,30,20,0" FontSize="50" TextColor="{DynamicResource FramePrimary}" FontFamily="{StaticResource IconFont}"/>
 
                                 </StackLayout>
                             </Grid>
-                        </StackLayout>
+                            <StackLayout Grid.Column="0" Grid.Row="2">
+                                <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Text="0% Complete" x:Name="submissionProgressLabel"/>
+                                <ProgressBar ProgressColor="{DynamicResource PrimaryColor}" Progress="0" x:Name="submissionProgressBar"/>
+                            </StackLayout>
+                        </Grid>
                     </Frame>
 
                 </StackLayout>
@@ -1035,7 +1048,7 @@
             </Button>
             <Grid VerticalOptions="CenterAndExpand" Margin="0,70,0,0" x:Name="animatedelement">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="300"/>
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
@@ -1043,43 +1056,9 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <StackLayout Grid.Column="0" Grid.Row="0" Margin="5,0">
-                    <Grid>
-                        <Image Source="teamnumberselection.png" Margin="5,1" VerticalOptions="Center"/>
-                        <Label Text="862" Margin="20,1" VerticalOptions="Center" HorizontalOptions="End" FontAttributes="Bold" FontSize="20" TextColor="White">
-                            <Label.FontFamily>
-                                <OnPlatform x:TypeArguments="x:String">
-                                    <On Platform="iOS">Varela Round Regular</On>
-                                    <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
-                                </OnPlatform>
-                            </Label.FontFamily>
-                        </Label>
-                    </Grid>
-                    <Grid>
-                        <Image Source="teamnumberselection.png" Margin="5,1" VerticalOptions="Center"/>
-                        <Label Text="1023" Margin="20,1" VerticalOptions="Center" HorizontalOptions="End" FontAttributes="Bold" FontSize="20" TextColor="White">
-                            <Label.FontFamily>
-                                <OnPlatform x:TypeArguments="x:String">
-                                    <On Platform="iOS">Varela Round Regular</On>
-                                    <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
-                                </OnPlatform>
-                            </Label.FontFamily>
-                        </Label>
-                    </Grid>
-                    <Grid>
-                        <Image Source="teamnumberselection.png" Margin="5,1" VerticalOptions="Center"/>
-                        <Label Text="2048" Margin="20,1" VerticalOptions="Center" HorizontalOptions="End" FontAttributes="Bold" FontSize="20" TextColor="White">
-                            <Label.FontFamily>
-                                <OnPlatform x:TypeArguments="x:String">
-                                    <On Platform="iOS">Varela Round Regular</On>
-                                    <On Platform="Android">VarelaRound-Regular.ttf#Varela Round Regular</On>
-                                </OnPlatform>
-                            </Label.FontFamily>
-                        </Label>
-                    </Grid>
-                </StackLayout>
                 
-                <Label Text="&#xeebd;" FontFamily="{StaticResource IconFont}" FontSize="80" x:Name="logo" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="Center"/>
+                
+                <Image x:Name="logo" Source="IRLogo.png" Grid.Row="0" Grid.Column="0" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"/>
                 <Image Source="frcicon.png" IsVisible="False" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" WidthRequest="250" Grid.Row="0" Grid.Column="0"/>
                 <Label Text="Team 862" TextColor="White" x:Name="HiddenLabel" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Opacity="0" Grid.Row="1" Grid.Column="0" FontSize="30" FontAttributes="Bold">
                     <Label.FontFamily>
@@ -1109,7 +1088,7 @@
 
                 <!--<Button Text="Let's Do This!" BackgroundColor="White" TextColor="#009cd7" CornerRadius="6" FontFamily=""/>-->
             </Grid>
-            <Button Text="Let's Scout!" TextColor="{DynamicResource HeaderButtonText}" x:Name="HiddenButtonGo" BackgroundColor="{DynamicResource HeaderButton}" VerticalOptions="End" HorizontalOptions="CenterAndExpand" Opacity="0" Margin="0,0,0,10" Clicked="StartScouting" WidthRequest="300" CornerRadius="8">
+            <Button Text="Start Scouting" TextColor="{DynamicResource HeaderButtonText}" x:Name="HiddenButtonGo" BackgroundColor="{DynamicResource HeaderButton}" VerticalOptions="End" HorizontalOptions="CenterAndExpand" Opacity="0" Margin="0,0,0,10" Clicked="StartScouting" WidthRequest="300" CornerRadius="8">
 
             </Button>
         </StackLayout>

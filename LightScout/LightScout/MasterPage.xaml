@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:local="clr-namespace:LightScout"
+             x:Class="LightScout.MasterPage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <xct:LazyView x:TypeArguments="local:LazyViewTest" x:Name="scoviaPants" Grid.Row="0"/>
+            <Label Text="Test1" HorizontalOptions="Center" HorizontalTextAlignment="Center" x:Name="UWUUUUUU" Grid.Row="1"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,20 +1,20 @@
 {
   "version": 2,
-  "dgSpecHash": "vxFNL/4OAZZ3sMzRVGGiLZOzgBFnGSCVvYA6rY6SPvpJKNu/eY7/1hd61NVsqGIJIq2NAAXnBdo6mLlM+58SwA==",
+  "dgSpecHash": "U8zJeywT5M3kPWRgeIfgkdB0YIlhgQsZuiypjzyfYXoG1Ks4PQDh9cgsi1pgmcv3186oViXwVTlWs7XabrjM/w==",
   "success": true,
   "projectFilePath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout.iOS\\LightScout.iOS.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\djree\\.nuget\\packages\\akavache\\7.1.1\\akavache.7.1.1.nupkg.sha512",
-    "C:\\Users\\djree\\.nuget\\packages\\akavache.core\\7.1.1\\akavache.core.7.1.1.nupkg.sha512",
-    "C:\\Users\\djree\\.nuget\\packages\\akavache.sqlite3\\7.1.1\\akavache.sqlite3.7.1.1.nupkg.sha512",
-    "C:\\Users\\djree\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\akavache\\7.2.1\\akavache.7.2.1.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\akavache.core\\7.2.1\\akavache.core.7.2.1.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\akavache.sqlite3\\7.2.1\\akavache.sqlite3.7.2.1.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
-    "C:\\Users\\djree\\.nuget\\packages\\plugin.ble\\2.1.1\\plugin.ble.2.1.1.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\plugin.ble\\2.1.2\\plugin.ble.2.1.2.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\sharpnado.shadows\\1.2.0\\sharpnado.shadows.1.2.0.nupkg.sha512",
-    "C:\\Users\\djree\\.nuget\\packages\\skiasharp\\1.68.1\\skiasharp.1.68.1.nupkg.sha512",
-    "C:\\Users\\djree\\.nuget\\packages\\skiasharp.views\\1.68.1\\skiasharp.views.1.68.1.nupkg.sha512",
-    "C:\\Users\\djree\\.nuget\\packages\\skiasharp.views.forms\\1.68.1\\skiasharp.views.forms.1.68.1.nupkg.sha512",
-    "C:\\Users\\djree\\.nuget\\packages\\splat\\9.6.1\\splat.9.6.1.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\skiasharp\\2.80.2\\skiasharp.2.80.2.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\skiasharp.views\\2.80.2\\skiasharp.views.2.80.2.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\skiasharp.views.forms\\2.80.2\\skiasharp.views.forms.2.80.2.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\splat\\10.0.1\\splat.10.0.1.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.0.4\\sqlitepclraw.bundle_e_sqlite3.2.0.4.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\sqlitepclraw.core\\2.0.4\\sqlitepclraw.core.2.0.4.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3.ios\\2.0.4\\sqlitepclraw.lib.e_sqlite3.ios.2.0.4.nupkg.sha512",
@@ -28,7 +28,8 @@
     "C:\\Users\\djree\\.nuget\\packages\\system.io.filesystem.primitives\\4.3.0\\system.io.filesystem.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\system.net.primitives\\4.3.1\\system.net.primitives.4.3.1.nupkg.sha512",
-    "C:\\Users\\djree\\.nuget\\packages\\system.reactive\\4.4.1\\system.reactive.4.4.1.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\system.reactive\\5.0.0\\system.reactive.5.0.0.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\system.resources.resourcemanager\\4.3.0\\system.resources.resourcemanager.4.3.0.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.2\\system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\system.runtime.extensions\\4.3.1\\system.runtime.extensions.4.3.1.nupkg.sha512",
@@ -42,24 +43,11 @@
     "C:\\Users\\djree\\.nuget\\packages\\touchtracking.forms\\1.1.0\\touchtracking.forms.1.1.0.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\xam.plugin.deviceinfo\\4.1.1\\xam.plugin.deviceinfo.4.1.1.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\xam.plugins.forms.progressring\\0.1.2\\xam.plugins.forms.progressring.0.1.2.nupkg.sha512",
-    "C:\\Users\\djree\\.nuget\\packages\\xamarin.essentials\\1.5.3.2\\xamarin.essentials.1.5.3.2.nupkg.sha512",
-    "C:\\Users\\djree\\.nuget\\packages\\xamarin.forms\\4.8.0.1364\\xamarin.forms.4.8.0.1364.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\xamarin.communitytoolkit\\1.1.0\\xamarin.communitytoolkit.1.1.0.nupkg.sha512",
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\xamarin.essentials\\1.6.1\\xamarin.essentials.1.6.1.nupkg.sha512",
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\xamarin.forms\\5.0.0.2012\\xamarin.forms.5.0.0.2012.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\zxing.net.mobile\\2.4.1\\zxing.net.mobile.2.4.1.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\zxing.net.mobile.forms\\2.4.1\\zxing.net.mobile.forms.2.4.1.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1605",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Detected package downgrade: Xamarin.Forms from 4.8.0.1534 to 4.8.0.1364. Reference the package directly from the project to select a different version. \r\n LightScout.iOS -> LightScout -> Xamarin.Forms (>= 4.8.0.1534) \r\n LightScout.iOS -> Xamarin.Forms (>= 4.8.0.1364)",
-      "libraryId": "Xamarin.Forms",
-      "targetGraphs": [
-        "Xamarin.iOS,Version=v1.0",
-        "Xamarin.iOS,Version=v1.0/win",
-        "Xamarin.iOS,Version=v1.0/win-x64",
-        "Xamarin.iOS,Version=v1.0/win-x86"
-      ]
-    }
-  ]
+  "logs": []
 }

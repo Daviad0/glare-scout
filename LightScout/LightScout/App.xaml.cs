@@ -55,14 +55,14 @@ namespace LightScout
             }
             if (JsonConvert.DeserializeObject<LSConfiguration>(DependencyService.Get<DataStore>().LoadConfigFile()).TeamOfOwnership != 0)
             {
-                MainPage = new NavigationPage(new MainPage());
+                //MainPage = new NavigationPage(new MainPage());
             }
             else
             {
-                MainPage = new NavigationPage(new SetNewData());
+                //MainPage = new NavigationPage(new SetNewData());
             }
             Application.Current.SavePropertiesAsync();
-            //MainPage = new NavigationPage(new SetNewData());
+            MainPage = new NavigationPage(new MasterPage());
             ICollection<ResourceDictionary> mergedDictionaries = Application.Current.Resources.MergedDictionaries;
             mergedDictionaries.Clear();
             mergedDictionaries.Add(new LightTheme());

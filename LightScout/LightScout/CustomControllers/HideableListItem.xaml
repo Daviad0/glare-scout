@@ -4,12 +4,13 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:sh="http://sharpnado.com"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              mc:Ignorable="d"
              x:Class="LightScout.CustomControllers.HideableListItem"
              BackgroundColor="Transparent">
   <ContentView.Content>
-    <Expander ClassId="{Binding Id}" IsVisible="{Binding Visible}">
-        <Expander.Header>
+    <xct:Expander ClassId="{Binding Id}" IsVisible="{Binding Visible}">
+            <xct:Expander.Header>
                 <!--<sh:Shadows CornerRadius="8">
                     <sh:Shadows.Shades>
                         <sh:ImmutableShades>
@@ -89,10 +90,10 @@
 
                 </Grid>
 
-            </Expander.Header>
+            </xct:Expander.Header>
             <Frame HasShadow="False" Grid.Column="0" CornerRadius="8" BackgroundColor="{DynamicResource Header}" HeightRequest="200" Margin="10,10,10,0">
 
         </Frame>
-    </Expander>
+    </xct:Expander>
     </ContentView.Content>
 </ContentView>

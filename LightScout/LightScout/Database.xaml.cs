@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -294,7 +295,7 @@ namespace LightScout
 
         private async void TapGestureRecognizer_Tapped_1(object sender, EventArgs e)
         {
-            /*Frame frame = (Frame)sender as Frame;
+            Frame frame = (Frame)sender as Frame;
             Expander expander = (Expander)frame.Parent.Parent;
             expander.ExpandAnimationEasing = Easing.CubicInOut;
             expander.CollapseAnimationEasing = Easing.CubicInOut;
@@ -302,7 +303,7 @@ namespace LightScout
             expander.ExpandAnimationLength = 500;
             Label hidingIcon = (Label)((Grid)((Frame)((Grid)frame.Parent).Children.Where(x => x.ClassId.Contains("below")).FirstOrDefault()).Content).Children.Where(x => x.ClassId.Contains("label"));
             Label hidingTag = (Label)((Grid)((Frame)((Grid)frame.Parent).Children.Where(x => x.ClassId.Contains("below")).FirstOrDefault()).Content).Children.Where(x => x.ClassId.Contains("icon"));
-            Frame testoption = (Frame)((Grid)frame.Parent).Children.Where(x => x.ClassId.Contains("below")).FirstOrDefault();*/
+            Frame testoption = (Frame)((Grid)frame.Parent).Children.Where(x => x.ClassId.Contains("below")).FirstOrDefault();
         }
 
         private async void Button_Clicked(object sender, EventArgs e)

@@ -38,12 +38,12 @@ namespace LightScout.CustomControllers
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
             Frame frame = (Frame)sender as Frame;
-            Expander selected = (Expander)frame.Parent.Parent.Parent;
+            /*Expander selected = (Expander)frame.Parent.Parent.Parent;
             selected.ExpandAnimationEasing = Easing.CubicInOut;
             selected.CollapseAnimationEasing = Easing.CubicInOut;
             selected.CollapseAnimationLength = 500;
             selected.ExpandAnimationLength = 500;
-            selected.IsExpanded = !selected.IsExpanded;
+            selected.IsExpanded = !selected.IsExpanded;*/
         }
 
         private async void TapGestureRecognizer_Tapped_1(object sender, EventArgs e)
@@ -62,12 +62,12 @@ namespace LightScout.CustomControllers
         private async void PanGestureRecognizer_PanUpdated_1(object sender, PanUpdatedEventArgs e)
         {
             Frame frame = (Frame)sender as Frame;
-            Expander expander = (Expander)frame.Parent.Parent.Parent;
+            /*Expander expander = (Expander)frame.Parent.Parent.Parent;
             expander.AnchorY -= 30;
             expander.ExpandAnimationEasing = Easing.CubicInOut;
             expander.CollapseAnimationEasing = Easing.CubicInOut;
             expander.CollapseAnimationLength = 500;
-            expander.ExpandAnimationLength = 500;
+            expander.ExpandAnimationLength = 500;*/
             Grid parent1 = (Grid)frame.Parent;
             Frame frame1 = (Frame)parent1.Children[0];
             Grid parent2 = (Grid)frame1.Content;
@@ -89,11 +89,11 @@ namespace LightScout.CustomControllers
                             //hidingIcon.TranslateTo(0, 0, easing: Easing.CubicInOut);
                             hidingTag.FadeTo(1, easing: Easing.CubicInOut);
                             testoption.FadeTo(0, easing: Easing.CubicInOut);
-                            if (((Expander)frame.Parent.Parent.Parent).IsExpanded)
+                            /*if (((Expander)frame.Parent.Parent.Parent).IsExpanded)
                             {
                                 ((Expander)frame.Parent.Parent.Parent).IsExpanded = false;
                                 await Task.Delay(200);
-                            }
+                            }*/
                             await Task.Delay(100);
                             //AUTORESET FOR DEBUG
                             OnDragToDelete(currentInstance.Id);
@@ -150,11 +150,11 @@ namespace LightScout.CustomControllers
                             //hidingIcon.TranslateTo(0, 0, easing: Easing.CubicInOut);
                             hidingTag.FadeTo(1, easing: Easing.CubicInOut);
                             testoption.FadeTo(0, easing: Easing.CubicInOut);
-                            if (((Expander)frame.Parent.Parent.Parent).IsExpanded)
+                            /*if (((Expander)frame.Parent.Parent.Parent).IsExpanded)
                             {
                                 ((Expander)frame.Parent.Parent.Parent).IsExpanded = false;
                                 await Task.Delay(200);
-                            }
+                            }*/
                             await Task.Delay(100);
                             
                             //AUTORESET FOR DEBUG

@@ -15,6 +15,7 @@ namespace LightScout
         public LazyViewTest()
         {
             InitializeComponent();
+            Randomness.Text = new Random().Next(1, 1000).ToString();
         }
     }
 }

@@ -23,13 +23,105 @@ namespace LightScout
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MasterPage : ContentPage
     {
+        private bool menuExpanded = false;
+        private string currentPage = "mainPage";
         public MasterPage()
         {
             InitializeComponent();
         }
         protected override async void OnAppearing()
         {
-            scoviaPants.LoadViewAsync();
+            
+        }
+
+        private async void expandMenu_Clicked(object sender, EventArgs e)
+        {
+            Grid pageAlready = this.FindByName<Grid>(currentPage);
+            menuExpanded = !menuExpanded;
+            if (menuExpanded)
+            {
+                pageAlready.TranslateTo(pageAlready.X, pageAlready.Y - 180, 500, Easing.CubicInOut);
+                this.FindByName<Label>(pageAlready.ClassId + "Nav1").RotateTo(180, 250, Easing.CubicInOut);
+                
+            }
+            else
+            {
+                pageAlready.TranslateTo(pageAlready.X, pageAlready.Y, 500, Easing.CubicInOut);
+                this.FindByName<Label>(pageAlready.ClassId + "Nav1").RotateTo(0, 250, Easing.CubicInOut);
+                
+            }
+                
+        }
+
+        private async void changeMenuPage(object sender, EventArgs e)
+        {
+            Frame clickedObj = (Frame)sender as Frame;
+            Grid pageAlready = this.FindByName<Grid>(currentPage);
+            Grid newPage = this.FindByName<Grid>(clickedObj.ClassId);
+            if (currentPage != clickedObj.ClassId)
+            {
+                newPage.TranslationY = pageAlready.TranslationY;
+                this.FindByName<Label>(newPage.ClassId + "Nav1").Rotation = 180;
+                newPage.IsVisible = true;
+                this.FindByName<Label>(newPage.ClassId + "Nav1").RotateTo(0, 250, Easing.CubicInOut);
+                pageAlready.IsVisible = false;
+                pageAlready.TranslationY = 0;
+                this.FindByName<Label>(pageAlready.ClassId + "Nav1").Rotation = 180;
+                currentPage = clickedObj.ClassId;
+            }
+            else
+            {
+                this.FindByName<Label>(pageAlready.ClassId + "Nav1").RotateTo(0, 250, Easing.CubicInOut);
+            }
+            menuExpanded = false;
+
+            newPage.TranslateTo(newPage.X, newPage.Y, 500, Easing.CubicInOut);
+        }
+        private async void changeMenuPage_image(object sender, EventArgs e)
+        {
+            Image clickedObj = (Image)sender as Image;
+            Grid pageAlready = this.FindByName<Grid>(currentPage);
+            Grid newPage = this.FindByName<Grid>(clickedObj.ClassId);
+            if (currentPage != clickedObj.ClassId)
+            {
+                newPage.TranslationY = pageAlready.TranslationY;
+                this.FindByName<Label>(newPage.ClassId + "Nav1").Rotation = 180;
+                newPage.IsVisible = true;
+                this.FindByName<Label>(newPage.ClassId + "Nav1").RotateTo(0, 250, Easing.CubicInOut);
+                pageAlready.IsVisible = false;
+                pageAlready.TranslationY = 0;
+                this.FindByName<Label>(pageAlready.ClassId + "Nav1").Rotation = 180;
+                currentPage = clickedObj.ClassId;
+            }
+            else
+            {
+                this.FindByName<Label>(pageAlready.ClassId + "Nav1").RotateTo(0, 250, Easing.CubicInOut);
+            }
+            menuExpanded = false;
+
+            newPage.TranslateTo(newPage.X, newPage.Y, 500, Easing.CubicInOut);
+        }
+
+        private async void openEditPage(object sender, EventArgs e)
+        {
+            var converter = new ColorTypeConverter();
+            matchEdit.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2A7AFA");
+            matchEditLabel.TextColor = (Color)converter.ConvertFromInvariantString("White");
+            overlayEdit.TranslationY = 700;
+            overlayEdit.IsVisible = true;
+            overlayEdit.TranslateTo(overlayEdit.X, overlayEdit.Y + 16, 750, Easing.CubicInOut);
+            await Task.Delay(500);
+            overlayEditArrow.RotateTo(0, 250, Easing.CubicInOut);
+        }
+
+        private async void closeEditPage(object sender, EventArgs e)
+        {
+            var converter = new ColorTypeConverter();
+            matchEdit.BackgroundColor = (Color)converter.ConvertFromInvariantString("White");
+            matchEditLabel.TextColor = (Color)converter.ConvertFromInvariantString("#2A7AFA");
+            await overlayEdit.TranslateTo(overlayEdit.X, overlayEdit.Y + 700, 750, Easing.CubicInOut);
+            overlayEditArrow.Rotation = 180;
+            overlayEdit.IsVisible = false;
         }
     }
 }

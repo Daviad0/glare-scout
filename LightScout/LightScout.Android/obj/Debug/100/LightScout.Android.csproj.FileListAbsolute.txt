@@ -809,3 +809,9 @@ C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\stamp\_GenerateJavaStubs.stamp
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\stamp\_GeneratePackageManagerJava.stamp
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\stamp\_ResolveLibraryProjectImports.stamp
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\res\drawable\scrollgradient.png
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\res\drawable\lsd.png
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\res\drawable\lsh.png
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\res\drawable\lss.png
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\res\drawable\lsra.png
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\res\drawable\lsla.png

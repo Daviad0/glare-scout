@@ -4,7 +4,7 @@
              x:Class="LightScout.LazyViewTest">
   <ContentView.Content>
       <StackLayout>
-          <Label Text="Hello me!!" />
-      </StackLayout>
+            <Label Text="Random Number Here" x:Name="Randomness"/>
+        </StackLayout>
   </ContentView.Content>
 </ContentView>

@@ -6,7 +6,7 @@
     the contents are regenerated.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.team862.lightscout" android:installLocation="preferExternal" android:versionCode="4" android:versionName="1.2.5">
-  <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="29" />
+  <uses-sdk android:minSdkVersion="22" android:targetSdkVersion="29" />
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-feature android:name="android.hardware.usb.host" />
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

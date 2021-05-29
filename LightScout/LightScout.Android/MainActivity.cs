@@ -17,6 +17,7 @@ using Android;
 using System.Linq;
 using Xamarin.Forms;
 using Akavache;
+using ProgressRingControl.Forms.Plugin.Android;
 
 [assembly: UsesFeature("android.hardware.usb.host")]
 

@@ -61,6 +61,7 @@ namespace LightScout
             {
                 //MainPage = new NavigationPage(new SetNewData());
             }
+            //MainPage = new NavigationPage(new FTCMain());
             Application.Current.SavePropertiesAsync();
             MainPage = new NavigationPage(new MasterPage());
             ICollection<ResourceDictionary> mergedDictionaries = Application.Current.Resources.MergedDictionaries;

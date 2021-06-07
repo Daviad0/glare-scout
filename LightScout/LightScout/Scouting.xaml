@@ -1,12 +1,49 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LightScout.Scouting">
+             x:Class="LightScout.Scouting"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="False">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <AbsoluteLayout>
+            
+            <Grid Margin="0,50,0,0" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#E2F1FF">
+                <Label Margin="0,80,0,0" Text="DAVEED"/>
+            </Grid>
+            <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <Frame VerticalOptions="Start" BackgroundColor="#2A7AFA" x:Name="options">
+                    <StackLayout>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Padding="5" HorizontalOptions="Center" Grid.Column="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Label TextColor="White" Grid.Column="0" Text="Match 22" FontSize="28" HorizontalOptions="End" Margin="5,0"/>
+                                <Frame Grid.Column="1" CornerRadius="14" Padding="8,4" HorizontalOptions="Start" VerticalOptions="Center" Margin="5,0">
+                                    <Label TextColor="#2A7AFA" Text="862" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                </Frame>
+                        
+                            
+                            </Grid>
+                            <Label TextColor="White" Grid.Column="0" VerticalOptions="Center" Text="&#xea99;" FontFamily="{StaticResource IconFont}" FontSize="38" HorizontalOptions="End">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="expandOptions"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </Grid>
+                        <Label Margin="0,30,0,0" Text="THIS IS CONTENT" x:Name="optionsContent" IsVisible="False"/>
+                    </StackLayout>
+                    
+                    
+                </Frame>
+            </StackLayout>
+            
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

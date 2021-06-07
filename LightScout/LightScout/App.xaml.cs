@@ -63,7 +63,7 @@ namespace LightScout
             }
             //MainPage = new NavigationPage(new FTCMain());
             Application.Current.SavePropertiesAsync();
-            MainPage = new NavigationPage(new MasterPage());
+            MainPage = new NavigationPage(new Scouting());
             ICollection<ResourceDictionary> mergedDictionaries = Application.Current.Resources.MergedDictionaries;
             mergedDictionaries.Clear();
             mergedDictionaries.Add(new LightTheme());

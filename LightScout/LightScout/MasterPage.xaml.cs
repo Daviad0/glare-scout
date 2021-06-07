@@ -123,5 +123,33 @@ namespace LightScout
             overlayEditArrow.Rotation = 180;
             overlayEdit.IsVisible = false;
         }
+        private async void openMatchPage(object sender, EventArgs e)
+        {
+            var converter = new ColorTypeConverter();
+            matchGo.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2A7AFA");
+            matchGoLabel.TextColor = (Color)converter.ConvertFromInvariantString("White");
+            overlayMatch.TranslationY = 700;
+            overlayMatch.IsVisible = true;
+            overlayMatch.TranslateTo(overlayMatch.X, overlayMatch.Y + 16, 750, Easing.CubicInOut);
+            await Task.Delay(500);
+            overlayMatchArrow.RotateTo(0, 250, Easing.CubicInOut);
+        }
+
+        private async void closeMatchPage(object sender, EventArgs e)
+        {
+            var converter = new ColorTypeConverter();
+            matchGo.BackgroundColor = (Color)converter.ConvertFromInvariantString("White");
+            matchGoLabel.TextColor = (Color)converter.ConvertFromInvariantString("#2A7AFA");
+            await overlayMatch.TranslateTo(overlayMatch.X, overlayMatch.Y + 700, 750, Easing.CubicInOut);
+            overlayMatchArrow.Rotation = 180;
+            overlayMatch.IsVisible = false;
+        }
+        private async void loadScouting(object sender, EventArgs e)
+        {
+            // try to get a dynamicly loading page
+            buttonTest1.IsVisible = false;
+            labelTest1.IsVisible = true;
+            Navigation.PushAsync(new Scouting());
+        }
     }
 }

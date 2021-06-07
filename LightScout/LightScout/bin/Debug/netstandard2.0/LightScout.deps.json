@@ -22,48 +22,48 @@
           "Xamarin.Forms": "5.0.0.2012",
           "ZXing.Net.Mobile": "2.4.1",
           "ZXing.Net.Mobile.Forms": "2.4.1",
-          "akavache": "7.2.1"
+          "akavache": "7.1.1"
         },
         "runtime": {
           "LightScout.dll": {}
         }
       },
-      "akavache/7.2.1": {
+      "akavache/7.1.1": {
         "dependencies": {
           "SQLitePCLRaw.bundle_e_sqlite3": "2.0.4",
-          "akavache.core": "7.2.1",
-          "akavache.sqlite3": "7.2.1"
+          "akavache.core": "7.1.1",
+          "akavache.sqlite3": "7.1.1"
         },
         "runtime": {
           "lib/netstandard2.0/Akavache.dll": {
-            "assemblyVersion": "7.2.0.0",
-            "fileVersion": "7.2.1.23364"
+            "assemblyVersion": "7.1.0.0",
+            "fileVersion": "7.1.1.22514"
           }
         }
       },
-      "akavache.core/7.2.1": {
+      "akavache.core/7.1.1": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.1",
           "Newtonsoft.Json.Bson": "1.0.2",
-          "Splat": "10.0.1",
+          "Splat": "9.6.1",
           "System.ComponentModel": "4.3.0",
           "System.Diagnostics.Contracts": "4.3.0",
           "System.Dynamic.Runtime": "4.3.0",
-          "System.Reactive": "5.0.0",
+          "System.Reactive": "4.4.1",
           "System.Runtime.Serialization.Primitives": "4.3.0",
-          "System.Security.Cryptography.ProtectedData": "5.0.0"
+          "System.Security.Cryptography.ProtectedData": "4.7.0"
         },
         "runtime": {
           "lib/netstandard2.0/Akavache.Core.dll": {
-            "assemblyVersion": "7.2.0.0",
-            "fileVersion": "7.2.1.23364"
+            "assemblyVersion": "7.1.0.0",
+            "fileVersion": "7.1.1.22514"
           }
         }
       },
-      "akavache.sqlite3/7.2.1": {
+      "akavache.sqlite3/7.1.1": {
         "dependencies": {
           "SQLitePCLRaw.core": "2.0.4",
-          "Splat": "10.0.1",
+          "Splat": "9.6.1",
           "System.Collections": "4.3.0",
           "System.Diagnostics.Debug": "4.3.0",
           "System.Diagnostics.Tracing": "4.3.0",
@@ -71,18 +71,18 @@
           "System.IO.FileSystem": "4.3.0",
           "System.IO.FileSystem.Primitives": "4.3.0",
           "System.Net.Primitives": "4.3.1",
-          "System.Reactive": "5.0.0",
+          "System.Reactive": "4.4.1",
           "System.Resources.ResourceManager": "4.3.0",
           "System.Runtime.Extensions": "4.3.1",
           "System.Runtime.InteropServices": "4.3.0",
           "System.Text.Encoding.Extensions": "4.3.0",
           "System.Threading": "4.3.0",
-          "akavache.core": "7.2.1"
+          "akavache.core": "7.1.1"
         },
         "runtime": {
           "lib/netstandard2.0/Akavache.Sqlite3.dll": {
-            "assemblyVersion": "7.2.0.0",
-            "fileVersion": "7.2.1.23364"
+            "assemblyVersion": "7.1.0.0",
+            "fileVersion": "7.1.1.22514"
           }
         }
       },
@@ -138,7 +138,7 @@
       },
       "SkiaSharp/2.80.2": {
         "dependencies": {
-          "System.Memory": "4.5.4"
+          "System.Memory": "4.5.3"
         },
         "runtime": {
           "lib/netstandard2.0/SkiaSharp.dll": {
@@ -153,11 +153,11 @@
           "Xamarin.Forms": "5.0.0.2012"
         }
       },
-      "Splat/10.0.1": {
+      "Splat/9.6.1": {
         "runtime": {
           "lib/netstandard2.0/Splat.dll": {
-            "assemblyVersion": "10.0.0.0",
-            "fileVersion": "10.0.1.9728"
+            "assemblyVersion": "9.6.0.0",
+            "fileVersion": "9.6.1.22164"
           }
         }
       },
@@ -176,7 +176,7 @@
       },
       "SQLitePCLRaw.core/2.0.4": {
         "dependencies": {
-          "System.Memory": "4.5.4"
+          "System.Memory": "4.5.3"
         },
         "runtime": {
           "lib/netstandard2.0/SQLitePCLRaw.core.dll": {
@@ -197,11 +197,11 @@
           }
         }
       },
-      "System.Buffers/4.5.1": {
+      "System.Buffers/4.4.0": {
         "runtime": {
           "lib/netstandard2.0/System.Buffers.dll": {
-            "assemblyVersion": "4.0.3.0",
-            "fileVersion": "4.6.28619.1"
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.6.25519.3"
           }
         }
       },
@@ -353,16 +353,16 @@
           }
         }
       },
-      "System.Memory/4.5.4": {
+      "System.Memory/4.5.3": {
         "dependencies": {
-          "System.Buffers": "4.5.1",
+          "System.Buffers": "4.4.0",
           "System.Numerics.Vectors": "4.5.0",
           "System.Runtime.CompilerServices.Unsafe": "4.5.3"
         },
         "runtime": {
           "lib/netstandard2.0/System.Memory.dll": {
             "assemblyVersion": "4.0.1.1",
-            "fileVersion": "4.6.28619.1"
+            "fileVersion": "4.6.27617.2"
           }
         }
       },
@@ -397,15 +397,15 @@
           }
         }
       },
-      "System.Reactive/5.0.0": {
+      "System.Reactive/4.4.1": {
         "dependencies": {
           "System.Runtime.InteropServices.WindowsRuntime": "4.3.0",
           "System.Threading.Tasks.Extensions": "4.5.4"
         },
         "runtime": {
           "lib/netstandard2.0/System.Reactive.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.0.1"
+            "assemblyVersion": "4.4.0.0",
+            "fileVersion": "4.4.1.57983"
           }
         }
       },
@@ -549,14 +549,14 @@
           }
         }
       },
-      "System.Security.Cryptography.ProtectedData/5.0.0": {
+      "System.Security.Cryptography.ProtectedData/4.7.0": {
         "dependencies": {
-          "System.Memory": "4.5.4"
+          "System.Memory": "4.5.3"
         },
         "runtime": {
           "lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
+            "assemblyVersion": "4.0.5.0",
+            "fileVersion": "4.700.19.56404"
           }
         }
       },
@@ -728,26 +728,26 @@
       "serviceable": false,
       "sha512": ""
     },
-    "akavache/7.2.1": {
+    "akavache/7.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-9286rtvZdO8D9NTuVrwhW9YUmCWCwii7Y0azF00mNenaSQbmACb9ihInrWkheMu3einaANQHyxmBLAvUleb2ug==",
-      "path": "akavache/7.2.1",
-      "hashPath": "akavache.7.2.1.nupkg.sha512"
+      "sha512": "sha512-LXPnc+ytb1V8Dopmuj/MCLuNqJesMvS9jhD7OmjwSlQRLNZ/E07tl/DNSJ2CSHXystONmJJG5qwbj2KHQRE0bA==",
+      "path": "akavache/7.1.1",
+      "hashPath": "akavache.7.1.1.nupkg.sha512"
     },
-    "akavache.core/7.2.1": {
+    "akavache.core/7.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-jh7Fz81T3Gv+PDhYwdN23vNk+BqijgwZkl/bGqWr2RY2t5hP69tCMECR9CVbfuXHrU8c80ncLz6KjO/mwpSVOQ==",
-      "path": "akavache.core/7.2.1",
-      "hashPath": "akavache.core.7.2.1.nupkg.sha512"
+      "sha512": "sha512-cDDCtinLkOo7H0CKNqtjJOHXCZBYHRlL6uhmS1AyefHDAoIQVKqcf077CgM4BXvU/KtTKfhUW6rIJ3tlNtHDUQ==",
+      "path": "akavache.core/7.1.1",
+      "hashPath": "akavache.core.7.1.1.nupkg.sha512"
     },
-    "akavache.sqlite3/7.2.1": {
+    "akavache.sqlite3/7.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-I71V09vxQ4/vy8XLyvC1gfTH+B9hT8OtTRmEE/4kBeK/Ze8KvXthIlUuzt2SRXKWicQgqP/2vDiuIzBAqcgOEA==",
-      "path": "akavache.sqlite3/7.2.1",
-      "hashPath": "akavache.sqlite3.7.2.1.nupkg.sha512"
+      "sha512": "sha512-dVYzPkjEn579Gy1FuuUi3efHEiTZmOyluPh4yC6EYmnjxXJhKvPGhBQXv5YJl4lk4PcGGWEI1k+hqXfYOE/JJg==",
+      "path": "akavache.sqlite3/7.1.1",
+      "hashPath": "akavache.sqlite3.7.1.1.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/1.1.1": {
       "type": "package",
@@ -812,12 +812,12 @@
       "path": "skiasharp.views.forms/2.80.2",
       "hashPath": "skiasharp.views.forms.2.80.2.nupkg.sha512"
     },
-    "Splat/10.0.1": {
+    "Splat/9.6.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-N8BMGVuUBnVLAHSVbna/st8XiLd8ulF3BfkKUSGCPqYpDCis3ELvM+aFaZQLBUIBEcweCYVLq3HFEBqHkCKFyA==",
-      "path": "splat/10.0.1",
-      "hashPath": "splat.10.0.1.nupkg.sha512"
+      "sha512": "sha512-DnPE1EGikkEobogmWX2Wsqtwnefw8i7lsh2rvRrZu7OCapB3gd7cDcdk9zztGVZGCAfl75A61qHt1QrIOOH3Ow==",
+      "path": "splat/9.6.1",
+      "hashPath": "splat.9.6.1.nupkg.sha512"
     },
     "SQLitePCLRaw.bundle_e_sqlite3/2.0.4": {
       "type": "package",
@@ -847,12 +847,12 @@
       "path": "sqlitepclraw.provider.e_sqlite3/2.0.4",
       "hashPath": "sqlitepclraw.provider.e_sqlite3.2.0.4.nupkg.sha512"
     },
-    "System.Buffers/4.5.1": {
+    "System.Buffers/4.4.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Rw7ijyl1qqRS0YQD/WycNst8hUUMgrMH4FCn1nNm27M4VxchZ1js3fVjQaANHO5f3sN4isvP4a+Met9Y4YomAg==",
-      "path": "system.buffers/4.5.1",
-      "hashPath": "system.buffers.4.5.1.nupkg.sha512"
+      "sha512": "sha512-AwarXzzoDwX6BgrhjoJsk6tUezZEozOT5Y9QKF94Gl4JK91I4PIIBkBco9068Y9/Dra8Dkbie99kXB8+1BaYKw==",
+      "path": "system.buffers/4.4.0",
+      "hashPath": "system.buffers.4.4.0.nupkg.sha512"
     },
     "System.Collections/4.3.0": {
       "type": "package",
@@ -938,12 +938,12 @@
       "path": "system.linq.expressions/4.3.0",
       "hashPath": "system.linq.expressions.4.3.0.nupkg.sha512"
     },
-    "System.Memory/4.5.4": {
+    "System.Memory/4.5.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
-      "path": "system.memory/4.5.4",
-      "hashPath": "system.memory.4.5.4.nupkg.sha512"
+      "sha512": "sha512-3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA==",
+      "path": "system.memory/4.5.3",
+      "hashPath": "system.memory.4.5.3.nupkg.sha512"
     },
     "System.Net.Primitives/4.3.1": {
       "type": "package",
@@ -966,12 +966,12 @@
       "path": "system.objectmodel/4.3.0",
       "hashPath": "system.objectmodel.4.3.0.nupkg.sha512"
     },
-    "System.Reactive/5.0.0": {
+    "System.Reactive/4.4.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-erBZjkQHWL9jpasCE/0qKAryzVBJFxGHVBAvgRN1bzM0q2s1S4oYREEEL0Vb+1kA/6BKb5FjUZMp5VXmy+gzkQ==",
-      "path": "system.reactive/5.0.0",
-      "hashPath": "system.reactive.5.0.0.nupkg.sha512"
+      "sha512": "sha512-iSTPeWR9HJhGoNV4WhVlvofuiTjpok1i4E3LPgMdbMqf3jKhFlT9HAlO32lb52NLppWC/4dZQFfUzTytvyXBmw==",
+      "path": "system.reactive/4.4.1",
+      "hashPath": "system.reactive.4.4.1.nupkg.sha512"
     },
     "System.Reflection/4.3.0": {
       "type": "package",
@@ -1078,12 +1078,12 @@
       "path": "system.runtime.serialization.primitives/4.3.0",
       "hashPath": "system.runtime.serialization.primitives.4.3.0.nupkg.sha512"
     },
-    "System.Security.Cryptography.ProtectedData/5.0.0": {
+    "System.Security.Cryptography.ProtectedData/4.7.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-HGxMSAFAPLNoxBvSfW08vHde0F9uh7BjASwu6JF9JnXuEPhCY3YUqURn0+bQV/4UWeaqymmrHWV+Aw9riQCtCA==",
-      "path": "system.security.cryptography.protecteddata/5.0.0",
-      "hashPath": "system.security.cryptography.protecteddata.5.0.0.nupkg.sha512"
+      "sha512": "sha512-ehYW0m9ptxpGWvE4zgqongBVWpSDU/JCFD4K7krxkQwSz/sFQjEXCUqpvencjy6DYDbn7Ig09R8GFffu8TtneQ==",
+      "path": "system.security.cryptography.protecteddata/4.7.0",
+      "hashPath": "system.security.cryptography.protecteddata.4.7.0.nupkg.sha512"
     },
     "System.Text.Encoding/4.3.0": {
       "type": "package",

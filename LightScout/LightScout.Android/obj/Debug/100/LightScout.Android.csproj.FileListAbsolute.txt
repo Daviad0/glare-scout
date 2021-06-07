@@ -375,15 +375,7 @@ C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\android\assets\ZXing.Net.Mobile.Forms.dll
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\android\assets\zxing.portable.dll
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\android\assets\ZXingNetMobile.dll
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\androidx\jl\07d4737c-1b50-4312-81dd-3fc297147288.jar
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\stamp\_AndroidXJetifyJavaLibraryRules.stamp
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\androidx\proguard\05959c29-695c-4080-abef-cb776b864ebf.txt
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\androidx\proguard\6863f1d2-9391-4545-a99d-cdd09c8951cb.txt
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\androidx\proguard\76616370-4252-4fe9-bf2f-5932ef6c7a9e.txt
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\androidx\proguard\c28ef211-cb60-4688-a0a7-9078e784c18c.txt
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\androidx\proguard\d9454cad-97b3-4422-8136-c49cec99f78e.txt
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\androidx\proguard\fcfd456c-a409-4b15-9cb8-abb3343f6219.cfg
-C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\androidx\proguard\fedfb4f6-2437-444e-8099-d0f9e08cc5b8.txt
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\stamp\_AndroidXJetifyProguardRules.stamp
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\androidx\_AndroidXJetifyProguardRules.jetify
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\stamp\_AndroidXCecilfy.stamp
@@ -815,3 +807,11 @@ C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\res\drawable\lss.png
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\res\drawable\lsra.png
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\res\drawable\lsla.png
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\androidx\jl\ebca9982-6ed0-43ee-8dfe-dabe5237b8ee.jar
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\androidx\proguard\2ce9510b-5582-416c-99f0-2c315deaae95.txt
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\androidx\proguard\56b7a3a4-f97f-445e-a9bd-458692f81fd3.txt
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\androidx\proguard\69f0b62d-0ed0-4a36-873d-208d066e02da.txt
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\androidx\proguard\708844d0-9ebd-4508-8a3c-4721fffda9d8.txt
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\androidx\proguard\a3786c89-5cf3-4fbe-b428-bdca81b423ff.cfg
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\androidx\proguard\b656eb5e-bb21-4342-9e4a-a1f5ff879dee.txt
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\androidx\proguard\faeb4243-aebf-4d24-a58f-9a3cde536e18.txt

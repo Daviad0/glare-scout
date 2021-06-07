@@ -76,7 +76,7 @@
                             <ColumnDefinition Width="50"/>
                         </Grid.ColumnDefinitions>
                         <Image Source="LSLA.png" HorizontalOptions="Start" VerticalOptions="Center" x:Name="Left" Grid.Column="0" HeightRequest="20" WidthRequest="20"/>
-                        <Label Text="Match 22" HorizontalOptions="Center" HorizontalTextAlignment="Center" x:Name="Middle" Grid.Column="1" FontSize="24" VerticalOptions="Center" FontAttributes="Bold"/>
+                        <Label Text="Match 22" TextColor="#171717" HorizontalOptions="Center" HorizontalTextAlignment="Center" x:Name="Middle" Grid.Column="1" FontSize="24" VerticalOptions="Center" FontAttributes="Bold"/>
                         <Image Source="LSRA.png" HorizontalOptions="End" VerticalOptions="Center" x:Name="Right" Grid.Column="2" HeightRequest="20" WidthRequest="20"/>
                     </Grid>
                     <Frame BorderColor="Gray" CornerRadius="16" Margin="10,5,10,0" Padding="10">
@@ -115,10 +115,14 @@
                                         <Label HorizontalOptions="Center" VerticalOptions="Center" Text="E" TextColor="#2A7AFA" x:Name="matchEditLabel"/>
                                     </Frame>
                                     <Frame BackgroundColor="Transparent" BorderColor="#2A7AFA" Grid.Column="1" CornerRadius="8" Padding="5">
+                                        
                                         <Label HorizontalOptions="Center" VerticalOptions="Center" Text="B" TextColor="#2A7AFA"/>
                                     </Frame>
-                                    <Frame BackgroundColor="Transparent" BorderColor="#2A7AFA" Grid.Column="2" CornerRadius="8" Padding="5">
-                                        <Label HorizontalOptions="Center" VerticalOptions="Center" Text="Go" TextColor="#2A7AFA"/>
+                                    <Frame BackgroundColor="Transparent" BorderColor="#2A7AFA" Grid.Column="2" CornerRadius="8" Padding="5" x:Name="matchGo">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="openMatchPage"/>
+                                        </Frame.GestureRecognizers>
+                                        <Label HorizontalOptions="Center" VerticalOptions="Center" Text="Go" TextColor="#2A7AFA"  x:Name="matchGoLabel"/>
                                     </Frame>
                                 </Grid>
                                 
@@ -207,6 +211,27 @@
                         <StackLayout>
 
                             
+                        </StackLayout>
+
+
+
+
+                    </ScrollView>
+                </StackLayout>
+
+            </Frame>
+            <Frame x:Name="overlayMatch" BackgroundColor="#2A7AFA" CornerRadius="16" Margin="0,50,0,0" TranslationY="16" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
+                <StackLayout>
+                    <Label HorizontalOptions="Center" TextColor="White" Text="&#xea99;" FontFamily="{StaticResource IconFont}" FontSize="40" x:Name="overlayMatchArrow" Rotation="180">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="closeMatchPage"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <ScrollView>
+                        <StackLayout>
+                            <Button Clicked="loadScouting" x:Name="buttonTest1"/>
+                            <Label Text="Loading..." x:Name="labelTest1"/>
+
                         </StackLayout>
 
 

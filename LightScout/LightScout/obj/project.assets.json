@@ -2,12 +2,12 @@
   "version": 3,
   "targets": {
     ".NETStandard,Version=v2.0": {
-      "akavache/7.2.1": {
+      "akavache/7.1.1": {
         "type": "package",
         "dependencies": {
           "SQLitePCLRaw.bundle_e_sqlite3": "2.0.4",
-          "akavache.core": "7.2.1",
-          "akavache.sqlite3": "7.2.1"
+          "akavache.core": "7.1.1",
+          "akavache.sqlite3": "7.1.1"
         },
         "compile": {
           "lib/netstandard2.0/Akavache.dll": {}
@@ -16,18 +16,18 @@
           "lib/netstandard2.0/Akavache.dll": {}
         }
       },
-      "akavache.core/7.2.1": {
+      "akavache.core/7.1.1": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "12.0.3",
           "Newtonsoft.Json.Bson": "1.0.2",
-          "Splat": "10.0.1",
+          "Splat": "9.6.1",
           "System.ComponentModel": "4.3.0",
           "System.Diagnostics.Contracts": "4.3.0",
           "System.Dynamic.Runtime": "4.3.0",
-          "System.Reactive": "5.0.0",
+          "System.Reactive": "4.4.1",
           "System.Runtime.Serialization.Primitives": "4.3.0",
-          "System.Security.Cryptography.ProtectedData": "5.0.0"
+          "System.Security.Cryptography.ProtectedData": "4.7.0"
         },
         "compile": {
           "lib/netstandard2.0/Akavache.Core.dll": {}
@@ -36,11 +36,11 @@
           "lib/netstandard2.0/Akavache.Core.dll": {}
         }
       },
-      "akavache.sqlite3/7.2.1": {
+      "akavache.sqlite3/7.1.1": {
         "type": "package",
         "dependencies": {
           "SQLitePCLRaw.core": "2.0.4",
-          "Splat": "10.0.1",
+          "Splat": "9.6.1",
           "System.Collections": "4.3.0",
           "System.Diagnostics.Debug": "4.3.0",
           "System.Diagnostics.Tracing": "4.3.0",
@@ -48,13 +48,13 @@
           "System.IO.FileSystem": "4.3.0",
           "System.IO.FileSystem.Primitives": "4.3.0",
           "System.Net.Primitives": "4.3.1",
-          "System.Reactive": "5.0.0",
+          "System.Reactive": "4.4.1",
           "System.Resources.ResourceManager": "4.3.0",
           "System.Runtime.Extensions": "4.3.1",
           "System.Runtime.InteropServices": "4.3.0",
           "System.Text.Encoding.Extensions": "4.3.0",
           "System.Threading": "4.3.0",
-          "akavache.core": "7.2.1"
+          "akavache.core": "7.1.1"
         },
         "compile": {
           "lib/netstandard2.0/Akavache.Sqlite3.dll": {}
@@ -181,7 +181,7 @@
           "ref/netstandard2.0/SkiaSharp.Views.Forms.dll": {}
         }
       },
-      "Splat/10.0.1": {
+      "Splat/9.6.1": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Splat.dll": {}
@@ -291,7 +291,7 @@
           "lib/netstandard2.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         }
       },
-      "System.Buffers/4.5.1": {
+      "System.Buffers/4.4.0": {
         "type": "package",
         "compile": {
           "ref/netstandard2.0/System.Buffers.dll": {}
@@ -478,12 +478,12 @@
           "lib/netstandard1.6/System.Linq.Expressions.dll": {}
         }
       },
-      "System.Memory/4.5.4": {
+      "System.Memory/4.5.3": {
         "type": "package",
         "dependencies": {
-          "System.Buffers": "4.5.1",
+          "System.Buffers": "4.4.0",
           "System.Numerics.Vectors": "4.4.0",
-          "System.Runtime.CompilerServices.Unsafe": "4.5.3"
+          "System.Runtime.CompilerServices.Unsafe": "4.5.2"
         },
         "compile": {
           "lib/netstandard2.0/System.Memory.dll": {}
@@ -529,7 +529,7 @@
           "lib/netstandard1.3/System.ObjectModel.dll": {}
         }
       },
-      "System.Reactive/5.0.0": {
+      "System.Reactive/4.4.1": {
         "type": "package",
         "dependencies": {
           "System.Runtime.InteropServices.WindowsRuntime": "4.3.0",
@@ -721,10 +721,10 @@
           "lib/netstandard1.3/System.Runtime.Serialization.Primitives.dll": {}
         }
       },
-      "System.Security.Cryptography.ProtectedData/5.0.0": {
+      "System.Security.Cryptography.ProtectedData/4.7.0": {
         "type": "package",
         "dependencies": {
-          "System.Memory": "4.5.4"
+          "System.Memory": "4.5.3"
         },
         "compile": {
           "ref/netstandard2.0/System.Security.Cryptography.ProtectedData.dll": {}
@@ -925,22 +925,20 @@
     }
   },
   "libraries": {
-    "akavache/7.2.1": {
-      "sha512": "9286rtvZdO8D9NTuVrwhW9YUmCWCwii7Y0azF00mNenaSQbmACb9ihInrWkheMu3einaANQHyxmBLAvUleb2ug==",
+    "akavache/7.1.1": {
+      "sha512": "LXPnc+ytb1V8Dopmuj/MCLuNqJesMvS9jhD7OmjwSlQRLNZ/E07tl/DNSJ2CSHXystONmJJG5qwbj2KHQRE0bA==",
       "type": "package",
-      "path": "akavache/7.2.1",
+      "path": "akavache/7.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE/LICENSE",
-        "akavache.7.2.1.nupkg.sha512",
+        "akavache.7.1.1.nupkg.sha512",
         "akavache.nuspec",
-        "lib/monoandroid10.0/Akavache.dll",
-        "lib/monoandroid10.0/Akavache.xml",
+        "lib/monoandroid90/Akavache.dll",
+        "lib/monoandroid90/Akavache.xml",
         "lib/net461/Akavache.dll",
         "lib/net461/Akavache.xml",
-        "lib/net5.0/Akavache.dll",
-        "lib/net5.0/Akavache.xml",
         "lib/netstandard2.0/Akavache.dll",
         "lib/netstandard2.0/Akavache.xml",
         "lib/tizen40/Akavache.dll",
@@ -954,24 +952,20 @@
         "lib/xamarinmac20/Akavache.xml"
       ]
     },
-    "akavache.core/7.2.1": {
-      "sha512": "jh7Fz81T3Gv+PDhYwdN23vNk+BqijgwZkl/bGqWr2RY2t5hP69tCMECR9CVbfuXHrU8c80ncLz6KjO/mwpSVOQ==",
+    "akavache.core/7.1.1": {
+      "sha512": "cDDCtinLkOo7H0CKNqtjJOHXCZBYHRlL6uhmS1AyefHDAoIQVKqcf077CgM4BXvU/KtTKfhUW6rIJ3tlNtHDUQ==",
       "type": "package",
-      "path": "akavache.core/7.2.1",
+      "path": "akavache.core/7.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE/LICENSE",
-        "akavache.core.7.2.1.nupkg.sha512",
+        "akavache.core.7.1.1.nupkg.sha512",
         "akavache.core.nuspec",
-        "lib/monoandroid10.0/Akavache.Core.dll",
-        "lib/monoandroid10.0/Akavache.Core.xml",
+        "lib/monoandroid90/Akavache.Core.dll",
+        "lib/monoandroid90/Akavache.Core.xml",
         "lib/net461/Akavache.Core.dll",
         "lib/net461/Akavache.Core.xml",
-        "lib/net5.0-windows7.0/Akavache.Core.dll",
-        "lib/net5.0-windows7.0/Akavache.Core.xml",
-        "lib/net5.0/Akavache.Core.dll",
-        "lib/net5.0/Akavache.Core.xml",
         "lib/netstandard2.0/Akavache.Core.dll",
         "lib/netstandard2.0/Akavache.Core.xml",
         "lib/tizen40/Akavache.Core.dll",
@@ -985,22 +979,20 @@
         "lib/xamarinmac20/Akavache.Core.xml"
       ]
     },
-    "akavache.sqlite3/7.2.1": {
-      "sha512": "I71V09vxQ4/vy8XLyvC1gfTH+B9hT8OtTRmEE/4kBeK/Ze8KvXthIlUuzt2SRXKWicQgqP/2vDiuIzBAqcgOEA==",
+    "akavache.sqlite3/7.1.1": {
+      "sha512": "dVYzPkjEn579Gy1FuuUi3efHEiTZmOyluPh4yC6EYmnjxXJhKvPGhBQXv5YJl4lk4PcGGWEI1k+hqXfYOE/JJg==",
       "type": "package",
-      "path": "akavache.sqlite3/7.2.1",
+      "path": "akavache.sqlite3/7.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE/LICENSE",
-        "akavache.sqlite3.7.2.1.nupkg.sha512",
+        "akavache.sqlite3.7.1.1.nupkg.sha512",
         "akavache.sqlite3.nuspec",
-        "lib/monoandroid10.0/Akavache.Sqlite3.dll",
-        "lib/monoandroid10.0/Akavache.Sqlite3.xml",
+        "lib/monoandroid90/Akavache.Sqlite3.dll",
+        "lib/monoandroid90/Akavache.Sqlite3.xml",
         "lib/net461/Akavache.Sqlite3.dll",
         "lib/net461/Akavache.Sqlite3.xml",
-        "lib/net5.0/Akavache.Sqlite3.dll",
-        "lib/net5.0/Akavache.Sqlite3.xml",
         "lib/netstandard2.0/Akavache.Sqlite3.dll",
         "lib/netstandard2.0/Akavache.Sqlite3.xml",
         "lib/tizen40/Akavache.Sqlite3.dll",
@@ -1410,21 +1402,22 @@
         "skiasharp.views.forms.nuspec"
       ]
     },
-    "Splat/10.0.1": {
-      "sha512": "N8BMGVuUBnVLAHSVbna/st8XiLd8ulF3BfkKUSGCPqYpDCis3ELvM+aFaZQLBUIBEcweCYVLq3HFEBqHkCKFyA==",
+    "Splat/9.6.1": {
+      "sha512": "DnPE1EGikkEobogmWX2Wsqtwnefw8i7lsh2rvRrZu7OCapB3gd7cDcdk9zztGVZGCAfl75A61qHt1QrIOOH3Ow==",
       "type": "package",
-      "path": "splat/10.0.1",
+      "path": "splat/9.6.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE/LICENSE",
         "lib/net461/Splat.dll",
         "lib/net461/Splat.xml",
-        "lib/net5.0/Splat.dll",
-        "lib/net5.0/Splat.xml",
         "lib/netstandard2.0/Splat.dll",
         "lib/netstandard2.0/Splat.xml",
-        "splat.10.0.1.nupkg.sha512",
+        "lib/uap10.0.16299/Splat.dll",
+        "lib/uap10.0.16299/Splat.pri",
+        "lib/uap10.0.16299/Splat.xml",
+        "splat.9.6.1.nupkg.sha512",
         "splat.nuspec"
       ]
     },
@@ -1502,32 +1495,26 @@
         "sqlitepclraw.provider.e_sqlite3.nuspec"
       ]
     },
-    "System.Buffers/4.5.1": {
-      "sha512": "Rw7ijyl1qqRS0YQD/WycNst8hUUMgrMH4FCn1nNm27M4VxchZ1js3fVjQaANHO5f3sN4isvP4a+Met9Y4YomAg==",
+    "System.Buffers/4.4.0": {
+      "sha512": "AwarXzzoDwX6BgrhjoJsk6tUezZEozOT5Y9QKF94Gl4JK91I4PIIBkBco9068Y9/Dra8Dkbie99kXB8+1BaYKw==",
       "type": "package",
-      "path": "system.buffers/4.5.1",
+      "path": "system.buffers/4.4.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "lib/net461/System.Buffers.dll",
-        "lib/net461/System.Buffers.xml",
         "lib/netcoreapp2.0/_._",
         "lib/netstandard1.1/System.Buffers.dll",
         "lib/netstandard1.1/System.Buffers.xml",
         "lib/netstandard2.0/System.Buffers.dll",
         "lib/netstandard2.0/System.Buffers.xml",
-        "lib/uap10.0.16299/_._",
-        "ref/net45/System.Buffers.dll",
-        "ref/net45/System.Buffers.xml",
         "ref/netcoreapp2.0/_._",
         "ref/netstandard1.1/System.Buffers.dll",
         "ref/netstandard1.1/System.Buffers.xml",
         "ref/netstandard2.0/System.Buffers.dll",
         "ref/netstandard2.0/System.Buffers.xml",
-        "ref/uap10.0.16299/_._",
-        "system.buffers.4.5.1.nupkg.sha512",
+        "system.buffers.4.4.0.nupkg.sha512",
         "system.buffers.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -2319,24 +2306,22 @@
         "system.linq.expressions.nuspec"
       ]
     },
-    "System.Memory/4.5.4": {
-      "sha512": "1MbJTHS1lZ4bS4FmsJjnuGJOu88ZzTT2rLvrhW7Ygic+pC0NWA+3hgAen0HRdsocuQXCkUTdFn9yHJJhsijDXw==",
+    "System.Memory/4.5.3": {
+      "sha512": "3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA==",
       "type": "package",
-      "path": "system.memory/4.5.4",
+      "path": "system.memory/4.5.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
-        "lib/net461/System.Memory.dll",
-        "lib/net461/System.Memory.xml",
         "lib/netcoreapp2.1/_._",
         "lib/netstandard1.1/System.Memory.dll",
         "lib/netstandard1.1/System.Memory.xml",
         "lib/netstandard2.0/System.Memory.dll",
         "lib/netstandard2.0/System.Memory.xml",
         "ref/netcoreapp2.1/_._",
-        "system.memory.4.5.4.nupkg.sha512",
+        "system.memory.4.5.3.nupkg.sha512",
         "system.memory.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -2537,32 +2522,29 @@
         "system.objectmodel.nuspec"
       ]
     },
-    "System.Reactive/5.0.0": {
-      "sha512": "erBZjkQHWL9jpasCE/0qKAryzVBJFxGHVBAvgRN1bzM0q2s1S4oYREEEL0Vb+1kA/6BKb5FjUZMp5VXmy+gzkQ==",
+    "System.Reactive/4.4.1": {
+      "sha512": "iSTPeWR9HJhGoNV4WhVlvofuiTjpok1i4E3LPgMdbMqf3jKhFlT9HAlO32lb52NLppWC/4dZQFfUzTytvyXBmw==",
       "type": "package",
-      "path": "system.reactive/5.0.0",
+      "path": "system.reactive/4.4.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "build/net5.0/_._",
-        "build/netcoreapp3.1/System.Reactive.dll",
-        "build/netcoreapp3.1/System.Reactive.targets",
-        "build/netcoreapp3.1/System.Reactive.xml",
-        "buildTransitive/net5.0/_._",
-        "buildTransitive/netcoreapp3.1/System.Reactive.targets",
-        "lib/net472/System.Reactive.dll",
-        "lib/net472/System.Reactive.xml",
-        "lib/net5.0-windows10.0.19041/System.Reactive.dll",
-        "lib/net5.0-windows10.0.19041/System.Reactive.xml",
-        "lib/net5.0/System.Reactive.dll",
-        "lib/net5.0/System.Reactive.xml",
-        "lib/netcoreapp3.1/_._",
+        "build/netcoreapp3.0/System.Reactive.dll",
+        "build/netcoreapp3.0/System.Reactive.targets",
+        "build/netcoreapp3.0/System.Reactive.xml",
+        "buildTransitive/netcoreapp3.0/System.Reactive.targets",
+        "lib/net46/System.Reactive.dll",
+        "lib/net46/System.Reactive.xml",
+        "lib/netcoreapp3.0/_._",
         "lib/netstandard2.0/System.Reactive.dll",
         "lib/netstandard2.0/System.Reactive.xml",
         "lib/uap10.0.16299/System.Reactive.dll",
         "lib/uap10.0.16299/System.Reactive.pri",
         "lib/uap10.0.16299/System.Reactive.xml",
-        "system.reactive.5.0.0.nupkg.sha512",
+        "lib/uap10.0/System.Reactive.dll",
+        "lib/uap10.0/System.Reactive.pri",
+        "lib/uap10.0/System.Reactive.xml",
+        "system.reactive.4.4.1.nupkg.sha512",
         "system.reactive.nuspec"
       ]
     },
@@ -3483,14 +3465,13 @@
         "system.runtime.serialization.primitives.nuspec"
       ]
     },
-    "System.Security.Cryptography.ProtectedData/5.0.0": {
-      "sha512": "HGxMSAFAPLNoxBvSfW08vHde0F9uh7BjASwu6JF9JnXuEPhCY3YUqURn0+bQV/4UWeaqymmrHWV+Aw9riQCtCA==",
+    "System.Security.Cryptography.ProtectedData/4.7.0": {
+      "sha512": "ehYW0m9ptxpGWvE4zgqongBVWpSDU/JCFD4K7krxkQwSz/sFQjEXCUqpvencjy6DYDbn7Ig09R8GFffu8TtneQ==",
       "type": "package",
-      "path": "system.security.cryptography.protecteddata/5.0.0",
+      "path": "system.security.cryptography.protecteddata/4.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/MonoAndroid10/_._",
@@ -3523,7 +3504,7 @@
         "runtimes/win/lib/netstandard1.3/System.Security.Cryptography.ProtectedData.dll",
         "runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll",
         "runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.xml",
-        "system.security.cryptography.protecteddata.5.0.0.nupkg.sha512",
+        "system.security.cryptography.protecteddata.4.7.0.nupkg.sha512",
         "system.security.cryptography.protecteddata.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -4317,7 +4298,7 @@
       "Xamarin.Forms >= 5.0.0.2012",
       "ZXing.Net.Mobile >= 2.4.1",
       "ZXing.Net.Mobile.Forms >= 2.4.1",
-      "akavache >= 7.2.1"
+      "akavache >= 7.1.1"
     ]
   },
   "packageFolders": {
@@ -4422,7 +4403,7 @@
           },
           "akavache": {
             "target": "Package",
-            "version": "[7.2.1, )"
+            "version": "[7.1.1, )"
           }
         },
         "imports": [

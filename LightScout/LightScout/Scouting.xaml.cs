@@ -13,6 +13,7 @@ namespace LightScout
     public partial class Scouting : ContentPage
     {
         private bool optionsExpanded = false;
+        private DateTime startForm = DateTime.Now;
         public Scouting()
         {
             InitializeComponent();
@@ -70,6 +71,15 @@ namespace LightScout
             
 
 
+        }
+
+        private void StartTimer()
+        {
+            Device.StartTimer(TimeSpan.FromMilliseconds(50), () =>
+            {
+                Console.WriteLine(DateTime.Now - startForm);
+                return true;
+            });
         }
     }
 }

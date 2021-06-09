@@ -38,7 +38,7 @@
                 
             </Grid>
             <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
-                <Frame VerticalOptions="Start" BackgroundColor="#2A7AFA" x:Name="optionsBar" Padding="5,10,5,5">
+                <Frame VerticalOptions="Start" BackgroundColor="#2A7AFA" x:Name="optionsBar" Padding="5,18,5,5" TranslationY="-8">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -68,7 +68,48 @@
 
                             </Grid>
                             <StackLayout Grid.Row="1" x:Name="optionsContent">
-                                <Label Text="Hello!"/>
+                                <Grid Margin="20,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="127"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout Grid.Column="0">
+                                        <Frame HeightRequest="100" Margin="10" WidthRequest="100" CornerRadius="16" x:Name="menuItem1" ClassId="settingsPage" Padding="0">
+                                            <Image Source="LSE.png" ClassId="settingsPage" Margin="10">
+      
+                                            </Image>
+                                        </Frame>
+                                        <Label HorizontalOptions="Center" TextColor="White" FontAttributes="Bold" Text="Exit" Margin="0,-7,0,0"/>
+                                    </StackLayout>
+                                    <StackLayout Grid.Column="1">
+                                        <Frame HeightRequest="100" Margin="10" WidthRequest="100" CornerRadius="16" x:Name="menuItem2" ClassId="mainPage" Padding="0">
+                                            <Frame.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="toggleDisabled"/>
+                                            </Frame.GestureRecognizers>
+                                            <Image Source="LSDIS.png" Margin="10" ClassId="mainPage" HeightRequest="70" WidthRequest="70">
+                                                <Image.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="toggleDisabled"/>
+                                                </Image.GestureRecognizers>
+                                            </Image>
+                                        </Frame>
+                                        <Label HorizontalOptions="Center" TextColor="White" FontAttributes="Bold" Text="Disabled" Margin="0,-7,0,0"/>
+                                    </StackLayout>
+                                    <StackLayout Grid.Column="2">
+                                        <Frame HeightRequest="100" Margin="10" WidthRequest="100" CornerRadius="16" x:Name="menuItem3" ClassId="additionalPage" Padding="0">
+                                            <Frame.GestureRecognizers>
+
+                                            </Frame.GestureRecognizers>
+                                            <Image Source="LSSAVE.png" Margin="10" ClassId="additionalPage" HeightRequest="70" WidthRequest="70">
+
+                                            </Image>
+                                        </Frame>
+                                        <Label HorizontalOptions="Center" TextColor="White" FontAttributes="Bold" Text="Submit" Margin="0,-7,0,0"/>
+                                    </StackLayout>
+                                </Grid>
                             </StackLayout>
                         </Grid>
 
@@ -86,9 +127,19 @@
                 </Frame>
                 
             </StackLayout>
-            <Grid AbsoluteLayout.LayoutBounds="0, 1, 1, .06" AbsoluteLayout.LayoutFlags="All">
+            <Grid AbsoluteLayout.LayoutBounds="0, 1, 1, .06" AbsoluteLayout.LayoutFlags="All" x:Name="elapsedContainer">
                 <Frame BackgroundColor="#2A7AFA" CornerRadius="16" Padding="12,4" HorizontalOptions="Start" VerticalOptions="End" Margin="10,0,0,10">
-                    <Label TextColor="White" Text="0:15" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label x:Name="elapsed" TextColor="White" Text="0:00" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Frame>
+
+            </Grid>
+            <Grid AbsoluteLayout.LayoutBounds="0, 1, 1, .16" AbsoluteLayout.LayoutFlags="All" TranslationY="200" x:Name="disabledMenu">
+                <Frame BackgroundColor="#2A7AFA" CornerRadius="8" Padding="12,20,12,30">
+                    <StackLayout Margin="0,0,0,5">
+                        <Label TextColor="White" Text="Disabled for 0:00" FontSize="18" HorizontalOptions="Center" x:Name="disabledElapsed" VerticalOptions="Center"/>
+                        <Button Text="Stop" Clicked="toggleDisabled"/>
+                    </StackLayout>
+                    
                 </Frame>
 
             </Grid>

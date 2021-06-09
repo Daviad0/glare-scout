@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "+DA4yZo6OO4eBkKCWSIJq4H8mTVL0YQz298d1LD+D6XmuJ4qKQmi44CL75y/c10vLhM2BJuJFZtpUIKkF0vDKA==",
+  "dgSpecHash": "ulHCdnSUDzli+kqSzd2NJhqtCObw/F9E1+Pir5XpErSOHupiErnH2+EaaCiNIZFEB/WIEdRx2jyojHOLWjAdGg==",
   "success": true,
   "projectFilePath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout.iOS\\LightScout.iOS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\djree\\.nuget\\packages\\akavache\\7.2.1\\akavache.7.2.1.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\akavache.core\\7.2.1\\akavache.core.7.2.1.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\akavache.sqlite3\\7.2.1\\akavache.sqlite3.7.2.1.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\plugin.ble\\2.1.2\\plugin.ble.2.1.2.nupkg.sha512",

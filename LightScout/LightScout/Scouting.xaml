@@ -10,30 +10,8 @@
         <AbsoluteLayout>
             
             <Grid Margin="0,70,0,0" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#E2F1FF">
-                <StackLayout Margin="0,10,0,0" x:Name="mainParent">
-                    <Label Margin="0,10,0,0" Text="Autonomous" HorizontalOptions="Center" FontSize="22" TextColor="#2A7AFA" FontAttributes="Bold"/>
-                    <Label Margin="0,5,0,0" Text="ABCD" HorizontalOptions="Center" FontSize="18" TextColor="#0f3f8c"/>
-                    <Label Text="EFGH" HorizontalOptions="Center" FontSize="18" TextColor="#0f3f8c"/>
-                    <Grid HorizontalOptions="Center" Margin="0,10,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Text="Tele-Op" HorizontalOptions="Center" FontSize="22" VerticalOptions="Center" TextColor="#2A7AFA" FontAttributes="Bold" Grid.Column="0"/>
-                        <Frame Grid.Column="1" CornerRadius="8" Padding="8,4" HorizontalOptions="Start" BackgroundColor="#2A7AFA" VerticalOptions="Center" Margin="3,0">
-                            <Label TextColor="White" Text="Start" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"/>
-                        </Frame>
-                    </Grid>
-                    <Grid HorizontalOptions="Center" Margin="0,10,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Label Text="Endgame" HorizontalOptions="Center" FontSize="22" VerticalOptions="Center" TextColor="#2A7AFA" FontAttributes="Bold" Grid.Column="0"/>
-                        <Frame Grid.Column="1" CornerRadius="8" Padding="8,4" HorizontalOptions="Start" BackgroundColor="#2A7AFA" VerticalOptions="Center" Margin="3,0">
-                            <Label TextColor="White" Text="Start" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"/>
-                        </Frame>
-                    </Grid>
+                <StackLayout x:Name="mainParent">
+                    
                 </StackLayout>
                 
             </Grid>
@@ -67,7 +45,7 @@
                                 </Grid>
 
                             </Grid>
-                            <StackLayout Grid.Row="1" x:Name="optionsContent">
+                            <StackLayout Grid.Row="1" x:Name="optionsContent" IsVisible="False" Opacity="0">
                                 <Grid Margin="20,0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="127"/>
@@ -130,16 +108,39 @@
                 
             </StackLayout>
             <Grid AbsoluteLayout.LayoutBounds="0, 1, 1, .06" AbsoluteLayout.LayoutFlags="All" x:Name="elapsedContainer">
-                <Frame BackgroundColor="#2A7AFA" CornerRadius="16" Padding="12,4" HorizontalOptions="Start" VerticalOptions="End" Margin="10,0,0,10">
-                    <Label x:Name="elapsed" TextColor="White" Text="0:00" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Frame Grid.Column="0" Grid.Row="0" BackgroundColor="#2A7AFA" CornerRadius="16" Padding="12,4" x:Name="elapsedFrame1" HorizontalOptions="Start" VerticalOptions="End" Margin="10,0,0,10">
+                    <Label x:Name="elapsed1" TextColor="White" Text="0:00" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center"/>
                 </Frame>
-
+                <!--<Frame Grid.Column="0" Grid.Row="0" BackgroundColor="#0F3F8C" CornerRadius="16" Padding="12,4" x:Name="elapsedFrame2" HorizontalOptions="Start" VerticalOptions="End" Margin="10,0,0,10" Opacity="0">
+                    <Label x:Name="elapsed2" TextColor="White" Text="0:00" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Frame>-->
             </Grid>
-            <Grid AbsoluteLayout.LayoutBounds="0, 1, 1, .16" AbsoluteLayout.LayoutFlags="All" TranslationY="200" x:Name="disabledMenu">
+            <Grid AbsoluteLayout.LayoutBounds="0, 1, 1, .22" AbsoluteLayout.LayoutFlags="All" TranslationY="200" x:Name="disabledMenu">
                 <Frame BackgroundColor="#2A7AFA" CornerRadius="8" Padding="12,20,12,30">
                     <StackLayout Margin="0,0,0,5">
-                        <Label TextColor="White" Text="Disabled for 0:00" FontSize="18" HorizontalOptions="Center" x:Name="disabledElapsed" VerticalOptions="Center"/>
-                        <Button Text="Stop" Clicked="toggleDisabled"/>
+                        
+                        <Label TextColor="White" Text="Robot Disabled" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <Label TextColor="White" Text="0:00" FontSize="18" HorizontalOptions="Center" x:Name="disabledElapsed" VerticalOptions="Center"/>
+                        <Grid HorizontalOptions="Center" Margin="0,8,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Frame BackgroundColor="White" CornerRadius="8" HorizontalOptions="Center" Padding="10,6" Grid.Column="0">
+                                <Label Text="Re-Enabled" FontSize="14" TextColor="#2A7AFA" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="toggleDisabled"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                            <Frame BackgroundColor="White" CornerRadius="8" HorizontalOptions="Center" Padding="10,6" Grid.Column="1">
+                                <Label Text="Reset" FontSize="14" TextColor="#2A7AFA" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="resetDisabled"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                        </Grid>
+                        
+                        
                     </StackLayout>
                     
                 </Frame>

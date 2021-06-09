@@ -17,9 +17,10 @@ namespace LightScout
         private DateTime startDisabled = DateTime.Now;
         private TimeSpan totalDisabled = TimeSpan.FromSeconds(0);
         private DateTime startForm = DateTime.Now;
-        public string[] submitMethod = { };
+        public List<string> submitMethod = new List<string>();
         // could change dynamic to an object technically
-        public Dictionary<string, dynamic> fields = new Dictionary<string, dynamic>();
+        public Dictionary<string, object> fields = new Dictionary<string, object>();
+        public Dictionary<string, StackLayout> dynamicLayouts = new Dictionary<string, StackLayout>();
         public dynamic formObject = JObject.Parse(@"{
   'id': '76628abc',
   'prettyName': 'Infinite Recharge',
@@ -28,6 +29,8 @@ namespace LightScout
         'prettyName' : 'Autonomous',
         'autoStart?' : true,
         'expectedStart' : null,
+        'type': 'category',
+        'uniqueId' : 'autonomous',
         'contents' : [
           {
             'type' : 'parent',
@@ -54,6 +57,8 @@ namespace LightScout
         'prettyName' : 'Tele-Op',
         'autoStart?' : false,
         'expectedStart' : 16,
+        'type': 'category',
+        'uniqueId' : 'teleop',
         'contents' : [
           {
             'type' : 'parent',
@@ -87,13 +92,52 @@ namespace LightScout
         {
             InitializeComponent();
         }
+        public async Task<bool> deeperSchemaLevel(dynamic starter)
+        {
+            //Console.WriteLine("A");
+            foreach(var content in starter.contents)
+            {
+                //Console.WriteLine(content.uniqueId.ToString());
+                if(content.type != "parent")
+                {
+                    Label addContent = new Label() { Text = content.prettyName.ToString(), HorizontalOptions = LayoutOptions.Center };
+                    ((StackLayout)dynamicLayouts[starter.uniqueId.ToString()]).Children.Add(addContent);
+                    // remember submission order and add to specific dictionary based on the content needed
+                    submitMethod.Add(content.uniqueId.ToString());
+                    fields.Add(content.uniqueId.ToString(), content);
+                }
+                else
+                {
+                    // add stack to parent, and then create another object for the next iteration
+                    StackLayout newParent = new StackLayout() { ClassId = content.uniqueId };
+                    Label parentLabel = new Label() { Text = content.prettyName, FontSize = 20, FontAttributes = FontAttributes.Bold, HorizontalOptions = LayoutOptions.Center };
+                    newParent.Children.Add(parentLabel);
+                    ((StackLayout)dynamicLayouts[starter.uniqueId.ToString()]).Children.Add(newParent);
+                    dynamicLayouts.Add(content.uniqueId.ToString(), newParent);
+                    await deeperSchemaLevel(content);
+                }
+            }
+            return true;
+        }
         protected override async void OnAppearing()
         {
             StartTimer();
             foreach(var category in formObject.categories)
             {
-                Console.WriteLine(category.prettyName);
+                StackLayout newElement = new StackLayout() { ClassId = category.uniqueId };
+                Label categoryLabel = new Label() { Text = category.prettyName, FontSize = 24, FontAttributes = FontAttributes.Bold, HorizontalOptions = LayoutOptions.Center };
+                dynamicLayouts.Add(category.uniqueId.ToString(), newElement);
+                newElement.Children.Add(categoryLabel);
+                mainParent.Children.Add(newElement);
+                // recursion until all of the separate items are finally added to the Dictionary and list
+                await deeperSchemaLevel(category);
+                Console.WriteLine("Category " + category.uniqueId.ToString() + " finished!");
             }
+            Console.WriteLine("Split down completed!");
+        }
+        private async void exitPhase(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new MasterPage());
         }
         private async void toggleDisabled(object sender, EventArgs e)
         {

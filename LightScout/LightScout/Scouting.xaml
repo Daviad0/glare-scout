@@ -10,7 +10,7 @@
         <AbsoluteLayout>
             
             <Grid Margin="0,70,0,0" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#E2F1FF">
-                <StackLayout Margin="0,10,0,0">
+                <StackLayout Margin="0,10,0,0" x:Name="mainParent">
                     <Label Margin="0,10,0,0" Text="Autonomous" HorizontalOptions="Center" FontSize="22" TextColor="#2A7AFA" FontAttributes="Bold"/>
                     <Label Margin="0,5,0,0" Text="ABCD" HorizontalOptions="Center" FontSize="18" TextColor="#0f3f8c"/>
                     <Label Text="EFGH" HorizontalOptions="Center" FontSize="18" TextColor="#0f3f8c"/>
@@ -80,7 +80,9 @@
                                     <StackLayout Grid.Column="0">
                                         <Frame HeightRequest="100" Margin="10" WidthRequest="100" CornerRadius="16" x:Name="menuItem1" ClassId="settingsPage" Padding="0">
                                             <Image Source="LSE.png" ClassId="settingsPage" Margin="10">
-      
+                                                <Image.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="exitPhase"/>
+                                                </Image.GestureRecognizers>
                                             </Image>
                                         </Frame>
                                         <Label HorizontalOptions="Center" TextColor="White" FontAttributes="Bold" Text="Exit" Margin="0,-7,0,0"/>

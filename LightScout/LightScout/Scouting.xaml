@@ -110,7 +110,7 @@
                 </Frame>
                 
             </StackLayout>
-            <Grid AbsoluteLayout.LayoutBounds="0, 1, .2, .06" AbsoluteLayout.LayoutFlags="All" x:Name="elapsedContainer">
+            <Grid AbsoluteLayout.LayoutBounds="0, 1, .4, .06" AbsoluteLayout.LayoutFlags="All" x:Name="elapsedContainer">
                 <Frame Grid.Column="0" Grid.Row="0" BackgroundColor="#2A7AFA" CornerRadius="16" Padding="12,4" x:Name="elapsedFrame1" HorizontalOptions="Start" VerticalOptions="End" Margin="10,0,0,10">
                     <Label x:Name="elapsed1" TextColor="White" Text="0:00" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center"/>
                 </Frame>

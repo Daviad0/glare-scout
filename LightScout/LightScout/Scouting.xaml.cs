@@ -52,7 +52,26 @@ namespace LightScout
                 'uniqueId' : 'powerCellA_inner'
               }
             ]
-          }  
+          },
+            {
+            'type' : 'parent',
+            'prettyName' : 'Robot Tasks',
+            'uniqueId' : 'initLine_parent',
+            'contents' : [
+              {
+                'type' : 'choices',
+                'prettyName' : 'Initiation Line?',
+                'uniqueId' : 'initLine',
+                'conditions' : [
+                    {
+                    'options' : [
+                        'Yes', 'No'
+                    ]
+              }
+            ],
+              }
+            ]
+          }    
         ]
       },
       {

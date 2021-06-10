@@ -7,15 +7,18 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="False">
     <ContentPage.Content>
-        <AbsoluteLayout>
+        <AbsoluteLayout x:Name="absoluteLayout">
             
             <Grid Margin="0,70,0,0" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#E2F1FF">
-                <StackLayout x:Name="mainParent">
-                    
-                </StackLayout>
+                <ScrollView>
+                    <StackLayout x:Name="mainParent" Padding="0,0,0,40">
+
+                    </StackLayout>
+                </ScrollView>
+                
                 
             </Grid>
-            <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, .15" AbsoluteLayout.LayoutFlags="All" x:Name="optionsBarParent">
                 <Frame VerticalOptions="Start" BackgroundColor="#2A7AFA" x:Name="optionsBar" Padding="5,18,5,5" TranslationY="-8">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -107,7 +110,7 @@
                 </Frame>
                 
             </StackLayout>
-            <Grid AbsoluteLayout.LayoutBounds="0, 1, 1, .06" AbsoluteLayout.LayoutFlags="All" x:Name="elapsedContainer">
+            <Grid AbsoluteLayout.LayoutBounds="0, 1, .2, .06" AbsoluteLayout.LayoutFlags="All" x:Name="elapsedContainer">
                 <Frame Grid.Column="0" Grid.Row="0" BackgroundColor="#2A7AFA" CornerRadius="16" Padding="12,4" x:Name="elapsedFrame1" HorizontalOptions="Start" VerticalOptions="End" Margin="10,0,0,10">
                     <Label x:Name="elapsed1" TextColor="White" Text="0:00" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center"/>
                 </Frame>

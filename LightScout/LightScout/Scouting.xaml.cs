@@ -213,6 +213,7 @@ namespace LightScout
         }
         public async Task<bool> deeperSchemaLevel(dynamic starter)
         {
+            
             var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
             int maxButtonHandle = (int)Math.Floor((mainDisplayInfo.Width / mainDisplayInfo.Density) / (float)150);
             int maxNumCharacters = (int)Math.Floor((mainDisplayInfo.Width / mainDisplayInfo.Density) / (float)15);
@@ -223,7 +224,7 @@ namespace LightScout
                 if(content.type.ToString() != "parent")
                 {
                     string uniqueId = content.uniqueId.ToString();
-                    Grid fieldContent = new Grid() { ColumnDefinitions = { new ColumnDefinition { Width = new GridLength(5, GridUnitType.Star) }, new ColumnDefinition { Width = new GridLength(6, GridUnitType.Star) } }, Margin = new Thickness(25,5,25,0) };
+                    Grid fieldContent = new Grid() { ColumnDefinitions = { new ColumnDefinition { Width = new GridLength(4, GridUnitType.Star) }, new ColumnDefinition { Width = new GridLength(5, GridUnitType.Star) } }, Margin = new Thickness(25,5,25,0) };
                     fields.Add(content.uniqueId.ToString(), new SchemaValuePairing() { schemaObject = content, schemaType = (SchemaType)Enum.Parse(typeof(SchemaType), content.type.ToString()), value = null });
                     Label addContent = new Label() { Text = content.prettyName.ToString(), FontSize=14, HorizontalOptions = LayoutOptions.Center, TextColor = (Color)converter.ConvertFromInvariantString("#0F3F8C"), VerticalOptions = LayoutOptions.Center };
                     fieldContent.Children.Add(addContent, 0, 0);
@@ -259,7 +260,7 @@ namespace LightScout
                                     inputContent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
                                 }
                                
-                                Button newButton = new Button() { Text = choice.ToString(), IsEnabled = true, CornerRadius = 8, BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Transparent"), BorderColor = (Color)converter.ConvertFromInvariantString("#2A7AFA"), BorderWidth = 4, TextColor = (Color)converter.ConvertFromInvariantString("#2A7AFA"), ClassId = uniqueId, Padding = new Thickness(6,4) };
+                                Button newButton = new Button() { Text = choice.ToString(), IsEnabled = true, CornerRadius = 8, BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Transparent"), BorderColor = (Color)converter.ConvertFromInvariantString("#4594f5"), BorderWidth = 4, TextColor = (Color)converter.ConvertFromInvariantString("#4594f5"), ClassId = uniqueId, Padding = new Thickness(6,4) };
                                 if(!inCols && row == 0)
                                 {
                                     newButton.Margin = new Thickness(0, 10, 0, 0);
@@ -274,8 +275,8 @@ namespace LightScout
                                         Button buttonNoHighlight = ((Button)fields[selectUID].controls.Where(c => ((Button)c).Text == (string)fields[selectUID].value).FirstOrDefault());
                                         Button buttonHighlight = ((Button)fields[selectUID].controls.Where(c => ((Button)c).Text == (string)clicked.Text).FirstOrDefault());
                                         buttonNoHighlight.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Transparent");
-                                        buttonNoHighlight.TextColor = (Color)converter.ConvertFromInvariantString("#2A7AFA");
-                                        buttonHighlight.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2A7AFA");
+                                        buttonNoHighlight.TextColor = (Color)converter.ConvertFromInvariantString("#4594f5");
+                                        buttonHighlight.BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5");
                                         buttonHighlight.TextColor = (Color)converter.ConvertFromInvariantString("Color.White");
                                         fields[selectUID].value = clicked.Text;
 
@@ -283,7 +284,7 @@ namespace LightScout
                                     else if (fields[selectUID].value == null)
                                     {
                                         Button buttonHighlight = ((Button)fields[selectUID].controls.Where(c => ((Button)c).Text == (string)clicked.Text).FirstOrDefault());
-                                        buttonHighlight.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2A7AFA");
+                                        buttonHighlight.BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5");
                                         buttonHighlight.TextColor = (Color)converter.ConvertFromInvariantString("Color.White");
                                         fields[selectUID].value = clicked.Text;
                                     }
@@ -304,9 +305,9 @@ namespace LightScout
                             }
                             break;
                         case "stepper":
-                            Button downButton = new Button() { VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, TextColor = (Color)converter.ConvertFromInvariantString("Color.White"), Text = "-", BackgroundColor = (Color)converter.ConvertFromInvariantString("#2A7AFA"), CornerRadius = 8, Padding = new Thickness(4), FontAttributes = FontAttributes.Bold, ClassId = uniqueId, FontSize = 18 };
+                            Button downButton = new Button() { VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, TextColor = (Color)converter.ConvertFromInvariantString("Color.White"), Text = "-", BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5"), CornerRadius = 8, Padding = new Thickness(4), FontAttributes = FontAttributes.Bold, ClassId = uniqueId, FontSize = 18 };
                             Entry stepperValue = new Entry() { VerticalOptions = LayoutOptions.Center, Margin = new Thickness(5,0), Keyboard = Keyboard.Numeric, Text = "0", HorizontalTextAlignment = TextAlignment.Center, TextColor = (Color)converter.ConvertFromInvariantString("#0F3F8C"), ClassId = uniqueId};
-                            Button upButton = new Button() { VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, TextColor = (Color)converter.ConvertFromInvariantString("Color.White"), Text = "+", BackgroundColor = (Color)converter.ConvertFromInvariantString("#2A7AFA"), CornerRadius = 8, Padding = new Thickness(4), FontAttributes = FontAttributes.Bold, ClassId = uniqueId, FontSize = 18 };
+                            Button upButton = new Button() { VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, TextColor = (Color)converter.ConvertFromInvariantString("Color.White"), Text = "+", BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5"), CornerRadius = 8, Padding = new Thickness(4), FontAttributes = FontAttributes.Bold, ClassId = uniqueId, FontSize = 18 };
                             stepperValue.TextChanged += (sender, args) =>
                             {
                                 Entry selectedStepper = (Entry)sender as Entry;
@@ -410,7 +411,7 @@ namespace LightScout
                 {
                     // add stack to parent, and then create another object for the next iteration
                     StackLayout newParent = new StackLayout() { ClassId = content.uniqueId };
-                    Label parentLabel = new Label() { Text = content.prettyName, Margin = new Thickness(0, 5, 0, 0), FontSize = 20, FontAttributes = FontAttributes.Bold, HorizontalOptions = LayoutOptions.Center, TextColor = (Color)converter.ConvertFromInvariantString("#2A7AFA") };
+                    Label parentLabel = new Label() { Text = content.prettyName, Margin = new Thickness(0, 5, 0, 0), FontSize = 20, FontAttributes = FontAttributes.Bold, HorizontalOptions = LayoutOptions.Center, TextColor = (Color)converter.ConvertFromInvariantString("#4594f5") };
                     newParent.Children.Add(parentLabel);
                     ((StackLayout)dynamicLayouts[starter.uniqueId.ToString()]).Children.Add(newParent);
                     dynamicLayouts.Add(content.uniqueId.ToString(), newParent);
@@ -421,6 +422,9 @@ namespace LightScout
         }
         protected override async void OnAppearing()
         {
+
+            // init height items
+            disabledMenu.TranslationY = disabledMenu.Height + 10;
             StartTimer();
             foreach(var category in formObject.categories)
             {
@@ -542,6 +546,7 @@ namespace LightScout
                 //optionsLabel.TranslateTo(optionsLabel.X, optionsLabel.Y + 60, 500, Easing.CubicInOut);
                 await Task.Delay(100);
                 optionsContent.Opacity = 0;
+                await Task.Delay(50);
                 optionsContent.IsVisible = true;
                 optionsContent.FadeTo(1, 300, Easing.CubicInOut);
                 await optionsLabel.RotateTo(180, 250, Easing.CubicInOut);

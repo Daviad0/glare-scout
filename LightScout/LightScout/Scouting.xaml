@@ -51,15 +51,15 @@
                             <StackLayout Grid.Row="1" x:Name="optionsContent" IsVisible="False" Opacity="0">
                                 <Grid Margin="20,0">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="127"/>
+                                        <RowDefinition x:Name="changeHeight" Height="Auto"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
-                                    <StackLayout Grid.Column="0">
-                                        <Frame HeightRequest="100" Margin="10" WidthRequest="100" CornerRadius="16" x:Name="menuItem1" ClassId="settingsPage" Padding="0">
+                                    <StackLayout Grid.Column="0" x:Name="checkWidth">
+                                        <Frame HeightRequest="100" Margin="10" WidthRequest="100" CornerRadius="16" x:Name="menuItem1" ClassId="settingsPage" Padding="0" HorizontalOptions="Center" VerticalOptions="Center">
                                             <Image Source="LSE.png" ClassId="settingsPage" Margin="10">
                                                 <Image.GestureRecognizers>
                                                     <TapGestureRecognizer Tapped="exitPhase"/>
@@ -69,7 +69,7 @@
                                         <Label HorizontalOptions="Center" TextColor="White" FontAttributes="Bold" Text="Exit" Margin="0,-7,0,0"/>
                                     </StackLayout>
                                     <StackLayout Grid.Column="1">
-                                        <Frame HeightRequest="100" Margin="10" WidthRequest="100" CornerRadius="16" x:Name="menuItem2" ClassId="mainPage" Padding="0">
+                                        <Frame HeightRequest="100" Margin="10" WidthRequest="100" CornerRadius="16" x:Name="menuItem2" ClassId="mainPage" Padding="0" HorizontalOptions="Center" VerticalOptions="Center">
                                             <Frame.GestureRecognizers>
                                                 <TapGestureRecognizer Tapped="toggleDisabled"/>
                                             </Frame.GestureRecognizers>
@@ -82,7 +82,7 @@
                                         <Label HorizontalOptions="Center" TextColor="White" FontAttributes="Bold" Text="Disabled" Margin="0,-7,0,0"/>
                                     </StackLayout>
                                     <StackLayout Grid.Column="2">
-                                        <Frame HeightRequest="100" Margin="10" WidthRequest="100" CornerRadius="16" x:Name="menuItem3" ClassId="additionalPage" Padding="0">
+                                        <Frame HeightRequest="100" Margin="10" WidthRequest="100" CornerRadius="16" x:Name="menuItem3" ClassId="additionalPage" Padding="0" HorizontalOptions="Center" VerticalOptions="Center">
                                             <Frame.GestureRecognizers>
 
                                             </Frame.GestureRecognizers>

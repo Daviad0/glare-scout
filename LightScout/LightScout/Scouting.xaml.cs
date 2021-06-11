@@ -27,6 +27,7 @@ namespace LightScout
         public Dictionary<string, object> categoryGrids = new Dictionary<string, object>();
         public Dictionary<string, SchemaValuePairing> fields = new Dictionary<string, SchemaValuePairing>();
         public Dictionary<string, StackLayout> dynamicLayouts = new Dictionary<string, StackLayout>();
+        public Dictionary<string, SingleControlRestriction> singleRestrictionMapping = new Dictionary<string, SingleControlRestriction>();
         public dynamic formObject = JObject.Parse(@"{
   'id': '76628abc',
   'prettyName': 'Infinite Recharge',
@@ -42,18 +43,22 @@ namespace LightScout
             'type' : 'parent',
             'prettyName' : 'Power Cells',
             'uniqueId' : 'powerCellA_parent',
-            'conditions' : [
+            'conditions' : 
               {
                 'allType' : 'stepper',
                 'max' : 15,
                 'min' : 0
-              }
-            ],
+              },
+            
             'contents' : [
               {
                 'type' : 'stepper',
                 'prettyName' : 'Power Cells Inner',
-                'uniqueId' : 'powerCellA_inner'
+                'uniqueId' : 'powerCellA_inner',
+                'conditions':{
+                    'max':5,
+                    'min':0
+}
               },
 {
                 'type' : 'stepper',
@@ -211,6 +216,51 @@ namespace LightScout
         {
             InitializeComponent();
         }
+        public enum RestrictionType
+        {
+            Max,
+            Min,
+            SecondsElapsed
+        }
+        public static object IsRestrictionValid(dynamic obj, RestrictionType type)
+        {
+            // there probably is a better way to check if a property exists in a dynamic
+            var toReturn = 0;
+            switch (name)
+            {
+                case RestrictionType.Max:
+                    try
+                    {
+                        toReturn = obj.max;
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    break;
+                case RestrictionType.Min:
+                    try
+                    {
+                        toReturn = obj.min;
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    break;
+                case RestrictionType.SecondsElapsed:
+                    try
+                    {
+                        toReturn = obj.secondsElapsed;
+                    }
+                    catch
+                    {
+                        return null;
+                    }
+                    break;
+            }
+            return toReturn;
+        }
         public async Task<bool> deeperSchemaLevel(dynamic starter)
         {
             
@@ -238,6 +288,7 @@ namespace LightScout
                             bool inCols = true;
                             int numButtons = 0;
                             int numCharacters = 0;
+                            singleRestrictionMapping.Add(content.uniqueId, content.conditions);
                             foreach (var choice in content.conditions.options)
                             {
                                 numButtons += 1;
@@ -308,6 +359,7 @@ namespace LightScout
                             Button downButton = new Button() { VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, TextColor = (Color)converter.ConvertFromInvariantString("Color.White"), Text = "-", BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5"), CornerRadius = 8, Padding = new Thickness(4), FontAttributes = FontAttributes.Bold, ClassId = uniqueId, FontSize = 18 };
                             Entry stepperValue = new Entry() { VerticalOptions = LayoutOptions.Center, Margin = new Thickness(5,0), Keyboard = Keyboard.Numeric, Text = "0", HorizontalTextAlignment = TextAlignment.Center, TextColor = (Color)converter.ConvertFromInvariantString("#0F3F8C"), ClassId = uniqueId};
                             Button upButton = new Button() { VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, TextColor = (Color)converter.ConvertFromInvariantString("Color.White"), Text = "+", BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5"), CornerRadius = 8, Padding = new Thickness(4), FontAttributes = FontAttributes.Bold, ClassId = uniqueId, FontSize = 18 };
+                            singleRestrictionMapping.Add(content.uniqueId, new SingleControlRestriction() { max = IsRestrictionValid(content.conditions, RestrictionType.Max), min = IsRestrictionValid(content.conditions, RestrictionType.Min), secondsElapsed = IsRestrictionValid(content.conditions, RestrictionType.SecondsElapsed) });
                             stepperValue.TextChanged += (sender, args) =>
                             {
                                 Entry selectedStepper = (Entry)sender as Entry;
@@ -317,7 +369,33 @@ namespace LightScout
                                     if(int.TryParse(selectedStepper.Text, out int output))
                                     {
                                         // it is an int, so we can set the value
-                                        // TODO: SET MIN AND MAX RESTRICTIONS HERE
+                                        // first check if its going up or down so we can easily check for restrictions.
+                                        if(int.Parse(selectedStepper.Text) > int.Parse(fields[selectUID].value.ToString()))
+                                        {
+                                            if(((SingleControlRestriction)singleRestrictionMapping[selectUID]).max != null && ((SingleControlRestriction)singleRestrictionMapping[selectUID]).max < int.Parse(selectedStepper.Text))
+                                            {
+                                                // this has to be reset then
+                                                selectedStepper.Text = fields[selectUID].value.ToString();
+                                                
+                                            }
+                                            else
+                                            {
+                                                fields[selectUID].value = int.Parse(selectedStepper.Text);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (((SingleControlRestriction)singleRestrictionMapping[selectUID]).min != null && ((SingleControlRestriction)singleRestrictionMapping[selectUID]).min > int.Parse(selectedStepper.Text))
+                                            {
+                                                // this has to be reset then
+                                                selectedStepper.Text = fields[selectUID].value.ToString();
+
+                                            }
+                                            else
+                                            {
+                                                fields[selectUID].value = int.Parse(selectedStepper.Text);
+                                            }
+                                        }
                                         fields[selectUID].value = int.Parse(selectedStepper.Text);
                                     }
                                     else
@@ -396,6 +474,7 @@ namespace LightScout
                             inputContent.Children.Add(upButton, 2, 0);
                             break;
                         default:
+                            singleRestrictionMapping.Add(content.uniqueId, content.conditions);
                             inputContent.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
                             inputContent.Children.Add(new Label() { Text = "Not Implemented", HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center }, 0, 0);
                             break;

@@ -424,7 +424,20 @@ namespace LightScout
         {
 
             // init height items
-            disabledMenu.TranslationY = disabledMenu.Height + 10;
+            disabledMenu.SizeChanged += (sender, args) =>
+            {
+                disabledMenu.TranslationY = disabledMenu.Height + 10;
+            };
+            checkWidth.SizeChanged += (sender, args) =>
+            {
+                menuItem1.HeightRequest = checkWidth.Width - 20;
+                menuItem1.WidthRequest = checkWidth.Width - 20;
+                menuItem2.HeightRequest = checkWidth.Width - 20;
+                menuItem2.WidthRequest = checkWidth.Width - 20;
+                menuItem3.HeightRequest = checkWidth.Width - 20;
+                menuItem3.WidthRequest = checkWidth.Width - 20;
+            };
+
             StartTimer();
             foreach(var category in formObject.categories)
             {

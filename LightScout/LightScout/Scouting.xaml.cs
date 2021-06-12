@@ -792,7 +792,7 @@ namespace LightScout
             else
             {
                 //lastExpandHeight = (checkWidth.Width == -1 ? 120 : checkWidth.Width) + 60;
-                AbsoluteLayout.SetLayoutBounds(optionsBarParent, new Rectangle(0, 0, 1, .35));
+                AbsoluteLayout.SetLayoutBounds(optionsBarParent, new Rectangle(0, 0, 1, .36));
                 optionsExpanded = true;
                 //var endingHeight = lastExpandHeight;
                 var heianim = new Animation(heicallback, 0, 160, Easing.CubicInOut);

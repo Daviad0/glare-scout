@@ -122,7 +122,7 @@
                                         <Frame.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="openMatchPage"/>
                                         </Frame.GestureRecognizers>
-                                        <Label HorizontalOptions="Center" VerticalOptions="Center" Text="Go" TextColor="#2A7AFA"  x:Name="matchGoLabel"/>
+                                        <Label HorizontalOptions="Center" VerticalOptions="Center" Text="Start" TextColor="#2A7AFA"  x:Name="matchGoLabel"/>
                                     </Frame>
                                 </Grid>
                                 
@@ -221,24 +221,21 @@
 
             </Frame>
             <Frame x:Name="overlayMatch" BackgroundColor="#2A7AFA" CornerRadius="16" Margin="0,50,0,0" TranslationY="16" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
-                <StackLayout>
-                    <Label HorizontalOptions="Center" TextColor="White" Text="&#xea99;" FontFamily="{StaticResource IconFont}" FontSize="40" x:Name="overlayMatchArrow" Rotation="180">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="120"/>
+                    </Grid.RowDefinitions>
+                    <Label HorizontalOptions="Center" TextColor="White" Text="&#xea99;" FontFamily="{StaticResource IconFont}" FontSize="40" x:Name="overlayMatchArrow" Rotation="180" Grid.Row="0" VerticalOptions="Center">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Tapped="closeMatchPage"/>
                         </Label.GestureRecognizers>
                     </Label>
-                    <ScrollView>
-                        <StackLayout>
-                            <Button Clicked="loadScouting" x:Name="buttonTest1"/>
-                            <Label Text="Loading..." x:Name="labelTest1"/>
 
-                        </StackLayout>
-
-
-
-
-                    </ScrollView>
-                </StackLayout>
+                    <Label Text="Match 22" x:Name="labelTest1" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" TextColor="White" FontSize="30" FontAttributes="Bold"/>
+                    <Button Clicked="loadScouting" HorizontalOptions="Center" x:Name="buttonTest1" Grid.Row="2" Text="Start Match" VerticalOptions="Start" Padding="10,0" CornerRadius="12" TextColor="#2A7AFA" BackgroundColor="White"/>
+                </Grid>
 
             </Frame>
 

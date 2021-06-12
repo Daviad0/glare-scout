@@ -13,7 +13,8 @@ namespace LightScout.Models
             choices = 0,
             stepper = 1,
             text = 2,
-            integer = 3
+            integer = 3,
+            dropdown = 4,
         }
         public SchemaType schemaType;
         public object value;

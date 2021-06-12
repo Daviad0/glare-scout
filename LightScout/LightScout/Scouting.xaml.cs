@@ -222,7 +222,7 @@ namespace LightScout
             
             },
 {
-            'type' : 'choices',
+            'type' : 'dropdown',
             'prettyName' : 'Climbed?',
             'uniqueId' : 'climbed',
             'conditions' : 
@@ -630,6 +630,23 @@ namespace LightScout
                             inputContent.Children.Add(downButton, 0, 0);
                             inputContent.Children.Add(stepperValue, 1, 0);
                             inputContent.Children.Add(upButton, 2, 0);
+                            break;
+                        case "dropdown":
+                            Picker newPicker = new Picker() { TextColor = (Color)converter.ConvertFromInvariantString("#0F3F8C"), FontAttributes = FontAttributes.Bold, ClassId = uniqueId, HorizontalTextAlignment=TextAlignment.Center };
+                            newPicker.Title = "Select an Option";
+                            foreach(var choice in content.conditions.options)
+                            {
+                                // first one is selected
+                                newPicker.Items.Add(choice.ToString());
+                            }
+                            newPicker.SelectedIndexChanged += async (sender, args) =>
+                            {
+                                Picker selectedPicker = (Picker)sender as Picker;
+                                string selectUID = selectedPicker.ClassId;
+                                fields[uniqueId].value = selectedPicker.Items[selectedPicker.SelectedIndex];
+                            };
+                            inputContent.Children.Add(newPicker, 0, 0);
+                            fields[uniqueId].controls.Add(newPicker);
                             break;
                         default:
                             singleRestrictionMapping.Add(content.uniqueId.ToString(), new SingleControlRestriction());

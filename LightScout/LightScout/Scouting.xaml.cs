@@ -670,16 +670,7 @@ namespace LightScout
             // init height items
             disabledMenu.SizeChanged += (sender, args) =>
             {
-                disabledMenu.TranslationY = disabledMenu.Height + 10;
-            };
-            checkWidth.SizeChanged += (sender, args) =>
-            {
-                menuItem1.HeightRequest = checkWidth.Width - 20;
-                menuItem1.WidthRequest = checkWidth.Width - 20;
-                menuItem2.HeightRequest = checkWidth.Width - 20;
-                menuItem2.WidthRequest = checkWidth.Width - 20;
-                menuItem3.HeightRequest = checkWidth.Width - 20;
-                menuItem3.WidthRequest = checkWidth.Width - 20;
+                disabledMenu.TranslationY = disabledMenu.Height + 20;
             };
 
             StartTimer();
@@ -758,10 +749,16 @@ namespace LightScout
             startDisabled = DateTime.Now;
             totalDisabled = TimeSpan.FromSeconds(0);
         }
-        private double lastExpandHeight = 160;
+        private bool firstAdjust = true;
         private async void expandOptions(object sender, EventArgs e)
         {
-
+            if (firstAdjust)
+            {
+                disabledMenu.TranslationY = disabledMenu.Height + 20;
+                disabledMenu.IsVisible = true;
+                firstAdjust = false;
+            }
+                
             Action<double> heicallback = input => { options.Height = input; };
             Action<double> corcallback = input => { optionsBar.CornerRadius = (float)input; };
             //var startingHeight = optionsExpanded ? (checkWidth.Width == -1 ? 100 : checkWidth.Width)+ 60 : 0;
@@ -778,7 +775,7 @@ namespace LightScout
                 //optionsContent.Opacity = 0;
                 //optionsContent.IsVisible = true;
 
-                var heianim = new Animation(heicallback, lastExpandHeight, endingHeight, Easing.CubicInOut);
+                var heianim = new Animation(heicallback, 160, 0, Easing.CubicInOut);
                 var coranim = new Animation(corcallback, 8, 0, Easing.CubicInOut);
                 optionsContent.FadeTo(0, 300, Easing.CubicInOut);
                 
@@ -794,11 +791,11 @@ namespace LightScout
             }
             else
             {
-                lastExpandHeight = (checkWidth.Width == -1 ? 120 : checkWidth.Width) + 60;
-                AbsoluteLayout.SetLayoutBounds(optionsBarParent, new Rectangle(0, 0, 1, .4));
+                //lastExpandHeight = (checkWidth.Width == -1 ? 120 : checkWidth.Width) + 60;
+                AbsoluteLayout.SetLayoutBounds(optionsBarParent, new Rectangle(0, 0, 1, .35));
                 optionsExpanded = true;
-                var endingHeight = lastExpandHeight;
-                var heianim = new Animation(heicallback, 0, endingHeight, Easing.CubicInOut);
+                //var endingHeight = lastExpandHeight;
+                var heianim = new Animation(heicallback, 0, 160, Easing.CubicInOut);
                 var coranim = new Animation(corcallback, 0, 8, Easing.CubicInOut);
 
                 coranim.Commit(this, "CornerAnimation", length: 500);

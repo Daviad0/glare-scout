@@ -107,7 +107,7 @@ namespace LightScout
             var converter = new ColorTypeConverter();
             matchEdit.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2A7AFA");
             matchEditLabel.TextColor = (Color)converter.ConvertFromInvariantString("White");
-            overlayEdit.TranslationY = 700;
+            overlayEdit.TranslationY = 1200;
             overlayEdit.IsVisible = true;
             overlayEdit.TranslateTo(overlayEdit.X, overlayEdit.Y + 16, 750, Easing.CubicInOut);
             await Task.Delay(500);
@@ -119,7 +119,7 @@ namespace LightScout
             var converter = new ColorTypeConverter();
             matchEdit.BackgroundColor = (Color)converter.ConvertFromInvariantString("White");
             matchEditLabel.TextColor = (Color)converter.ConvertFromInvariantString("#2A7AFA");
-            await overlayEdit.TranslateTo(overlayEdit.X, overlayEdit.Y + 700, 750, Easing.CubicInOut);
+            await overlayEdit.TranslateTo(overlayEdit.X, overlayEdit.Y + 1200, 750, Easing.CubicInOut);
             overlayEditArrow.Rotation = 180;
             overlayEdit.IsVisible = false;
         }
@@ -128,7 +128,7 @@ namespace LightScout
             var converter = new ColorTypeConverter();
             matchGo.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2A7AFA");
             matchGoLabel.TextColor = (Color)converter.ConvertFromInvariantString("White");
-            overlayMatch.TranslationY = 700;
+            overlayMatch.TranslationY = 1200;
             overlayMatch.IsVisible = true;
             overlayMatch.TranslateTo(overlayMatch.X, overlayMatch.Y + 16, 750, Easing.CubicInOut);
             await Task.Delay(500);
@@ -140,7 +140,7 @@ namespace LightScout
             var converter = new ColorTypeConverter();
             matchGo.BackgroundColor = (Color)converter.ConvertFromInvariantString("White");
             matchGoLabel.TextColor = (Color)converter.ConvertFromInvariantString("#2A7AFA");
-            await overlayMatch.TranslateTo(overlayMatch.X, overlayMatch.Y + 700, 750, Easing.CubicInOut);
+            await overlayMatch.TranslateTo(overlayMatch.X, overlayMatch.Y + 1200, 750, Easing.CubicInOut);
             overlayMatchArrow.Rotation = 180;
             overlayMatch.IsVisible = false;
         }

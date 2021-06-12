@@ -28,6 +28,7 @@ namespace LightScout
         public Dictionary<string, SchemaValuePairing> fields = new Dictionary<string, SchemaValuePairing>();
         public Dictionary<string, StackLayout> dynamicLayouts = new Dictionary<string, StackLayout>();
         public Dictionary<string, SingleControlRestriction> singleRestrictionMapping = new Dictionary<string, SingleControlRestriction>();
+        public Dictionary<string, MultiControlRestriction> multiRestrictionMapping = new Dictionary<string, MultiControlRestriction>();
         public dynamic formObject = JObject.Parse(@"{
   'id': '76628abc',
   'prettyName': 'Infinite Recharge',
@@ -45,7 +46,6 @@ namespace LightScout
             'uniqueId' : 'powerCellA_parent',
             'conditions' : 
               {
-                'allType' : 'stepper',
                 'max' : 15,
                 'min' : 0
               },
@@ -56,24 +56,36 @@ namespace LightScout
                 'prettyName' : 'Power Cells Inner',
                 'uniqueId' : 'powerCellA_inner',
                 'conditions':{
-                    'max':5,
-                    'min':0
-}
+                    'min':0,
+                    'groupLock' : 'powerCellA_parent'
+}                   
               },
 {
                 'type' : 'stepper',
                 'prettyName' : 'Power Cells Outer',
-                'uniqueId' : 'powerCellA_outer'
+                'uniqueId' : 'powerCellA_outer',
+                'conditions':{
+'min':0,
+                    'groupLock' : 'powerCellA_parent'
+}     
               },
 {
                 'type' : 'stepper',
                 'prettyName' : 'Power Cells Lower',
-                'uniqueId' : 'powerCellA_lower'
+                'uniqueId' : 'powerCellA_lower',
+                'conditions':{
+'min':0,
+                    'groupLock' : 'powerCellA_parent'
+}     
               },
 {
                 'type' : 'stepper',
                 'prettyName' : 'Power Cells Missed',
-                'uniqueId' : 'powerCellA_missed'
+                'uniqueId' : 'powerCellA_missed',
+                'conditions':{
+'min':0,
+                    'groupLock' : 'powerCellA_parent'
+}     
               }
             ]
           },
@@ -111,35 +123,50 @@ namespace LightScout
             'uniqueId' : 'powerCellT_parent',
             'conditions' : 
               {
-                'allType' : 'stepper',
                 'max' : 5,
-                'min' : 0,
-                'cycles' : {
-                  'max' : 20,
-                  'min' : 5
-                }
+                'min' : 0
               },
             
             'contents' : [
               {
                 'type' : 'stepper',
                 'prettyName' : 'Power Cells Inner',
-                'uniqueId' : 'powerCellT_inner'
+                'uniqueId' : 'powerCellT_inner',
+                'conditions':{
+                    'max':5,
+                    'min':0,
+                    'groupLock' : 'powerCellT_parent'
+}                   
               },
 {
                 'type' : 'stepper',
                 'prettyName' : 'Power Cells Outer',
-                'uniqueId' : 'powerCellT_outer'
+                'uniqueId' : 'powerCellT_outer',
+                'conditions':{
+                    'max':5,
+                    'min':0,
+                    'groupLock' : 'powerCellT_parent'
+}                   
               },
 {
                 'type' : 'stepper',
                 'prettyName' : 'Power Cells Lower',
-                'uniqueId' : 'powerCellT_lower'
+                'uniqueId' : 'powerCellT_lower',
+                'conditions':{
+                    'max':5,
+                    'min':0,
+                    'groupLock' : 'powerCellT_parent'
+}                   
               },
 {
                 'type' : 'stepper',
                 'prettyName' : 'Power Cells Missed',
-                'uniqueId' : 'powerCellT_missed'
+                'uniqueId' : 'powerCellT_missed',
+                'conditions':{
+                    'max':5,
+                    'min':0,
+                    'groupLock' : 'powerCellT_parent'
+}                   
               }
             ]
           },
@@ -220,20 +247,21 @@ namespace LightScout
         {
             Max,
             Min,
-            SecondsElapsed
+            SecondsElapsed,
+            GroupLock
         }
         public static object IsRestrictionValid(dynamic obj, RestrictionType type)
         {
             // there probably is a better way to check if a property exists in a dynamic
-            var toReturn = 0;
-            switch (name)
+            dynamic toReturn = null;
+            switch (type)
             {
                 case RestrictionType.Max:
                     try
                     {
-                        toReturn = obj.max;
+                        toReturn = int.Parse(obj.max.ToString());
                     }
-                    catch
+                    catch(Exception e)
                     {
                         return null;
                     }
@@ -241,9 +269,9 @@ namespace LightScout
                 case RestrictionType.Min:
                     try
                     {
-                        toReturn = obj.min;
+                        toReturn = int.Parse(obj.min.ToString());
                     }
-                    catch
+                    catch (Exception e)
                     {
                         return null;
                     }
@@ -251,9 +279,19 @@ namespace LightScout
                 case RestrictionType.SecondsElapsed:
                     try
                     {
-                        toReturn = obj.secondsElapsed;
+                        toReturn = int.Parse(obj.secondsElapsed.ToString());
                     }
-                    catch
+                    catch (Exception e)
+                    {
+                        return null;
+                    }
+                    break;
+                case RestrictionType.GroupLock:
+                    try
+                    {
+                        toReturn = obj.groupLock.ToString();
+                    }
+                    catch (Exception e)
                     {
                         return null;
                     }
@@ -288,7 +326,8 @@ namespace LightScout
                             bool inCols = true;
                             int numButtons = 0;
                             int numCharacters = 0;
-                            singleRestrictionMapping.Add(content.uniqueId, content.conditions);
+                            
+                            singleRestrictionMapping.Add(content.uniqueId.ToString(), new SingleControlRestriction());
                             foreach (var choice in content.conditions.options)
                             {
                                 numButtons += 1;
@@ -359,108 +398,227 @@ namespace LightScout
                             Button downButton = new Button() { VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, TextColor = (Color)converter.ConvertFromInvariantString("Color.White"), Text = "-", BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5"), CornerRadius = 8, Padding = new Thickness(4), FontAttributes = FontAttributes.Bold, ClassId = uniqueId, FontSize = 18 };
                             Entry stepperValue = new Entry() { VerticalOptions = LayoutOptions.Center, Margin = new Thickness(5,0), Keyboard = Keyboard.Numeric, Text = "0", HorizontalTextAlignment = TextAlignment.Center, TextColor = (Color)converter.ConvertFromInvariantString("#0F3F8C"), ClassId = uniqueId};
                             Button upButton = new Button() { VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, TextColor = (Color)converter.ConvertFromInvariantString("Color.White"), Text = "+", BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5"), CornerRadius = 8, Padding = new Thickness(4), FontAttributes = FontAttributes.Bold, ClassId = uniqueId, FontSize = 18 };
-                            singleRestrictionMapping.Add(content.uniqueId, new SingleControlRestriction() { max = IsRestrictionValid(content.conditions, RestrictionType.Max), min = IsRestrictionValid(content.conditions, RestrictionType.Min), secondsElapsed = IsRestrictionValid(content.conditions, RestrictionType.SecondsElapsed) });
-                            stepperValue.TextChanged += (sender, args) =>
+                            if (IsRestrictionValid(content.conditions, RestrictionType.GroupLock) != null)
                             {
+                                ((MultiControlRestriction)multiRestrictionMapping[content.conditions.groupLock.ToString()]).valuePairs.Add(content.uniqueId.ToString(), null);
+                            }
+                            singleRestrictionMapping.Add(content.uniqueId.ToString(), new SingleControlRestriction() { max = IsRestrictionValid(content.conditions, RestrictionType.Max) == null ? null : int.Parse(IsRestrictionValid(content.conditions, RestrictionType.Max).ToString()), min = IsRestrictionValid(content.conditions, RestrictionType.Min) == null ? null : int.Parse(IsRestrictionValid(content.conditions, RestrictionType.Min).ToString()), secondsElapsed = IsRestrictionValid(content.conditions, RestrictionType.SecondsElapsed) == null ? null : int.Parse(IsRestrictionValid(content.conditions, RestrictionType.SecondsElapsed).ToString()) });
+                            stepperValue.TextChanged += async (sender, args) =>
+                            {
+                                
                                 Entry selectedStepper = (Entry)sender as Entry;
-                                string selectUID = selectedStepper.ClassId;
-                                if(fields[selectUID].value != null)
+                                if(selectedStepper.Text != "")
                                 {
-                                    if(int.TryParse(selectedStepper.Text, out int output))
-                                    {
-                                        // it is an int, so we can set the value
-                                        // first check if its going up or down so we can easily check for restrictions.
-                                        if(int.Parse(selectedStepper.Text) > int.Parse(fields[selectUID].value.ToString()))
-                                        {
-                                            if(((SingleControlRestriction)singleRestrictionMapping[selectUID]).max != null && ((SingleControlRestriction)singleRestrictionMapping[selectUID]).max < int.Parse(selectedStepper.Text))
-                                            {
-                                                // this has to be reset then
-                                                selectedStepper.Text = fields[selectUID].value.ToString();
-                                                
-                                            }
-                                            else
-                                            {
-                                                fields[selectUID].value = int.Parse(selectedStepper.Text);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (((SingleControlRestriction)singleRestrictionMapping[selectUID]).min != null && ((SingleControlRestriction)singleRestrictionMapping[selectUID]).min > int.Parse(selectedStepper.Text))
-                                            {
-                                                // this has to be reset then
-                                                selectedStepper.Text = fields[selectUID].value.ToString();
+                                    bool shouldPush = true;
+                                    string selectUID = selectedStepper.ClassId;
 
-                                            }
-                                            else
-                                            {
-                                                fields[selectUID].value = int.Parse(selectedStepper.Text);
-                                            }
-                                        }
-                                        fields[selectUID].value = int.Parse(selectedStepper.Text);
+
+                                    if(fields[selectUID].value == null)
+                                    {
+                                        // maybe add a default value structure? This would be easy to code
+                                        fields[selectUID].value = 0;
+                                    }
+                                    
+
+                                    if(!int.TryParse(selectedStepper.Text, out int output))
+                                    {
+                                        shouldPush = false;
+                                    }else if((((SingleControlRestriction)singleRestrictionMapping[selectUID]).max != null && ((SingleControlRestriction)singleRestrictionMapping[selectUID]).max < int.Parse(selectedStepper.Text)) || (((SingleControlRestriction)singleRestrictionMapping[selectUID]).min != null && ((SingleControlRestriction)singleRestrictionMapping[selectUID]).min > int.Parse(selectedStepper.Text)))
+                                    {
+                                        shouldPush = false;
                                     }
                                     else
                                     {
-                                        // reset input changes
+                                        
+                                        var containingGroupLock = IsRestrictionValid(fields[selectUID].schemaObject.conditions, RestrictionType.GroupLock) == null ? null : IsRestrictionValid(fields[selectUID].schemaObject.conditions, RestrictionType.GroupLock).ToString();
+                                        if(containingGroupLock != null)
+                                        {
+                                            int? min = ((MultiControlRestriction)multiRestrictionMapping[containingGroupLock]).min;
+                                            int? max = ((MultiControlRestriction)multiRestrictionMapping[containingGroupLock]).max;
+                                            int? ours = 0;
+                                            foreach (var lockItem in ((MultiControlRestriction)multiRestrictionMapping[containingGroupLock]).valuePairs)
+                                            {
+                                                if(lockItem.Value != null && lockItem.Key != selectUID)
+                                                {
+                                                    ours += lockItem.Value;
+                                                }
+                                                
+                                            }
+                                            // this is checking if this value is valid!
+                                            ours += int.Parse(selectedStepper.Text);
+                                            if (min != null && ours < min)
+                                            {
+                                                shouldPush = false;
+                                            }
+                                            else if(max != null && ours > max)
+                                            {
+                                                shouldPush = false;
+                                            }
+
+                                        }
+                                    }
+
+                                    if (shouldPush)
+                                    {
+                                        fields[selectUID].value = int.Parse(selectedStepper.Text);
+                                        var containingGroupLock = IsRestrictionValid(fields[selectUID].schemaObject.conditions, RestrictionType.GroupLock) == null ? null : IsRestrictionValid(fields[selectUID].schemaObject.conditions, RestrictionType.GroupLock).ToString();
+                                        if (containingGroupLock != null)
+                                        {
+                                            ((MultiControlRestriction)multiRestrictionMapping[containingGroupLock]).valuePairs[selectUID] = int.Parse(selectedStepper.Text);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        selectedStepper.TextColor = (Color)converter.ConvertFromInvariantString("#EB264A");
                                         selectedStepper.Text = fields[selectUID].value.ToString();
+                                    }
+                                    
+                                    await Task.Delay(3000);
+                                    selectedStepper.TextColor = (Color)converter.ConvertFromInvariantString("#0F3F8C");
+
+
+
+                                }
+                                
+                            };
+                            
+
+                            downButton.Clicked += async (sender, args) =>
+                            {
+                                Button selectedButton = (Button)sender as Button;
+                                string selectUID = selectedButton.ClassId;
+                                if (fields[selectUID].value == null)
+                                {
+                                    fields[selectUID].value = 0;
+                                }
+                                Entry selectedStepper = (Entry)(fields[selectUID].controls.Where(c => c.GetType().GetProperty("Text").GetValue(c, null).ToString() == fields[selectUID].value.ToString()).FirstOrDefault());
+                                bool shouldPush = true;
+                                int prevInt = int.Parse(fields[selectUID].value.ToString());
+
+
+                                if (!int.TryParse(selectedStepper.Text, out int output))
+                                {
+                                    shouldPush = false;
+                                }
+                                else if ((((SingleControlRestriction)singleRestrictionMapping[selectUID]).max != null && ((SingleControlRestriction)singleRestrictionMapping[selectUID]).max < prevInt-1) || (((SingleControlRestriction)singleRestrictionMapping[selectUID]).min != null && ((SingleControlRestriction)singleRestrictionMapping[selectUID]).min > prevInt-1))
+                                {
+                                    shouldPush = false;
+                                }
+                                else
+                                {
+                                    var containingGroupLock = IsRestrictionValid(fields[selectUID].schemaObject.conditions, RestrictionType.GroupLock) == null ? null : IsRestrictionValid(fields[selectUID].schemaObject.conditions, RestrictionType.GroupLock).ToString();
+                                    if (containingGroupLock != null)
+                                    {
+                                        int? min = ((MultiControlRestriction)multiRestrictionMapping[containingGroupLock]).min;
+                                        int? max = ((MultiControlRestriction)multiRestrictionMapping[containingGroupLock]).max;
+                                        int? ours = 0;
+                                        foreach (var lockItem in ((MultiControlRestriction)multiRestrictionMapping[containingGroupLock]).valuePairs)
+                                        {
+                                            if (lockItem.Value != null && lockItem.Key != selectUID)
+                                            {
+                                                ours += lockItem.Value;
+                                            }
+
+                                        }
+                                        // this is checking if this value is valid!
+                                        ours += prevInt-1;
+                                        if (min != null && ours < min)
+                                        {
+                                            shouldPush = false;
+                                        }
+                                        else if (max != null && ours > max)
+                                        {
+                                            shouldPush = false;
+                                        }
+
+                                    }
+                                }
+
+                                if (shouldPush)
+                                {
+                                    fields[selectUID].value = (prevInt-1);
+                                    var containingGroupLock = IsRestrictionValid(fields[selectUID].schemaObject.conditions, RestrictionType.GroupLock) == null ? null : IsRestrictionValid(fields[selectUID].schemaObject.conditions, RestrictionType.GroupLock).ToString();
+                                    if (containingGroupLock != null)
+                                    {
+                                        ((MultiControlRestriction)multiRestrictionMapping[containingGroupLock]).valuePairs[selectUID] = prevInt-1;
                                     }
                                 }
                                 else
                                 {
-                                    if (int.TryParse(selectedStepper.Text, out int output))
-                                    {
-                                        // it is an int, so we can set the value
-                                        // TODO: SET MIN AND MAX RESTRICTIONS HERE
-                                        fields[selectUID].value = int.Parse(selectedStepper.Text);
-                                    }
-                                    else
-                                    {
-                                        // reset input changes
-                                        selectedStepper.Text = "0";
-                                    }
+                                    selectedStepper.TextColor = (Color)converter.ConvertFromInvariantString("#EB264A");
                                 }
-                            };
-                            
+                                selectedStepper.Text = fields[selectUID].value.ToString();
+                                await Task.Delay(3000);
+                                selectedStepper.TextColor = (Color)converter.ConvertFromInvariantString("#0F3F8C");
 
-                            downButton.Clicked += (sender, args) =>
+                            };
+                            upButton.Clicked += async (sender, args) =>
                             {
                                 Button selectedButton = (Button)sender as Button;
                                 string selectUID = selectedButton.ClassId;
-                                try
+                                if (fields[selectUID].value == null)
                                 {
-                                    var prevInt = int.Parse(fields[selectUID].value.ToString());
-                                    if (prevInt > 0)
-                                    {
+                                    fields[selectUID].value = 0;
+                                }
+                                Entry selectedStepper = (Entry)(fields[selectUID].controls.Where(c => c.GetType().GetProperty("Text").GetValue(c, null).ToString() == fields[selectUID].value.ToString()).FirstOrDefault());
+                                bool shouldPush = true;
+                                int prevInt = int.Parse(fields[selectUID].value.ToString());
 
-                                        Entry selectedStepper = (Entry)(fields[selectUID].controls.Where(c => c.GetType().GetProperty("Text").GetValue(c, null).ToString() == fields[selectUID].value.ToString()).FirstOrDefault());
-                                        fields[selectUID].value = (prevInt - 1).ToString();
-                                        selectedStepper.Text = fields[selectUID].value.ToString();
+
+                                if (!int.TryParse(selectedStepper.Text, out int output))
+                                {
+                                    shouldPush = false;
+                                }
+                                else if ((((SingleControlRestriction)singleRestrictionMapping[selectUID]).max != null && ((SingleControlRestriction)singleRestrictionMapping[selectUID]).max < prevInt + 1) || (((SingleControlRestriction)singleRestrictionMapping[selectUID]).min != null && ((SingleControlRestriction)singleRestrictionMapping[selectUID]).min > prevInt + 1))
+                                {
+                                    shouldPush = false;
+                                }
+                                else
+                                {
+                                    var containingGroupLock = IsRestrictionValid(fields[selectUID].schemaObject.conditions, RestrictionType.GroupLock) == null ? null : IsRestrictionValid(fields[selectUID].schemaObject.conditions, RestrictionType.GroupLock).ToString();
+                                    if (containingGroupLock != null)
+                                    {
+                                        int? min = ((MultiControlRestriction)multiRestrictionMapping[containingGroupLock]).min;
+                                        int? max = ((MultiControlRestriction)multiRestrictionMapping[containingGroupLock]).max;
+                                        int? ours = 0;
+                                        foreach (var lockItem in ((MultiControlRestriction)multiRestrictionMapping[containingGroupLock]).valuePairs)
+                                        {
+                                            if (lockItem.Value != null && lockItem.Key != selectUID)
+                                            {
+                                                ours += lockItem.Value;
+                                            }
+
+                                        }
+                                        // this is checking if this value is valid!
+                                        ours += prevInt + 1;
+                                        if (min != null && ours < min)
+                                        {
+                                            shouldPush = false;
+                                        }
+                                        else if (max != null && ours > max)
+                                        {
+                                            shouldPush = false;
+                                        }
+
                                     }
                                 }
-                                catch(Exception ex)
-                                {
 
-                                }
-                                
-                            };
-                            upButton.Clicked += (sender, args) =>
-                            {
-                                Button selectedButton = (Button)sender as Button;
-                                string selectUID = selectedButton.ClassId;
-                                try
+                                if (shouldPush)
                                 {
-                                    var prevInt = int.Parse(fields[selectUID].value.ToString());
-                                    Entry selectedStepper = (Entry)(fields[selectUID].controls.Where(c => c.GetType().GetProperty("Text").GetValue(c, null).ToString() == fields[selectUID].value.ToString()).FirstOrDefault());
-                                    fields[selectUID].value = (prevInt + 1).ToString();
-                                    selectedStepper.Text = fields[selectUID].value.ToString();
+                                    fields[selectUID].value = (prevInt + 1);
+                                    var containingGroupLock = IsRestrictionValid(fields[selectUID].schemaObject.conditions, RestrictionType.GroupLock) == null ? null : IsRestrictionValid(fields[selectUID].schemaObject.conditions, RestrictionType.GroupLock).ToString();
+                                    if (containingGroupLock != null)
+                                    {
+                                        ((MultiControlRestriction)multiRestrictionMapping[containingGroupLock]).valuePairs[selectUID] = prevInt + 1;
+                                    }
                                 }
-                                catch(Exception ex)
+                                else
                                 {
-                                    //must be a null value, set to 1
-                                    Entry selectedStepper = (Entry)(fields[selectUID].controls.Where(c => c.GetType().GetProperty("Text").GetValue(c, null).ToString() == "0").FirstOrDefault());
-                                    fields[selectUID].value = "1";
-                                    selectedStepper.Text = fields[selectUID].value.ToString();
+                                    selectedStepper.TextColor = (Color)converter.ConvertFromInvariantString("#EB264A");
                                 }
-                                
+                                selectedStepper.Text = fields[selectUID].value.ToString();
+                                await Task.Delay(3000);
+                                selectedStepper.TextColor = (Color)converter.ConvertFromInvariantString("#0F3F8C");
                             };
                             fields[uniqueId].controls.Add(upButton);
                             fields[uniqueId].controls.Add(downButton);
@@ -474,7 +632,7 @@ namespace LightScout
                             inputContent.Children.Add(upButton, 2, 0);
                             break;
                         default:
-                            singleRestrictionMapping.Add(content.uniqueId, content.conditions);
+                            singleRestrictionMapping.Add(content.uniqueId.ToString(), new SingleControlRestriction());
                             inputContent.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
                             inputContent.Children.Add(new Label() { Text = "Not Implemented", HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center }, 0, 0);
                             break;
@@ -490,6 +648,13 @@ namespace LightScout
                 {
                     // add stack to parent, and then create another object for the next iteration
                     StackLayout newParent = new StackLayout() { ClassId = content.uniqueId };
+                    if(IsRestrictionValid(content.conditions, RestrictionType.Max) != null || IsRestrictionValid(content.conditions, RestrictionType.Min) != null)
+                    {
+                        MultiControlRestriction newRestriction = new MultiControlRestriction();
+                        newRestriction.max = IsRestrictionValid(content.conditions, RestrictionType.Max) == null ? null : int.Parse(IsRestrictionValid(content.conditions, RestrictionType.Max).ToString());
+                        newRestriction.min = IsRestrictionValid(content.conditions, RestrictionType.Min) == null ? null : int.Parse(IsRestrictionValid(content.conditions, RestrictionType.Min).ToString());
+                        multiRestrictionMapping.Add(content.uniqueId.ToString(), newRestriction);
+                    }
                     Label parentLabel = new Label() { Text = content.prettyName, Margin = new Thickness(0, 5, 0, 0), FontSize = 20, FontAttributes = FontAttributes.Bold, HorizontalOptions = LayoutOptions.Center, TextColor = (Color)converter.ConvertFromInvariantString("#4594f5") };
                     newParent.Children.Add(parentLabel);
                     ((StackLayout)dynamicLayouts[starter.uniqueId.ToString()]).Children.Add(newParent);
@@ -593,12 +758,14 @@ namespace LightScout
             startDisabled = DateTime.Now;
             totalDisabled = TimeSpan.FromSeconds(0);
         }
+        private double lastExpandHeight = 160;
         private async void expandOptions(object sender, EventArgs e)
         {
 
             Action<double> heicallback = input => { options.Height = input; };
             Action<double> corcallback = input => { optionsBar.CornerRadius = (float)input; };
-            var startingHeight = optionsExpanded ? 160 : 0;
+            //var startingHeight = optionsExpanded ? (checkWidth.Width == -1 ? 100 : checkWidth.Width)+ 60 : 0;
+            
             // ensure that no overflow content is showed
             
 
@@ -611,7 +778,7 @@ namespace LightScout
                 //optionsContent.Opacity = 0;
                 //optionsContent.IsVisible = true;
 
-                var heianim = new Animation(heicallback, startingHeight, endingHeight, Easing.CubicInOut);
+                var heianim = new Animation(heicallback, lastExpandHeight, endingHeight, Easing.CubicInOut);
                 var coranim = new Animation(corcallback, 8, 0, Easing.CubicInOut);
                 optionsContent.FadeTo(0, 300, Easing.CubicInOut);
                 
@@ -627,10 +794,11 @@ namespace LightScout
             }
             else
             {
-                AbsoluteLayout.SetLayoutBounds(optionsBarParent, new Rectangle(0, 0, 1, .35));
+                lastExpandHeight = (checkWidth.Width == -1 ? 120 : checkWidth.Width) + 60;
+                AbsoluteLayout.SetLayoutBounds(optionsBarParent, new Rectangle(0, 0, 1, .4));
                 optionsExpanded = true;
-                var endingHeight = 160;
-                var heianim = new Animation(heicallback, startingHeight, endingHeight, Easing.CubicInOut);
+                var endingHeight = lastExpandHeight;
+                var heianim = new Animation(heicallback, 0, endingHeight, Easing.CubicInOut);
                 var coranim = new Animation(corcallback, 0, 8, Easing.CubicInOut);
 
                 coranim.Commit(this, "CornerAnimation", length: 500);

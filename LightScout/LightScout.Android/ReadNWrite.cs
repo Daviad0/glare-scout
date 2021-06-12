@@ -221,8 +221,11 @@ namespace LightScout.Droid
                 Console.WriteLine(ex.ToString());
             }
             var finalPath = Path.Combine(Path.Combine(docpath, "FRCLightScout"), "LSConfiguration.txt");
-            string result = null;
-            try
+            string result = "";
+
+            // WARNING: THIS IS A TEMPRARY FIX TO ISOLATE SOLVING AN ISSUE ELSEWHERE
+
+            /*try
             {
                 result = File.ReadAllText(finalPath);
             }
@@ -233,7 +236,7 @@ namespace LightScout.Droid
                 newconfigfile.ScouterNames = new string[2] { "John Doe", "Imaex Ample" };
                 File.WriteAllText(finalPath, JsonConvert.SerializeObject(newconfigfile));
                 result = File.ReadAllText(finalPath);
-            }
+            }*/
 
             return result;
         }

@@ -15,6 +15,7 @@ namespace LightScout.Models
             text = 2,
             integer = 3,
             dropdown = 4,
+            timer = 5
         }
         public SchemaType schemaType;
         public object value;

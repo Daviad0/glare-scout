@@ -51,6 +51,12 @@ namespace LightScout
               },
             
             'contents' : [
+{
+                'type' : 'text',
+                'prettyName' : 'These fields can only go up to a maximum of 15 power cells added up!',
+                'uniqueId' : 'powerCellA_label'
+                
+              },
               {
                 'type' : 'stepper',
                 'prettyName' : 'Power Cells Inner',
@@ -128,6 +134,12 @@ namespace LightScout
               },
             
             'contents' : [
+{
+                'type' : 'text',
+                'prettyName' : 'These fields can only go up to a maximum of 5 power cells added up!',
+                'uniqueId' : 'powerCellT_label'
+                
+              },
               {
                 'type' : 'stepper',
                 'prettyName' : 'Power Cells Inner',
@@ -210,13 +222,13 @@ namespace LightScout
         'uniqueId' : 'endgame',
         'contents' : [
           {
-            'type' : 'choices',
+            'type' : 'toggle',
             'prettyName' : 'Parked?',
             'uniqueId' : 'parked',
             'conditions' : 
                 {
                     'options' : [
-                        'Yes', 'No'
+                        'Not Parked', 'Parked'
                     ]
                 }
             
@@ -232,8 +244,12 @@ namespace LightScout
                     ]
                 }
             
-            }
-              
+            },
+{
+'type' : 'timer',
+            'prettyName' : 'Went for Endgame',
+            'uniqueId' : 'endgame_tried'
+              }
         ]
       }
     ]
@@ -319,6 +335,57 @@ namespace LightScout
                     Grid inputContent = new Grid();
                     switch (content.type.ToString())
                     {
+                        case "timer":
+                            Button anotherButton = new Button() { Text = "Hasn't Happened", IsEnabled = true, CornerRadius = 8, BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Transparent"), BorderColor = (Color)converter.ConvertFromInvariantString("#4594f5"), BorderWidth = 4, TextColor = (Color)converter.ConvertFromInvariantString("#4594f5"), ClassId = uniqueId, Padding = new Thickness(6, 4) };
+                            fields[uniqueId].controls.Add(anotherButton);
+                            anotherButton.Clicked += (sender, args) =>
+                            {
+                                Button selectedButton = (Button)sender as Button;
+                                var selectUID = selectedButton.ClassId;
+                                fields[selectUID].value = Math.Floor((DateTime.Now - startForm).TotalMinutes);
+                                selectedButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5");
+                                selectedButton.TextColor = (Color)converter.ConvertFromInvariantString("Color.White");
+                                selectedButton.Text = "Happened at " + (Math.Floor((DateTime.Now - startForm).TotalMinutes).ToString() + ":" + ((Math.Floor((DateTime.Now - startForm).TotalSeconds) - (Math.Floor((DateTime.Now - startForm).TotalMinutes) * 60)).ToString().Length == 1 ? "0" : "") + (Math.Floor((DateTime.Now - startForm).TotalSeconds) - (Math.Floor((DateTime.Now - startForm).TotalMinutes) * 60)).ToString());
+                            };
+                            inputContent.Children.Add(anotherButton);
+                            fieldContent.Children.Add(inputContent, 1, 0);
+                            break;
+                        case "toggle":
+                            Button anotherNewButton = new Button() { Text = content.conditions.options[0].ToString(), IsEnabled = true, CornerRadius = 8, BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Transparent"), BorderColor = (Color)converter.ConvertFromInvariantString("#4594f5"), BorderWidth = 4, TextColor = (Color)converter.ConvertFromInvariantString("#4594f5"), ClassId = uniqueId, Padding = new Thickness(6, 4) };
+                            fields[uniqueId].value = content.conditions.options[0].ToString();
+                            fields[uniqueId].controls.Add(anotherNewButton);
+                            anotherNewButton.Clicked += (sender, args) =>
+                            {
+                                Button selectedButton = (Button)sender as Button;
+                                var selectUID = selectedButton.ClassId;
+                                if(selectedButton.Text == fields[selectUID].schemaObject.conditions.options[0].ToString())
+                                {
+                                    // this will mean it needs to be toggled on
+                                    fields[selectUID].value = fields[selectUID].schemaObject.conditions.options[1].ToString();
+                                    selectedButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5");
+                                    selectedButton.TextColor = (Color)converter.ConvertFromInvariantString("Color.White");
+                                    selectedButton.Text = fields[selectUID].value.ToString();
+                                }
+                                else
+                                {
+                                    // not lmao
+                                    fields[selectUID].value = fields[selectUID].schemaObject.conditions.options[0].ToString();
+                                    selectedButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Transparent");
+                                    selectedButton.TextColor = (Color)converter.ConvertFromInvariantString("#4594f5");
+                                    
+                                    selectedButton.Text = fields[selectUID].value.ToString();
+                                }
+                            };
+                            inputContent.Children.Add(anotherNewButton);
+                            fieldContent.Children.Add(inputContent, 1, 0);
+                            break;
+                        case "text":
+                            fieldContent.Children.Clear();
+                            fieldContent.ColumnDefinitions.Clear();
+                            fieldContent.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star});
+                            Label newContent = new Label() { FontSize = 14, HorizontalOptions = LayoutOptions.Center, HorizontalTextAlignment = TextAlignment.Center, Text = content.prettyName, LineBreakMode = LineBreakMode.WordWrap, Margin = new Thickness(15,0,15,5), TextColor = (Color)converter.ConvertFromInvariantString("#0F3F8C") };
+                            fieldContent.Children.Add(newContent, 0, 0);
+                            break;
                         case "choices":
                             int col = 0;
                             int row = 0;
@@ -393,6 +460,7 @@ namespace LightScout
                                 
 
                             }
+                            fieldContent.Children.Add(inputContent, 1, 0);
                             break;
                         case "stepper":
                             Button downButton = new Button() { VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, TextColor = (Color)converter.ConvertFromInvariantString("Color.White"), Text = "-", BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5"), CornerRadius = 8, Padding = new Thickness(4), FontAttributes = FontAttributes.Bold, ClassId = uniqueId, FontSize = 18 };
@@ -630,9 +698,10 @@ namespace LightScout
                             inputContent.Children.Add(downButton, 0, 0);
                             inputContent.Children.Add(stepperValue, 1, 0);
                             inputContent.Children.Add(upButton, 2, 0);
+                            fieldContent.Children.Add(inputContent, 1, 0);
                             break;
                         case "dropdown":
-                            Picker newPicker = new Picker() { TextColor = (Color)converter.ConvertFromInvariantString("#0F3F8C"), FontAttributes = FontAttributes.Bold, ClassId = uniqueId, HorizontalTextAlignment=TextAlignment.Center };
+                            Picker newPicker = new Picker() { TextColor = (Color)converter.ConvertFromInvariantString("#4594f5"), FontAttributes = FontAttributes.Bold, ClassId = uniqueId, HorizontalTextAlignment=TextAlignment.Center };
                             newPicker.Title = "Select an Option";
                             foreach(var choice in content.conditions.options)
                             {
@@ -647,15 +716,17 @@ namespace LightScout
                             };
                             inputContent.Children.Add(newPicker, 0, 0);
                             fields[uniqueId].controls.Add(newPicker);
+                            fieldContent.Children.Add(inputContent, 1, 0);
                             break;
                         default:
                             singleRestrictionMapping.Add(content.uniqueId.ToString(), new SingleControlRestriction());
                             inputContent.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
                             inputContent.Children.Add(new Label() { Text = "Not Implemented", HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center }, 0, 0);
+                            fieldContent.Children.Add(inputContent, 1, 0);
                             break;
                     }
                     
-                    fieldContent.Children.Add(inputContent, 1, 0);
+                    
                     ((StackLayout)dynamicLayouts[starter.uniqueId.ToString()]).Children.Add(fieldContent);
                     // remember submission order and add to specific dictionary based on the content needed
                     submitMethod.Add(content.uniqueId.ToString());
@@ -699,12 +770,13 @@ namespace LightScout
                 {
                     Grid categoryHeader = new Grid() { ColumnDefinitions = { new ColumnDefinition { Width = GridLength.Auto }, new ColumnDefinition { Width = GridLength.Auto } }, Margin = new Thickness(0, 30, 0, 0), HorizontalOptions = LayoutOptions.Center };
                     Label categoryLabel = new Label() { Text = category.prettyName, FontSize = 28, FontAttributes = FontAttributes.Bold, HorizontalOptions = LayoutOptions.Center, TextColor = (Color)converter.ConvertFromInvariantString("#0F3F8C") };
-                    Frame categoryStartFrame = new Frame() { CornerRadius = 8, Padding = new Thickness(8, 4), HorizontalOptions = LayoutOptions.Start, BackgroundColor = (Color)converter.ConvertFromInvariantString("#0F3F8C"), VerticalOptions = LayoutOptions.Center, Margin = new Thickness(3, 0), ClassId = category.uniqueId };
+                    /*Frame categoryStartFrame = new Frame() { CornerRadius = 8, Padding = new Thickness(8, 4), HorizontalOptions = LayoutOptions.Start, BackgroundColor = (Color)converter.ConvertFromInvariantString("#0F3F8C"), VerticalOptions = LayoutOptions.Center, Margin = new Thickness(3, 0), ClassId = category.uniqueId };
                     Label categoryStartLabel = new Label() { Text = "Start", TextColor = (Color)converter.ConvertFromInvariantString("Color.White"), FontSize = 18, HorizontalOptions = LayoutOptions.End, VerticalOptions = LayoutOptions.Center, ClassId = category.uniqueId };
                     categoryStartFrame.Content = categoryStartLabel;
                     
+                    
+                    categoryHeader.Children.Add(categoryStartFrame, 1, 0);*/
                     categoryHeader.Children.Add(categoryLabel, 0, 0);
-                    categoryHeader.Children.Add(categoryStartFrame, 1, 0);
                     mainParent.Children.Add(categoryHeader);
                 }
                 else

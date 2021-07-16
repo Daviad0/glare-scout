@@ -187,6 +187,7 @@
                 </Grid.RowDefinitions>
                 <StackLayout Grid.Row="0">
                     <Label Text="Additional Page"/>
+                    <Button Text="Bluetooth Test Submit" Clicked="Button_Clicked" x:Name="BLETest"/>
 
                 </StackLayout>
                 <Label VerticalOptions="End" HorizontalOptions="Center" TextColor="#2A7AFA" Text="&#xea99;" FontFamily="{StaticResource IconFont}" FontSize="40" Grid.Row="1" x:Name="additionalPageNav1">

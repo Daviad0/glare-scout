@@ -9,7 +9,23 @@ namespace LightScout
 {
     public sealed class BLEConnection
     {
-        public static readonly BLEConnection instance = new BLEConnection();
+        private static readonly object l1 = new object();  
+        public static BLEConnection instance = null;
+        public static BLEConnection Instance
+        {
+            get
+            {
+                lock (l1)
+                {
+                    if (instance == null)
+                    {
+                        instance = new BLEConnection();
+                    }
+                    return instance;
+                }
+                
+            }
+        }
 
         public List<IDevice> detectedDevices = new List<IDevice>();
         public IDevice currentlyConnectedDevice = null;
@@ -22,16 +38,28 @@ namespace LightScout
             };
             adapter.DeviceDiscovered += (sender, eArgs) =>
             {
-                DeviceDetected.Invoke(eArgs.Device, DateTime.Now);
+                if (DeviceDetected != null)
+                {
+                    DeviceDetected.Invoke(eArgs.Device, DateTime.Now);
+                }
+                
             };
             adapter.DeviceConnected += (sender, eArgs) =>
             {
-                DeviceConnected.Invoke(eArgs.Device, true);
+                if (DeviceConnected != null)
+                {
+                    DeviceConnected.Invoke(eArgs.Device, true);
+                }
+                
                 currentlyConnectedDevice = eArgs.Device;
             };
             adapter.DeviceDisconnected += (sender, eArgs) =>
             {
-                DeviceDisconnected.Invoke(eArgs.Device);
+                if(DeviceDisconnected != null)
+                {
+                    DeviceDisconnected.Invoke(eArgs.Device);
+                }
+                
                 currentlyConnectedDevice = null;
             };
         }
@@ -50,7 +78,7 @@ namespace LightScout
         public async void RedetectDevices()
         {
             
-            adapter.ScanTimeout = 15;
+            adapter.ScanTimeout = 15000;
             await adapter.StartScanningForDevicesAsync();
             previousDetection = DateTime.Now;
         }
@@ -69,10 +97,11 @@ namespace LightScout
         {
             try
             {
-                await adapter.ConnectToDeviceAsync(device);
+                await adapter.ConnectToDeviceAsync(device, new Plugin.BLE.Abstractions.ConnectParameters(true, true));
             }
             catch(Exception e)
             {
+                Console.WriteLine(e);
                 DeviceConnected.Invoke(null, false);
             }
             
@@ -81,10 +110,11 @@ namespace LightScout
         {
             try
             {
-                await adapter.ConnectToKnownDeviceAsync(Guid.Parse(GUID));
+                await adapter.ConnectToKnownDeviceAsync(Guid.Parse(GUID), new Plugin.BLE.Abstractions.ConnectParameters(true, true));
             }
             catch(Exception e)
             {
+                Console.WriteLine(e);
                 DeviceConnected.Invoke(null, false);
             }
         } 
@@ -103,9 +133,11 @@ namespace LightScout
         public delegate void MessageSendingHandler(string message, int totalMessages, int currentMessage, bool finished);
         public event MessageSendingHandler MessageSent;
 
-        public async void SubmitData(string serviceId, string characteristicId, string data)
+        public async void SubmitData(string serviceId, string characteristicId, string data, IDevice device)
         {
-            var service = await currentlyConnectedDevice.GetServiceAsync(Guid.Parse(serviceId));
+            
+            
+            var service = await device.GetServiceAsync(Guid.Parse(serviceId));
             var characteristic = await service.GetCharacteristicAsync(Guid.Parse(characteristicId));
             var communicationId = GenerateRandomHexString();
             var encodedMessage = Encoding.ASCII.GetBytes(data);
@@ -115,9 +147,43 @@ namespace LightScout
                 var headerString = teamNumber.ToString("0000") + deviceId + schemaId + (i + 1 == numMessages ? "ee" : "aa") + (i + 1).ToString("0000") + communicationId;
                 var finalByteArray = StringToByteArray(headerString).Concat(encodedMessage.Skip(i * 459).ToArray()).ToArray();
                 await characteristic.WriteAsync(finalByteArray);
-                MessageSent.Invoke(data, numMessages, i + 1, false);
+                MessageSent.Invoke(Encoding.ASCII.GetString(encodedMessage.Skip(i * 459).ToArray()), numMessages, i + 1, false);
             }
             MessageSent.Invoke(data, numMessages, numMessages, true);
+            await adapter.DisconnectDeviceAsync(device);
+        }
+
+        public bool RemoveEventReferences()
+        {
+            if(DeviceDetected != null)
+            {
+                foreach (Delegate d in DeviceDetected.GetInvocationList())
+                {
+                    DeviceDetected -= (DeviceDetectionHandler)d;
+                }
+            }
+            if (DeviceConnected != null)
+            {
+                foreach (Delegate d in DeviceConnected.GetInvocationList())
+                {
+                    DeviceConnected -= (DeviceConnectionHandler)d;
+                }
+            }
+            if (DeviceDisconnected != null)
+            {
+                foreach (Delegate d in DeviceDisconnected.GetInvocationList())
+                {
+                    DeviceDisconnected -= (DeviceDisconnectionHandler)d;
+                }
+            }
+            if (MessageSent != null)
+            {
+                foreach (Delegate d in MessageSent.GetInvocationList())
+                {
+                    MessageSent -= (MessageSendingHandler)d;
+                }
+            }
+            return true;
         }
 
         private static byte[] StringToByteArray(string hex)

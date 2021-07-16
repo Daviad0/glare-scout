@@ -106,6 +106,7 @@
   <ItemGroup>
     <Compile Include="DroidKeyboardHelper.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="PeripheralManagement.cs" />
     <Compile Include="ReadNWrite.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -430,4 +431,9 @@
     </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionLightScoutAndroidHideInfoBar="True" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

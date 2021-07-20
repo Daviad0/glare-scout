@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Android.App;
 using Android.Bluetooth;
 using Android.Bluetooth.LE;
@@ -94,6 +94,9 @@ namespace LightScout.Droid
                 var isEnded = header.Substring(20, 1) == "A" ? false : true;
                 var expectingResponse = header.Substring(21, 1) == "1" ? true : false;
                 var data = Encoding.ASCII.GetString(value.Skip(17).ToArray());
+                Console.WriteLine("Data: " + data);
+                // 2 things are essentially writing at once, and I don't know why. It disrupts the flow
+                
                 if (expectingResponse)
                 {
                     //check if device is currently subscribed
@@ -103,7 +106,7 @@ namespace LightScout.Droid
                         switch (protocolId)
                         {
                             case "90000100":
-                                UpdateNotification("BRAVO 6 GOING LIGHT", "90000100");
+                                UpdateNotification("BRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHT", "90000100");
                                 break;
                         }
                     }
@@ -147,7 +150,7 @@ namespace LightScout.Droid
             //characteristic.SetValue(value);
             base.OnCharacteristicWriteRequest(device, requestId, characteristic, preparedWrite, responseNeeded, offset, value);
         }
-        public void UpdateNotification(string data, string protocol)
+        public async void UpdateNotification(string data, string protocol)
         {
             var communicationId = GenerateRandomHexString();
             var encodedMessage = Encoding.ASCII.GetBytes(data);
@@ -158,11 +161,14 @@ namespace LightScout.Droid
                 var finalByteArray = StringToByteArray(headerString).Concat(encodedMessage.Skip(m * 459).ToArray()).ToArray();
                 ServerManagement.CurrentNotificationTo.Characteristic.SetValue(finalByteArray);
                 ServerManagement.Server.NotifyCharacteristicChanged(ServerManagement.CurrentNotificationTo.Device, ServerManagement.CurrentNotificationTo.Characteristic, false);
+                
                 Console.WriteLine(m.ToString() + " message notified");
+                await Task.Delay(1000);
             }
         }
         public override void OnDescriptorWriteRequest(BluetoothDevice device, int requestId, BluetoothGattDescriptor descriptor, bool preparedWrite, bool responseNeeded, int offset, byte[] value)
         {
+            Console.WriteLine("Notify yay!");
             ServerManagement.CurrentNotificationTo = new NotifyingDevice() { Characteristic = descriptor.Characteristic, Device = device };
             ServerManagement.Server.SendResponse(device, requestId, GattStatus.Success, offset, value);
             base.OnDescriptorWriteRequest(device, requestId, descriptor, preparedWrite, responseNeeded, offset, value);
@@ -241,10 +247,10 @@ namespace LightScout.Droid
         {
             AdvertiseSettings settings = new AdvertiseSettings.Builder().SetConnectable(true).Build();
 
-            BluetoothAdapter.DefaultAdapter.SetName("GBP4.1-"+serviceName);
+            BluetoothAdapter.DefaultAdapter.SetName("Glare");
 
-            ParcelUuid parcelUuid = new ParcelUuid(UUID.FromString(serviceUUID));
-            AdvertiseData data = new AdvertiseData.Builder().SetIncludeDeviceName(true).SetIncludeTxPowerLevel(true).Build();
+            ParcelUuid parcelUuid = new ParcelUuid(UUID.FromString("00000862-0000-1000-8000-00805f9b34fb"));
+            AdvertiseData data = new AdvertiseData.Builder().AddServiceUuid(parcelUuid).SetIncludeDeviceName(true).Build();
 
             this.callback = new AdvertiserCallback();
             BluetoothAdapter.DefaultAdapter.BluetoothLeAdvertiser.StartAdvertising(settings, data, callback);

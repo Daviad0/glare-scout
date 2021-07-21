@@ -175,8 +175,18 @@ namespace LightScout.Droid
         }
         public override void OnDescriptorReadRequest(BluetoothDevice device, int requestId, int offset, BluetoothGattDescriptor descriptor)
         {
-            ServerManagement.CurrentNotificationTo = new NotifyingDevice() { Characteristic = descriptor.Characteristic, Device = device };
-            ServerManagement.Server.SendResponse(device, requestId, GattStatus.Success, Encoding.ASCII.GetBytes("uwu").Length, Encoding.ASCII.GetBytes("uwu"));
+            var alreadyExistingUUID = UUID.FromString("0000A404-0000-1000-8000-00805F9B34FB");
+            if (descriptor.Uuid.ToString() == alreadyExistingUUID.ToString())
+            {
+                // getting tablet unique ID
+                ServerManagement.Server.SendResponse(device, requestId, GattStatus.Success, Encoding.ASCII.GetBytes("1234567890ab").Length, Encoding.ASCII.GetBytes("1234567890ab"));
+            }
+            else
+            {
+                ServerManagement.Server.SendResponse(device, requestId, GattStatus.Success, Encoding.ASCII.GetBytes("uwu").Length, Encoding.ASCII.GetBytes("uwu"));
+                
+            }
+            //ServerManagement.CurrentNotificationTo = new NotifyingDevice() { Characteristic = descriptor.Characteristic, Device = device };
             base.OnDescriptorReadRequest(device, requestId, offset, descriptor);
         }
         /*public override void OnNotificationSent(BluetoothDevice device, [GeneratedEnum] GattStatus status)
@@ -260,8 +270,10 @@ namespace LightScout.Droid
                 GattProperty.Read | GattProperty.Write | GattProperty.Notify,
                 GattPermission.Read | GattPermission.Write
             );
-            BluetoothGattDescriptor desc = new BluetoothGattDescriptor(UUID.FromString("00002902-0000-1000-8000-00805F9B34FB"), GattDescriptorPermission.Write | GattDescriptorPermission.Read);
-            chara.AddDescriptor(desc);
+            BluetoothGattDescriptor uniqueIdDesc = new BluetoothGattDescriptor(UUID.FromString("0000a404-0000-1000-8000-00805F9B34FB"), GattDescriptorPermission.Read);
+            BluetoothGattDescriptor notifdesc = new BluetoothGattDescriptor(UUID.FromString("00002902-0000-1000-8000-00805F9B34FB"), GattDescriptorPermission.Write | GattDescriptorPermission.Read);
+            chara.AddDescriptor(uniqueIdDesc);
+            chara.AddDescriptor(notifdesc);
             BluetoothGattService service = new BluetoothGattService(
                 UUID.FromString("00000862-0000-1000-8000-00805f9b34fb"),
                 GattServiceType.Primary

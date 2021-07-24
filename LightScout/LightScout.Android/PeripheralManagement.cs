@@ -17,6 +17,19 @@ using Xamarin.Forms;
 [assembly: Xamarin.Forms.Dependency(typeof(LightScout.Droid.PeripheralManagement))]
 namespace LightScout.Droid
 {
+    public enum BluetoothLogType
+    {
+        Successful,
+        Unsuccessful,
+        Aborted,
+        ElevatedEvent
+    }
+    public class BluetoothDataLog
+    {
+        public DateTime timestamp { get; set; }
+        public BluetoothLogType bluetoothLogType { get; set; }
+        public string extraData { get; set; }
+    }
     public class QueueItemOut
     {
         public string communicationId;
@@ -32,15 +45,18 @@ namespace LightScout.Droid
         public string latestData;
         public bool isEnded;
         public string deviceId;
-        public string protocolId;
+        public string protocolIn;
+        public string protocolOut;
     }
     public class NotifyingDevice
     {
         public BluetoothDevice Device;
         public BluetoothGattCharacteristic Characteristic;
     }
+    
     public sealed class ServerManagement
     {
+        public static StorageManager storageManager = StorageManager.Instance;
         private static readonly object l1 = new object();
         public static ServerManagement instance = null;
         public static ServerManagement Instance
@@ -86,57 +102,46 @@ namespace LightScout.Droid
             try
             {
                 ServerManagement.CurrentRequestId = requestId;
-                var header = BitConverter.ToString(value.Take(17).ToArray()).Replace("-", string.Empty);
+                var header = BitConverter.ToString(value.Take(19).ToArray()).Replace("-", string.Empty);
                 var communicationId = header.Substring(26, 8);
-                var deviceId = header.Substring(4, 8);
-                var protocolId = header.Substring(12, 8);
-                var messageNumber = int.Parse(header.Substring(22, 4));
-                var isEnded = header.Substring(20, 1) == "A" ? false : true;
-                var expectingResponse = header.Substring(21, 1) == "1" ? true : false;
-                var data = Encoding.ASCII.GetString(value.Skip(17).ToArray());
+                var deviceId = header.Substring(4, 12);
+                var protocolIn = header.Substring(16, 4);
+                var protocolOut = header.Substring(20, 4);
+                var messageNumber = int.Parse(header.Substring(26, 4));
+                var isEnded = header.Substring(24, 1) == "A" ? false : true;
+                var expectingResponse = header.Substring(25, 1) == "1" ? true : false;
+                var data = Encoding.ASCII.GetString(value.Skip(19).ToArray());
                 Console.WriteLine("Data: " + data);
                 // 2 things are essentially writing at once, and I don't know why. It disrupts the flow
-                
-                if (expectingResponse)
+                // assume for now that it just wants to send a test value
+                if (ServerManagement.QueueIn.Exists(item => item.communicationId == communicationId))
                 {
-                    //check if device is currently subscribed
-                    if(ServerManagement.CurrentNotificationTo != null && device.Address == ServerManagement.CurrentNotificationTo.Device.Address)
-                    {
-                        // check protocol for what to respond with
-                        switch (protocolId)
-                        {
-                            case "90000100":
-                                UpdateNotification("BRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHTBRAVO 6 GOING LIGHT", "90000100");
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        // cannot be notified of changes, so I must send back an error!
-                        ServerManagement.Server.SendResponse(device, requestId, GattStatus.RequestNotSupported, Encoding.ASCII.GetBytes("Comm ID updated!").ToArray().Length, Encoding.ASCII.GetBytes("Comm ID updated!").ToArray());
-                    }
-                    
+                    // use existing device
+                    ServerManagement.QueueIn.Single(item => item.communicationId == communicationId).latestHeader = header;
+                    ServerManagement.QueueIn.Single(item => item.communicationId == communicationId).latestData = (ServerManagement.QueueIn.Single(item => item.communicationId == communicationId).latestData == null ? "" : ServerManagement.QueueIn.Single(item => item.communicationId == communicationId).latestData) + data;
+                    ServerManagement.QueueIn.Single(item => item.communicationId == communicationId).isEnded = isEnded;
+                    ServerManagement.QueueIn.Single(item => item.communicationId == communicationId).numMessages += 1;
                 }
                 else
                 {
-                    // assume for now that it just wants to send a test value
-                    if (ServerManagement.QueueIn.Exists(item => item.communicationId == communicationId))
-                    {
-                        // use existing device
-                        ServerManagement.QueueIn.Single(item => item.communicationId == communicationId).latestHeader = header;
-                        ServerManagement.QueueIn.Single(item => item.communicationId == communicationId).latestData = (ServerManagement.QueueIn.Single(item => item.communicationId == communicationId).latestData == null ? "" : ServerManagement.QueueIn.Single(item => item.communicationId == communicationId).latestData) + data;
-                        ServerManagement.QueueIn.Single(item => item.communicationId == communicationId).isEnded = isEnded;
-                        ServerManagement.QueueIn.Single(item => item.communicationId == communicationId).numMessages += 1;
-                        // need to check if finished
-                    }
-                    else
-                    {
-                        ServerManagement.QueueIn.Add(new QueueItemIn() { communicationId = communicationId, deviceId = deviceId, protocolId = protocolId, latestData = data, latestHeader = header, isEnded = isEnded, numMessages = 1 });
-                    }
-                    CheckIfFinished_In(ServerManagement.QueueIn.Single(item => item.communicationId == communicationId));
+                    ServerManagement.QueueIn.Add(new QueueItemIn() { communicationId = communicationId, deviceId = deviceId, protocolIn = protocolIn, protocolOut = protocolOut, latestData = data, latestHeader = header, isEnded = isEnded, numMessages = 1 });
+                    
                 }
-                
-                
+                if (ServerManagement.CurrentNotificationTo != null && device.Address == ServerManagement.CurrentNotificationTo.Device.Address)
+                {
+                    CheckIfFinished(ServerManagement.QueueIn.Single(item => item.communicationId == communicationId));
+                }
+                else
+                {
+                    // cannot be notified of changes, so I must send back an error!
+                    ServerManagement.Server.SendResponse(device, requestId, GattStatus.RequestNotSupported, Encoding.ASCII.GetBytes("Comm ID updated!").ToArray().Length, Encoding.ASCII.GetBytes("Comm ID updated!").ToArray());
+                }
+                //check if device is currently subscribed
+
+
+
+
+
                 ServerManagement.Server.SendResponse(device, requestId, GattStatus.Success, Encoding.ASCII.GetBytes("Comm ID updated!").ToArray().Length, Encoding.ASCII.GetBytes("Comm ID updated!").ToArray());
             }
             catch(Exception e)
@@ -150,14 +155,14 @@ namespace LightScout.Droid
             //characteristic.SetValue(value);
             base.OnCharacteristicWriteRequest(device, requestId, characteristic, preparedWrite, responseNeeded, offset, value);
         }
-        public async void UpdateNotification(string data, string protocol)
+        public async void UpdateNotification(string data, string protocolIn, string protocolOut)
         {
             var communicationId = GenerateRandomHexString();
             var encodedMessage = Encoding.ASCII.GetBytes(data);
             var numMessages = (int)Math.Ceiling((float)Encoding.ASCII.GetBytes(data).Length / (float)459);
             for(int m = 0; m < numMessages; m++)
             {
-                var headerString = (862).ToString("0000") + "12345678" + protocol + (m + 1 == numMessages ? "e" : "a")+ "0" + (m + 1).ToString("0000") + communicationId;
+                var headerString = (862).ToString("0000") + "1234567890ab" + protocolIn + protocolOut + (m + 1 == numMessages ? "e" : "a")+ "0" + (m + 1).ToString("0000") + communicationId;
                 var finalByteArray = StringToByteArray(headerString).Concat(encodedMessage.Skip(m * 459).ToArray()).ToArray();
                 ServerManagement.CurrentNotificationTo.Characteristic.SetValue(finalByteArray);
                 ServerManagement.Server.NotifyCharacteristicChanged(ServerManagement.CurrentNotificationTo.Device, ServerManagement.CurrentNotificationTo.Characteristic, false);
@@ -194,25 +199,54 @@ namespace LightScout.Droid
             ServerManagement.Server.SendResponse(device, ServerManagement.CurrentRequestId, GattStatus.Success, Encoding.ASCII.GetBytes("AAA").ToArray().Length, Encoding.ASCII.GetBytes("AAA").ToArray());
             base.OnNotificationSent(device, status);
         }*/
-        public void CheckIfFinished_In(QueueItemIn item)
+        public void CheckIfFinished(QueueItemIn item)
         {
-            if(item.isEnded == true)
+            if (item.isEnded)
             {
-                Console.WriteLine(item.communicationId + " detected as FINISHED!");
-                if(int.Parse(item.latestHeader.Substring(22,4)) == item.numMessages)
+                // first do what was told to do
+                switch (item.protocolIn)
                 {
-                    // no hanging communication error reached
-                    Console.WriteLine(item.communicationId + " detected as SUCCESSFUL!");
-                    MessagingCenter.Send("MasterPage", "DataGot", "Successful Result: " + item.latestData);
+                    case "0000":
+                        Console.WriteLine("(0000) Doing nothing");
+                        break;
+                    case "0998":
+                        Console.WriteLine("(0998) Ping from the central!");
+                        break;
+                    case "0999":
+                        Console.WriteLine("(0999) Data from central: " + item.protocolIn);
+                        break;
+                    case "A101":
+                        Console.WriteLine("(a101) This should lock tablet");
+                        // lock tablet here
+                        break;
+                    case "A102":
+                        Console.WriteLine("(a101) This should unlock tablet");
+                        // unlock tablet here
+                        break;
+                    case "A111":
+                        Console.WriteLine("(a111) Sending dialog box");
+                        MessagingCenter.Send("MasterPage", "DialogBox", item.latestData);
+                        break;
                 }
-                else
+                // next send back what told to
+                switch (item.protocolOut)
                 {
-                    MessagingCenter.Send("MasterPage", "DataGot", "Partial Bad Result: " + item.latestData);
+                    case "0000":
+                        Console.WriteLine("(0000 >) Doing nothing");
+                        break;
+                    case "0001":
+                        // allow queue to do something here
+                        break;
+                    case "0998":
+                        UpdateNotification("Pong!", item.protocolIn, item.protocolOut);
+                        break;
+                    case "0999":
+                        UpdateNotification("I'm a data packet!", item.protocolIn, item.protocolOut);
+                        break;
                 }
-                ServerManagement.QueueIn.Remove(item);
-                
             }
             
+
         }
         private static byte[] StringToByteArray(string hex)
         {
@@ -236,15 +270,34 @@ namespace LightScout.Droid
     }
     public class AdvertiserCallback : AdvertiseCallback
     {
-        public override void OnStartSuccess(AdvertiseSettings settingsInEffect)
+        public async override void OnStartSuccess(AdvertiseSettings settingsInEffect)
         {
             Console.WriteLine(settingsInEffect.IsConnectable);
+            AddToBluetoothLog("", BluetoothLogType.Successful);
             base.OnStartSuccess(settingsInEffect);
         }
-        public override void OnStartFailure([GeneratedEnum] AdvertiseFailure errorCode)
+        public async override void OnStartFailure([GeneratedEnum] AdvertiseFailure errorCode)
         {
             Console.WriteLine(errorCode.ToString());
+            AddToBluetoothLog("", BluetoothLogType.Unsuccessful);
             base.OnStartFailure(errorCode);
+        }
+        public async void AddToBluetoothLog(string extraData, BluetoothLogType bluetoothLogType)
+        {
+            var existingData = await ServerManagement.storageManager.GetData("bluetooth_log.txt");
+            if (existingData == "")
+            {
+                var emptyList = new List<BluetoothDataLog>() { new BluetoothDataLog() { timestamp = DateTime.Now, bluetoothLogType = bluetoothLogType, extraData = extraData } };
+                existingData = Newtonsoft.Json.JsonConvert.SerializeObject(emptyList);
+            }
+            else
+            {
+                var existingList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<BluetoothDataLog>>(existingData);
+                var newItem = new BluetoothDataLog() { extraData = extraData, bluetoothLogType = bluetoothLogType, timestamp = DateTime.Now };
+                existingList.Add(newItem);
+                existingData = Newtonsoft.Json.JsonConvert.SerializeObject(existingList);
+            }
+            Console.WriteLine(await ServerManagement.storageManager.SetData("bluetooth_log.txt", existingData));
         }
     }
 

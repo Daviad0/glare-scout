@@ -42,6 +42,14 @@ namespace LightScout
                 
 
             });
+            MessagingCenter.Subscribe<string, string>("MasterPage", "DialogBox", (sender, message) =>
+            {
+                Device.BeginInvokeOnMainThread(() => {
+                    DisplayAlert("Just for you...", message, "Alright!");
+                });
+
+
+            });
             DependencyService.Get<BLEPeripheral>().StartAdvertising("a3db5ad7-ac7b-4a48-b4e0-13f7c087194d", "DT1");
         }
 

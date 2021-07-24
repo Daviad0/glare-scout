@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "VH4g832CGjh7VC0jnMvbxmmMK+lXaFgQefMZi9blY76yBaZgH/H+n1QGns8JGCK6awHP9xkX+X7lThdHW0gPBQ==",
+  "dgSpecHash": "tKgTTRHbGX7Li8U00zaIW+sRxBXjy2Zfzofr5KqnqChOGe07V+/Pe4pluBDEY21oAQf8mSFax7tAvMExtr0oQw==",
   "success": true,
   "projectFilePath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout.iOS\\LightScout.iOS.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,7 @@
     "C:\\Users\\djree\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\pclstorage\\1.0.2\\pclstorage.1.0.2.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\plugin.ble\\2.1.2\\plugin.ble.2.1.2.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\sharpnado.shadows\\1.2.0\\sharpnado.shadows.1.2.0.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\skiasharp\\2.80.2\\skiasharp.2.80.2.nupkg.sha512",

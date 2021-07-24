@@ -11,6 +11,8 @@ public class MonoPackageManager_Resources {
 		"LightScout.dll",
 		"Newtonsoft.Json.Bson.dll",
 		"Newtonsoft.Json.dll",
+		"PCLStorage.Abstractions.dll",
+		"PCLStorage.dll",
 		"Plugin.BLE.Abstractions.dll",
 		"Plugin.BLE.dll",
 		"Plugin.CurrentActivity.dll",

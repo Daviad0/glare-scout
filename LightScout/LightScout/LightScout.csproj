@@ -17,6 +17,7 @@
     <PackageReference Include="akavache" Version="7.2.1" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="PCLStorage" Version="1.0.2" />
     <PackageReference Include="Plugin.BLE" Version="2.1.2" />
     <PackageReference Include="Sharpnado.Shadows" Version="1.2.0" />
     <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.2" />

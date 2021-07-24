@@ -50,6 +50,10 @@
               "target": "Package",
               "version": "[4.7.0, )"
             },
+            "PCLStorage": {
+              "target": "Package",
+              "version": "[1.0.2, )"
+            },
             "Plugin.BLE": {
               "target": "Package",
               "version": "[2.1.2, )"
@@ -164,6 +168,10 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.1, )"
+            },
+            "PCLStorage": {
+              "target": "Package",
+              "version": "[1.0.2, )"
             },
             "Plugin.BLE": {
               "target": "Package",

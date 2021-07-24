@@ -3,6 +3,7 @@ Akavache.dll
 Akavache.Sqlite3.dll
 FastAndroidCamera.dll
 FormsViewGroup.dll
+PCLStorage.dll
 Plugin.BLE.dll
 Plugin.CurrentActivity.dll
 Plugin.DeviceInfo.dll

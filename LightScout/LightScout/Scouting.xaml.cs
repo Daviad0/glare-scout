@@ -29,235 +29,13 @@ namespace LightScout
         public Dictionary<string, StackLayout> dynamicLayouts = new Dictionary<string, StackLayout>();
         public Dictionary<string, SingleControlRestriction> singleRestrictionMapping = new Dictionary<string, SingleControlRestriction>();
         public Dictionary<string, MultiControlRestriction> multiRestrictionMapping = new Dictionary<string, MultiControlRestriction>();
-        public dynamic formObject = JObject.Parse(@"{
-  'id': '76628abc',
-  'prettyName': 'Infinite Recharge',
-  'categories': [
-      {
-        'prettyName' : 'Autonomous',
-        'autoStart?' : true,
-        'expectedStart' : null,
-        'type': 'category',
-        'uniqueId' : 'autonomous',
-        'contents' : [
-          {
-            'type' : 'parent',
-            'prettyName' : 'Power Cells',
-            'uniqueId' : 'powerCellA_parent',
-            'conditions' : 
-              {
-                'max' : 15,
-                'min' : 0
-              },
-            
-            'contents' : [
-{
-                'type' : 'text',
-                'prettyName' : 'These fields can only go up to a maximum of 15 power cells added up!',
-                'uniqueId' : 'powerCellA_label'
-                
-              },
-              {
-                'type' : 'stepper',
-                'prettyName' : 'Power Cells Inner',
-                'uniqueId' : 'powerCellA_inner',
-                'conditions':{
-                    'min':0,
-                    'groupLock' : 'powerCellA_parent'
-}                   
-              },
-{
-                'type' : 'stepper',
-                'prettyName' : 'Power Cells Outer',
-                'uniqueId' : 'powerCellA_outer',
-                'conditions':{
-'min':0,
-                    'groupLock' : 'powerCellA_parent'
-}     
-              },
-{
-                'type' : 'stepper',
-                'prettyName' : 'Power Cells Lower',
-                'uniqueId' : 'powerCellA_lower',
-                'conditions':{
-'min':0,
-                    'groupLock' : 'powerCellA_parent'
-}     
-              },
-{
-                'type' : 'stepper',
-                'prettyName' : 'Power Cells Missed',
-                'uniqueId' : 'powerCellA_missed',
-                'conditions':{
-'min':0,
-                    'groupLock' : 'powerCellA_parent'
-}     
-              }
-            ]
-          },
-            {
-            'type' : 'parent',
-            'prettyName' : 'Robot Tasks',
-            'uniqueId' : 'initLine_parent',
-            'contents' : [
-              {
-                'type' : 'choices',
-                'prettyName' : 'Initiation Line?',
-                'uniqueId' : 'initLine',
-                'conditions' : 
-                    {
-                        'options' : [
-                            'Yes', 'No'
-                        ]
-                    }
-            
-              },
-            ]
-          }    
-        ]
-      },
-      {
-        'prettyName' : 'Tele-Op',
-        'autoStart?' : false,
-        'expectedStart' : 16,
-        'type': 'category',
-        'uniqueId' : 'teleop',
-        'contents' : [
-          {
-            'type' : 'parent',
-            'prettyName' : 'Power Cells',
-            'uniqueId' : 'powerCellT_parent',
-            'conditions' : 
-              {
-                'max' : 5,
-                'min' : 0
-              },
-            
-            'contents' : [
-{
-                'type' : 'text',
-                'prettyName' : 'These fields can only go up to a maximum of 5 power cells added up!',
-                'uniqueId' : 'powerCellT_label'
-                
-              },
-              {
-                'type' : 'stepper',
-                'prettyName' : 'Power Cells Inner',
-                'uniqueId' : 'powerCellT_inner',
-                'conditions':{
-                    'max':5,
-                    'min':0,
-                    'groupLock' : 'powerCellT_parent'
-}                   
-              },
-{
-                'type' : 'stepper',
-                'prettyName' : 'Power Cells Outer',
-                'uniqueId' : 'powerCellT_outer',
-                'conditions':{
-                    'max':5,
-                    'min':0,
-                    'groupLock' : 'powerCellT_parent'
-}                   
-              },
-{
-                'type' : 'stepper',
-                'prettyName' : 'Power Cells Lower',
-                'uniqueId' : 'powerCellT_lower',
-                'conditions':{
-                    'max':5,
-                    'min':0,
-                    'groupLock' : 'powerCellT_parent'
-}                   
-              },
-{
-                'type' : 'stepper',
-                'prettyName' : 'Power Cells Missed',
-                'uniqueId' : 'powerCellT_missed',
-                'conditions':{
-                    'max':5,
-                    'min':0,
-                    'groupLock' : 'powerCellT_parent'
-}                   
-              }
-            ]
-          },
-{
-            'type' : 'parent',
-            'prettyName' : 'Control Panel',
-            'uniqueId' : 'controlPanel_parent',
-            'contents' : [
-              {
-                'type' : 'choices',
-                'prettyName' : 'Rotation?',
-                'uniqueId' : 'rotation',
-                'conditions' : 
-                    {
-                        'options' : [
-                            'Yes', 'No'
-                        ]
-                    }
-            
-              },{
-                'type' : 'choices',
-                'prettyName' : 'Position?',
-                'uniqueId' : 'position',
-                'conditions' : 
-                    {
-                        'options' : [
-                            'Yes', 'No'
-                        ]
-                    }
-            
-              }
-            ]
-          }
-        ]
-      },
-{
-        'prettyName' : 'Endgame',
-        'autoStart?' : false,
-        'expectedStart' : 135,
-        'type': 'category',
-        'uniqueId' : 'endgame',
-        'contents' : [
-          {
-            'type' : 'toggle',
-            'prettyName' : 'Parked?',
-            'uniqueId' : 'parked',
-            'conditions' : 
-                {
-                    'options' : [
-                        'Not Parked', 'Parked'
-                    ]
-                }
-            
-            },
-{
-            'type' : 'dropdown',
-            'prettyName' : 'Climbed?',
-            'uniqueId' : 'climbed',
-            'conditions' : 
-                {
-                    'options' : [
-                        'No','Attempted', 'Succeeded'
-                    ]
-                }
-            
-            },
-{
-'type' : 'timer',
-            'prettyName' : 'Went for Endgame',
-            'uniqueId' : 'endgame_tried'
-              }
-        ]
-      }
-    ]
-}
-");
-        public Scouting()
+        public DataEntry CurrentDataEntry;
+        public dynamic formObject;
+        public Scouting(DataEntry toUse)
         {
             InitializeComponent();
+            CurrentDataEntry = toUse;
+            formObject = JObject.Parse(ApplicationDataHandler.Schemas.Single(e => e.Id == CurrentDataEntry.Schema).JSONData);
         }
         public enum RestrictionType
         {
@@ -761,7 +539,7 @@ namespace LightScout
                 disabledMenu.TranslationY = disabledMenu.Height + 20;
             };
 
-            StartTimer();
+            
             foreach(var category in formObject.categories)
             {
                 StackLayout newElement = new StackLayout() { ClassId = category.uniqueId };
@@ -792,6 +570,10 @@ namespace LightScout
                 await deeperSchemaLevel(category);
                 Console.WriteLine("Category " + category.uniqueId.ToString() + " finished!");
             }
+            bar_MatchNumber.Text = "Match " + CurrentDataEntry.Number.ToString();
+            bar_TeamNumber.Text = CurrentDataEntry.TeamIdentifier.ToString();
+            StartTimer();
+            startForm = DateTime.Now;
             Console.WriteLine("Split down completed!");
         }
         private async void exitPhase(object sender, EventArgs e)

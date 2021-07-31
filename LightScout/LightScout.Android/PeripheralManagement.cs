@@ -284,7 +284,7 @@ namespace LightScout.Droid
         }
         public async void AddToBluetoothLog(string extraData, BluetoothLogType bluetoothLogType)
         {
-            var existingData = await ServerManagement.storageManager.GetData("bluetooth_log.txt");
+            var existingData = await ServerManagement.storageManager.GetData("bluetooth_log");
             if (existingData == "")
             {
                 var emptyList = new List<BluetoothDataLog>() { new BluetoothDataLog() { timestamp = DateTime.Now, bluetoothLogType = bluetoothLogType, extraData = extraData } };
@@ -297,7 +297,7 @@ namespace LightScout.Droid
                 existingList.Add(newItem);
                 existingData = Newtonsoft.Json.JsonConvert.SerializeObject(existingList);
             }
-            Console.WriteLine(await ServerManagement.storageManager.SetData("bluetooth_log.txt", existingData));
+            Console.WriteLine(await ServerManagement.storageManager.SetData("bluetooth_log", existingData));
         }
     }
 

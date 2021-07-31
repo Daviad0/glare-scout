@@ -39,9 +39,9 @@
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <Label TextColor="White" Grid.Column="0" Text="Match 22" FontSize="26" HorizontalOptions="End" Margin="3,0"/>
+                                    <Label TextColor="White" Grid.Column="0" Text="Match 22" FontSize="26" HorizontalOptions="End" Margin="3,0" x:Name="bar_MatchNumber"/>
                                     <Frame Grid.Column="1" CornerRadius="14" Padding="10,4" HorizontalOptions="Start" VerticalOptions="Center" Margin="3,0">
-                                        <Label TextColor="#2A7AFA" Text="862" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                        <Label TextColor="#2A7AFA" Text="862" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center" x:Name="bar_TeamNumber"/>
                                     </Frame>
 
 

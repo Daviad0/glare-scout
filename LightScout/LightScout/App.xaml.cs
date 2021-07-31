@@ -71,9 +71,10 @@ namespace LightScout
             
         }
 
-        protected override void OnStart()
+        protected async override void OnStart()
         {
-
+            
+            base.OnStart(); 
         }
 
         protected override void OnSleep()

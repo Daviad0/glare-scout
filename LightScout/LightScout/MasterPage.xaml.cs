@@ -20,18 +20,70 @@ using Xamarin.Forms.Xaml;
 
 namespace LightScout
 {
+    public class UniqueStartUp
+    {
+        private static readonly object l1 = new object();
+        public static UniqueStartUp instance = null;
+        public static UniqueStartUp Instance
+        {
+            get
+            {
+                lock (l1)
+                {
+                    if (instance == null)
+                    {
+                        instance = new UniqueStartUp();
+                    }
+                    return instance;
+                }
+
+            }
+        }
+        public static bool Initialized;
+        public async Task StartTasks()
+        {
+            // bluetooth protocol
+            Task.Run(() =>
+            {
+                DependencyService.Get<BLEPeripheral>().StartAdvertising("a3db5ad7-ac7b-4a48-b4e0-13f7c087194d", "DT1");
+            });
+            
+            // application data protocol
+            await ApplicationDataHandler.Instance.InitializeData();
+            ApplicationDataHandler.Users.Clear();
+            ApplicationDataHandler.Users.Add(new Scouter()
+            {
+                Name = "David Reeves",
+                Id = "AAAAAAAA",
+                Score = 0,
+                Banned = false
+            });
+            ApplicationDataHandler.Users.Add(new Scouter()
+            {
+                Name = "Meng Shi",
+                Id = "AAAAAAAB",
+                Score = 0,
+                Banned = false
+            });
+            await ApplicationDataHandler.Instance.SaveUsers();
+            Initialized = true;
+        }
+    }
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MasterPage : ContentPage
     {
         private static BLEConnection bleManager = BLEConnection.Instance;
         private bool menuExpanded = false;
         private string currentPage = "mainPage";
+        private int CurrentMatchIndex = 0;
+        private DataEntry CurrentMatchSelected;
+        public ColorTypeConverter converter = new ColorTypeConverter();
         public MasterPage()
         {
             InitializeComponent();
             Console.WriteLine(bleManager.teamNumber);
         }
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             
             MessagingCenter.Subscribe<string, string>("MasterPage", "DataGot", (sender, message) =>
@@ -50,9 +102,117 @@ namespace LightScout
 
 
             });
-            DependencyService.Get<BLEPeripheral>().StartAdvertising("a3db5ad7-ac7b-4a48-b4e0-13f7c087194d", "DT1");
-        }
+            Task.Run(async () =>
+            {
+                if (UniqueStartUp.Initialized != true)
+                {
+                    await UniqueStartUp.Instance.StartTasks();
+                }
+                CurrentMatchSelected = ApplicationDataHandler.AvailableEntries.First();
+                UpdateMatchContainer();
+                UpdateAnnouncementContainer();
+                UpdateProgressContainer();
+                UpdateUsers();
+            });
 
+            
+            //MessagingCenter.Send("MasterPage", "DialogBox", "AAAAA");
+        }
+        private async void UpdateUsers()
+        {
+            start_ScoutPicker.ItemsSource = ApplicationDataHandler.Users;
+        }
+        private async void UpdateAnnouncementContainer()
+        {
+            ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement = new Announcement();
+            ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Title = "Developer Mode";
+            ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Data = "You are currently in developer mode! This means not a lot of things will work properly, and a couple of things are still being added. This app is in line with the Glare BLE Protocol v4.2!";
+            ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.GotAt = DateTime.Now;
+            ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.ActiveUntil = DateTime.MaxValue;
+            if (ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement == null)
+            {
+                announcement_Containment.IsVisible = false;
+            }
+            else
+            {
+                if(ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.ActiveUntil > DateTime.Now)
+                {
+                    announcement_Containment.IsVisible = true;
+                    announcement_Title.Text = ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Title;
+                    announcement_Content.Text = ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Data;
+                    announcement_Time.Text = ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.GotAt.ToShortTimeString();
+                }
+                else
+                {
+                    announcement_Containment.IsVisible = false;
+                }
+                
+            }
+        }
+        private async void UpdateProgressContainer()
+        {
+            ApplicationDataHandler.CurrentApplicationData.CurrentCompetition = "72721DT";
+            ApplicationDataHandler.Instance.SaveAppData();
+            if (ApplicationDataHandler.AvailableEntries.Count(e => e.Competition == ApplicationDataHandler.CurrentApplicationData.CurrentCompetition) == 0)
+            {
+                completion_Container.IsVisible = false;
+            }
+            else
+            {
+                completion_Container.IsVisible = true;
+                completion_Name.Text = ApplicationDataHandler.Competitions.Single(e => e.Id == ApplicationDataHandler.CurrentApplicationData.CurrentCompetition).Name;
+                completion_Progress.Text = ApplicationDataHandler.AvailableEntries.Where(e => e.Competition == ApplicationDataHandler.CurrentApplicationData.CurrentCompetition).Count(f => f.Completed).ToString() + " / " + ApplicationDataHandler.AvailableEntries.Count(e => e.Competition == ApplicationDataHandler.CurrentApplicationData.CurrentCompetition);
+            }
+        }
+        private async void UpdateMatchContainer()
+        {
+            CurrentMatch.Text = "Match " + CurrentMatchSelected.Number.ToString();
+            Left.IsEnabled = CurrentMatchIndex == 0 ? false : true;
+            Left.Opacity = CurrentMatchIndex == 0 ? .1 : 1;
+            Right.IsEnabled = CurrentMatchIndex == ApplicationDataHandler.AvailableEntries.Count - 1 ? false : true;
+            Right.Opacity = CurrentMatchIndex == ApplicationDataHandler.AvailableEntries.Count - 1 ? .1 : 1;
+
+            match_TeamIdentifier.Text = "Team " + CurrentMatchSelected.TeamIdentifier;
+            match_TeamName.Text = CurrentMatchSelected.TeamName;
+            match_Position.Text = CurrentMatchSelected.Position;
+            // check which color it should be
+            if (CurrentMatchSelected.Position.ToLower().Contains("red"))
+            {
+                match_Position.TextColor = (Color)converter.ConvertFromInvariantString("Color.Red");
+            }else if (CurrentMatchSelected.Position.ToLower().Contains("blue"))
+            {
+                match_Position.TextColor = (Color)converter.ConvertFromInvariantString("Color.Blue");
+            }
+            else
+            {
+                match_Position.TextColor = (Color)converter.ConvertFromInvariantString("Color.Green");
+            }
+
+            var assistedByString = "";
+            foreach(string s in CurrentMatchSelected.AssistedBy)
+            {
+                assistedByString += s + " ";
+            }
+            match_AssistedBy.Text = assistedByString == "" ? "" : "Assisted by " + assistedByString;
+
+            try
+            {
+                match_SchemaName.Text = ApplicationDataHandler.Schemas.Single(c => c.Id == CurrentMatchSelected.Schema).Name;
+            }catch(Exception e)
+            {
+                match_SchemaName.Text = CurrentMatchSelected.Schema;
+            }
+            
+
+            if(!(CurrentMatchSelected.Completed || CurrentMatchSelected.Audited))
+                match_StatusContainer.IsVisible = false;
+            else
+            {
+                match_StatusContainer.IsVisible = true;
+                match_StatusContainer.BackgroundColor = CurrentMatchSelected.Audited ? (Color)converter.ConvertFromInvariantString("#2e85b8"): (Color)converter.ConvertFromInvariantString("#00D974");
+                match_StatusLabel.Text = CurrentMatchSelected.Audited ? "This Match was Audited" : "This Match was Completed";
+            }
+        }
         private async void expandMenu_Clicked(object sender, EventArgs e)
         {
             Grid pageAlready = this.FindByName<Grid>(currentPage);
@@ -144,6 +304,15 @@ namespace LightScout
         }
         private async void openMatchPage(object sender, EventArgs e)
         {
+            start_ScoutConfirm.IsEnabled = false;
+            start_MatchNumber.Text = "Match " + CurrentMatchSelected.Number.ToString();
+            start_TeamNumber.Text = "Team " + CurrentMatchSelected.TeamIdentifier.ToString();
+            start_TeamName.Text = CurrentMatchSelected.TeamName.ToString();
+            start_Position.Text = CurrentMatchSelected.Position.ToString();
+            start_ScoutContainer.IsVisible = true;
+            start_ScoutContainer.Opacity = 1;
+            start_StartContainer.IsVisible = false;
+            
             var converter = new ColorTypeConverter();
             matchGo.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2A7AFA");
             matchGoLabel.TextColor = (Color)converter.ConvertFromInvariantString("White");
@@ -165,10 +334,12 @@ namespace LightScout
         }
         private async void loadScouting(object sender, EventArgs e)
         {
+            Scouter selectedUser = ApplicationDataHandler.Users[start_ScoutPicker.SelectedIndex];
+            
             // try to get a dynamicly loading page
-            buttonTest1.IsVisible = false;
-            labelTest1.IsVisible = true;
-            Navigation.PushAsync(new Scouting());
+            start_StartContainer.IsVisible = false;
+            //ma.IsVisible = true;
+            Navigation.PushAsync(new Scouting(CurrentMatchSelected));
         }
 
         private async void Button_Clicked(object sender, EventArgs e)
@@ -204,6 +375,53 @@ namespace LightScout
             bleManager.RedetectDevices();
             
             Console.WriteLine("Detecting Devices!");*/
+            
+        }
+
+        private void NextMatch(object sender, EventArgs e)
+        {
+            if(CurrentMatchIndex < ApplicationDataHandler.AvailableEntries.Count - 1)
+            {
+                CurrentMatchIndex += 1;
+                CurrentMatchSelected = ApplicationDataHandler.AvailableEntries.ToArray()[CurrentMatchIndex];
+                UpdateMatchContainer();
+            }
+        }
+        private void PrevMatch(object sender, EventArgs e)
+        {
+            if (CurrentMatchIndex > 0)
+            {
+                CurrentMatchIndex -= 1;
+                CurrentMatchSelected = ApplicationDataHandler.AvailableEntries.ToArray()[CurrentMatchIndex];
+                UpdateMatchContainer();
+            }
+        }
+
+        private async void start_ScoutConfirm_Clicked(object sender, EventArgs e)
+        {
+            start_ScoutContainer.FadeTo(0, 250, Easing.CubicInOut);
+            start_StartContainer.Opacity = 0;
+            start_StartContainer.IsVisible = true;
+            await start_StartContainer.FadeTo(1, 250, Easing.CubicInOut);
+            start_ScoutContainer.IsVisible = false;
+            
+        }
+
+        private async void start_StartConfirm_Clicked(object sender, EventArgs e)
+        {
+            start_StartContainer.FadeTo(0, 250, Easing.CubicInOut);
+            start_ScoutContainer.Opacity = 0;
+            start_ScoutContainer.IsVisible = true;
+            await start_ScoutContainer.FadeTo(1, 250, Easing.CubicInOut);
+            start_StartContainer.IsVisible = false;
+        }
+
+        private void start_ScoutPicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(start_ScoutPicker.SelectedIndex != -1)
+            {
+                start_ScoutConfirm.IsEnabled = true;
+            }
             
         }
     }

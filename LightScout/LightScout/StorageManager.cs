@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using LightScout.Models;
 using PCLStorage;
 
 namespace LightScout
@@ -328,6 +329,7 @@ namespace LightScout
                 AvailableEntries = new List<DataEntry>();
                 AvailableEntries.Add(new DataEntry()
                 {
+                    Id = "4a4a4a01",
                     TeamIdentifier = "0001",
                     TeamName = "REEVES, David",
                     Audited = false,
@@ -340,10 +342,11 @@ namespace LightScout
                 });
                 AvailableEntries.Add(new DataEntry()
                 {
+                    Id = "4a4a4a02",
                     TeamIdentifier = "0001",
                     TeamName = "REEVES, David",
                     Audited = false,
-                    Completed = true,
+                    Completed = false,
                     Competition = "72721DT",
                     Schema = "444899fa",
                     Number = 2,
@@ -352,9 +355,10 @@ namespace LightScout
                 });
                 AvailableEntries.Add(new DataEntry()
                 {
+                    Id = "4a4a4a03",
                     TeamIdentifier = "0001",
                     TeamName = "REEVES, David",
-                    Audited = true,
+                    Audited = false,
                     Completed = false,
                     Competition = "72721DT",
                     Schema = "444899fa",
@@ -364,10 +368,11 @@ namespace LightScout
                 });
                 AvailableEntries.Add(new DataEntry()
                 {
+                    Id = "4a4a4a04",
                     TeamIdentifier = "0001",
                     TeamName = "REEVES, David",
-                    Audited = true,
-                    Completed = true,
+                    Audited = false,
+                    Completed = false,
                     Competition = "72721DT",
                     Schema = "444899fa",
                     Number = 4,
@@ -525,7 +530,7 @@ namespace LightScout
         public string Schema;
         public int Number;
         public string Position;
-        public string JSONData;
+        public MatchData Data;
         public DateTime LastEdited;
         public string TeamIdentifier;
         public string TeamName;

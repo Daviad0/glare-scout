@@ -30,12 +30,19 @@ namespace LightScout
         public Dictionary<string, SingleControlRestriction> singleRestrictionMapping = new Dictionary<string, SingleControlRestriction>();
         public Dictionary<string, MultiControlRestriction> multiRestrictionMapping = new Dictionary<string, MultiControlRestriction>();
         public DataEntry CurrentDataEntry;
+        public bool loadingFromData = false;
+        public int loadingFromIndex;
         public dynamic formObject;
         public Scouting(DataEntry toUse)
         {
             InitializeComponent();
             CurrentDataEntry = toUse;
             formObject = JObject.Parse(ApplicationDataHandler.Schemas.Single(e => e.Id == CurrentDataEntry.Schema).JSONData);
+            if(CurrentDataEntry.Data != null)
+            {
+                loadingFromData = true;
+                loadingFromIndex = 0;
+            }
         }
         public enum RestrictionType
         {
@@ -120,13 +127,29 @@ namespace LightScout
                             {
                                 Button selectedButton = (Button)sender as Button;
                                 var selectUID = selectedButton.ClassId;
-                                fields[selectUID].value = Math.Floor((DateTime.Now - startForm).TotalMinutes);
+                                fields[selectUID].value = Math.Floor((DateTime.Now - startForm).TotalSeconds);
                                 selectedButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5");
                                 selectedButton.TextColor = (Color)converter.ConvertFromInvariantString("Color.White");
                                 selectedButton.Text = "Happened at " + (Math.Floor((DateTime.Now - startForm).TotalMinutes).ToString() + ":" + ((Math.Floor((DateTime.Now - startForm).TotalSeconds) - (Math.Floor((DateTime.Now - startForm).TotalMinutes) * 60)).ToString().Length == 1 ? "0" : "") + (Math.Floor((DateTime.Now - startForm).TotalSeconds) - (Math.Floor((DateTime.Now - startForm).TotalMinutes) * 60)).ToString());
                             };
                             inputContent.Children.Add(anotherButton);
                             fieldContent.Children.Add(inputContent, 1, 0);
+                            if (loadingFromData)
+                            {
+                                try
+                                {
+                                    fields[uniqueId].value = CurrentDataEntry.Data.DataValues[loadingFromIndex];
+                                    anotherButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5");
+                                    anotherButton.TextColor = (Color)converter.ConvertFromInvariantString("Color.White");
+                                    anotherButton.Text = "Previously Happened";
+                                    
+                                }
+                                catch(Exception c)
+                                {
+
+                                }
+                                loadingFromIndex += 1;
+                            }
                             break;
                         case "toggle":
                             Button anotherNewButton = new Button() { Text = content.conditions.options[0].ToString(), IsEnabled = true, CornerRadius = 8, BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Transparent"), BorderColor = (Color)converter.ConvertFromInvariantString("#4594f5"), BorderWidth = 4, TextColor = (Color)converter.ConvertFromInvariantString("#4594f5"), ClassId = uniqueId, Padding = new Thickness(6, 4) };
@@ -156,6 +179,36 @@ namespace LightScout
                             };
                             inputContent.Children.Add(anotherNewButton);
                             fieldContent.Children.Add(inputContent, 1, 0);
+                            if (loadingFromData)
+                            {
+                                try
+                                {
+                                    fields[uniqueId].value = CurrentDataEntry.Data.DataValues[loadingFromIndex];
+                                    if (anotherNewButton.Text == fields[uniqueId].schemaObject.conditions.options[0].ToString())
+                                    {
+                                        // this will mean it needs to be toggled on
+                                        fields[uniqueId].value = fields[uniqueId].schemaObject.conditions.options[1].ToString();
+                                        anotherNewButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5");
+                                        anotherNewButton.TextColor = (Color)converter.ConvertFromInvariantString("Color.White");
+                                        anotherNewButton.Text = fields[uniqueId].value.ToString();
+                                    }
+                                    else
+                                    {
+                                        // not lmao
+                                        fields[uniqueId].value = fields[uniqueId].schemaObject.conditions.options[0].ToString();
+                                        anotherNewButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Transparent");
+                                        anotherNewButton.TextColor = (Color)converter.ConvertFromInvariantString("#4594f5");
+
+                                        anotherNewButton.Text = fields[uniqueId].value.ToString();
+                                    }
+                                    
+                                }
+                                catch (Exception c)
+                                {
+
+                                }
+                                loadingFromIndex += 1;
+                            }
                             break;
                         case "text":
                             fieldContent.Children.Clear();
@@ -239,6 +292,22 @@ namespace LightScout
 
                             }
                             fieldContent.Children.Add(inputContent, 1, 0);
+                            if (loadingFromData)
+                            {
+                                try
+                                {
+                                    fields[uniqueId].value = CurrentDataEntry.Data.DataValues[loadingFromIndex];
+                                    Button buttonHighlight = ((Button)fields[uniqueId].controls.Where(c => ((Button)c).Text == (string)fields[uniqueId].value).FirstOrDefault());
+                                    buttonHighlight.BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5");
+                                    buttonHighlight.TextColor = (Color)converter.ConvertFromInvariantString("Color.White");
+                                }
+                                catch(Exception c)
+                                {
+
+                                }
+                                
+                                loadingFromIndex += 1;
+                            }
                             break;
                         case "stepper":
                             Button downButton = new Button() { VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, TextColor = (Color)converter.ConvertFromInvariantString("Color.White"), Text = "-", BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5"), CornerRadius = 8, Padding = new Thickness(4), FontAttributes = FontAttributes.Bold, ClassId = uniqueId, FontSize = 18 };
@@ -477,6 +546,22 @@ namespace LightScout
                             inputContent.Children.Add(stepperValue, 1, 0);
                             inputContent.Children.Add(upButton, 2, 0);
                             fieldContent.Children.Add(inputContent, 1, 0);
+                            if (loadingFromData)
+                            {
+                                try
+                                {
+                                    fields[uniqueId].value = CurrentDataEntry.Data.DataValues[loadingFromIndex];
+                                    var containingGroupLock = IsRestrictionValid(fields[uniqueId].schemaObject.conditions, RestrictionType.GroupLock) == null ? null : IsRestrictionValid(fields[uniqueId].schemaObject.conditions, RestrictionType.GroupLock).ToString();
+                                    ((MultiControlRestriction)multiRestrictionMapping[containingGroupLock]).valuePairs[uniqueId] = (int)fields[uniqueId].value;
+                                    stepperValue.Text = fields[uniqueId].value.ToString();
+                                }
+                                catch(Exception c)
+                                {
+
+                                }
+                                
+                                loadingFromIndex += 1;
+                            }
                             break;
                         case "dropdown":
                             Picker newPicker = new Picker() { TextColor = (Color)converter.ConvertFromInvariantString("#4594f5"), FontAttributes = FontAttributes.Bold, ClassId = uniqueId, HorizontalTextAlignment=TextAlignment.Center };
@@ -495,6 +580,20 @@ namespace LightScout
                             inputContent.Children.Add(newPicker, 0, 0);
                             fields[uniqueId].controls.Add(newPicker);
                             fieldContent.Children.Add(inputContent, 1, 0);
+                            if (loadingFromData)
+                            {
+                                try
+                                {
+                                    fields[uniqueId].value = CurrentDataEntry.Data.DataValues[loadingFromIndex];
+                                    newPicker.SelectedIndex = newPicker.Items.IndexOf((string)CurrentDataEntry.Data.DataValues[loadingFromIndex]);
+                                }
+                                catch(Exception c)
+                                {
+
+                                }
+                                
+                                loadingFromIndex += 1;
+                            }
                             break;
                         default:
                             singleRestrictionMapping.Add(content.uniqueId.ToString(), new SingleControlRestriction());
@@ -704,6 +803,48 @@ namespace LightScout
                 }
                 return true;
             });
+        }
+        private int[] ignoreControls = new int[] { -1, 2 };
+        private async void saveMatch(object sender, EventArgs e)
+        {
+            bool ans = true;
+            if((DateTime.Now - startForm).TotalSeconds < 150 || fields.Where(f => f.Value.value == null && (!ignoreControls.Contains((int)f.Value.schemaType))).ToArray().Length > 0)
+            {
+                ans = await DisplayAlert("Not Yet Finished", "This form hasn't been completely filled out OR you haven't been in this match for long enough yet. Do you wish to still submit?", "Submit", "Cancel");
+            }
+            
+            if (ans)
+            {
+                var exportedData = new MatchData();
+                exportedData.ControlContinuity = "";
+                var dataValuesRaw = new List<object>();
+                foreach (var control in fields)
+                {
+                    if (!ignoreControls.Contains((int)control.Value.schemaType))
+                    {
+                        // do not ignore a targeted control
+                        exportedData.ControlContinuity += ((int)control.Value.schemaType).ToString();
+                        dataValuesRaw.Add(control.Value.value);
+                    }
+
+                }
+                exportedData.DataValues = dataValuesRaw.ToArray();
+                Console.WriteLine(exportedData.DataValues.Length);
+                ApplicationDataHandler.AvailableEntries.Single(f => f.Id == CurrentDataEntry.Id).LastEdited = DateTime.Now;
+                ApplicationDataHandler.AvailableEntries.Single(f => f.Id == CurrentDataEntry.Id).Data = exportedData;
+                ApplicationDataHandler.AvailableEntries.Single(f => f.Id == CurrentDataEntry.Id).Completed = true;
+                await ApplicationDataHandler.Instance.SaveMatches();
+
+
+                Navigation.PushAsync(new MasterPage());
+            }
+            else
+            {
+                // we know that options IS expanded, so we can contract it
+                expandOptions(null, null);
+            }
+            
+
         }
     }
 }

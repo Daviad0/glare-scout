@@ -87,7 +87,9 @@
 
                                             </Frame.GestureRecognizers>
                                             <Image Source="LSSAVE.png" Margin="10" ClassId="additionalPage" HeightRequest="70" WidthRequest="70">
-
+                                                <Image.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="saveMatch"/>
+                                                </Image.GestureRecognizers>
                                             </Image>
                                         </Frame>
                                         <Label HorizontalOptions="Center" TextColor="White" FontAttributes="Bold" Text="Submit" Margin="0,-7,0,0"/>

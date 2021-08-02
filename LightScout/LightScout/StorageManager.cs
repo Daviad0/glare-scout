@@ -51,6 +51,21 @@ namespace LightScout
             await file.WriteAllTextAsync(data);
             return await file.ReadAllTextAsync();
         }
+        public async Task<bool> DeleteData(string fileName)
+        {
+            try
+            {
+                IFolder folder = await rootFolder.CreateFolderAsync("Data", CreationCollisionOption.OpenIfExists);
+                IFile file = await folder.GetFileAsync(fileName);
+                await file.DeleteAsync();
+                return true;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+            
+        }
     }
     public class ApplicationDataHandler
     {
@@ -322,8 +337,9 @@ namespace LightScout
                     CurrentApplicationData = new ApplicationData();
                 }
             }
-
+            //await StorageManager.DeleteData("matches");
             existingData = await StorageManager.GetData("matches");
+            
             if(existingData == "" || existingData == null)
             {
                 AvailableEntries = new List<DataEntry>();

@@ -226,7 +226,49 @@
                     </Label>
                     <ScrollView>
                         <StackLayout>
-
+                            <Label Margin="0,20" Text="Edit Match" TextColor="White" FontSize="40" FontAttributes="Bold" HorizontalOptions="Center"/>
+                            <Grid Margin="0,20">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="4*"/>
+                                    <ColumnDefinition Width="5*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0" Text="Match Number" HorizontalOptions="Center" FontSize="16" TextColor="White" VerticalOptions="Center"/>
+                                <Frame Grid.Row="0" Grid.Column="1" BackgroundColor="White" Padding="12,0" CornerRadius="8" HorizontalOptions="Center">
+                                    <Entry Placeholder="23" TextColor="#2A7AFA" FontSize="16" x:Name="edit_Number" WidthRequest="200"/>
+                                </Frame>
+                                <Label Grid.Row="1" Grid.Column="0" Text="Target Team Id" HorizontalOptions="Center" FontSize="16" TextColor="White" VerticalOptions="Center"/>
+                                <Frame Grid.Row="1" Grid.Column="1" BackgroundColor="White" Padding="12,0" CornerRadius="8" HorizontalOptions="Center">
+                                    <Entry Placeholder="10176" TextColor="#2A7AFA" FontSize="16" x:Name="edit_Identifier" WidthRequest="200"/>
+                                </Frame>
+                                <Label Grid.Row="2" Grid.Column="0" Text="Team Name" HorizontalOptions="Center" FontSize="16" TextColor="White" VerticalOptions="Center"/>
+                                <Frame Grid.Row="2" Grid.Column="1" BackgroundColor="White" Padding="12,0" CornerRadius="8" HorizontalOptions="Center">
+                                    <Entry Placeholder="Robotex" TextColor="#2A7AFA" FontSize="16" x:Name="edit_Name" WidthRequest="200"/>
+                                </Frame>
+                                <Label Grid.Row="3" Grid.Column="0" Text="Position" HorizontalOptions="Center" FontSize="16" TextColor="White" VerticalOptions="Center"/>
+                                <Frame Grid.Row="3" Grid.Column="1" BackgroundColor="White" Padding="12,0" CornerRadius="8" HorizontalOptions="Center">
+                                    <Entry Placeholder="Red 1" TextColor="#2A7AFA" FontSize="16" x:Name="edit_Position" WidthRequest="200"/>
+                                </Frame>
+                                <Label Grid.Row="4" Grid.Column="0" Text="Competition" HorizontalOptions="Center" FontSize="16" TextColor="White" VerticalOptions="Center"/>
+                                <Frame Grid.Row="4" Grid.Column="1" BackgroundColor="White" Padding="12,0" CornerRadius="8" HorizontalOptions="Center">
+                                    <Picker TextColor="#2A7AFA" FontSize="16" x:Name="edit_Competition" WidthRequest="200" Title="Loaded Competitions"/>
+                                </Frame>
+                                <Label Grid.Row="5" Grid.Column="0" Text="Schema" HorizontalOptions="Center" FontSize="16" TextColor="White" VerticalOptions="Center"/>
+                                <Frame Grid.Row="5" Grid.Column="1" BackgroundColor="White" Padding="12,0" CornerRadius="8" HorizontalOptions="Center">
+                                    <Picker TextColor="#2A7AFA" FontSize="16" x:Name="edit_Schema" WidthRequest="200" Title="Loaded Schemas"/>
+                                </Frame>
+                                <Label Grid.Row="6" Grid.Column="0" Text="Allies" HorizontalOptions="Center" FontSize="16" TextColor="White" VerticalOptions="Center"/>
+                                <Frame Grid.Row="6" Grid.Column="1" BackgroundColor="White" Padding="12,0" CornerRadius="8" HorizontalOptions="Center">
+                                    <Entry Placeholder="0001" TextColor="#2A7AFA" FontSize="16" x:Name="edit_Position" WidthRequest="200" HeightRequest="50"/>
+                                </Frame>
+                            </Grid>
+                            <Grid HorizontalOptions="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Text="Unlock" BackgroundColor="White" TextColor="#2A7AFA" HorizontalOptions="Center" CornerRadius="8" Grid.Column="0"/>
+                                <Button Text="Save" BackgroundColor="White" TextColor="#2A7AFA" HorizontalOptions="Center" CornerRadius="8" Grid.Column="1"/>
+                            </Grid>
                             
                         </StackLayout>
 
@@ -283,7 +325,7 @@
 
                             <Button Grid.Row="0" Grid.Column="0" x:Name="start_StartConfirm" Text="&#xea5c;" FontFamily="{StaticResource IconFont}" Clicked="start_StartConfirm_Clicked" HorizontalOptions="Center" VerticalOptions="Start" Padding="10,0" CornerRadius="8" TextColor="#2A7AFA" BackgroundColor="White"/>
                         </Grid>
-                        
+                        <Label x:Name="start_Loading" Text="Loading..." IsVisible="False" HorizontalOptions="Center"/>
                     </Grid>
                     
                 </Grid>

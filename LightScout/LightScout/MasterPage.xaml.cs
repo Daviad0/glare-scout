@@ -332,11 +332,25 @@ namespace LightScout
             overlayMatchArrow.Rotation = 180;
             overlayMatch.IsVisible = false;
         }
+        public List<string> loadingGags = new List<string>()
+        {
+            "Now loading...",
+            "Loading awesomeness...",
+            "Loading...",
+            "Awaiting your chariot...",
+            "Generation pending...",
+            "Get ready..."
+        };
         private async void loadScouting(object sender, EventArgs e)
         {
             Scouter selectedUser = ApplicationDataHandler.Users[start_ScoutPicker.SelectedIndex];
-            
+
             // try to get a dynamicly loading page
+            start_StartContainer.FadeTo(0, 250, Easing.CubicInOut);
+            start_Loading.Text = loadingGags[new Random().Next(0, 6)];
+            start_Loading.Opacity = 0;
+            start_Loading.IsVisible = true;
+            await start_Loading.FadeTo(1, 250, Easing.CubicInOut);
             start_StartContainer.IsVisible = false;
             //ma.IsVisible = true;
             Navigation.PushAsync(new Scouting(CurrentMatchSelected));

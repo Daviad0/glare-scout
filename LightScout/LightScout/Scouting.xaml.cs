@@ -138,10 +138,16 @@ namespace LightScout
                             {
                                 try
                                 {
-                                    fields[uniqueId].value = CurrentDataEntry.Data.DataValues[loadingFromIndex];
-                                    anotherButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5");
-                                    anotherButton.TextColor = (Color)converter.ConvertFromInvariantString("Color.White");
-                                    anotherButton.Text = "Previously Happened";
+                                    int seconds = int.Parse(CurrentDataEntry.Data.DataValues[loadingFromIndex].ToString());
+                                    if (CurrentDataEntry.Data.DataValues[loadingFromIndex] != null && seconds > 0)
+                                    {
+                                        fields[uniqueId].value = CurrentDataEntry.Data.DataValues[loadingFromIndex];
+
+                                        anotherButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5");
+                                        anotherButton.TextColor = (Color)converter.ConvertFromInvariantString("Color.White");
+                                        anotherButton.Text = "Previously Happened";
+                                    }
+                                    
                                     
                                 }
                                 catch(Exception c)
@@ -184,7 +190,7 @@ namespace LightScout
                                 try
                                 {
                                     fields[uniqueId].value = CurrentDataEntry.Data.DataValues[loadingFromIndex];
-                                    if (anotherNewButton.Text == fields[uniqueId].schemaObject.conditions.options[0].ToString())
+                                    if (fields[uniqueId].value == fields[uniqueId].schemaObject.conditions.options[1].ToString())
                                     {
                                         // this will mean it needs to be toggled on
                                         fields[uniqueId].value = fields[uniqueId].schemaObject.conditions.options[1].ToString();

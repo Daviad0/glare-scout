@@ -314,10 +314,17 @@ namespace LightScout
             }
         }
         public static ApplicationData CurrentApplicationData;
+        public static DiagnosticReport LatestDiagnosticReport;
         public static List<Scouter> Users;
         public static List<DataEntry> AvailableEntries;
+        public static List<DataEntry> AllEntries;
         public static List<Competition> Competitions;
         public static List<Schema> Schemas;
+        public async Task CompileDiagnostics()
+        {
+            var newestDiagnosticData = new DiagnosticReport();
+            newestDiagnosticData.BatteryLevel = (float)Xamarin.Essentials.Battery.ChargeLevel * 100;
+        }
         public async Task InitializeData()
         {
             var existingData = await StorageManager.GetData("app_data");
@@ -406,7 +413,7 @@ namespace LightScout
                     AvailableEntries = new List<DataEntry>();
                 }
             }
-
+            AllEntries = AvailableEntries;
             existingData = await StorageManager.GetData("users");
             if (existingData == "" || existingData == null)
             {
@@ -508,6 +515,8 @@ namespace LightScout
         public string AdminCode;
         public string CurrentCompetition;
         public string EncryptionKey;
+        public bool Locked;
+        public string LockedMessage;
     }
     public class Announcement
     {
@@ -515,6 +524,13 @@ namespace LightScout
         public string Data;
         public DateTime GotAt;
         public DateTime ActiveUntil;
+    }
+    public class DiagnosticReport
+    {
+        public bool InternetConnectivity;
+        public float BatteryLevel;
+        public int NumberOfMatchesStored;
+        public List<string> SchemasIncluded;
     }
     public class Scouter
     {

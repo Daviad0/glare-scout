@@ -12,6 +12,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Java.Util;
+using Newtonsoft.Json;
 using Xamarin.Forms;
 
 [assembly: Xamarin.Forms.Dependency(typeof(LightScout.Droid.PeripheralManagement))]
@@ -217,15 +218,222 @@ namespace LightScout.Droid
                         break;
                     case "A101":
                         Console.WriteLine("(a101) This should lock tablet");
-                        // lock tablet here
+                        ApplicationDataHandler.CurrentApplicationData.Locked = true;
+                        ApplicationDataHandler.CurrentApplicationData.LockedMessage = item.latestData;
                         break;
                     case "A102":
-                        Console.WriteLine("(a101) This should unlock tablet");
+                        Console.WriteLine("(a102) This should unlock tablet");
+                        ApplicationDataHandler.CurrentApplicationData.Locked = false;
+                        ApplicationDataHandler.CurrentApplicationData.LockedMessage = "";
                         // unlock tablet here
                         break;
                     case "A111":
                         Console.WriteLine("(a111) Sending dialog box");
                         MessagingCenter.Send("MasterPage", "DialogBox", item.latestData);
+                        break;
+                    case "A201":
+                        Console.WriteLine("(a201) Compiling diagnostic data");
+                        
+                        break;
+                    case "A202":
+                        Console.WriteLine("(a202) Compiling diagnostic data and waiting");
+                        
+                        break;
+                    case "A301":
+                        Console.WriteLine("(a301) Force competition schema");
+                        
+                        break;
+                    case "A302":
+                        Console.WriteLine("(a302) Don't force competition schema");
+
+                        break;
+                    case "A701":
+                        Console.WriteLine("(a701) Lockdown mode");
+
+                        break;
+                    case "A702":
+                        Console.WriteLine("(a702) Don't lockdown mode");
+
+                        break;
+                    case "A711":
+                        Console.WriteLine("(a711) Set admin code");
+
+                        break;
+                    case "A801":
+                        Console.WriteLine("(a801) Enable logging mode");
+
+                        break;
+                    case "A802":
+                        Console.WriteLine("(a802) Disable logging mode");
+
+                        break;
+                    case "A803":
+                        Console.WriteLine("(a803) Remove all logs");
+
+                        break;
+                    case "A811":
+                        Console.WriteLine("(a811) Set emergency medical information");
+
+                        break;
+                    case "A901":
+                        Console.WriteLine("(a901) Enable debugging mode");
+
+                        break;
+                    case "A902":
+                        Console.WriteLine("(a902) Disable debugging mode");
+
+                        break;
+                    case "C101":
+                        Console.WriteLine("(c101) Add schema");
+                        ApplicationDataHandler.Schemas.Add(JsonConvert.DeserializeObject<Schema>(item.latestData));
+                        break;
+                    case "C102":
+                        Console.WriteLine("(c102) Remove schema");
+                        var schemaId = item.latestData;
+                        ApplicationDataHandler.Schemas.Remove(ApplicationDataHandler.Schemas.Single(s => s.Id == schemaId));
+                        break;
+                    case "C103":
+                        Console.WriteLine("(c103) Update schema");
+                        var objToUpdate = JsonConvert.DeserializeObject<Schema>(item.latestData);
+                        ApplicationDataHandler.Schemas.Single(s => s.Id == objToUpdate.Id).Name = objToUpdate.Name;
+                        ApplicationDataHandler.Schemas.Single(s => s.Id == objToUpdate.Id).JSONData = objToUpdate.JSONData;
+                        ApplicationDataHandler.Schemas.Single(s => s.Id == objToUpdate.Id).GotAt = DateTime.Now;
+                        break;
+                    case "C104":
+                        Console.WriteLine("(c104) Force update schema");
+                        var objToForceUpdate = JsonConvert.DeserializeObject<Schema>(item.latestData);
+                        ApplicationDataHandler.Schemas.Single(s => s.Id == objToForceUpdate.Id).Name = objToForceUpdate.Name;
+                        ApplicationDataHandler.Schemas.Single(s => s.Id == objToForceUpdate.Id).JSONData = objToForceUpdate.JSONData;
+                        ApplicationDataHandler.Schemas.Single(s => s.Id == objToForceUpdate.Id).GotAt = DateTime.Now;
+                        break;
+                    case "C201":
+                        Console.WriteLine("(c201) Add match");
+                        ApplicationDataHandler.AllEntries.Add(JsonConvert.DeserializeObject<DataEntry>(item.latestData));
+                        break;
+                    case "C202":
+                        Console.WriteLine("(c202) Remove match");
+                        ApplicationDataHandler.AllEntries.Remove(ApplicationDataHandler.AllEntries.Single(d => d.Id == item.latestData));
+                        break;
+                    case "C203":
+                        Console.WriteLine("(c203) Force remove match");
+                        ApplicationDataHandler.AllEntries.Remove(ApplicationDataHandler.AllEntries.Single(d => d.Id == item.latestData));
+                        break;
+                    case "C204":
+                        Console.WriteLine("(c204) Update match");
+                        var matchToUpdate = JsonConvert.DeserializeObject<DataEntry>(item.latestData);
+                        if(!ApplicationDataHandler.AllEntries.Single(d => d.Id == matchToUpdate.Id).Completed)
+                        {
+                            var doThis = ApplicationDataHandler.AllEntries.Single(d => d.Id == matchToUpdate.Id);
+                            doThis.AssistedBy = matchToUpdate.AssistedBy;
+                            doThis.Audited = matchToUpdate.Audited;
+                            doThis.Competition = matchToUpdate.Competition;
+                            doThis.Completed = matchToUpdate.Completed;
+                            doThis.Data = matchToUpdate.Data;
+                            doThis.LastEdited = matchToUpdate.LastEdited;
+                            doThis.Number = matchToUpdate.Number;
+                            doThis.Position = matchToUpdate.Position;
+                            doThis.Schema = matchToUpdate.Schema;
+                            doThis.TeamIdentifier = matchToUpdate.TeamIdentifier;
+                            doThis.TeamName = matchToUpdate.TeamName;
+                        }
+                        
+                        break;
+                    case "C205":
+                        Console.WriteLine("(c205) Force update match");
+                        var matchToForceUpdate = JsonConvert.DeserializeObject<DataEntry>(item.latestData);
+                        var doThisOne = ApplicationDataHandler.AllEntries.Single(d => d.Id == matchToForceUpdate.Id);
+                        doThisOne.AssistedBy = matchToForceUpdate.AssistedBy;
+                        doThisOne.Audited = matchToForceUpdate.Audited;
+                        doThisOne.Competition = matchToForceUpdate.Competition;
+                        doThisOne.Completed = matchToForceUpdate.Completed;
+                        doThisOne.Data = matchToForceUpdate.Data;
+                        doThisOne.LastEdited = matchToForceUpdate.LastEdited;
+                        doThisOne.Number = matchToForceUpdate.Number;
+                        doThisOne.Position = matchToForceUpdate.Position;
+                        doThisOne.Schema = matchToForceUpdate.Schema;
+                        doThisOne.TeamIdentifier = matchToForceUpdate.TeamIdentifier;
+                        doThisOne.TeamName = matchToForceUpdate.TeamName;
+                        break;
+                    case "C211":
+                        Console.WriteLine("(c211) Add matches");
+                        ApplicationDataHandler.AllEntries.AddRange(JsonConvert.DeserializeObject<List<DataEntry>>(item.latestData));
+                        break;
+                    case "C212":
+                        Console.WriteLine("(c212) Remove matches");
+                        var listOfIds = JsonConvert.DeserializeObject<List<string>>(item.latestData);
+                        foreach(var id in listOfIds)
+                        {
+                            ApplicationDataHandler.AllEntries.Remove(ApplicationDataHandler.AllEntries.Single(d => d.Id == id));
+                        }
+                        break;
+                    case "C301":
+                        Console.WriteLine("(c301) Change forced schema");
+                        ApplicationDataHandler.CurrentApplicationData.CurrentCompetition = item.latestData;
+                        break;
+                    case "C401":
+                        Console.WriteLine("(c401) Add user");
+                        ApplicationDataHandler.Users.Add(JsonConvert.DeserializeObject<Scouter>(item.latestData));
+                        break;
+                    case "C402":
+                        Console.WriteLine("(c402) Remove user");
+                        ApplicationDataHandler.Users.Remove(ApplicationDataHandler.Users.Single(d => d.Id == item.latestData));
+                        break;
+                    case "C403":
+                        Console.WriteLine("(c403) Update user");
+                        var userToUpdate = JsonConvert.DeserializeObject<Scouter>(item.latestData);
+                        var doThisUser = ApplicationDataHandler.Users.Single(d => d.Id == userToUpdate.Id);
+                        doThisUser.Name = userToUpdate.Name;
+                        doThisUser.Score = userToUpdate.Score;
+                        doThisUser.LastUsed = userToUpdate.LastUsed;
+                        doThisUser.Banned = userToUpdate.Banned;
+                        break;
+                    case "C411":
+                        Console.WriteLine("(c411) Add users");
+                        ApplicationDataHandler.Users.AddRange(JsonConvert.DeserializeObject<List<Scouter>>(item.latestData));
+                        break;
+                    case "C412":
+                        Console.WriteLine("(c412) Update users");
+                        var listOfUsersToUpdate = JsonConvert.DeserializeObject<List<Scouter>>(item.latestData);
+                        foreach(var user in listOfUsersToUpdate)
+                        {
+                            var doThisUserToo = ApplicationDataHandler.Users.Single(d => d.Id == user.Id);
+                            doThisUserToo.Name = user.Name;
+                            doThisUserToo.Score = user.Score;
+                            doThisUserToo.LastUsed = user.LastUsed;
+                            doThisUserToo.Banned = user.Banned;
+                        }
+                        break;
+                    case "C421":
+                        Console.WriteLine("(c421) Remove all users");
+                        ApplicationDataHandler.Users.Clear();
+                        break;
+                    case "C431":
+                        Console.WriteLine("(c431) Change announcement");
+                        var announcementModel = JsonConvert.DeserializeObject<Announcement>(item.latestData);
+                        ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Title = announcementModel.Title;
+                        ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Data = announcementModel.Data;
+                        ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.ActiveUntil = announcementModel.ActiveUntil;
+                        ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.GotAt = DateTime.Now;
+                        break;
+                    case "C501":
+                        Console.WriteLine("(c501) Create backup");
+                        
+                        break;
+                    case "C502":
+                        Console.WriteLine("(c502) Load backup");
+
+                        break;
+                    case "C701":
+                        Console.WriteLine("(c701) Enable competition security mode");
+
+                        break;
+                    case "C702":
+                        Console.WriteLine("(c702) Disable competition security mode");
+
+                        break;
+                    case "C711":
+                        Console.WriteLine("(c711) Set competition security mode key");
+
                         break;
                 }
                 // next send back what told to

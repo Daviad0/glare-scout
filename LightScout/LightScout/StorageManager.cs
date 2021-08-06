@@ -349,8 +349,8 @@ namespace LightScout
             
             if(existingData == "" || existingData == null)
             {
-                AvailableEntries = new List<DataEntry>();
-                AvailableEntries.Add(new DataEntry()
+                AllEntries = new List<DataEntry>();
+                AllEntries.Add(new DataEntry()
                 {
                     Id = "4a4a4a01",
                     TeamIdentifier = "0001",
@@ -363,7 +363,7 @@ namespace LightScout
                     Position = "Main",
                     AssistedBy = new List<string>() { "0002", "0003" }
                 });
-                AvailableEntries.Add(new DataEntry()
+                AllEntries.Add(new DataEntry()
                 {
                     Id = "4a4a4a02",
                     TeamIdentifier = "0001",
@@ -376,7 +376,7 @@ namespace LightScout
                     Position = "Red 1",
                     AssistedBy = new List<string>() { "0005", "0002" }
                 });
-                AvailableEntries.Add(new DataEntry()
+                AllEntries.Add(new DataEntry()
                 {
                     Id = "4a4a4a03",
                     TeamIdentifier = "0001",
@@ -389,7 +389,7 @@ namespace LightScout
                     Position = "Blue 2",
                     AssistedBy = new List<string>() { "0007", "0003" }
                 });
-                AvailableEntries.Add(new DataEntry()
+                AllEntries.Add(new DataEntry()
                 {
                     Id = "4a4a4a04",
                     TeamIdentifier = "0001",
@@ -407,13 +407,13 @@ namespace LightScout
             {
                 try
                 {
-                    AvailableEntries = Newtonsoft.Json.JsonConvert.DeserializeObject<List<DataEntry>>(existingData);
+                    AllEntries = Newtonsoft.Json.JsonConvert.DeserializeObject<List<DataEntry>>(existingData);
                 }catch(Exception e)
                 {
-                    AvailableEntries = new List<DataEntry>();
+                    AllEntries = new List<DataEntry>();
                 }
             }
-            AllEntries = AvailableEntries;
+            await GetAvailableMatches();
             existingData = await StorageManager.GetData("users");
             if (existingData == "" || existingData == null)
             {
@@ -481,6 +481,17 @@ namespace LightScout
                 }
             }
         }
+        public async Task GetAvailableMatches()
+        {
+            if (CurrentApplicationData.RestrictMatches)
+            {
+                AvailableEntries = AllEntries.FindAll(m => m.Competition == CurrentApplicationData.CurrentCompetition);
+            }
+            else
+            {
+                AvailableEntries = AllEntries;
+            }
+        }
         public async Task SaveAppData()
         {
             var dataToPut = Newtonsoft.Json.JsonConvert.SerializeObject(CurrentApplicationData);
@@ -517,6 +528,7 @@ namespace LightScout
         public string EncryptionKey;
         public bool Locked;
         public string LockedMessage;
+        public bool RestrictMatches;
     }
     public class Announcement
     {

@@ -309,14 +309,18 @@ namespace LightScout.Droid
                     case "C201":
                         Console.WriteLine("(c201) Add match");
                         ApplicationDataHandler.AllEntries.Add(JsonConvert.DeserializeObject<DataEntry>(item.latestData));
+                        MessagingCenter.Send("MasterPage", "MatchesChanged", "hola");
+                        
                         break;
                     case "C202":
                         Console.WriteLine("(c202) Remove match");
                         ApplicationDataHandler.AllEntries.Remove(ApplicationDataHandler.AllEntries.Single(d => d.Id == item.latestData));
+                        MessagingCenter.Send("MasterPage", "MatchesChanged", "hola");
                         break;
                     case "C203":
                         Console.WriteLine("(c203) Force remove match");
                         ApplicationDataHandler.AllEntries.Remove(ApplicationDataHandler.AllEntries.Single(d => d.Id == item.latestData));
+                        MessagingCenter.Send("MasterPage", "MatchesChanged", "hola");
                         break;
                     case "C204":
                         Console.WriteLine("(c204) Update match");
@@ -336,7 +340,7 @@ namespace LightScout.Droid
                             doThis.TeamIdentifier = matchToUpdate.TeamIdentifier;
                             doThis.TeamName = matchToUpdate.TeamName;
                         }
-                        
+                        MessagingCenter.Send("MasterPage", "MatchesChanged", "hola");
                         break;
                     case "C205":
                         Console.WriteLine("(c205) Force update match");
@@ -353,10 +357,13 @@ namespace LightScout.Droid
                         doThisOne.Schema = matchToForceUpdate.Schema;
                         doThisOne.TeamIdentifier = matchToForceUpdate.TeamIdentifier;
                         doThisOne.TeamName = matchToForceUpdate.TeamName;
+                        MessagingCenter.Send("MasterPage", "MatchesChanged", "hola");
                         break;
+
                     case "C211":
                         Console.WriteLine("(c211) Add matches");
                         ApplicationDataHandler.AllEntries.AddRange(JsonConvert.DeserializeObject<List<DataEntry>>(item.latestData));
+                        MessagingCenter.Send("MasterPage", "MatchesChanged", "hola");
                         break;
                     case "C212":
                         Console.WriteLine("(c212) Remove matches");
@@ -365,18 +372,22 @@ namespace LightScout.Droid
                         {
                             ApplicationDataHandler.AllEntries.Remove(ApplicationDataHandler.AllEntries.Single(d => d.Id == id));
                         }
+                        MessagingCenter.Send("MasterPage", "MatchesChanged", "hola");
                         break;
                     case "C301":
                         Console.WriteLine("(c301) Change forced schema");
                         ApplicationDataHandler.CurrentApplicationData.CurrentCompetition = item.latestData;
+                        
                         break;
                     case "C401":
                         Console.WriteLine("(c401) Add user");
                         ApplicationDataHandler.Users.Add(JsonConvert.DeserializeObject<Scouter>(item.latestData));
+                        MessagingCenter.Send("MasterPage", "UsersChanged", "hola");
                         break;
                     case "C402":
                         Console.WriteLine("(c402) Remove user");
                         ApplicationDataHandler.Users.Remove(ApplicationDataHandler.Users.Single(d => d.Id == item.latestData));
+                        MessagingCenter.Send("MasterPage", "UsersChanged", "hola");
                         break;
                     case "C403":
                         Console.WriteLine("(c403) Update user");
@@ -386,10 +397,12 @@ namespace LightScout.Droid
                         doThisUser.Score = userToUpdate.Score;
                         doThisUser.LastUsed = userToUpdate.LastUsed;
                         doThisUser.Banned = userToUpdate.Banned;
+                        MessagingCenter.Send("MasterPage", "UsersChanged", "hola");
                         break;
                     case "C411":
                         Console.WriteLine("(c411) Add users");
                         ApplicationDataHandler.Users.AddRange(JsonConvert.DeserializeObject<List<Scouter>>(item.latestData));
+                        MessagingCenter.Send("MasterPage", "UsersChanged", "hola");
                         break;
                     case "C412":
                         Console.WriteLine("(c412) Update users");
@@ -402,10 +415,12 @@ namespace LightScout.Droid
                             doThisUserToo.LastUsed = user.LastUsed;
                             doThisUserToo.Banned = user.Banned;
                         }
+                        MessagingCenter.Send("MasterPage", "UsersChanged", "hola");
                         break;
                     case "C421":
                         Console.WriteLine("(c421) Remove all users");
                         ApplicationDataHandler.Users.Clear();
+                        MessagingCenter.Send("MasterPage", "UsersChanged", "hola");
                         break;
                     case "C431":
                         Console.WriteLine("(c431) Change announcement");
@@ -414,6 +429,7 @@ namespace LightScout.Droid
                         ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Data = announcementModel.Data;
                         ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.ActiveUntil = announcementModel.ActiveUntil;
                         ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.GotAt = DateTime.Now;
+                        MessagingCenter.Send("MasterPage", "AnnouncementChanged", "hola");
                         break;
                     case "C501":
                         Console.WriteLine("(c501) Create backup");

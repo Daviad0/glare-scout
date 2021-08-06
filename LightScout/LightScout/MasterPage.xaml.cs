@@ -102,6 +102,37 @@ namespace LightScout
 
 
             });
+            MessagingCenter.Subscribe<string, string>("MasterPage", "MatchesChanged", (sender, message) =>
+            {
+                Device.BeginInvokeOnMainThread(async () => {
+                    await ApplicationDataHandler.Instance.GetAvailableMatches();
+                    CurrentMatchSelected = ApplicationDataHandler.AvailableEntries.First();
+                    UpdateMatchContainer();
+                    
+                });
+
+
+            });
+            MessagingCenter.Subscribe<string, string>("MasterPage", "AnnouncementChanged", (sender, message) =>
+            {
+                Device.BeginInvokeOnMainThread(async () => {
+                    
+                    UpdateAnnouncementContainer();
+
+                });
+
+
+            });
+            MessagingCenter.Subscribe<string, string>("MasterPage", "UsersChanged", (sender, message) =>
+            {
+                Device.BeginInvokeOnMainThread(() => {
+
+                    UpdateUsers();
+
+                });
+
+
+            });
             Task.Run(async () =>
             {
                 if (UniqueStartUp.Initialized != true)

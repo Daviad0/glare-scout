@@ -42,14 +42,17 @@ namespace LightScout
         public static bool Initialized;
         public async Task StartTasks()
         {
+
+            // application data protocol
+            await ApplicationDataHandler.Instance.InitializeData();
+
             // bluetooth protocol
             Task.Run(() =>
             {
                 DependencyService.Get<BLEPeripheral>().StartAdvertising("a3db5ad7-ac7b-4a48-b4e0-13f7c087194d", "DT1");
             });
             
-            // application data protocol
-            await ApplicationDataHandler.Instance.InitializeData();
+            
             ApplicationDataHandler.Users.Clear();
             ApplicationDataHandler.Users.Add(new Scouter()
             {
@@ -262,7 +265,12 @@ namespace LightScout
             }
                 
         }
-
+        private Dictionary<string, string[]> menuImagePairs = new Dictionary<string, string[]>()
+        {
+            { "settingsPage", new string[]{ "LSS.png", "LSSS.png" } },
+            { "additionalPage", new string[]{ "LSC.png", "LSCS.png" } },
+            { "mainPage", new string[]{ "LSH.png", "LSHS.png" } }
+        };
         private async void changeMenuPage(object sender, EventArgs e)
         {
             Frame clickedObj = (Frame)sender as Frame;
@@ -284,6 +292,11 @@ namespace LightScout
                 this.FindByName<Label>(pageAlready.ClassId + "Nav1").RotateTo(0, 250, Easing.CubicInOut);
             }
             menuExpanded = false;
+
+
+            
+            this.FindByName<Image>(pageAlready.ClassId + "_image").Source = menuImagePairs[pageAlready.ClassId][0];
+            this.FindByName<Image>(clickedObj.ClassId + "_image").Source = menuImagePairs[clickedObj.ClassId][1];
 
             newPage.TranslateTo(newPage.X, newPage.Y, 500, Easing.CubicInOut);
         }
@@ -308,6 +321,10 @@ namespace LightScout
                 this.FindByName<Label>(pageAlready.ClassId + "Nav1").RotateTo(0, 250, Easing.CubicInOut);
             }
             menuExpanded = false;
+
+            
+            this.FindByName<Image>(pageAlready.ClassId + "_image").Source = menuImagePairs[pageAlready.ClassId][0];
+            this.FindByName<Image>(clickedObj.ClassId + "_image").Source = menuImagePairs[clickedObj.ClassId][1];
 
             newPage.TranslateTo(newPage.X, newPage.Y, 500, Easing.CubicInOut);
         }

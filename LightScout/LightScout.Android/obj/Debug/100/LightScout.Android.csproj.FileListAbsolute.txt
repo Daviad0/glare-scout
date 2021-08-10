@@ -826,3 +826,8 @@ C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\androidx\proguard\a9cf802f-5ea2-4b82-84fa-801ed919fbe3.txt
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\androidx\proguard\abfd9f48-14b9-4039-9d1f-26d93c9c52c2.txt
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\androidx\proguard\dc720f65-7436-4532-8bbc-019bab2282d8.txt
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\res\drawable\lsss.png
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\res\drawable\lsds.png
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\res\drawable\lshs.png
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\res\drawable\lsc.png
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\res\drawable\lscs.png

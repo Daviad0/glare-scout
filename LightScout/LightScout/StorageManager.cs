@@ -480,6 +480,14 @@ namespace LightScout
                     Schemas = new List<Schema>();
                 }
             }
+            if(CurrentApplicationData.DeviceId == null || CurrentApplicationData.DeviceId == "")
+            {
+                await GenerateFirstId();
+            }
+            else
+            {
+                //await GenerateFirstId();
+            }
         }
         public async Task GetAvailableMatches()
         {
@@ -517,6 +525,21 @@ namespace LightScout
             // need to update into the already existing ones
             var dataToPut = Newtonsoft.Json.JsonConvert.SerializeObject(AvailableEntries);
             await StorageManager.SetData("matches", dataToPut);
+        }
+        public async Task GenerateFirstId()
+        {
+            // only runs if there isn't an ID or the previous one was corrupt!
+            char[] _base62chars =
+                "0123456789ABCDEFG"
+                .ToCharArray();
+            Random randomGen = new Random();
+            var finalString = "";
+            for(int i = 0; i < 6; i++)
+            {
+                finalString = finalString + _base62chars[randomGen.Next(16)];
+            }
+            CurrentApplicationData.DeviceId = finalString;
+            await SaveAppData();
         }
     }
     public class ApplicationData

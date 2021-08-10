@@ -84,9 +84,11 @@ namespace LightScout.Droid
     }
     public class GattServerCallback : BluetoothGattServerCallback
     {
+        
         private ServerManagement ServerManagement = new ServerManagement();
         public override void OnConnectionStateChange(BluetoothDevice device, [GeneratedEnum] ProfileState status, [GeneratedEnum] ProfileState newState)
         {
+            
             base.OnConnectionStateChange(device, status, newState);
         }
         public override void OnCharacteristicReadRequest(BluetoothDevice device, int requestId, int offset, BluetoothGattCharacteristic characteristic)
@@ -103,15 +105,16 @@ namespace LightScout.Droid
             try
             {
                 ServerManagement.CurrentRequestId = requestId;
-                var header = BitConverter.ToString(value.Take(19).ToArray()).Replace("-", string.Empty);
-                var communicationId = header.Substring(26, 8);
-                var deviceId = header.Substring(4, 12);
-                var protocolIn = header.Substring(16, 4);
-                var protocolOut = header.Substring(20, 4);
-                var messageNumber = int.Parse(header.Substring(26, 4));
-                var isEnded = header.Substring(24, 1) == "A" ? false : true;
-                var expectingResponse = header.Substring(25, 1) == "1" ? true : false;
-                var data = Encoding.ASCII.GetString(value.Skip(19).ToArray());
+                var header = BitConverter.ToString(value.Take(16).ToArray()).Replace("-", string.Empty);
+                var communicationId = header.Substring(24, 8);
+                var deviceId = header.Substring(4, 6);
+                var protocolIn = header.Substring(10, 4);
+                var protocolOut = header.Substring(14, 4);
+                var messageNumber = int.Parse(header.Substring(20, 4));
+                Console.WriteLine(messageNumber);
+                var isEnded = header.Substring(19, 1) == "A" ? false : true;
+                var expectingResponse = header.Substring(18, 1) == "1" ? true : false;
+                var data = Encoding.ASCII.GetString(value.Skip(16).ToArray());
                 Console.WriteLine("Data: " + data);
                 // 2 things are essentially writing at once, and I don't know why. It disrupts the flow
                 // assume for now that it just wants to send a test value
@@ -534,7 +537,7 @@ namespace LightScout.Droid
         {
             AdvertiseSettings settings = new AdvertiseSettings.Builder().SetConnectable(true).Build();
 
-            BluetoothAdapter.DefaultAdapter.SetName("Glare");
+            BluetoothAdapter.DefaultAdapter.SetName("GP-" + ApplicationDataHandler.CurrentApplicationData.DeviceId);
 
             ParcelUuid parcelUuid = new ParcelUuid(UUID.FromString("00000862-0000-1000-8000-00805f9b34fb"));
             AdvertiseData data = new AdvertiseData.Builder().AddServiceUuid(parcelUuid).SetIncludeDeviceName(true).Build();

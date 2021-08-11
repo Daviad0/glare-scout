@@ -118,6 +118,8 @@ namespace LightScout.Droid
                 Console.WriteLine("Data: " + data);
                 // 2 things are essentially writing at once, and I don't know why. It disrupts the flow
                 // assume for now that it just wants to send a test value
+                
+                ServerManagement.Server.SendResponse(device, requestId, GattStatus.Success, Encoding.ASCII.GetBytes("Test").ToArray().Length, Encoding.ASCII.GetBytes("Test").ToArray());
                 if (ServerManagement.QueueIn.Exists(item => item.communicationId == communicationId))
                 {
                     // use existing device
@@ -159,6 +161,14 @@ namespace LightScout.Droid
             //characteristic.SetValue(value);
             base.OnCharacteristicWriteRequest(device, requestId, characteristic, preparedWrite, responseNeeded, offset, value);
         }
+
+        public async void NextMessageTrigger(QueueItemIn item)
+        {
+            var headerString = (862).ToString("0000") + item.deviceId + item.protocolIn + item.protocolOut + "1" + "a" + item.numMessages.ToString("0000") + item.communicationId;
+            var finalByteArray = StringToByteArray(headerString).Concat(Encoding.ASCII.GetBytes("Get to work ya freeloader!").ToArray()).ToArray();
+            ServerManagement.CurrentNotificationTo.Characteristic.SetValue(finalByteArray);
+            ServerManagement.Server.NotifyCharacteristicChanged(ServerManagement.CurrentNotificationTo.Device, ServerManagement.CurrentNotificationTo.Characteristic, false);
+        }
         public async void UpdateNotification(string data, string protocolIn, string protocolOut)
         {
             var communicationId = GenerateRandomHexString();
@@ -166,7 +176,7 @@ namespace LightScout.Droid
             var numMessages = (int)Math.Ceiling((float)Encoding.ASCII.GetBytes(data).Length / (float)459);
             for(int m = 0; m < numMessages; m++)
             {
-                var headerString = (862).ToString("0000") + "1234567890ab" + protocolIn + protocolOut + (m + 1 == numMessages ? "e" : "a")+ "0" + (m + 1).ToString("0000") + communicationId;
+                var headerString = (862).ToString("0000") + "123456" + protocolIn + protocolOut + "0" + (m + 1 == numMessages ? "e" : "a") + (m + 1).ToString("0000") + communicationId;
                 var finalByteArray = StringToByteArray(headerString).Concat(encodedMessage.Skip(m * 459).ToArray()).ToArray();
                 ServerManagement.CurrentNotificationTo.Characteristic.SetValue(finalByteArray);
                 ServerManagement.Server.NotifyCharacteristicChanged(ServerManagement.CurrentNotificationTo.Device, ServerManagement.CurrentNotificationTo.Characteristic, false);
@@ -471,6 +481,10 @@ namespace LightScout.Droid
                         UpdateNotification("I'm a data packet!", item.protocolIn, item.protocolOut);
                         break;
                 }
+            }
+            else
+            {
+                NextMessageTrigger(item);
             }
             
 

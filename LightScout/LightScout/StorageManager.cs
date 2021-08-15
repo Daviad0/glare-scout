@@ -552,6 +552,10 @@ namespace LightScout
         public bool Locked;
         public string LockedMessage;
         public bool RestrictMatches;
+        public bool Logging;
+        public bool Debugging;
+        public string SecurityKey;
+        public bool SecurityMode;
     }
     public class Announcement
     {
@@ -604,5 +608,25 @@ namespace LightScout
         public bool Completed;
         public bool Audited;
         public List<string> AssistedBy;
+    }
+    public class ActionLog
+    {
+        public string EventName;
+        public string EventDetails;
+        public DateTime GotAt;
+    }
+    public class Backup
+    {
+        public List<DataEntry> Entries;
+        public List<Schema> Schemas;
+        public List<Competition> Competitions;
+        public DateTime CreatedAt;
+    }
+    public class MedicalInformation
+    {
+        public string Title;
+        public string PrimaryContact;
+        public string EmergencyPhone;
+        public string Details;
     }
 }

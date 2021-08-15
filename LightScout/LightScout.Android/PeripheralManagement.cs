@@ -173,16 +173,16 @@ namespace LightScout.Droid
         {
             var communicationId = GenerateRandomHexString();
             var encodedMessage = Encoding.ASCII.GetBytes(data);
-            var numMessages = (int)Math.Ceiling((float)Encoding.ASCII.GetBytes(data).Length / (float)459);
+            var numMessages = (int)Math.Ceiling((float)Encoding.ASCII.GetBytes(data).Length / (float)200);
             for(int m = 0; m < numMessages; m++)
             {
                 var headerString = (862).ToString("0000") + "123456" + protocolIn + protocolOut + "0" + (m + 1 == numMessages ? "e" : "a") + (m + 1).ToString("0000") + communicationId;
-                var finalByteArray = StringToByteArray(headerString).Concat(encodedMessage.Skip(m * 459).ToArray()).ToArray();
+                var finalByteArray = StringToByteArray(headerString).Concat(encodedMessage.Skip(m * 200).ToArray().Take(200)).ToArray();
                 ServerManagement.CurrentNotificationTo.Characteristic.SetValue(finalByteArray);
                 ServerManagement.Server.NotifyCharacteristicChanged(ServerManagement.CurrentNotificationTo.Device, ServerManagement.CurrentNotificationTo.Characteristic, false);
                 
                 Console.WriteLine(m.ToString() + " message notified");
-                await Task.Delay(1000);
+                await Task.Delay(500);
             }
         }
         public override void OnDescriptorWriteRequest(BluetoothDevice device, int requestId, BluetoothGattDescriptor descriptor, bool preparedWrite, bool responseNeeded, int offset, byte[] value)
@@ -466,7 +466,7 @@ namespace LightScout.Droid
                         break;
                 }
                 // next send back what told to
-                switch (item.protocolOut)
+                switch (item.protocolOut.ToLower())
                 {
                     case "0000":
                         Console.WriteLine("(0000 >) Doing nothing");
@@ -479,6 +479,64 @@ namespace LightScout.Droid
                         break;
                     case "0999":
                         UpdateNotification("I'm a data packet!", item.protocolIn, item.protocolOut);
+                        break;
+                    case "a101":
+                        UpdateNotification(ApplicationDataHandler.CurrentApplicationData.Locked.ToString(), item.protocolIn, item.protocolOut);
+                        break;
+                    case "a111":
+                        UpdateNotification("Nothing :>", item.protocolIn, item.protocolOut);
+                        break;
+                    case "a201":
+                        List<string> Schemas = new List<string>();
+                        foreach(var schema in ApplicationDataHandler.Schemas)
+                        {
+                            Schemas.Add(schema.Id);
+                        }
+                        UpdateNotification(Newtonsoft.Json.JsonConvert.SerializeObject(new DiagnosticReport() { 
+                            BatteryLevel = .9f,
+                            InternetConnectivity = false,
+                            NumberOfMatchesStored = ApplicationDataHandler.AllEntries.Count,
+                            SchemasIncluded = Schemas
+                        }), item.protocolIn, item.protocolOut);
+                        break;
+                    case "a202":
+                        UpdateNotification(":[", item.protocolIn, item.protocolOut);
+                        break;
+                    case "a301":
+                        UpdateNotification(ApplicationDataHandler.CurrentApplicationData.RestrictMatches.ToString(), item.protocolIn, item.protocolOut);
+                        break;
+                    case "a701":
+                        UpdateNotification("Not implemented!", item.protocolIn, item.protocolOut);
+                        break;
+                    case "a801":
+                        UpdateNotification("Not implemented!", item.protocolIn, item.protocolOut);
+                        break;
+                    case "a811":
+                        UpdateNotification("Not implemented!", item.protocolIn, item.protocolOut);
+                        break;
+                    case "a901":
+                        UpdateNotification("Not implemented!", item.protocolIn, item.protocolOut);
+                        break;
+                    case "c101":
+                        UpdateNotification(JsonConvert.SerializeObject(ApplicationDataHandler.Schemas), item.protocolIn, item.protocolOut);
+                        break;
+                    case "c201":
+                        UpdateNotification("Not implemented!", item.protocolIn, item.protocolOut);
+                        break;
+                    case "c202":
+                        UpdateNotification(JsonConvert.SerializeObject(ApplicationDataHandler.AllEntries), item.protocolIn, item.protocolOut);
+                        break;
+                    case "c301":
+                        UpdateNotification(ApplicationDataHandler.CurrentApplicationData.CurrentCompetition.ToString(), item.protocolIn, item.protocolOut);
+                        break;
+                    case "c401":
+                        UpdateNotification(JsonConvert.SerializeObject(ApplicationDataHandler.Users), item.protocolIn, item.protocolOut);
+                        break;
+                    case "c501":
+                        UpdateNotification("Not implemented!", item.protocolIn, item.protocolOut);
+                        break;
+                    case "c701":
+                        UpdateNotification("Not implemented!", item.protocolIn, item.protocolOut);
                         break;
                 }
             }

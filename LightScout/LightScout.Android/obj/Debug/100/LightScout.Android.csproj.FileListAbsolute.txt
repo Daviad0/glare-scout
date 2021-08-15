@@ -831,3 +831,4 @@ C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\res\drawable\lshs.png
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\res\drawable\lsc.png
 C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\res\drawable\lscs.png
+C:\Users\djree\source\repos\lightscoutx\LightScout\LightScout.Android\obj\Debug\100\res\drawable\lslogof.png

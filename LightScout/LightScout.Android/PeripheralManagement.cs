@@ -395,11 +395,13 @@ namespace LightScout.Droid
                     case "C401":
                         Console.WriteLine("(c401) Add user");
                         ApplicationDataHandler.Users.Add(JsonConvert.DeserializeObject<Scouter>(item.latestData));
+                        ApplicationDataHandler.Instance.SaveUsers();
                         MessagingCenter.Send("MasterPage", "UsersChanged", "hola");
                         break;
                     case "C402":
                         Console.WriteLine("(c402) Remove user");
                         ApplicationDataHandler.Users.Remove(ApplicationDataHandler.Users.Single(d => d.Id == item.latestData));
+                        ApplicationDataHandler.Instance.SaveUsers();
                         MessagingCenter.Send("MasterPage", "UsersChanged", "hola");
                         break;
                     case "C403":
@@ -410,11 +412,13 @@ namespace LightScout.Droid
                         doThisUser.Score = userToUpdate.Score;
                         doThisUser.LastUsed = userToUpdate.LastUsed;
                         doThisUser.Banned = userToUpdate.Banned;
+                        ApplicationDataHandler.Instance.SaveUsers();
                         MessagingCenter.Send("MasterPage", "UsersChanged", "hola");
                         break;
                     case "C411":
                         Console.WriteLine("(c411) Add users");
                         ApplicationDataHandler.Users.AddRange(JsonConvert.DeserializeObject<List<Scouter>>(item.latestData));
+                        ApplicationDataHandler.Instance.SaveUsers();
                         MessagingCenter.Send("MasterPage", "UsersChanged", "hola");
                         break;
                     case "C412":
@@ -428,11 +432,13 @@ namespace LightScout.Droid
                             doThisUserToo.LastUsed = user.LastUsed;
                             doThisUserToo.Banned = user.Banned;
                         }
+                        ApplicationDataHandler.Instance.SaveUsers();
                         MessagingCenter.Send("MasterPage", "UsersChanged", "hola");
                         break;
                     case "C421":
                         Console.WriteLine("(c421) Remove all users");
                         ApplicationDataHandler.Users.Clear();
+                        ApplicationDataHandler.Instance.SaveUsers();
                         MessagingCenter.Send("MasterPage", "UsersChanged", "hola");
                         break;
                     case "C431":
@@ -539,6 +545,7 @@ namespace LightScout.Droid
                         UpdateNotification("Not implemented!", item.protocolIn, item.protocolOut);
                         break;
                 }
+                ServerManagement.QueueIn.Remove(ServerManagement.QueueIn.Single(el => el.communicationId == item.communicationId));
             }
             else
             {

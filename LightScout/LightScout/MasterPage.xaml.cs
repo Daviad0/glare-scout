@@ -53,21 +53,6 @@ namespace LightScout
             });
             
             
-            ApplicationDataHandler.Users.Clear();
-            ApplicationDataHandler.Users.Add(new Scouter()
-            {
-                Name = "David Reeves",
-                Id = "AAAAAAAA",
-                Score = 0,
-                Banned = false
-            });
-            ApplicationDataHandler.Users.Add(new Scouter()
-            {
-                Name = "Meng Shi",
-                Id = "AAAAAAAB",
-                Score = 0,
-                Banned = false
-            });
             await ApplicationDataHandler.Instance.SaveUsers();
             Initialized = true;
         }
@@ -147,9 +132,10 @@ namespace LightScout
                 UpdateAnnouncementContainer();
                 UpdateProgressContainer();
                 UpdateUsers();
+                tabletIdentifier.Text = ApplicationDataHandler.CurrentApplicationData.DeviceId;
             });
-
             
+
             //MessagingCenter.Send("MasterPage", "DialogBox", "AAAAA");
         }
         private async void UpdateUsers()

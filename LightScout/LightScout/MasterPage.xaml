@@ -199,7 +199,7 @@
                         <StackLayout>
                             <Label Text="Your Identifier" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,10,0,10"/>
                             <Frame Padding="20,0" BackgroundColor="#2a7afa" HorizontalOptions="Center" CornerRadius="16" Margin="0,0,0,10">
-                                <Label Text="3AC465" FontSize="60" TextColor="White" FontAttributes="Bold"/>
+                                <Label Text="3AC465" FontSize="60" TextColor="White" FontAttributes="Bold" x:Name="tabletIdentifier"/>
                             </Frame>
                             
                             
@@ -352,7 +352,7 @@
 
                             <Button Grid.Row="0" Grid.Column="0" x:Name="start_StartConfirm" Text="&#xea5c;" FontFamily="{StaticResource IconFont}" Clicked="start_StartConfirm_Clicked" HorizontalOptions="Center" VerticalOptions="Start" Padding="10,0" CornerRadius="8" TextColor="#2A7AFA" BackgroundColor="White"/>
                         </Grid>
-                        <Label x:Name="start_Loading" Text="Loading..." IsVisible="False" HorizontalOptions="Center"/>
+                        <Label x:Name="start_Loading" Text="Loading..." IsVisible="False" HorizontalOptions="Center" TextColor="White"/>
                     </Grid>
                     
                 </Grid>

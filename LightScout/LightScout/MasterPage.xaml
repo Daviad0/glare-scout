@@ -120,11 +120,11 @@
                                         <Frame.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="openEditPage"/>
                                         </Frame.GestureRecognizers>
-                                        <Label HorizontalOptions="Center" VerticalOptions="Center" Text="E" TextColor="#2A7AFA" x:Name="matchEditLabel"/>
+                                        <Label HorizontalOptions="Center" VerticalOptions="Center" Text="&#xeae8;" TextColor="#2A7AFA" x:Name="matchEditLabel" FontFamily="{StaticResource IconFont}"/>
                                     </Frame>
                                     <Frame BackgroundColor="Transparent" BorderColor="#2A7AFA" Grid.Column="1" CornerRadius="8" Padding="5">
-                                        
-                                        <Label HorizontalOptions="Center" VerticalOptions="Center" Text="B" TextColor="#2A7AFA"/>
+
+                                        <Label HorizontalOptions="Center" VerticalOptions="Center" Text="&#xee09;" TextColor="#2A7AFA"  FontFamily="{StaticResource IconFont}"/>
                                     </Frame>
                                     <Frame BackgroundColor="Transparent" BorderColor="#2A7AFA" Grid.Column="2" CornerRadius="8" Padding="5" x:Name="matchGo">
                                         <Frame.GestureRecognizers>
@@ -175,7 +175,15 @@
                 </Grid.RowDefinitions>
                 <StackLayout Grid.Row="0">
                     <Label Text="Settings" FontSize="20" TextColor="#0f3f8c" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,20,0,0"/>
-
+                    <Button Text="Clear All Data" FontSize="16" Margin="40,20,40,0" BackgroundColor="#2a7afa" TextColor="White" x:Name="debug_cleardata" Clicked="debug_cleardata_Clicked" CornerRadius="8"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Text="Create Backup" FontSize="16" Margin="40,10,10,0" BackgroundColor="#2a7afa" TextColor="White" x:Name="create_backup" Clicked="create_backup_Clicked" CornerRadius="8"/>
+                        <Button Text="Load Backup" FontSize="16" Margin="10,10,40,0" BackgroundColor="#2a7afa" TextColor="White" x:Name="load_backup" Clicked="load_backup_Clicked" Grid.Column="1" CornerRadius="8"/>
+                    </Grid>
                 </StackLayout>
                 <Label VerticalOptions="End" HorizontalOptions="Center" TextColor="#2A7AFA" Text="&#xea99;" FontFamily="{StaticResource IconFont}" FontSize="40" Grid.Row="1" x:Name="settingsPageNav1">
                     <Label.GestureRecognizers>

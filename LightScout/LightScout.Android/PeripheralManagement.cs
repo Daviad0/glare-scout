@@ -48,6 +48,7 @@ namespace LightScout.Droid
         public string deviceId;
         public string protocolIn;
         public string protocolOut;
+        public int offset;
     }
     public class NotifyingDevice
     {
@@ -95,7 +96,7 @@ namespace LightScout.Droid
         {
             Console.WriteLine("Thingy read");
             // need to somehow pass server here
-            ServerManagement.Server.SendResponse(device, requestId, GattStatus.Success, Encoding.ASCII.GetBytes("Hello, nothing has been set!").Length, Encoding.ASCII.GetBytes("Hello, nothing has been set!"));
+            ServerManagement.Server.SendResponse(device, requestId, GattStatus.Success, offset, Encoding.ASCII.GetBytes("Hello, nothing has been set!"));
 
             base.OnCharacteristicReadRequest(device, requestId, offset, characteristic);
         }
@@ -119,7 +120,7 @@ namespace LightScout.Droid
                 // 2 things are essentially writing at once, and I don't know why. It disrupts the flow
                 // assume for now that it just wants to send a test value
                 
-                ServerManagement.Server.SendResponse(device, requestId, GattStatus.Success, Encoding.ASCII.GetBytes("Test").ToArray().Length, Encoding.ASCII.GetBytes("Test").ToArray());
+                ServerManagement.Server.SendResponse(device, requestId, GattStatus.Success, offset, Encoding.ASCII.GetBytes("Test").ToArray());
                 if (ServerManagement.QueueIn.Exists(item => item.communicationId == communicationId))
                 {
                     // use existing device
@@ -127,10 +128,11 @@ namespace LightScout.Droid
                     ServerManagement.QueueIn.Single(item => item.communicationId == communicationId).latestData = (ServerManagement.QueueIn.Single(item => item.communicationId == communicationId).latestData == null ? "" : ServerManagement.QueueIn.Single(item => item.communicationId == communicationId).latestData) + data;
                     ServerManagement.QueueIn.Single(item => item.communicationId == communicationId).isEnded = isEnded;
                     ServerManagement.QueueIn.Single(item => item.communicationId == communicationId).numMessages += 1;
+                    ServerManagement.QueueIn.Single(item => item.communicationId == communicationId).offset = offset;
                 }
                 else
                 {
-                    ServerManagement.QueueIn.Add(new QueueItemIn() { communicationId = communicationId, deviceId = deviceId, protocolIn = protocolIn, protocolOut = protocolOut, latestData = data, latestHeader = header, isEnded = isEnded, numMessages = 1 });
+                    ServerManagement.QueueIn.Add(new QueueItemIn() { communicationId = communicationId, deviceId = deviceId, protocolIn = protocolIn, protocolOut = protocolOut, latestData = data, latestHeader = header, isEnded = isEnded, numMessages = 1, offset = offset });
                     
                 }
                 if (ServerManagement.CurrentNotificationTo != null && device.Address == ServerManagement.CurrentNotificationTo.Device.Address)
@@ -140,7 +142,7 @@ namespace LightScout.Droid
                 else
                 {
                     // cannot be notified of changes, so I must send back an error!
-                    ServerManagement.Server.SendResponse(device, requestId, GattStatus.RequestNotSupported, Encoding.ASCII.GetBytes("Comm ID updated!").ToArray().Length, Encoding.ASCII.GetBytes("Comm ID updated!").ToArray());
+                    ServerManagement.Server.SendResponse(device, requestId, GattStatus.RequestNotSupported, offset, Encoding.ASCII.GetBytes("Comm ID updated!").ToArray());
                 }
                 //check if device is currently subscribed
 
@@ -148,11 +150,11 @@ namespace LightScout.Droid
 
 
 
-                ServerManagement.Server.SendResponse(device, requestId, GattStatus.Success, Encoding.ASCII.GetBytes("Comm ID updated!").ToArray().Length, Encoding.ASCII.GetBytes("Comm ID updated!").ToArray());
+                ServerManagement.Server.SendResponse(device, requestId, GattStatus.Success, offset, Encoding.ASCII.GetBytes("Comm ID updated!").ToArray());
             }
             catch(Exception e)
             {
-                ServerManagement.Server.SendResponse(device, requestId, GattStatus.Failure, Encoding.ASCII.GetBytes("Comm ID updated!").ToArray().Length, Encoding.ASCII.GetBytes("Comm ID updated!").ToArray());
+                ServerManagement.Server.SendResponse(device, requestId, GattStatus.Failure, offset, Encoding.ASCII.GetBytes("Comm ID updated!").ToArray());
                 Console.WriteLine("Detected BAD Write Request!");
                 Console.WriteLine(e);
             }
@@ -198,11 +200,11 @@ namespace LightScout.Droid
             if (descriptor.Uuid.ToString() == alreadyExistingUUID.ToString())
             {
                 // getting tablet unique ID
-                ServerManagement.Server.SendResponse(device, requestId, GattStatus.Success, Encoding.ASCII.GetBytes("1234567890ab").Length, Encoding.ASCII.GetBytes("1234567890ab"));
+                ServerManagement.Server.SendResponse(device, requestId, GattStatus.Success, offset, Encoding.ASCII.GetBytes("1234567890ab"));
             }
             else
             {
-                ServerManagement.Server.SendResponse(device, requestId, GattStatus.Success, Encoding.ASCII.GetBytes("uwu").Length, Encoding.ASCII.GetBytes("uwu"));
+                ServerManagement.Server.SendResponse(device, requestId, GattStatus.Success, offset, Encoding.ASCII.GetBytes("uwu"));
                 
             }
             //ServerManagement.CurrentNotificationTo = new NotifyingDevice() { Characteristic = descriptor.Characteristic, Device = device };
@@ -233,11 +235,13 @@ namespace LightScout.Droid
                         Console.WriteLine("(a101) This should lock tablet");
                         ApplicationDataHandler.CurrentApplicationData.Locked = true;
                         ApplicationDataHandler.CurrentApplicationData.LockedMessage = item.latestData;
+                        ApplicationDataHandler.Instance.SaveAppData();
                         break;
                     case "A102":
                         Console.WriteLine("(a102) This should unlock tablet");
                         ApplicationDataHandler.CurrentApplicationData.Locked = false;
                         ApplicationDataHandler.CurrentApplicationData.LockedMessage = "";
+                        ApplicationDataHandler.Instance.SaveAppData();
                         // unlock tablet here
                         break;
                     case "A111":
@@ -254,31 +258,52 @@ namespace LightScout.Droid
                         break;
                     case "A301":
                         Console.WriteLine("(a301) Force competition schema");
-                        
+                        ApplicationDataHandler.CurrentApplicationData.RestrictMatches = true;
+                        ApplicationDataHandler.Instance.SaveAppData();
                         break;
                     case "A302":
                         Console.WriteLine("(a302) Don't force competition schema");
-
+                        ApplicationDataHandler.CurrentApplicationData.RestrictMatches = false;
+                        ApplicationDataHandler.Instance.SaveAppData();
+                        break;
+                    case "A401":
+                        Console.WriteLine("(a401) Add competition");
+                        ApplicationDataHandler.Competitions.Add(JsonConvert.DeserializeObject<Competition>(item.latestData));
+                        // need to add link in classes!
+                        ApplicationDataHandler.Instance.SaveCompetitions();
+                        break;
+                    case "A402":
+                        Console.WriteLine("(a402) Update competition");
+                        var objToUpdate = JsonConvert.DeserializeObject<Competition>(item.latestData);
+                        ApplicationDataHandler.Competitions.Single(s => s.Id == objToUpdate.Id).Name = objToUpdate.Name;
+                        ApplicationDataHandler.Competitions.Single(s => s.Id == objToUpdate.Id).Location = objToUpdate.Location;
+                        ApplicationDataHandler.Competitions.Single(s => s.Id == objToUpdate.Id).StartsAt = objToUpdate.StartsAt;
+                        ApplicationDataHandler.Competitions.Single(s => s.Id == objToUpdate.Id).AllowedSchemas = objToUpdate.AllowedSchemas;
+                        ApplicationDataHandler.Competitions.Single(s => s.Id == objToUpdate.Id).DateSpan = objToUpdate.DateSpan;
+                        ApplicationDataHandler.Instance.SaveCompetitions();
                         break;
                     case "A701":
                         Console.WriteLine("(a701) Lockdown mode");
-
+                        // N/A At the Moment
                         break;
                     case "A702":
                         Console.WriteLine("(a702) Don't lockdown mode");
-
+                        // N/A At the Moment
                         break;
                     case "A711":
                         Console.WriteLine("(a711) Set admin code");
-
+                        ApplicationDataHandler.CurrentApplicationData.AdminCode = item.latestData;
+                        ApplicationDataHandler.Instance.SaveAppData();
                         break;
                     case "A801":
                         Console.WriteLine("(a801) Enable logging mode");
-
+                        ApplicationDataHandler.CurrentApplicationData.Logging = true;
+                        ApplicationDataHandler.Instance.SaveAppData();
                         break;
                     case "A802":
                         Console.WriteLine("(a802) Disable logging mode");
-
+                        ApplicationDataHandler.CurrentApplicationData.Logging = false;
+                        ApplicationDataHandler.Instance.SaveAppData();
                         break;
                     case "A803":
                         Console.WriteLine("(a803) Remove all logs");
@@ -286,31 +311,36 @@ namespace LightScout.Droid
                         break;
                     case "A811":
                         Console.WriteLine("(a811) Set emergency medical information");
-
+                        
                         break;
                     case "A901":
                         Console.WriteLine("(a901) Enable debugging mode");
-
+                        ApplicationDataHandler.CurrentApplicationData.Debugging = true;
+                        ApplicationDataHandler.Instance.SaveAppData();
                         break;
                     case "A902":
                         Console.WriteLine("(a902) Disable debugging mode");
-
+                        ApplicationDataHandler.CurrentApplicationData.Debugging = false;
+                        ApplicationDataHandler.Instance.SaveAppData();
                         break;
                     case "C101":
                         Console.WriteLine("(c101) Add schema");
                         ApplicationDataHandler.Schemas.Add(JsonConvert.DeserializeObject<Schema>(item.latestData));
+                        ApplicationDataHandler.Instance.SaveSchemas();
                         break;
                     case "C102":
                         Console.WriteLine("(c102) Remove schema");
                         var schemaId = item.latestData;
                         ApplicationDataHandler.Schemas.Remove(ApplicationDataHandler.Schemas.Single(s => s.Id == schemaId));
+                        ApplicationDataHandler.Instance.SaveSchemas();
                         break;
                     case "C103":
                         Console.WriteLine("(c103) Update schema");
-                        var objToUpdate = JsonConvert.DeserializeObject<Schema>(item.latestData);
-                        ApplicationDataHandler.Schemas.Single(s => s.Id == objToUpdate.Id).Name = objToUpdate.Name;
-                        ApplicationDataHandler.Schemas.Single(s => s.Id == objToUpdate.Id).JSONData = objToUpdate.JSONData;
-                        ApplicationDataHandler.Schemas.Single(s => s.Id == objToUpdate.Id).GotAt = DateTime.Now;
+                        var objToUpdate2 = JsonConvert.DeserializeObject<Schema>(item.latestData);
+                        ApplicationDataHandler.Schemas.Single(s => s.Id == objToUpdate2.Id).Name = objToUpdate2.Name;
+                        ApplicationDataHandler.Schemas.Single(s => s.Id == objToUpdate2.Id).JSONData = objToUpdate2.JSONData;
+                        ApplicationDataHandler.Schemas.Single(s => s.Id == objToUpdate2.Id).GotAt = DateTime.Now;
+                        ApplicationDataHandler.Instance.SaveSchemas();
                         break;
                     case "C104":
                         Console.WriteLine("(c104) Force update schema");
@@ -318,22 +348,26 @@ namespace LightScout.Droid
                         ApplicationDataHandler.Schemas.Single(s => s.Id == objToForceUpdate.Id).Name = objToForceUpdate.Name;
                         ApplicationDataHandler.Schemas.Single(s => s.Id == objToForceUpdate.Id).JSONData = objToForceUpdate.JSONData;
                         ApplicationDataHandler.Schemas.Single(s => s.Id == objToForceUpdate.Id).GotAt = DateTime.Now;
+                        ApplicationDataHandler.Instance.SaveSchemas();
                         break;
                     case "C201":
                         Console.WriteLine("(c201) Add match");
                         ApplicationDataHandler.AllEntries.Add(JsonConvert.DeserializeObject<DataEntry>(item.latestData));
                         MessagingCenter.Send("MasterPage", "MatchesChanged", "hola");
-                        
+                        ApplicationDataHandler.Instance.SaveMatches();
+
                         break;
                     case "C202":
                         Console.WriteLine("(c202) Remove match");
                         ApplicationDataHandler.AllEntries.Remove(ApplicationDataHandler.AllEntries.Single(d => d.Id == item.latestData));
                         MessagingCenter.Send("MasterPage", "MatchesChanged", "hola");
+                        ApplicationDataHandler.Instance.SaveMatches();
                         break;
                     case "C203":
                         Console.WriteLine("(c203) Force remove match");
                         ApplicationDataHandler.AllEntries.Remove(ApplicationDataHandler.AllEntries.Single(d => d.Id == item.latestData));
                         MessagingCenter.Send("MasterPage", "MatchesChanged", "hola");
+                        ApplicationDataHandler.Instance.SaveMatches();
                         break;
                     case "C204":
                         Console.WriteLine("(c204) Update match");
@@ -354,6 +388,7 @@ namespace LightScout.Droid
                             doThis.TeamName = matchToUpdate.TeamName;
                         }
                         MessagingCenter.Send("MasterPage", "MatchesChanged", "hola");
+                        ApplicationDataHandler.Instance.SaveMatches();
                         break;
                     case "C205":
                         Console.WriteLine("(c205) Force update match");
@@ -371,11 +406,20 @@ namespace LightScout.Droid
                         doThisOne.TeamIdentifier = matchToForceUpdate.TeamIdentifier;
                         doThisOne.TeamName = matchToForceUpdate.TeamName;
                         MessagingCenter.Send("MasterPage", "MatchesChanged", "hola");
+                        ApplicationDataHandler.Instance.SaveMatches();
                         break;
 
                     case "C211":
                         Console.WriteLine("(c211) Add matches");
-                        ApplicationDataHandler.AllEntries.AddRange(JsonConvert.DeserializeObject<List<DataEntry>>(item.latestData));
+                        var listOfMatches = JsonConvert.DeserializeObject<List<DataEntry>>(item.latestData);
+                        foreach(var match in listOfMatches)
+                        {
+                            if(ApplicationDataHandler.AllEntries.Find(el => el.Id == match.Id) == null)
+                            {
+                                ApplicationDataHandler.AllEntries.Add(match);
+                            }
+                        }
+                        ApplicationDataHandler.Instance.SaveMatches();
                         MessagingCenter.Send("MasterPage", "MatchesChanged", "hola");
                         break;
                     case "C212":
@@ -386,6 +430,7 @@ namespace LightScout.Droid
                             ApplicationDataHandler.AllEntries.Remove(ApplicationDataHandler.AllEntries.Single(d => d.Id == id));
                         }
                         MessagingCenter.Send("MasterPage", "MatchesChanged", "hola");
+                        ApplicationDataHandler.Instance.SaveMatches();
                         break;
                     case "C301":
                         Console.WriteLine("(c301) Change forced schema");
@@ -448,7 +493,9 @@ namespace LightScout.Droid
                         ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Data = announcementModel.Data;
                         ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.ActiveUntil = announcementModel.ActiveUntil;
                         ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.GotAt = DateTime.Now;
+                        ApplicationDataHandler.Instance.SaveAppData();
                         MessagingCenter.Send("MasterPage", "AnnouncementChanged", "hola");
+
                         break;
                     case "C501":
                         Console.WriteLine("(c501) Create backup");
@@ -545,7 +592,13 @@ namespace LightScout.Droid
                         UpdateNotification("Not implemented!", item.protocolIn, item.protocolOut);
                         break;
                 }
-                ServerManagement.QueueIn.Remove(ServerManagement.QueueIn.Single(el => el.communicationId == item.communicationId));
+                var removed = ServerManagement.QueueIn.Remove(ServerManagement.QueueIn.Single(el => el.communicationId == item.communicationId));
+                Console.WriteLine("Should be cleansed");
+                var method = ServerManagement.Server.GetType().GetMethod("refresh");
+                if(method != null)
+                {
+                    method.Invoke(ServerManagement.Server, new object[] { });
+                }
             }
             else
             {
@@ -641,6 +694,7 @@ namespace LightScout.Droid
 
             BluetoothManager manager = (BluetoothManager)Android.App.Application.Context.GetSystemService(Context.BluetoothService);
             BluetoothGattServer server = manager.OpenGattServer(Android.App.Application.Context, new GattServerCallback());
+            //server.GetType().GetMethod()
             ServerManagement.Server = server;
             server.AddService(service);
         }

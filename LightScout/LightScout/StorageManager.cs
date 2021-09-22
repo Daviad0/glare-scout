@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using LightScout.Models;
+using Newtonsoft.Json;
 using PCLStorage;
 
 namespace LightScout
@@ -320,6 +321,7 @@ namespace LightScout
         public static List<DataEntry> AllEntries;
         public static List<Competition> Competitions;
         public static List<Schema> Schemas;
+        public static List<Log> Logs;
         public async Task CompileDiagnostics()
         {
             var newestDiagnosticData = new DiagnosticReport();
@@ -363,45 +365,6 @@ namespace LightScout
                     Position = "Main",
                     AssistedBy = new List<string>() { "0002", "0003" }
                 });
-                AllEntries.Add(new DataEntry()
-                {
-                    Id = "4a4a4a02",
-                    TeamIdentifier = "0001",
-                    TeamName = "REEVES, David",
-                    Audited = false,
-                    Completed = false,
-                    Competition = "72721DT",
-                    Schema = "444899fa",
-                    Number = 2,
-                    Position = "Red 1",
-                    AssistedBy = new List<string>() { "0005", "0002" }
-                });
-                AllEntries.Add(new DataEntry()
-                {
-                    Id = "4a4a4a03",
-                    TeamIdentifier = "0001",
-                    TeamName = "REEVES, David",
-                    Audited = false,
-                    Completed = false,
-                    Competition = "72721DT",
-                    Schema = "444899fa",
-                    Number = 3,
-                    Position = "Blue 2",
-                    AssistedBy = new List<string>() { "0007", "0003" }
-                });
-                AllEntries.Add(new DataEntry()
-                {
-                    Id = "4a4a4a04",
-                    TeamIdentifier = "0001",
-                    TeamName = "REEVES, David",
-                    Audited = false,
-                    Completed = false,
-                    Competition = "72721DT",
-                    Schema = "444899fa",
-                    Number = 4,
-                    Position = "Blue 2",
-                    AssistedBy = new List<string>() { "0007", "0003" }
-                });
             }
             else
             {
@@ -424,25 +387,27 @@ namespace LightScout
                 try
                 {
                     Users = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Scouter>>(existingData);
+                    
                 }
                 catch (Exception e)
                 {
                     Users = new List<Scouter>();
                 }
             }
-
+            Users.Clear();
+            Users.Add(new Scouter()
+            {
+                Name = "Gigawatt",
+                Score = 0,
+                Id = "uwuowo123",
+                Banned = false,
+                LastUsed = DateTime.Now
+            });
             existingData = await StorageManager.GetData("competitions");
             if (existingData == "" || existingData == null)
             {
                 Competitions = new List<Competition>();
-                Competitions.Add(new Competition()
-                {
-                    Name = "FRC862 Driver Training",
-                    Id = "72721DT",
-                    StartsAt = DateTime.Now,
-                    AllowedSchemas = new List<string>(),
-                    Location = "Canton, MI"
-                });
+                
             }
             else
             {
@@ -460,20 +425,14 @@ namespace LightScout
             if (existingData == "" || existingData == null)
             {
                 Schemas = new List<Schema>();
-                Schemas.Add(new Schema()
-                {
-                    Id = "444899fa",
-                    Name = "2021 Driver Training A",
-                    GotAt = DateTime.Now,
-                    JSONData = TestSchemaString
-
-                });
+                
             }
             else
             {
                 try
                 {
                     Schemas = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Schema>>(existingData);
+                    
                 }
                 catch (Exception e)
                 {
@@ -488,7 +447,44 @@ namespace LightScout
             {
                 //await GenerateFirstId();
             }
+            existingData = await StorageManager.GetData("logs");
+            if (existingData == "" || existingData == null)
+            {
+                Logs = new List<Log>();
+
+            }
+            else
+            {
+                try
+                {
+                    Logs = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Log>>(existingData);
+
+                }
+                catch (Exception e)
+                {
+                    Logs = new List<Log>();
+                }
+            }
         }
+
+        
+        public async Task SetBackup()
+        {
+            var objToUse = new Backup() { Competitions = Competitions, CreatedAt = DateTime.Now, Entries = AllEntries, Schemas = Schemas };
+            await StorageManager.SetData("backup", JsonConvert.SerializeObject(objToUse));
+        }
+
+        public async Task GetBackup()
+        {
+            var objToUse = JsonConvert.DeserializeObject<Backup>(await StorageManager.GetData("backup"));
+            Competitions = objToUse.Competitions;
+            await SaveCompetitions();
+            AllEntries = objToUse.Entries;
+            await SaveMatches();
+            Schemas = objToUse.Schemas;
+            await SaveSchemas();
+        }
+
         public async Task GetAvailableMatches()
         {
             if (CurrentApplicationData.RestrictMatches)
@@ -499,6 +495,32 @@ namespace LightScout
             {
                 AvailableEntries = AllEntries;
             }
+        }
+        public async Task<bool> ClearAllData()
+        {
+            if (CurrentApplicationData.Debugging)
+            {
+                // WARNING: TO BE ONLY USED IN DEBUG MODE
+                await StorageManager.SetData("app_data", "");
+                await StorageManager.SetData("users", "");
+                await StorageManager.SetData("schemas", "");
+                await StorageManager.SetData("competitions", "");
+                await StorageManager.SetData("matches", "");
+                //await StorageManager.SetData("logs", "");
+                return true;
+            }
+            return false;
+
+        }
+        public async Task<bool> AddLog(Log log)
+        {
+            if (CurrentApplicationData.Logging)
+            {
+                Logs.Add(log);
+                SaveLogs();
+                return true;
+            }
+            return false;
         }
         public async Task SaveAppData()
         {
@@ -526,6 +548,11 @@ namespace LightScout
             var dataToPut = Newtonsoft.Json.JsonConvert.SerializeObject(AvailableEntries);
             await StorageManager.SetData("matches", dataToPut);
         }
+        public async Task SaveLogs()
+        {
+            var dataToPut = Newtonsoft.Json.JsonConvert.SerializeObject(Logs);
+            await StorageManager.SetData("logs", dataToPut);
+        }
         public async Task GenerateFirstId()
         {
             // only runs if there isn't an ID or the previous one was corrupt!
@@ -539,6 +566,7 @@ namespace LightScout
                 finalString = finalString + _base62chars[randomGen.Next(16)];
             }
             CurrentApplicationData.DeviceId = finalString;
+            //CurrentApplicationData.DeviceId = "BF8613";
             await SaveAppData();
         }
     }
@@ -571,9 +599,16 @@ namespace LightScout
         public int NumberOfMatchesStored;
         public List<string> SchemasIncluded;
     }
+    public class Log
+    {
+        public DateTime occured;
+        public string eventType;
+        public bool critical;
+    }
     public class Scouter
     {
         public string Name { get; set; }
+        [JsonProperty("_id")]
         public string Id { get; set; }
         public int Score { get; set; }
         public DateTime LastUsed { get; set; }
@@ -581,21 +616,34 @@ namespace LightScout
     }
     public class Competition
     {
+        [JsonProperty("prettyName")]
         public string Name;
+        [JsonProperty("location")]
         public string Location;
+        [JsonProperty("_id")]
         public string Id;
+        [JsonProperty("acceptedSchemas")]
         public List<string> AllowedSchemas;
         public DateTime StartsAt;
+        [JsonProperty("datespan")]
+        public string DateSpan;
     }
     public class Schema
     {
+        [JsonProperty("prettyName")]
         public string Name;
+        [JsonProperty("usedFor")]
+        public string UsedFor;
+        [JsonProperty("_id")]
         public string Id;
+        [JsonProperty("data")]
         public string JSONData;
+        [JsonProperty("createdAt")]
         public DateTime GotAt;
     }
     public class DataEntry
     {
+        [JsonProperty("_id")]
         public string Id;
         public string Competition;
         public string Schema;

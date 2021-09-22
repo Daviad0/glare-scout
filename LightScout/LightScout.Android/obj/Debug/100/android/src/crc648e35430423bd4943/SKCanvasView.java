@@ -13,6 +13,7 @@ public class SKCanvasView
 			"n_onDraw:(Landroid/graphics/Canvas;)V:GetOnDraw_Landroid_graphics_Canvas_Handler\n" +
 			"n_onSizeChanged:(IIII)V:GetOnSizeChanged_IIIIHandler\n" +
 			"n_onDetachedFromWindow:()V:GetOnDetachedFromWindowHandler\n" +
+			"n_onAttachedToWindow:()V:GetOnAttachedToWindowHandler\n" +
 			"";
 		mono.android.Runtime.register ("SkiaSharp.Views.Android.SKCanvasView, SkiaSharp.Views.Android", SKCanvasView.class, __md_methods);
 	}
@@ -72,6 +73,14 @@ public class SKCanvasView
 	}
 
 	private native void n_onDetachedFromWindow ();
+
+
+	public void onAttachedToWindow ()
+	{
+		n_onAttachedToWindow ();
+	}
+
+	private native void n_onAttachedToWindow ();
 
 	private java.util.ArrayList refList;
 	public void monodroidAddReference (java.lang.Object obj)

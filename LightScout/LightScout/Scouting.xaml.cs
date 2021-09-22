@@ -482,6 +482,10 @@ namespace LightScout
                                     fields[selectUID].value = 0;
                                 }
                                 Entry selectedStepper = (Entry)(fields[selectUID].controls.Where(c => c.GetType().GetProperty("Text").GetValue(c, null).ToString() == fields[selectUID].value.ToString()).FirstOrDefault());
+                                if(selectedStepper == null)
+                                {
+
+                                }
                                 bool shouldPush = true;
                                 int prevInt = int.Parse(fields[selectUID].value.ToString());
 
@@ -563,7 +567,7 @@ namespace LightScout
                                 }
                                 catch(Exception c)
                                 {
-
+                                    stepperValue.Text = fields[uniqueId].value.ToString();
                                 }
                                 
                                 loadingFromIndex += 1;

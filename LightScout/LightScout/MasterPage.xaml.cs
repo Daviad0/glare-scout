@@ -133,6 +133,29 @@ namespace LightScout
                 UpdateProgressContainer();
                 UpdateUsers();
                 tabletIdentifier.Text = ApplicationDataHandler.CurrentApplicationData.DeviceId;
+                if (ApplicationDataHandler.CurrentApplicationData.Locked)
+                {
+                    await Device.InvokeOnMainThreadAsync(async () =>
+                    {
+                        var result = await DisplayPromptAsync("Device Locked", "Only an administrator may access this device with the given code. This was the reason provided: " + ApplicationDataHandler.CurrentApplicationData.LockedMessage, "Submit", "Exit", "####", 4, Keyboard.Numeric);
+                        if(result == null || result == "")
+                        {
+                            await ApplicationDataHandler.Instance.AddLog(new Log()
+                            {
+                                occured = DateTime.Now,
+                                critical = false,
+                                eventType = "Lock Override Failed"
+                            });
+                            Application.Current.Quit();
+                        }
+                        await ApplicationDataHandler.Instance.AddLog(new Log()
+                        {
+                            occured = DateTime.Now,
+                            critical = false,
+                            eventType = "Lock Override Successful"
+                        });
+                    });
+                }
             });
             
 
@@ -145,8 +168,8 @@ namespace LightScout
         private async void UpdateAnnouncementContainer()
         {
             ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement = new Announcement();
-            ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Title = "Developer Mode";
-            ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Data = "You are currently in developer mode! This means not a lot of things will work properly, and a couple of things are still being added. This app is in line with the Glare BLE Protocol v4.2!";
+            ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Title = "Hey Strategy!";
+            ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Data = "Welcome to Glare, the scouting app for anything that you want! Currently, this app is experimental and some things haven't been patched up completely yet. Just bear with it for a little bit as the final testing is being done! To actually scout, you must have the Glare Desktop Client to load the matches and schemas onto the tablet.";
             ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.GotAt = DateTime.Now;
             ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.ActiveUntil = DateTime.MaxValue;
             if (ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement == null)
@@ -171,18 +194,29 @@ namespace LightScout
         }
         private async void UpdateProgressContainer()
         {
-            ApplicationDataHandler.CurrentApplicationData.CurrentCompetition = "72721DT";
-            ApplicationDataHandler.Instance.SaveAppData();
-            if (ApplicationDataHandler.AvailableEntries.Count(e => e.Competition == ApplicationDataHandler.CurrentApplicationData.CurrentCompetition) == 0)
+            try
+            {
+                ApplicationDataHandler.CurrentApplicationData.CurrentCompetition = ApplicationDataHandler.Competitions.First().Id;
+                ApplicationDataHandler.Instance.SaveAppData();
+                if (ApplicationDataHandler.AvailableEntries.Count(e => e.Competition == ApplicationDataHandler.CurrentApplicationData.CurrentCompetition) == 0)
+                {
+                    completion_Container.IsVisible = false;
+                }
+                else
+                {
+                    completion_Container.IsVisible = true;
+                    completion_Name.Text = ApplicationDataHandler.Competitions.Single(e => e.Id == ApplicationDataHandler.CurrentApplicationData.CurrentCompetition).Name;
+                    completion_Progress.Text = ApplicationDataHandler.AvailableEntries.Where(e => e.Competition == ApplicationDataHandler.CurrentApplicationData.CurrentCompetition).Count(f => f.Completed).ToString() + " / " + ApplicationDataHandler.AvailableEntries.Count(e => e.Competition == ApplicationDataHandler.CurrentApplicationData.CurrentCompetition);
+                    // there are no comps in the device
+
+
+                }
+            }
+            catch(Exception e)
             {
                 completion_Container.IsVisible = false;
             }
-            else
-            {
-                completion_Container.IsVisible = true;
-                completion_Name.Text = ApplicationDataHandler.Competitions.Single(e => e.Id == ApplicationDataHandler.CurrentApplicationData.CurrentCompetition).Name;
-                completion_Progress.Text = ApplicationDataHandler.AvailableEntries.Where(e => e.Competition == ApplicationDataHandler.CurrentApplicationData.CurrentCompetition).Count(f => f.Completed).ToString() + " / " + ApplicationDataHandler.AvailableEntries.Count(e => e.Competition == ApplicationDataHandler.CurrentApplicationData.CurrentCompetition);
-            }
+            
         }
         private async void UpdateMatchContainer()
         {
@@ -317,14 +351,17 @@ namespace LightScout
 
         private async void openEditPage(object sender, EventArgs e)
         {
-            var converter = new ColorTypeConverter();
-            matchEdit.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2A7AFA");
-            matchEditLabel.TextColor = (Color)converter.ConvertFromInvariantString("White");
-            overlayEdit.TranslationY = 1200;
-            overlayEdit.IsVisible = true;
-            overlayEdit.TranslateTo(overlayEdit.X, overlayEdit.Y + 16, 750, Easing.CubicInOut);
-            await Task.Delay(500);
-            overlayEditArrow.RotateTo(0, 250, Easing.CubicInOut);
+            if (await TryAdminLogin())
+            {
+                var converter = new ColorTypeConverter();
+                matchEdit.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2A7AFA");
+                matchEditLabel.TextColor = (Color)converter.ConvertFromInvariantString("White");
+                overlayEdit.TranslationY = 1200;
+                overlayEdit.IsVisible = true;
+                overlayEdit.TranslateTo(overlayEdit.X, overlayEdit.Y + 16, 750, Easing.CubicInOut);
+                await Task.Delay(500);
+                overlayEditArrow.RotateTo(0, 250, Easing.CubicInOut);
+            }
         }
 
         private async void closeEditPage(object sender, EventArgs e)
@@ -338,23 +375,31 @@ namespace LightScout
         }
         private async void openMatchPage(object sender, EventArgs e)
         {
-            start_ScoutConfirm.IsEnabled = false;
-            start_MatchNumber.Text = "Match " + CurrentMatchSelected.Number.ToString();
-            start_TeamNumber.Text = "Team " + CurrentMatchSelected.TeamIdentifier.ToString();
-            start_TeamName.Text = CurrentMatchSelected.TeamName.ToString();
-            start_Position.Text = CurrentMatchSelected.Position.ToString();
-            start_ScoutContainer.IsVisible = true;
-            start_ScoutContainer.Opacity = 1;
-            start_StartContainer.IsVisible = false;
+            if(ApplicationDataHandler.Schemas.Find(el => el.Id == CurrentMatchSelected.Schema) != null)
+            {
+                start_ScoutConfirm.IsEnabled = false;
+                start_MatchNumber.Text = "Match " + CurrentMatchSelected.Number.ToString();
+                start_TeamNumber.Text = "Team " + CurrentMatchSelected.TeamIdentifier.ToString();
+                start_TeamName.Text = CurrentMatchSelected.TeamName.ToString();
+                start_Position.Text = CurrentMatchSelected.Position.ToString();
+                start_ScoutContainer.IsVisible = true;
+                start_ScoutContainer.Opacity = 1;
+                start_StartContainer.IsVisible = false;
+
+                var converter = new ColorTypeConverter();
+                matchGo.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2A7AFA");
+                matchGoLabel.TextColor = (Color)converter.ConvertFromInvariantString("White");
+                overlayMatch.TranslationY = 1200;
+                overlayMatch.IsVisible = true;
+                overlayMatch.TranslateTo(overlayMatch.X, overlayMatch.Y + 16, 750, Easing.CubicInOut);
+                await Task.Delay(500);
+                overlayMatchArrow.RotateTo(0, 250, Easing.CubicInOut);
+            }
+            else
+            {
+                await DisplayAlert("Not Found", "This device doesn't have the corresponding schema to actually generate the match form!", "OK");
+            }
             
-            var converter = new ColorTypeConverter();
-            matchGo.BackgroundColor = (Color)converter.ConvertFromInvariantString("#2A7AFA");
-            matchGoLabel.TextColor = (Color)converter.ConvertFromInvariantString("White");
-            overlayMatch.TranslationY = 1200;
-            overlayMatch.IsVisible = true;
-            overlayMatch.TranslateTo(overlayMatch.X, overlayMatch.Y + 16, 750, Easing.CubicInOut);
-            await Task.Delay(500);
-            overlayMatchArrow.RotateTo(0, 250, Easing.CubicInOut);
         }
 
         private async void closeMatchPage(object sender, EventArgs e)
@@ -377,8 +422,14 @@ namespace LightScout
         };
         private async void loadScouting(object sender, EventArgs e)
         {
+            
             Scouter selectedUser = ApplicationDataHandler.Users[start_ScoutPicker.SelectedIndex];
-
+            await ApplicationDataHandler.Instance.AddLog(new Log()
+            {
+                occured = DateTime.Now,
+                critical = false,
+                eventType = "Starting Scouting with Match " + CurrentMatchSelected.Number.ToString() + " with Scouter " + selectedUser.Name
+            });
             // try to get a dynamicly loading page
             start_StartContainer.FadeTo(0, 250, Easing.CubicInOut);
             start_Loading.Text = loadingGags[new Random().Next(0, 6)];
@@ -386,6 +437,7 @@ namespace LightScout
             start_Loading.IsVisible = true;
             await start_Loading.FadeTo(1, 250, Easing.CubicInOut);
             start_StartContainer.IsVisible = false;
+
             //ma.IsVisible = true;
             Navigation.PushAsync(new Scouting(CurrentMatchSelected));
         }
@@ -471,6 +523,90 @@ namespace LightScout
                 start_ScoutConfirm.IsEnabled = true;
             }
             
+        }
+
+        private async Task<bool> TryAdminLogin()
+        {
+            if(ApplicationDataHandler.CurrentApplicationData.AdminCode != null && ApplicationDataHandler.CurrentApplicationData.AdminCode != "")
+            {
+                var result = await DisplayPromptAsync("Authorization Needed", "An administrator passcode is needed to perform this action. Please enter it in below!", "Submit", "Cancel", "####", 4, Keyboard.Numeric);
+                if (result == null || result == "")
+                {
+                    // cancelled request
+                    return false;
+
+                }
+                if (result == ApplicationDataHandler.CurrentApplicationData.AdminCode)
+                    return true;
+                return false;
+            }
+            return true;
+        }
+
+
+        private async void debug_cleardata_Clicked(object sender, EventArgs e)
+        {
+            var choice = await DisplayAlert("Are you sure?", "This is an irreversible action that will bring the app to its original state!", "Yes!", "Nah...");
+            if (choice)
+            {
+                if (await TryAdminLogin())
+                {
+                    await ApplicationDataHandler.Instance.AddLog(new Log()
+                    {
+                        occured = DateTime.Now,
+                        critical = false,
+                        eventType = "Clearing all Data"
+                    });
+                    debug_cleardata.IsEnabled = false;
+                    bool wasSuccessful = await ApplicationDataHandler.Instance.ClearAllData();
+                    if (wasSuccessful)
+                    {
+                        await ApplicationDataHandler.Instance.InitializeData();
+                        Navigation.PushAsync(new MasterPage());
+                    }
+                    else
+                    {
+                        await DisplayAlert("Not Available", "This tablet has not been set to debug mode by the server, and cannot perform this action!", "OK");
+
+                    }
+                }
+                
+
+            }
+            
+        }
+
+        private async void create_backup_Clicked(object sender, EventArgs e)
+        {
+            await ApplicationDataHandler.Instance.SetBackup();
+            await ApplicationDataHandler.Instance.AddLog(new Log()
+            {
+                occured = DateTime.Now,
+                critical = false,
+                eventType = "Setting Backup"
+            });
+            await DisplayAlert("Backup Set", "You have successfully set the backup!", "OK");
+        }
+
+        private async void load_backup_Clicked(object sender, EventArgs e)
+        {
+            var choice = await DisplayAlert("Are you sure?", "This is an irreversible action that will bring the app to a previous state!", "Yes!", "Nah...");
+            if (choice)
+            {
+                if (await TryAdminLogin())
+                {
+                    await ApplicationDataHandler.Instance.AddLog(new Log()
+                    {
+                        occured = DateTime.Now,
+                        critical = false,
+                        eventType = "Getting Previous Backup"
+                    });
+                    await ApplicationDataHandler.Instance.GetBackup();
+                    Navigation.PushAsync(new MasterPage());
+                }
+
+
+            }
         }
     }
 }

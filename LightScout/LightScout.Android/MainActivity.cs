@@ -24,7 +24,7 @@ using ProgressRingControl.Forms.Plugin.Android;
 
 namespace LightScout.Droid
 {
-    [Activity(Label = "LightScout", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Glare", Icon = "@drawable/lslogof", Theme = "@style/Theme.Splash", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     [IntentFilter(new[] { UsbManager.ActionUsbDeviceAttached })]
 
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
@@ -34,6 +34,7 @@ namespace LightScout.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             Forms.SetFlags("DragAndDrop_Experimental", "Expander_Experimental");
+            SetTheme(Resource.Style.MainTheme);
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
             this.Window.AddFlags(WindowManagerFlags.Fullscreen);

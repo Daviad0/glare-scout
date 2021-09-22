@@ -20,8 +20,8 @@
   <uses-permission android:name="android.permission.VIBRATE" />
   <uses-permission android:name="android.permission.CAMERA" />
   <uses-feature android:name="android.hardware.usb.accessory" />
-  <application android:label="LightScout.Android" android:icon="@drawable/lslogof" android:name="android.app.Application" android:allowBackup="true" android:debuggable="true" android:extractNativeLibs="true">
-    <activity android:configChanges="orientation|screenSize" android:icon="@mipmap/icon" android:label="LightScout" android:theme="@style/MainTheme" android:name="crc642c62280bb41d5e97.MainActivity">
+  <application android:label="LightScout.Android" android:icon="@drawable/lslogof" android:roundIcon="@drawable/lslogof" android:name="android.app.Application" android:allowBackup="true" android:debuggable="true" android:extractNativeLibs="true">
+    <activity android:configChanges="orientation|screenSize" android:icon="@drawable/lslogof" android:label="Glare" android:theme="@style/Theme.Splash" android:name="crc642c62280bb41d5e97.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
@@ -42,12 +42,5 @@
     <receiver android:enabled="true" android:exported="false" android:name="crc643f46942d9dd1fff9.PowerSaveModeBroadcastReceiver" />
     <activity android:configChanges="keyboardHidden|orientation|screenLayout" android:label="Scanner" android:name="crc6480997b3ef81bf9b2.ZxingActivity" />
     <provider android:name="mono.MonoRuntimeProvider" android:exported="false" android:initOrder="1999999999" android:authorities="com.team862.lightscout.mono.MonoRuntimeProvider.__mono_init__" />
-    <!--suppress ExportedReceiver-->
-    <receiver android:name="mono.android.Seppuku">
-      <intent-filter>
-        <action android:name="mono.android.intent.action.SEPPUKU" />
-        <category android:name="mono.android.intent.category.SEPPUKU.com.team862.lightscout" />
-      </intent-filter>
-    </receiver>
   </application>
 </manifest>

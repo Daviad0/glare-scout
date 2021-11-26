@@ -73,18 +73,20 @@ namespace LightScout
         }
         protected override void OnAppearing()
         {
-            
+
             MessagingCenter.Subscribe<string, string>("MasterPage", "DataGot", (sender, message) =>
             {
-                Device.BeginInvokeOnMainThread(() => {
+                Device.BeginInvokeOnMainThread(() =>
+                {
                     DisplayAlert("BLEMessage", message, "Cancel");
                 });
-                
+
 
             });
             MessagingCenter.Subscribe<string, string>("MasterPage", "DialogBox", (sender, message) =>
             {
-                Device.BeginInvokeOnMainThread(() => {
+                Device.BeginInvokeOnMainThread(() =>
+                {
                     DisplayAlert("Just for you...", message, "Alright!");
                 });
 
@@ -92,19 +94,21 @@ namespace LightScout
             });
             MessagingCenter.Subscribe<string, string>("MasterPage", "MatchesChanged", (sender, message) =>
             {
-                Device.BeginInvokeOnMainThread(async () => {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
                     await ApplicationDataHandler.Instance.GetAvailableMatches();
                     CurrentMatchSelected = ApplicationDataHandler.AvailableEntries.First();
                     UpdateMatchContainer();
-                    
+
                 });
 
 
             });
             MessagingCenter.Subscribe<string, string>("MasterPage", "AnnouncementChanged", (sender, message) =>
             {
-                Device.BeginInvokeOnMainThread(async () => {
-                    
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+
                     UpdateAnnouncementContainer();
 
                 });
@@ -113,7 +117,8 @@ namespace LightScout
             });
             MessagingCenter.Subscribe<string, string>("MasterPage", "UsersChanged", (sender, message) =>
             {
-                Device.BeginInvokeOnMainThread(() => {
+                Device.BeginInvokeOnMainThread(() =>
+                {
 
                     UpdateUsers();
 
@@ -138,7 +143,7 @@ namespace LightScout
                     await Device.InvokeOnMainThreadAsync(async () =>
                     {
                         var result = await DisplayPromptAsync("Device Locked", "Only an administrator may access this device with the given code. This was the reason provided: " + ApplicationDataHandler.CurrentApplicationData.LockedMessage, "Submit", "Exit", "####", 4, Keyboard.Numeric);
-                        if(result == null || result == "")
+                        if (result == null || result == "")
                         {
                             await ApplicationDataHandler.Instance.AddLog(new Log()
                             {
@@ -157,7 +162,7 @@ namespace LightScout
                     });
                 }
             });
-            
+
 
             //MessagingCenter.Send("MasterPage", "DialogBox", "AAAAA");
         }
@@ -178,7 +183,7 @@ namespace LightScout
             }
             else
             {
-                if(ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.ActiveUntil > DateTime.Now)
+                if (ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.ActiveUntil > DateTime.Now)
                 {
                     announcement_Containment.IsVisible = true;
                     announcement_Title.Text = ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Title;
@@ -189,7 +194,7 @@ namespace LightScout
                 {
                     announcement_Containment.IsVisible = false;
                 }
-                
+
             }
         }
         private async void UpdateProgressContainer()
@@ -212,11 +217,11 @@ namespace LightScout
 
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 completion_Container.IsVisible = false;
             }
-            
+
         }
         private async void UpdateMatchContainer()
         {
@@ -233,7 +238,8 @@ namespace LightScout
             if (CurrentMatchSelected.Position.ToLower().Contains("red"))
             {
                 match_Position.TextColor = (Color)converter.ConvertFromInvariantString("Color.Red");
-            }else if (CurrentMatchSelected.Position.ToLower().Contains("blue"))
+            }
+            else if (CurrentMatchSelected.Position.ToLower().Contains("blue"))
             {
                 match_Position.TextColor = (Color)converter.ConvertFromInvariantString("Color.Blue");
             }
@@ -243,7 +249,7 @@ namespace LightScout
             }
 
             var assistedByString = "";
-            foreach(string s in CurrentMatchSelected.AssistedBy)
+            foreach (string s in CurrentMatchSelected.AssistedBy)
             {
                 assistedByString += s + " ";
             }
@@ -252,18 +258,19 @@ namespace LightScout
             try
             {
                 match_SchemaName.Text = ApplicationDataHandler.Schemas.Single(c => c.Id == CurrentMatchSelected.Schema).Name;
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 match_SchemaName.Text = CurrentMatchSelected.Schema;
             }
-            
 
-            if(!(CurrentMatchSelected.Completed || CurrentMatchSelected.Audited))
+
+            if (!(CurrentMatchSelected.Completed || CurrentMatchSelected.Audited))
                 match_StatusContainer.IsVisible = false;
             else
             {
                 match_StatusContainer.IsVisible = true;
-                match_StatusContainer.BackgroundColor = CurrentMatchSelected.Audited ? (Color)converter.ConvertFromInvariantString("#2e85b8"): (Color)converter.ConvertFromInvariantString("#00D974");
+                match_StatusContainer.BackgroundColor = CurrentMatchSelected.Audited ? (Color)converter.ConvertFromInvariantString("#2e85b8") : (Color)converter.ConvertFromInvariantString("#00D974");
                 match_StatusLabel.Text = CurrentMatchSelected.Audited ? "This Match was Audited" : "This Match was Completed";
             }
         }
@@ -275,15 +282,15 @@ namespace LightScout
             {
                 pageAlready.TranslateTo(pageAlready.X, pageAlready.Y - 180, 500, Easing.CubicInOut);
                 this.FindByName<Label>(pageAlready.ClassId + "Nav1").RotateTo(180, 250, Easing.CubicInOut);
-                
+
             }
             else
             {
                 pageAlready.TranslateTo(pageAlready.X, pageAlready.Y, 500, Easing.CubicInOut);
                 this.FindByName<Label>(pageAlready.ClassId + "Nav1").RotateTo(0, 250, Easing.CubicInOut);
-                
+
             }
-                
+
         }
         private Dictionary<string, string[]> menuImagePairs = new Dictionary<string, string[]>()
         {
@@ -314,7 +321,7 @@ namespace LightScout
             menuExpanded = false;
 
 
-            
+
             this.FindByName<Image>(pageAlready.ClassId + "_image").Source = menuImagePairs[pageAlready.ClassId][0];
             this.FindByName<Image>(clickedObj.ClassId + "_image").Source = menuImagePairs[clickedObj.ClassId][1];
 
@@ -342,7 +349,7 @@ namespace LightScout
             }
             menuExpanded = false;
 
-            
+
             this.FindByName<Image>(pageAlready.ClassId + "_image").Source = menuImagePairs[pageAlready.ClassId][0];
             this.FindByName<Image>(clickedObj.ClassId + "_image").Source = menuImagePairs[clickedObj.ClassId][1];
 
@@ -375,7 +382,7 @@ namespace LightScout
         }
         private async void openMatchPage(object sender, EventArgs e)
         {
-            if(ApplicationDataHandler.Schemas.Find(el => el.Id == CurrentMatchSelected.Schema) != null)
+            if (ApplicationDataHandler.Schemas.Find(el => el.Id == CurrentMatchSelected.Schema) != null)
             {
                 start_ScoutConfirm.IsEnabled = false;
                 start_MatchNumber.Text = "Match " + CurrentMatchSelected.Number.ToString();
@@ -399,7 +406,7 @@ namespace LightScout
             {
                 await DisplayAlert("Not Found", "This device doesn't have the corresponding schema to actually generate the match form!", "OK");
             }
-            
+
         }
 
         private async void closeMatchPage(object sender, EventArgs e)
@@ -422,7 +429,7 @@ namespace LightScout
         };
         private async void loadScouting(object sender, EventArgs e)
         {
-            
+
             Scouter selectedUser = ApplicationDataHandler.Users[start_ScoutPicker.SelectedIndex];
             await ApplicationDataHandler.Instance.AddLog(new Log()
             {
@@ -475,12 +482,12 @@ namespace LightScout
             bleManager.RedetectDevices();
             
             Console.WriteLine("Detecting Devices!");*/
-            
+
         }
 
         private void NextMatch(object sender, EventArgs e)
         {
-            if(CurrentMatchIndex < ApplicationDataHandler.AvailableEntries.Count - 1)
+            if (CurrentMatchIndex < ApplicationDataHandler.AvailableEntries.Count - 1)
             {
                 CurrentMatchIndex += 1;
                 CurrentMatchSelected = ApplicationDataHandler.AvailableEntries.ToArray()[CurrentMatchIndex];
@@ -504,7 +511,7 @@ namespace LightScout
             start_StartContainer.IsVisible = true;
             await start_StartContainer.FadeTo(1, 250, Easing.CubicInOut);
             start_ScoutContainer.IsVisible = false;
-            
+
         }
 
         private async void start_StartConfirm_Clicked(object sender, EventArgs e)
@@ -518,16 +525,16 @@ namespace LightScout
 
         private void start_ScoutPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(start_ScoutPicker.SelectedIndex != -1)
+            if (start_ScoutPicker.SelectedIndex != -1)
             {
                 start_ScoutConfirm.IsEnabled = true;
             }
-            
+
         }
 
         private async Task<bool> TryAdminLogin()
         {
-            if(ApplicationDataHandler.CurrentApplicationData.AdminCode != null && ApplicationDataHandler.CurrentApplicationData.AdminCode != "")
+            if (ApplicationDataHandler.CurrentApplicationData.AdminCode != null && ApplicationDataHandler.CurrentApplicationData.AdminCode != "")
             {
                 var result = await DisplayPromptAsync("Authorization Needed", "An administrator passcode is needed to perform this action. Please enter it in below!", "Submit", "Cancel", "####", 4, Keyboard.Numeric);
                 if (result == null || result == "")
@@ -570,10 +577,10 @@ namespace LightScout
 
                     }
                 }
-                
+
 
             }
-            
+
         }
 
         private async void create_backup_Clicked(object sender, EventArgs e)
@@ -608,5 +615,46 @@ namespace LightScout
 
             }
         }
+
+        private ObservableCollection<AbridgedDataEntry> itemsToShow;
+
+        private async void ShowAllMatches(object sender, EventArgs e)
+        {
+            itemsToShow = new ObservableCollection<AbridgedDataEntry>();
+            int i = 0;
+            foreach(var rawMatch in ApplicationDataHandler.AvailableEntries)
+            {
+                itemsToShow.Add(new AbridgedDataEntry() { Completed = rawMatch.Completed, Index = i.ToString(), Number = "Match " + rawMatch.Number.ToString(), Position = rawMatch.Position });
+                i++;
+            }
+            allMatches.ItemsSource = itemsToShow;
+            insideMatchOverlay.Opacity = 0;
+            overlaySelectAMatch.IsVisible = true;
+            await insideMatchOverlay.FadeTo(1, 250, Easing.CubicInOut);
+            
+        }
+
+        private async void SelectMatchFromAll(object sender, ItemTappedEventArgs e)
+        {
+            CurrentMatchIndex = e.ItemIndex;
+            CurrentMatchSelected = ApplicationDataHandler.AvailableEntries.ToArray()[CurrentMatchIndex];
+            UpdateMatchContainer();
+            await insideMatchOverlay.FadeTo(0, 250, Easing.CubicInOut);
+            overlaySelectAMatch.IsVisible = false;
+        }
+
+        private async void ExitAllMatches(object sender, EventArgs e)
+        {
+            await insideMatchOverlay.FadeTo(0, 250, Easing.CubicInOut);
+            overlaySelectAMatch.IsVisible = false;
+        }
+    }
+
+    public class AbridgedDataEntry
+    {
+        public string Index { get; set; }
+        public string Number { get; set; }
+        public bool Completed { get; set; }
+        public string Position { get; set; }
     }
 }

@@ -80,7 +80,11 @@
                                 <TapGestureRecognizer Tapped="PrevMatch"/>
                             </Image.GestureRecognizers>
                         </Image>
-                        <Label Text="Match 22" TextColor="#171717" HorizontalOptions="Center" HorizontalTextAlignment="Center" x:Name="CurrentMatch" Grid.Column="1" FontSize="24" VerticalOptions="Center" FontAttributes="Bold"/>
+                        <Label Text="Match 22" TextColor="#171717" HorizontalOptions="Center" HorizontalTextAlignment="Center" x:Name="CurrentMatch" Grid.Column="1" FontSize="24" VerticalOptions="Center" FontAttributes="Bold">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="ShowAllMatches"/>
+                            </Label.GestureRecognizers>
+                        </Label>
                         <Image Source="LSRA.png" HorizontalOptions="End" VerticalOptions="Center" x:Name="Right" Grid.Column="2" HeightRequest="25" WidthRequest="25">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="NextMatch"/>
@@ -252,6 +256,49 @@
                     </Label.GestureRecognizers>
                 </Label>
             </Grid>
+            <Frame x:Name="overlaySelectAMatch" IsVisible="False" BackgroundColor="Transparent" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" Padding="0">
+                <Grid>
+                    <Frame BackgroundColor="Black" Opacity="0.3" Grid.Row="0" Grid.Column="0">
+                        
+                    </Frame>
+                    <Frame BackgroundColor="White" CornerRadius="16" Margin="50" Grid.Row="0" Grid.Column="0" x:Name="insideMatchOverlay">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <Label TextColor="Black" Text="Select a Match" FontSize="20" FontAttributes="Bold" HorizontalTextAlignment="Center" HorizontalOptions="Center" Grid.Row="0"/>
+                            <ListView x:Name="allMatches" Grid.Row="1" ItemTapped="SelectMatchFromAll">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <Grid ClassId="{Binding Index}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label Text="{Binding Number}" FontAttributes="Bold" Grid.Column="0" VerticalOptions="Center" Margin="10,0,0,0"/>
+                                                <Label Text="{Binding Position}" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                                <BoxView BackgroundColor="#00D974" WidthRequest="16" HeightRequest="16" Margin="0,0,10,0" CornerRadius="8" IsVisible="{Binding Completed}" HorizontalOptions="End" VerticalOptions="Center" Grid.Column="2"/>
+                                            </Grid>
+                                            
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <Frame BorderColor="#2A7AFA" BackgroundColor="#2A7AFA" VerticalOptions="End" CornerRadius="8" Padding="16,10" Grid.Row="2" HorizontalOptions="Center">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="ExitAllMatches"/>
+                                </Frame.GestureRecognizers>
+                                <Label HorizontalOptions="Center" VerticalOptions="Center" Text="Cancel" FontSize="16" TextColor="White" FontFamily="{StaticResource IconFont}"/>
+                            </Frame>
+                        </Grid>
+                        
+                    </Frame>
+                </Grid>
+            </Frame>
             <Frame x:Name="overlayEdit" BackgroundColor="#2A7AFA" CornerRadius="16" Margin="0,50,0,0" TranslationY="16" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" IsVisible="False">
                 <StackLayout>
                     <Label HorizontalOptions="Center" TextColor="White" Text="&#xea99;" FontFamily="{StaticResource IconFont}" FontSize="40" x:Name="overlayEditArrow" Rotation="180">

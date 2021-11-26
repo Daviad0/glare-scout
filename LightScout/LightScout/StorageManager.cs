@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LightScout.Models;
 using Newtonsoft.Json;
 using PCLStorage;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace LightScout
 {
@@ -12,7 +15,7 @@ namespace LightScout
     {
         private static readonly object l1 = new object();
         public static StorageManager instance = null;
-        private static IFolder rootFolder = FileSystem.Current.LocalStorage;
+        private static IFolder rootFolder = PCLStorage.FileSystem.Current.LocalStorage;
         public static StorageManager Instance
         {
             get
@@ -326,6 +329,15 @@ namespace LightScout
         {
             var newestDiagnosticData = new DiagnosticReport();
             newestDiagnosticData.BatteryLevel = (float)Xamarin.Essentials.Battery.ChargeLevel * 100;
+            var profiles = Connectivity.ConnectionProfiles;
+            newestDiagnosticData.InternetConnectivity = profiles.Contains(Xamarin.Essentials.ConnectionProfile.WiFi) || profiles.Contains(Xamarin.Essentials.ConnectionProfile.Cellular);
+            newestDiagnosticData.NumberOfMatchesStored = AllEntries.Count;
+            newestDiagnosticData.SchemasIncluded = new List<string>();
+            foreach(var Schema in Schemas)
+            {
+                newestDiagnosticData.SchemasIncluded.Add(Schema.Name);
+            }
+
         }
         public async Task InitializeData()
         {
@@ -472,6 +484,12 @@ namespace LightScout
         {
             var objToUse = new Backup() { Competitions = Competitions, CreatedAt = DateTime.Now, Entries = AllEntries, Schemas = Schemas };
             await StorageManager.SetData("backup", JsonConvert.SerializeObject(objToUse));
+        }
+
+        public async Task<Backup> GetBackupWithoutApplying()
+        {
+            var objToUse = JsonConvert.DeserializeObject<Backup>(await StorageManager.GetData("backup"));
+            return objToUse;
         }
 
         public async Task GetBackup()

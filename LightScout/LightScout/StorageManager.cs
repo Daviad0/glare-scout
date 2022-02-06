@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LightScout.Models;
 using Newtonsoft.Json;
 using PCLStorage;
-using Xamarin.Essentials;
-using Xamarin.Forms;
 
 namespace LightScout
 {
@@ -15,7 +12,7 @@ namespace LightScout
     {
         private static readonly object l1 = new object();
         public static StorageManager instance = null;
-        private static IFolder rootFolder = PCLStorage.FileSystem.Current.LocalStorage;
+        private static IFolder rootFolder = FileSystem.Current.LocalStorage;
         public static StorageManager Instance
         {
             get
@@ -35,17 +32,17 @@ namespace LightScout
         public async Task<string> GetData(string fileName)
         {
             IFolder folder = await rootFolder.CreateFolderAsync("Data", CreationCollisionOption.OpenIfExists);
-            if(folder != null)
+            if (folder != null)
             {
                 // folder exists, yay
                 IFile file = await folder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
-                if(file != null)
+                if (file != null)
                 {
                     return await file.ReadAllTextAsync();
                 }
             }
             return null;
-            
+
         }
 
         public async Task<string> SetData(string fileName, string data)
@@ -64,239 +61,270 @@ namespace LightScout
                 await file.DeleteAsync();
                 return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return false;
             }
-            
+
         }
     }
     public class ApplicationDataHandler
     {
         public string TestSchemaString = @"{
-  'id': '76628abc',
-  'prettyName': 'Infinite Recharge',
-  'categories': [
+   'categories':[
       {
-        'prettyName' : 'Autonomous',
-        'autoStart?' : true,
-        'expectedStart' : null,
-        'type': 'category',
-        'uniqueId' : 'autonomous',
-        'contents' : [
-          {
-            'type' : 'parent',
-            'prettyName' : 'Power Cells',
-            'uniqueId' : 'powerCellA_parent',
-            'conditions' : 
-              {
-                'max' : 15,
-                'min' : 0
-              },
-            
-            'contents' : [
-{
-                'type' : 'text',
-                'prettyName' : 'These fields can only go up to a maximum of 15 power cells added up!',
-                'uniqueId' : 'powerCellA_label'
-                
-              },
-              {
-                'type' : 'stepper',
-                'prettyName' : 'Power Cells Inner',
-                'uniqueId' : 'powerCellA_inner',
-                'conditions':{
-                    'min':0,
-                    'groupLock' : 'powerCellA_parent'
-}                   
-              },
-{
-                'type' : 'stepper',
-                'prettyName' : 'Power Cells Outer',
-                'uniqueId' : 'powerCellA_outer',
-                'conditions':{
-'min':0,
-                    'groupLock' : 'powerCellA_parent'
-}     
-              },
-{
-                'type' : 'stepper',
-                'prettyName' : 'Power Cells Lower',
-                'uniqueId' : 'powerCellA_lower',
-                'conditions':{
-'min':0,
-                    'groupLock' : 'powerCellA_parent'
-}     
-              },
-{
-                'type' : 'stepper',
-                'prettyName' : 'Power Cells Missed',
-                'uniqueId' : 'powerCellA_missed',
-                'conditions':{
-'min':0,
-                    'groupLock' : 'powerCellA_parent'
-}     
-              }
-            ]
+         'prettyName':'Autonomous',
+         'autoStart?':true,
+         'expectedStart':null,
+         'type':'category',
+         'uniqueId':'autonomous',
+         'contents':[
+           {
+              'type':'parent',
+              'prettyName':'Alliance Human Player',
+              'uniqueId':'allianceHumanPlayer_parent',
+              'contents':[
+                 {
+                    'type':'text',
+                    'prettyName':'The Alliance Human Player is on the same side as the Alliance Station.',
+                    'uniqueId':'allianceHumanPlayer_Label'
+                 },
+                 {
+                    'type':'stepper',
+                    'prettyName':'Successful Shots',
+                    'uniqueId':'allianceHumanPlayer_success',
+                    'conditions':{
+                       'min':0,
+                       'max':3
+                    }
+                 },
+                 {
+                    'type':'stepper',
+                    'prettyName':'Failed Shots',
+                    'uniqueId':'allianceHumanPlayer_fail',
+                    'conditions':{
+                       'min':0,
+                       'max':3
+                    }
+                 }
+              ]
+           },
+            {
+               'type':'parent',
+               'prettyName':'Cargo Balls Low',
+               'uniqueId':'cargoBallsALow_parent',
+               'contents':[
+                  {
+                     'type':'text',
+                     'prettyName':'Please select the number of successes and fails of the Cargo Balls LOWER',
+                     'uniqueId':'cargoBallsALow_Label'
+                  },
+                  {
+                     'type':'stepper',
+                     'prettyName':'Successful',
+                     'uniqueId':'cargoBallsALow_success',
+                     'conditions':{
+                        'min':0
+                     }
+                  },
+                  {
+                     'type':'stepper',
+                     'prettyName':'Failure',
+                     'uniqueId':'cargoBallsALow_fail',
+                     'conditions':{
+                        'min':0
+                     }
+                  }
+               ]
+            },
+            {
+              'type':'parent',
+              'prettyName':'Cargo Balls High',
+              'uniqueId':'cargoBallsAHigh_parent',
+              'contents':[
+                 {
+                    'type':'text',
+                    'prettyName':'Please select the number of successes and fails of the Cargo Balls HIGH',
+                    'uniqueId':'cargoBallsAHigh_Label'
+                 },
+                 {
+                    'type':'stepper',
+                    'prettyName':'Successful',
+                    'uniqueId':'cargoBallsAHigh_success',
+                    'conditions':{
+                       'min':0
+                    }
+                 },
+                 {
+                    'type':'stepper',
+                    'prettyName':'Failure',
+                    'uniqueId':'cargoBallsAHigh_fail',
+                    'conditions':{
+                       'min':0
+                    }
+                 }
+              ]
+           },
+            {
+               'type':'parent',
+               'prettyName':'Robot Tasks',
+               'uniqueId':'taxiLine_parent',
+               'contents':[
+                  {
+                     'type':'choices',
+                     'prettyName':'Fully Outside Tarmac?',
+                     'uniqueId':'taxiLine',
+                     'conditions':{
+                        'options':[
+                           'Yes',
+                           'No'
+                        ]
+                     }
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         'prettyName':'Tele-Op',
+         'autoStart?':false,
+         'expectedStart':16,
+         'type':'category',
+         'uniqueId':'teleop',
+         'contents':[
+           {
+              'type':'parent',
+              'prettyName':'Cargo Balls Low',
+              'uniqueId':'cargoBallsTLow_parent',
+              'contents':[
+                 {
+                    'type':'text',
+                    'prettyName':'Please select the number of successes and fails of the Cargo Balls LOWER',
+                    'uniqueId':'cargoBallsTLow_Label'
+                 },
+                 {
+                    'type':'stepper',
+                    'prettyName':'Successful',
+                    'uniqueId':'cargoBallsTLow_success',
+                    'conditions':{
+                       'min':0
+                    }
+                 },
+                 {
+                    'type':'stepper',
+                    'prettyName':'Failure',
+                    'uniqueId':'cargoBallsTLow_fail',
+                    'conditions':{
+                       'min':0
+                    }
+                 }
+              ]
+           },
+           {
+             'type':'parent',
+             'prettyName':'Cargo Balls High',
+             'uniqueId':'cargoBallsTHigh_parent',
+             'contents':[
+                {
+                   'type':'text',
+                   'prettyName':'Please select the number of successes and fails of the Cargo Balls HIGH',
+                   'uniqueId':'cargoBallsTHigh_Label'
+                },
+                {
+                   'type':'stepper',
+                   'prettyName':'Successful',
+                   'uniqueId':'cargoBallsTHigh_success',
+                   'conditions':{
+                      'min':0
+                   }
+                },
+                {
+                   'type':'stepper',
+                   'prettyName':'Failure',
+                   'uniqueId':'cargoBallsTHigh_fail',
+                   'conditions':{
+                      'min':0
+                   }
+                }
+             ]
           },
             {
-            'type' : 'parent',
-            'prettyName' : 'Robot Tasks',
-            'uniqueId' : 'initLine_parent',
-            'contents' : [
-              {
-                'type' : 'choices',
-                'prettyName' : 'Initiation Line?',
-                'uniqueId' : 'initLine',
-                'conditions' : 
-                    {
-                        'options' : [
-                            'Yes', 'No'
+               'type':'parent',
+               'prettyName':'Defense',
+               'uniqueId':'defense_parent',
+               'contents':[
+                  {
+                     'type':'toggle',
+                     'prettyName':'Blocking Defense?',
+                     'uniqueId':'blocking',
+                     'conditions':{
+                        'options':[
+                           'Didn't Block',
+                           'Blocked'
                         ]
-                    }
-            
-              },
-            ]
-          }    
-        ]
+                     }
+                  },
+                  {
+                     'type':'toggle',
+                     'prettyName':'Hoarding Defense?',
+                     'uniqueId':'hoarding',
+                     'conditions':{
+                        'options':[
+                           'Didn't Hoard',
+                           'Hoarded'
+                        ]
+                     }
+                  }
+               ]
+            }
+         ]
       },
       {
-        'prettyName' : 'Tele-Op',
-        'autoStart?' : false,
-        'expectedStart' : 16,
-        'type': 'category',
-        'uniqueId' : 'teleop',
-        'contents' : [
-          {
-            'type' : 'parent',
-            'prettyName' : 'Power Cells',
-            'uniqueId' : 'powerCellT_parent',
-            'conditions' : 
-              {
-                'max' : 5,
-                'min' : 0
-              },
-            
-            'contents' : [
-{
-                'type' : 'text',
-                'prettyName' : 'These fields can only go up to a maximum of 5 power cells added up!',
-                'uniqueId' : 'powerCellT_label'
-                
-              },
-              {
-                'type' : 'stepper',
-                'prettyName' : 'Power Cells Inner',
-                'uniqueId' : 'powerCellT_inner',
-                'conditions':{
-                    'max':5,
-                    'min':0,
-                    'groupLock' : 'powerCellT_parent'
-}                   
-              },
-{
-                'type' : 'stepper',
-                'prettyName' : 'Power Cells Outer',
-                'uniqueId' : 'powerCellT_outer',
-                'conditions':{
-                    'max':5,
-                    'min':0,
-                    'groupLock' : 'powerCellT_parent'
-}                   
-              },
-{
-                'type' : 'stepper',
-                'prettyName' : 'Power Cells Lower',
-                'uniqueId' : 'powerCellT_lower',
-                'conditions':{
-                    'max':5,
-                    'min':0,
-                    'groupLock' : 'powerCellT_parent'
-}                   
-              },
-{
-                'type' : 'stepper',
-                'prettyName' : 'Power Cells Missed',
-                'uniqueId' : 'powerCellT_missed',
-                'conditions':{
-                    'max':5,
-                    'min':0,
-                    'groupLock' : 'powerCellT_parent'
-}                   
-              }
-            ]
-          },
-{
-            'type' : 'parent',
-            'prettyName' : 'Control Panel',
-            'uniqueId' : 'controlPanel_parent',
-            'contents' : [
-              {
-                'type' : 'choices',
-                'prettyName' : 'Rotation?',
-                'uniqueId' : 'rotation',
-                'conditions' : 
-                    {
-                        'options' : [
-                            'Yes', 'No'
-                        ]
-                    }
-            
-              },{
-                'type' : 'choices',
-                'prettyName' : 'Position?',
-                'uniqueId' : 'position',
-                'conditions' : 
-                    {
-                        'options' : [
-                            'Yes', 'No'
-                        ]
-                    }
-            
-              }
-            ]
-          }
-        ]
-      },
-{
-        'prettyName' : 'Endgame',
-        'autoStart?' : false,
-        'expectedStart' : 135,
-        'type': 'category',
-        'uniqueId' : 'endgame',
-        'contents' : [
-          {
-            'type' : 'toggle',
-            'prettyName' : 'Parked?',
-            'uniqueId' : 'parked',
-            'conditions' : 
-                {
-                    'options' : [
-                        'Not Parked', 'Parked'
-                    ]
-                }
-            
+         'prettyName':'Hangar',
+         'autoStart?':false,
+         'expectedStart':135,
+         'type':'category',
+         'uniqueId':'hangar',
+         'contents':[
+           {
+              'type':'text',
+              'prettyName':'Click the `Went for Hangar` button once a robot tries for the objective, hold to clear!',
+              'uniqueId':'hangar_label'
+           },
+           {
+              'type':'timer',
+              'prettyName':'Went for Hangar',
+              'uniqueId':'hangar_tried'
+           },
+            {
+               'type':'toggle',
+               'prettyName':'Completed Rung',
+               'uniqueId':'rungSuccessful',
+               'conditions':{
+                  'options':[
+                     'Not Successful',
+                     'Successful'
+                  ]
+               }
             },
-{
-            'type' : 'dropdown',
-            'prettyName' : 'Climbed?',
-            'uniqueId' : 'climbed',
-            'conditions' : 
-                {
-                    'options' : [
-                        'No','Attempted', 'Succeeded'
-                    ]
-                }
+            {
+               'type':'dropdown',
+               'prettyName':'Rung Level',
+               'uniqueId':'rungLevel',
+               'conditions':{
+                  'options':[
+                     'N/A',
+                     'Low',
+                     'Mid',
+                     'High',
+                     'Traversal'
+                  ]
+               }
+            }
             
-            },
-{
-'type' : 'timer',
-            'prettyName' : 'Went for Endgame',
-            'uniqueId' : 'endgame_tried'
-              }
-        ]
+         ]
       }
-    ]
+   ]
 }
 ";
         public static StorageManager StorageManager = StorageManager.Instance;
@@ -329,20 +357,11 @@ namespace LightScout
         {
             var newestDiagnosticData = new DiagnosticReport();
             newestDiagnosticData.BatteryLevel = (float)Xamarin.Essentials.Battery.ChargeLevel * 100;
-            var profiles = Connectivity.ConnectionProfiles;
-            newestDiagnosticData.InternetConnectivity = profiles.Contains(Xamarin.Essentials.ConnectionProfile.WiFi) || profiles.Contains(Xamarin.Essentials.ConnectionProfile.Cellular);
-            newestDiagnosticData.NumberOfMatchesStored = AllEntries.Count;
-            newestDiagnosticData.SchemasIncluded = new List<string>();
-            foreach(var Schema in Schemas)
-            {
-                newestDiagnosticData.SchemasIncluded.Add(Schema.Name);
-            }
-
         }
         public async Task InitializeData()
         {
             var existingData = await StorageManager.GetData("app_data");
-            if(existingData == "" || existingData == null)
+            if (existingData == "" || existingData == null)
             {
                 CurrentApplicationData = new ApplicationData();
                 // handle maybe start screen of tablet!
@@ -353,15 +372,15 @@ namespace LightScout
                 {
                     CurrentApplicationData = Newtonsoft.Json.JsonConvert.DeserializeObject<ApplicationData>(existingData);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     CurrentApplicationData = new ApplicationData();
                 }
             }
             //await StorageManager.DeleteData("matches");
             existingData = await StorageManager.GetData("matches");
-            
-            if(existingData == "" || existingData == null)
+
+            if (existingData == "" || existingData == null)
             {
                 AllEntries = new List<DataEntry>();
                 AllEntries.Add(new DataEntry()
@@ -372,7 +391,7 @@ namespace LightScout
                     Audited = false,
                     Completed = false,
                     Competition = "72721DT",
-                    Schema = "444899fa",
+                    Schema = "abcdef01",
                     Number = 1,
                     Position = "Main",
                     AssistedBy = new List<string>() { "0002", "0003" }
@@ -383,7 +402,42 @@ namespace LightScout
                 try
                 {
                     AllEntries = Newtonsoft.Json.JsonConvert.DeserializeObject<List<DataEntry>>(existingData);
-                }catch(Exception e)
+                    if(AllEntries.FindAll(e => e.Id == "4a4a4a01").Count < 1)
+                    {
+                        AllEntries.Add(new DataEntry()
+                        {
+                            Id = "4a4a4a01",
+                            TeamIdentifier = "0001",
+                            TeamName = "REEVES, David",
+                            Audited = false,
+                            Completed = false,
+                            Competition = "72721DT",
+                            Schema = "abcdef01",
+                            Number = 1,
+                            Position = "Main",
+                            AssistedBy = new List<string>() { "0002", "0003" }
+                        });
+
+                    }
+                    else
+                    {
+                        AllEntries.RemoveAll(e => e.Id == "4a4a4a01");
+                        AllEntries.Add(new DataEntry()
+                        {
+                            Id = "4a4a4a01",
+                            TeamIdentifier = "0001",
+                            TeamName = "REEVES, David",
+                            Audited = false,
+                            Completed = false,
+                            Competition = "72721DT",
+                            Schema = "abcdef01",
+                            Number = 1,
+                            Position = "Main",
+                            AssistedBy = new List<string>() { "0002", "0003" }
+                        });
+                    }
+                }
+                catch (Exception e)
                 {
                     AllEntries = new List<DataEntry>();
                 }
@@ -399,7 +453,7 @@ namespace LightScout
                 try
                 {
                     Users = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Scouter>>(existingData);
-                    
+
                 }
                 catch (Exception e)
                 {
@@ -419,7 +473,7 @@ namespace LightScout
             if (existingData == "" || existingData == null)
             {
                 Competitions = new List<Competition>();
-                
+
             }
             else
             {
@@ -437,21 +491,49 @@ namespace LightScout
             if (existingData == "" || existingData == null)
             {
                 Schemas = new List<Schema>();
-                
+                Schemas.Add(new Schema()
+                {
+                    Id = "abcdef01",
+                    GotAt = DateTime.Now,
+                    UsedFor = "Rapid React",
+                    Name = "Rapid React",
+                    JSONData = TestSchemaString
+                });
+
+
             }
             else
             {
                 try
                 {
                     Schemas = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Schema>>(existingData);
-                    
+                    if (Schemas.FindAll(s => s.Id == "abcdef01").Count < 1)
+                    {
+                        Schemas.Add(new Schema()
+                        {
+                            Id = "abcdef01",
+                            GotAt = DateTime.Now,
+                            UsedFor = "Rapid React",
+                            Name = "Rapid React",
+                            JSONData = TestSchemaString
+                        });
+                    }
+
                 }
                 catch (Exception e)
                 {
                     Schemas = new List<Schema>();
+                    Schemas.Add(new Schema()
+                    {
+                        Id = "abcdef01",
+                        GotAt = DateTime.Now,
+                        UsedFor = "Rapid React",
+                        Name = "Rapid React",
+                        JSONData = TestSchemaString
+                    });
                 }
             }
-            if(CurrentApplicationData.DeviceId == null || CurrentApplicationData.DeviceId == "")
+            if (CurrentApplicationData.DeviceId == null || CurrentApplicationData.DeviceId == "")
             {
                 await GenerateFirstId();
             }
@@ -479,17 +561,11 @@ namespace LightScout
             }
         }
 
-        
+
         public async Task SetBackup()
         {
             var objToUse = new Backup() { Competitions = Competitions, CreatedAt = DateTime.Now, Entries = AllEntries, Schemas = Schemas };
             await StorageManager.SetData("backup", JsonConvert.SerializeObject(objToUse));
-        }
-
-        public async Task<Backup> GetBackupWithoutApplying()
-        {
-            var objToUse = JsonConvert.DeserializeObject<Backup>(await StorageManager.GetData("backup"));
-            return objToUse;
         }
 
         public async Task GetBackup()
@@ -579,7 +655,7 @@ namespace LightScout
                 .ToCharArray();
             Random randomGen = new Random();
             var finalString = "";
-            for(int i = 0; i < 6; i++)
+            for (int i = 0; i < 6; i++)
             {
                 finalString = finalString + _base62chars[randomGen.Next(16)];
             }

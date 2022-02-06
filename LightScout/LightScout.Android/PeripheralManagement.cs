@@ -250,11 +250,12 @@ namespace LightScout.Droid
                         break;
                     case "A201":
                         Console.WriteLine("(a201) Compiling diagnostic data");
+                        ApplicationDataHandler.Instance.CompileDiagnostics();
                         
                         break;
                     case "A202":
                         Console.WriteLine("(a202) Compiling diagnostic data and waiting");
-                        
+                        ApplicationDataHandler.Instance.CompileDiagnostics();
                         break;
                     case "A301":
                         Console.WriteLine("(a301) Force competition schema");
@@ -285,6 +286,7 @@ namespace LightScout.Droid
                     case "A701":
                         Console.WriteLine("(a701) Lockdown mode");
                         // N/A At the Moment
+                        
                         break;
                     case "A702":
                         Console.WriteLine("(a702) Don't lockdown mode");
@@ -307,7 +309,8 @@ namespace LightScout.Droid
                         break;
                     case "A803":
                         Console.WriteLine("(a803) Remove all logs");
-
+                        ApplicationDataHandler.Logs.Clear();
+                        ApplicationDataHandler.Instance.SaveLogs();
                         break;
                     case "A811":
                         Console.WriteLine("(a811) Set emergency medical information");
@@ -499,23 +502,24 @@ namespace LightScout.Droid
                         break;
                     case "C501":
                         Console.WriteLine("(c501) Create backup");
-                        
+                        ApplicationDataHandler.Instance.SetBackup();
                         break;
                     case "C502":
                         Console.WriteLine("(c502) Load backup");
-
+                        ApplicationDataHandler.Instance.GetBackup();
+                        MessagingCenter.Send("MasterPage", "MatchesChanged", "hola");
                         break;
                     case "C701":
                         Console.WriteLine("(c701) Enable competition security mode");
-
+                        ApplicationDataHandler.CurrentApplicationData.SecurityMode = true;
                         break;
                     case "C702":
                         Console.WriteLine("(c702) Disable competition security mode");
-
+                        ApplicationDataHandler.CurrentApplicationData.SecurityMode = false;
                         break;
                     case "C711":
                         Console.WriteLine("(c711) Set competition security mode key");
-
+                        ApplicationDataHandler.CurrentApplicationData.SecurityKey = item.latestData;
                         break;
                 }
                 // next send back what told to
@@ -523,6 +527,7 @@ namespace LightScout.Droid
                 {
                     case "0000":
                         Console.WriteLine("(0000 >) Doing nothing");
+                        UpdateNotification("Pong!", item.protocolIn, item.protocolOut);
                         break;
                     case "0001":
                         // allow queue to do something here
@@ -560,21 +565,28 @@ namespace LightScout.Droid
                         break;
                     case "a701":
                         UpdateNotification("Not implemented!", item.protocolIn, item.protocolOut);
+                        // Probably won't be implemented at this state
                         break;
                     case "a801":
-                        UpdateNotification("Not implemented!", item.protocolIn, item.protocolOut);
+                        UpdateNotification(JsonConvert.SerializeObject(ApplicationDataHandler.Logs), item.protocolIn, item.protocolOut);
                         break;
                     case "a811":
                         UpdateNotification("Not implemented!", item.protocolIn, item.protocolOut);
                         break;
                     case "a901":
-                        UpdateNotification("Not implemented!", item.protocolIn, item.protocolOut);
+                        UpdateNotification(ApplicationDataHandler.CurrentApplicationData.Debugging.ToString(), item.protocolIn, item.protocolOut);
                         break;
                     case "c101":
+                        
                         UpdateNotification(JsonConvert.SerializeObject(ApplicationDataHandler.Schemas), item.protocolIn, item.protocolOut);
                         break;
                     case "c201":
-                        UpdateNotification("Not implemented!", item.protocolIn, item.protocolOut);
+                        List<DataEntry> listWithEmptyData = new List<DataEntry>();
+                        foreach (var match in ApplicationDataHandler.AllEntries)
+                        {
+                            listWithEmptyData.Add(new DataEntry() { Number = match.Number, Competition = match.Competition, Completed = match.Completed, TeamIdentifier = match.TeamIdentifier, Schema = match.Schema, Id = match.Id, Position = match.Position });
+                        }
+                        UpdateNotification(JsonConvert.SerializeObject(listWithEmptyData), item.protocolIn, item.protocolOut);
                         break;
                     case "c202":
                         UpdateNotification(JsonConvert.SerializeObject(ApplicationDataHandler.AllEntries), item.protocolIn, item.protocolOut);
@@ -586,14 +598,15 @@ namespace LightScout.Droid
                         UpdateNotification(JsonConvert.SerializeObject(ApplicationDataHandler.Users), item.protocolIn, item.protocolOut);
                         break;
                     case "c501":
-                        UpdateNotification("Not implemented!", item.protocolIn, item.protocolOut);
+                        //var backup = ApplicationDataHandler.Instance.GetBackupWithoutApplying().Result;
+                        //UpdateNotification(backup.CreatedAt.ToLongDateString(), item.protocolIn, item.protocolOut);
                         break;
                     case "c701":
-                        UpdateNotification("Not implemented!", item.protocolIn, item.protocolOut);
+                        UpdateNotification(ApplicationDataHandler.CurrentApplicationData.SecurityMode.ToString(), item.protocolIn, item.protocolOut);
                         break;
                 }
                 var removed = ServerManagement.QueueIn.Remove(ServerManagement.QueueIn.Single(el => el.communicationId == item.communicationId));
-                Console.WriteLine("Should be cleansed");
+                //Console.WriteLine("Should be cleansed");
                 var method = ServerManagement.Server.GetType().GetMethod("refresh");
                 if(method != null)
                 {

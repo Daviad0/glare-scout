@@ -120,13 +120,13 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="2*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Frame BackgroundColor="Transparent" BorderColor="#2A7AFA" Grid.Column="0" CornerRadius="8" Padding="5" x:Name="matchEdit">
+                                    <Frame BackgroundColor="Transparent" IsVisible="False" BorderColor="#2A7AFA" Grid.Column="0" CornerRadius="8" Padding="5" x:Name="matchEdit">
                                         <Frame.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="openEditPage"/>
                                         </Frame.GestureRecognizers>
                                         <Label HorizontalOptions="Center" VerticalOptions="Center" Text="&#xeae8;" TextColor="#2A7AFA" x:Name="matchEditLabel" FontFamily="{StaticResource IconFont}"/>
                                     </Frame>
-                                    <Frame BackgroundColor="Transparent" BorderColor="#2A7AFA" Grid.Column="1" CornerRadius="8" Padding="5">
+                                    <Frame BackgroundColor="Transparent" IsVisible="False" BorderColor="#2A7AFA" Grid.Column="1" CornerRadius="8" Padding="5">
 
                                         <Label HorizontalOptions="Center" VerticalOptions="Center" Text="&#xee09;" TextColor="#2A7AFA"  FontFamily="{StaticResource IconFont}"/>
                                     </Frame>

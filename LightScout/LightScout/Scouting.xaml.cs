@@ -24,6 +24,7 @@ namespace LightScout
         private DateTime startForm = DateTime.Now;
         public List<string> submitMethod = new List<string>();
         // could change dynamic to an object technically
+        public Dictionary<string, DateTime> durationTimers = new Dictionary<string, DateTime>();
         public Dictionary<string, object> categoryGrids = new Dictionary<string, object>();
         public Dictionary<string, SchemaValuePairing> fields = new Dictionary<string, SchemaValuePairing>();
         public Dictionary<string, StackLayout> dynamicLayouts = new Dictionary<string, StackLayout>();
@@ -127,10 +128,21 @@ namespace LightScout
                             {
                                 Button selectedButton = (Button)sender as Button;
                                 var selectUID = selectedButton.ClassId;
-                                fields[selectUID].value = Math.Floor((DateTime.Now - startForm).TotalSeconds);
-                                selectedButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5");
-                                selectedButton.TextColor = (Color)converter.ConvertFromInvariantString("Color.White");
-                                selectedButton.Text = "Happened at " + (Math.Floor((DateTime.Now - startForm).TotalMinutes).ToString() + ":" + ((Math.Floor((DateTime.Now - startForm).TotalSeconds) - (Math.Floor((DateTime.Now - startForm).TotalMinutes) * 60)).ToString().Length == 1 ? "0" : "") + (Math.Floor((DateTime.Now - startForm).TotalSeconds) - (Math.Floor((DateTime.Now - startForm).TotalMinutes) * 60)).ToString());
+                                if(selectedButton.Text.Contains("Hasn't"))
+                                {
+                                    fields[selectUID].value = Math.Floor((DateTime.Now - startForm).TotalSeconds);
+                                    selectedButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5");
+                                    selectedButton.TextColor = (Color)converter.ConvertFromInvariantString("Color.White");
+                                    selectedButton.Text = "Happened at " + (Math.Floor((DateTime.Now - startForm).TotalMinutes).ToString() + ":" + ((Math.Floor((DateTime.Now - startForm).TotalSeconds) - (Math.Floor((DateTime.Now - startForm).TotalMinutes) * 60)).ToString().Length == 1 ? "0" : "") + (Math.Floor((DateTime.Now - startForm).TotalSeconds) - (Math.Floor((DateTime.Now - startForm).TotalMinutes) * 60)).ToString());
+                                }
+                                else
+                                {
+                                    fields[selectUID].value = 0;
+                                    selectedButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Transparent");
+                                    selectedButton.TextColor = (Color)converter.ConvertFromInvariantString("#4594f5");
+                                    selectedButton.Text = "Hasn't Happened";
+                                }
+                                
                             };
                             inputContent.Children.Add(anotherButton);
                             fieldContent.Children.Add(inputContent, 1, 0);
@@ -154,6 +166,91 @@ namespace LightScout
                                 {
 
                                 }
+                                loadingFromIndex += 1;
+                            }
+                            break;
+                        case "duration":
+                            Button resetButton = new Button() { VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, TextColor = (Color)converter.ConvertFromInvariantString("Color.White"), Text = "Reset", BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5"), CornerRadius = 8, Padding = new Thickness(4), FontAttributes = FontAttributes.Bold, ClassId = uniqueId, FontSize = 18, BorderColor = (Color)converter.ConvertFromInvariantString("#4594f5"), BorderWidth = 4 };
+                            Label totalTime = new Label() { VerticalOptions = LayoutOptions.Center, Margin = new Thickness(5, 0), Text = "0s", HorizontalTextAlignment = TextAlignment.Center, TextColor = (Color)converter.ConvertFromInvariantString("#0F3F8C"), ClassId = uniqueId };
+                            Button toggleStartButton = new Button() { VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, TextColor = (Color)converter.ConvertFromInvariantString("#4594f5"), Text = "Go", BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Transparent"), CornerRadius = 8, Padding = new Thickness(4), FontAttributes = FontAttributes.Bold, ClassId = uniqueId, FontSize = 18, BorderColor = (Color)converter.ConvertFromInvariantString("#4594f5"), BorderWidth = 4 };
+
+                            durationTimers.Add(uniqueId, DateTime.Now);
+
+                            resetButton.Clicked += async (sender, args) =>
+                            {
+                                Button selectedButton = (Button)sender as Button;
+                                string selectUID = selectedButton.ClassId;
+                                if (fields[selectUID].value == null)
+                                {
+                                    fields[selectUID].value = 0;
+                                }
+                                Label selectedLabel = (Label)(fields[selectUID].controls.Where(c => c.GetType().GetProperty("Text").GetValue(c, null).ToString() == fields[selectUID].value.ToString() + "s").FirstOrDefault());
+                                fields[selectUID].value = 0;
+                                selectedLabel.Text = "0s";
+                                selectedLabel.Opacity = 1;
+                                toggleStartButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Transparent");
+                                toggleStartButton.TextColor = (Color)converter.ConvertFromInvariantString("#4594f5");
+                                toggleStartButton.Text = "Go";
+
+
+
+                            };
+                            toggleStartButton.Clicked += async (sender, args) =>
+                            {
+                                Button selectedButton = (Button)sender as Button;
+                                string selectUID = selectedButton.ClassId;
+                                if (fields[selectUID].value == null)
+                                {
+                                    fields[selectUID].value = 0;
+                                }
+                                Label selectedLabel = (Label)(fields[selectUID].controls.Where(c => c.GetType().GetProperty("Text").GetValue(c, null).ToString() == fields[selectUID].value.ToString() + "s").FirstOrDefault());
+                                if(selectedLabel.Opacity == 0.4)
+                                {
+                                    // stop duration addition
+                                    selectedLabel.Opacity = 1;
+                                    toggleStartButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Transparent");
+                                    toggleStartButton.TextColor = (Color)converter.ConvertFromInvariantString("#4594f5");
+                                    toggleStartButton.Text = "Go";
+                                    double currentTime = Double.Parse(selectedLabel.Text.Substring(0, selectedLabel.Text.Length - 1));
+                                    currentTime += (DateTime.Now - durationTimers[uniqueId]).TotalSeconds;
+                                    currentTime = (double)Math.Round(currentTime, 1);
+                                    selectedLabel.Text = currentTime.ToString() + "s";
+                                    fields[selectUID].value = currentTime;
+                                }
+                                else
+                                {
+                                    durationTimers[uniqueId] = DateTime.Now;
+                                    selectedLabel.Opacity = 0.4;
+                                    toggleStartButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5");
+                                    toggleStartButton.TextColor = (Color)converter.ConvertFromInvariantString("Color.White");
+                                    toggleStartButton.Text = "Stop";
+                                    // start timer
+                                }
+                            };
+                            fields[uniqueId].controls.Add(resetButton);
+                            fields[uniqueId].controls.Add(toggleStartButton);
+                            fields[uniqueId].controls.Add(totalTime);
+                            inputContent.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                            inputContent.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                            inputContent.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                            fields[uniqueId].value = "0";
+                            inputContent.Children.Add(resetButton, 0, 0);
+                            inputContent.Children.Add(toggleStartButton, 1, 0);
+                            inputContent.Children.Add(totalTime, 2, 0);
+                            fieldContent.Children.Add(inputContent, 1, 0);
+                            if (loadingFromData)
+                            {
+                                try
+                                {
+                                    fields[uniqueId].value = CurrentDataEntry.Data.DataValues[loadingFromIndex];
+
+                                    totalTime.Text = fields[uniqueId].value.ToString() + "s";
+                                }
+                                catch (Exception c)
+                                {
+                                    totalTime.Text = "0s";
+                                }
+
                                 loadingFromIndex += 1;
                             }
                             break;

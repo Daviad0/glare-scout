@@ -254,27 +254,31 @@ namespace LightScout
                'uniqueId':'defense_parent',
                'contents':[
                   {
-                     'type':'toggle',
-                     'prettyName':'Blocking Defense?',
-                     'uniqueId':'blocking',
-                     'conditions':{
-                        'options':[
-                           'Didn't Block',
-                           'Blocked'
-                        ]
-                     }
-                  },
+                    'type':'duration',
+                    'prettyName':'Length of Defense',
+                    'uniqueId':'defense_length'
+                 },
                   {
-                     'type':'toggle',
-                     'prettyName':'Hoarding Defense?',
-                     'uniqueId':'hoarding',
-                     'conditions':{
-                        'options':[
-                           'Didn't Hoard',
-                           'Hoarded'
-                        ]
-                     }
-                  }
+                   'type':'text',
+                   'prettyName':'Please select the number of successes and fails of the Cargo Balls HIGH',
+                   'uniqueId':'defenseBlock_Label'
+                },
+                  {
+                   'type':'stepper',
+                   'prettyName':'Successful',
+                   'uniqueId':'defenseBlock_success',
+                   'conditions':{
+                      'min':0
+                   }
+                },
+                {
+                   'type':'stepper',
+                   'prettyName':'Failure',
+                   'uniqueId':'defenseBlock_fail',
+                   'conditions':{
+                      'min':0
+                   }
+                }
                ]
             }
          ]

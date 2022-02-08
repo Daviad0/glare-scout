@@ -116,7 +116,7 @@ namespace LightScout
                'contents':[
                   {
                      'type':'text',
-                     'prettyName':'Please select the number of successes and fails of the Cargo Balls LOWER',
+                     'prettyName':'Please select the number of successful and failed shots to the LOWER HUB',
                      'uniqueId':'cargoBallsALow_Label'
                   },
                   {
@@ -144,7 +144,7 @@ namespace LightScout
               'contents':[
                  {
                     'type':'text',
-                    'prettyName':'Please select the number of successes and fails of the Cargo Balls HIGH',
+                    'prettyName':'Please select the number of successful and failed shots to the UPPER HUB',
                     'uniqueId':'cargoBallsAHigh_Label'
                  },
                  {
@@ -194,12 +194,41 @@ namespace LightScout
          'contents':[
            {
               'type':'parent',
+              'prettyName':'Cargo Balls Collection',
+              'uniqueId':'cargoBallsC_parent',
+              'contents':[
+                 {
+                    'type':'text',
+                    'prettyName':'Please note the number of CARGO that the robot collects and its color!',
+                    'uniqueId':'cargoBallsC_Label'
+                 },
+                 {
+                    'type':'stepper',
+                    'prettyName':'Red CARGO',
+                    'uniqueId':'cargoBallsC_red',
+                    'conditions':{
+                       'min':0
+                    }
+                 },
+                 {
+                    'type':'stepper',
+                    'prettyName':'Blue CARGO',
+                    'uniqueId':'cargoBallsC_blue',
+                    'conditions':{
+                       'min':0
+                    }
+                 }
+              ]
+           },
+         'contents':[
+           {
+              'type':'parent',
               'prettyName':'Cargo Balls Low',
               'uniqueId':'cargoBallsTLow_parent',
               'contents':[
                  {
                     'type':'text',
-                    'prettyName':'Please select the number of successes and fails of the Cargo Balls LOWER',
+                    'prettyName':'Please select the number of successful and failed shots to the LOWER HUB',
                     'uniqueId':'cargoBallsTLow_Label'
                  },
                  {
@@ -227,7 +256,7 @@ namespace LightScout
              'contents':[
                 {
                    'type':'text',
-                   'prettyName':'Please select the number of successes and fails of the Cargo Balls HIGH',
+                   'prettyName':'Please select the number of successful and failed shots to the UPPER HUB',
                    'uniqueId':'cargoBallsTHigh_Label'
                 },
                 {
@@ -256,11 +285,16 @@ namespace LightScout
                   {
                     'type':'duration',
                     'prettyName':'Length of Defense',
-                    'uniqueId':'defense_length'
+                    'uniqueId':'defense_length',
+                    'conditions' : {
+                        'enable' : [
+                            'defenseBlock_success', 'defenseBlock_fail'
+                        ]
+                    }
                  },
                   {
                    'type':'text',
-                   'prettyName':'Please select the number of successes and fails of the Cargo Balls HIGH',
+                   'prettyName':'Please only track the number of CARGO balls that this robot blocked successfully and unsuccessfully',
                    'uniqueId':'defenseBlock_Label'
                 },
                   {
@@ -268,7 +302,8 @@ namespace LightScout
                    'prettyName':'Successful',
                    'uniqueId':'defenseBlock_success',
                    'conditions':{
-                      'min':0
+                      'min':0,
+                      'start':'disabled'
                    }
                 },
                 {
@@ -276,7 +311,8 @@ namespace LightScout
                    'prettyName':'Failure',
                    'uniqueId':'defenseBlock_fail',
                    'conditions':{
-                      'min':0
+                      'min':0,
+                      'start':'disabled'
                    }
                 }
                ]

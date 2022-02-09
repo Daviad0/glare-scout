@@ -137,7 +137,7 @@ namespace LightScout
                             fields[uniqueId].controls.Add(anotherButton);
                             if (IsRestrictionValid(content.conditions, RestrictionType.Start) != null)
                             {
-                                if(content.conditions.groupLock.ToString() == "disable"){
+                                if(content.conditions.start.ToString() == "disable"){
                                     anotherButton.IsEnabled = false;
                                 }
                             }
@@ -277,7 +277,7 @@ namespace LightScout
                             fields[uniqueId].controls.Add(anotherNewButton);
                             if (IsRestrictionValid(content.conditions, RestrictionType.Start) != null)
                             {
-                                if(content.conditions.groupLock.ToString() == "disable"){
+                                if(content.conditions.start.ToString() == "disable"){
                                     anotherNewButton.IsEnabled = false;
                                 }
                             }
@@ -377,7 +377,7 @@ namespace LightScout
                                 Button newButton = new Button() { Text = choice.ToString(), IsEnabled = true, CornerRadius = 8, BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Transparent"), BorderColor = (Color)converter.ConvertFromInvariantString("#4594f5"), BorderWidth = 4, TextColor = (Color)converter.ConvertFromInvariantString("#4594f5"), ClassId = uniqueId, Padding = new Thickness(6,4) };
                                 if (IsRestrictionValid(content.conditions, RestrictionType.Start) != null)
                             {
-                                if(content.conditions.groupLock.ToString() == "disable"){
+                                if(content.conditions.start.ToString() == "disable"){
                                     newButton.IsEnabled = false;
                                 }
                             }
@@ -451,7 +451,7 @@ namespace LightScout
                             }
                             if (IsRestrictionValid(content.conditions, RestrictionType.Start) != null)
                             {
-                                if(content.conditions.groupLock.ToString() == "disable"){
+                                if(content.conditions.start.ToString() == "disable"){
                                     downButton.IsEnabled = false;
                                     stepperValue.IsEnabled = false;
                                     upButton.IsEnabled = false;
@@ -710,7 +710,14 @@ namespace LightScout
                         case "dropdown":
                             Picker newPicker = new Picker() { TextColor = (Color)converter.ConvertFromInvariantString("#4594f5"), FontAttributes = FontAttributes.Bold, ClassId = uniqueId, HorizontalTextAlignment=TextAlignment.Center };
                             newPicker.Title = "Select an Option";
-                            foreach(var choice in content.conditions.options)
+                            if (IsRestrictionValid(content.conditions, RestrictionType.Start) != null)
+                            {
+                                if (content.conditions.start.ToString() == "disable")
+                                {
+                                    newPicker.IsEnabled = false;
+                                }
+                            }
+                            foreach (var choice in content.conditions.options)
                             {
                                 // first one is selected
                                 newPicker.Items.Add(choice.ToString());

@@ -624,6 +624,7 @@ namespace LightScout
             if (CurrentApplicationData.RestrictMatches)
             {
                 AvailableEntries = AllEntries.FindAll(m => m.Competition == CurrentApplicationData.CurrentCompetition);
+                AvailableEntries.Sort((m1, m2) => (m1.Number < m2.Number) ? 1 : -1);
             }
             else
             {

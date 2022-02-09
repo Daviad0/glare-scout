@@ -303,7 +303,7 @@ namespace LightScout
                    'uniqueId':'defenseBlock_success',
                    'conditions':{
                       'min':0,
-                      'start':'disabled'
+                      'start':'disable'
                    }
                 },
                 {
@@ -312,7 +312,7 @@ namespace LightScout
                    'uniqueId':'defenseBlock_fail',
                    'conditions':{
                       'min':0,
-                      'start':'disabled'
+                      'start':'disable'
                    }
                 }
                ]

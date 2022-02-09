@@ -51,7 +51,9 @@ namespace LightScout
             Min,
             SecondsElapsed,
             GroupLock,
-            Start
+            Start,
+            Enable,
+            Disable
         }
         public static object IsRestrictionValid(dynamic obj, RestrictionType type)
         {
@@ -62,9 +64,29 @@ namespace LightScout
                 case RestrictionType.Start:
                     try
                     {
-                        toReturn = obj.max.ToString();
+                        toReturn = obj.start.ToString();
                     }
                     catch(Exception e)
+                    {
+                        return null;
+                    }
+                    break;
+                case RestrictionType.Enable:
+                    try
+                    {
+                        toReturn = (string[])obj.enable;
+                    }
+                    catch (Exception e)
+                    {
+                        return null;
+                    }
+                    break;
+                case RestrictionType.Disable:
+                    try
+                    {
+                        toReturn = (string[])obj.disable;
+                    }
+                    catch (Exception e)
                     {
                         return null;
                     }
@@ -112,6 +134,75 @@ namespace LightScout
             }
             return toReturn;
         }
+        public enum ControlStatus
+        {
+            ENABLED,
+            DISABLED
+        }
+
+        public async Task<int> TryUpdateElements(string[] elements, ControlStatus status)
+        {
+            int failed = 0;
+            foreach(string e in elements)
+            {
+                failed += (await UpdateElement(e, status) == false) ? 1 : 0;
+            }
+            return failed;
+        }
+
+        public async Task<bool> UpdateElement(string elementID, ControlStatus status)
+        {
+            try
+            {
+                switch (fields[elementID].schemaType)
+                {
+                    case SchemaType.dropdown:
+                        Picker dropdown_picker = (Picker)fields[elementID].controls[0];
+                        dropdown_picker.IsEnabled = status == ControlStatus.ENABLED;
+                        break;
+                    case SchemaType.duration:
+                        Button duration_reset = (Button)fields[elementID].controls[0];
+                        Button duration_toggle = (Button)fields[elementID].controls[1];
+                        Label duration_time = (Label)fields[elementID].controls[2];
+                        duration_reset.IsEnabled = status == ControlStatus.ENABLED;
+                        duration_toggle.IsEnabled = status == ControlStatus.ENABLED;
+                        duration_time.Opacity = 1;
+                        break;
+                    case SchemaType.stepper:
+                        Button stepper_down = (Button)fields[elementID].controls[0];
+                        Button stepper_up = (Button)fields[elementID].controls[1];
+                        Entry stepper_amt = (Entry)fields[elementID].controls[2];
+                        stepper_down.IsEnabled = status == ControlStatus.ENABLED;
+                        stepper_up.IsEnabled = status == ControlStatus.ENABLED;
+                        stepper_amt.IsEnabled = status == ControlStatus.ENABLED;
+                        break;
+                    case SchemaType.timer:
+                        Button timer_happened = (Button)fields[elementID].controls[0];
+                        timer_happened.IsEnabled = status == ControlStatus.ENABLED;
+                        break;
+                    case SchemaType.choices:
+                        foreach (object o in fields[elementID].controls)
+                        {
+                            Button b = (Button)o;
+                            b.IsEnabled = status == ControlStatus.ENABLED;
+                        }
+                        break;
+                    case SchemaType.toggle:
+                        Button toggle_option = (Button)fields[elementID].controls[0];
+                        toggle_option.IsEnabled = status == ControlStatus.ENABLED;
+                        break;
+                    default:
+                        return false;
+
+                }
+                return true;
+            }catch(Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+            
+        }
         public async Task<bool> deeperSchemaLevel(dynamic starter)
         {
             
@@ -141,6 +232,8 @@ namespace LightScout
                                     anotherButton.IsEnabled = false;
                                 }
                             }
+                            singleRestrictionMapping.Add(content.uniqueID.ToString(), new SingleControlRestriction() { enable = (IsRestrictionValid(content.conditions, RestrictionType.Enable) == null) ? null : (string[])IsRestrictionValid(content.conditions, RestrictionType.Enable), disable = (IsRestrictionValid(content.conditions, RestrictionType.Disable) == null) ? null : (string[])IsRestrictionValid(content.conditions, RestrictionType.Disable) });
+
                             anotherButton.Clicked += (sender, args) =>
                             {
                                 Button selectedButton = (Button)sender as Button;
@@ -151,6 +244,14 @@ namespace LightScout
                                     selectedButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5");
                                     selectedButton.TextColor = (Color)converter.ConvertFromInvariantString("Color.White");
                                     selectedButton.Text = "Happened at " + (Math.Floor((DateTime.Now - startForm).TotalMinutes).ToString() + ":" + ((Math.Floor((DateTime.Now - startForm).TotalSeconds) - (Math.Floor((DateTime.Now - startForm).TotalMinutes) * 60)).ToString().Length == 1 ? "0" : "") + (Math.Floor((DateTime.Now - startForm).TotalSeconds) - (Math.Floor((DateTime.Now - startForm).TotalMinutes) * 60)).ToString());
+                                    if(singleRestrictionMapping[selectUID].enable != null)
+                                    {
+                                        TryUpdateElements(singleRestrictionMapping[selectUID].enable, ControlStatus.ENABLED);
+                                    }
+                                    if (singleRestrictionMapping[selectUID].disable != null)
+                                    {
+                                        TryUpdateElements(singleRestrictionMapping[selectUID].enable, ControlStatus.DISABLED);
+                                    }
                                 }
                                 else
                                 {
@@ -158,6 +259,14 @@ namespace LightScout
                                     selectedButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Transparent");
                                     selectedButton.TextColor = (Color)converter.ConvertFromInvariantString("#4594f5");
                                     selectedButton.Text = "Hasn't Happened";
+                                    if (singleRestrictionMapping[selectUID].enable != null)
+                                    {
+                                        TryUpdateElements(singleRestrictionMapping[selectUID].enable, ControlStatus.DISABLED);
+                                    }
+                                    if (singleRestrictionMapping[selectUID].disable != null)
+                                    {
+                                        TryUpdateElements(singleRestrictionMapping[selectUID].enable, ControlStatus.ENABLED);
+                                    }
                                 }
                                 
                             };
@@ -192,7 +301,7 @@ namespace LightScout
                             Button toggleStartButton = new Button() { VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, TextColor = (Color)converter.ConvertFromInvariantString("#4594f5"), Text = "Go", BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Transparent"), CornerRadius = 8, Padding = new Thickness(4), FontAttributes = FontAttributes.Bold, ClassId = uniqueId, FontSize = 18, BorderColor = (Color)converter.ConvertFromInvariantString("#4594f5"), BorderWidth = 4 };
 
                             durationTimers.Add(uniqueId, DateTime.Now);
-
+                            singleRestrictionMapping.Add(content.uniqueID.ToString(), new SingleControlRestriction() { enable = (IsRestrictionValid(content.conditions, RestrictionType.Enable) == null) ? null : (string[])IsRestrictionValid(content.conditions, RestrictionType.Enable), disable = (IsRestrictionValid(content.conditions, RestrictionType.Disable) == null) ? null : (string[])IsRestrictionValid(content.conditions, RestrictionType.Disable) });
                             resetButton.Clicked += async (sender, args) =>
                             {
                                 Button selectedButton = (Button)sender as Button;
@@ -209,7 +318,14 @@ namespace LightScout
                                 toggleStartButton.TextColor = (Color)converter.ConvertFromInvariantString("#4594f5");
                                 toggleStartButton.Text = "Go";
 
-
+                                if (singleRestrictionMapping[selectUID].enable != null)
+                                {
+                                    TryUpdateElements(singleRestrictionMapping[selectUID].enable, ControlStatus.DISABLED);
+                                }
+                                if (singleRestrictionMapping[selectUID].disable != null)
+                                {
+                                    TryUpdateElements(singleRestrictionMapping[selectUID].enable, ControlStatus.ENABLED);
+                                }
 
                             };
                             toggleStartButton.Clicked += async (sender, args) =>
@@ -233,6 +349,16 @@ namespace LightScout
                                     currentTime = (double)Math.Round(currentTime, 1);
                                     selectedLabel.Text = currentTime.ToString() + "s";
                                     fields[selectUID].value = currentTime;
+
+                                    if (singleRestrictionMapping[selectUID].enable != null)
+                                    {
+                                        TryUpdateElements(singleRestrictionMapping[selectUID].enable, ControlStatus.ENABLED);
+                                    }
+                                    if (singleRestrictionMapping[selectUID].disable != null)
+                                    {
+                                        TryUpdateElements(singleRestrictionMapping[selectUID].enable, ControlStatus.DISABLED);
+                                    }
+
                                 }
                                 else
                                 {
@@ -281,6 +407,7 @@ namespace LightScout
                                     anotherNewButton.IsEnabled = false;
                                 }
                             }
+                            singleRestrictionMapping.Add(content.uniqueID.ToString(), new SingleControlRestriction() { enable = (IsRestrictionValid(content.conditions, RestrictionType.Enable) == null) ? null : (string[])IsRestrictionValid(content.conditions, RestrictionType.Enable), disable = (IsRestrictionValid(content.conditions, RestrictionType.Disable) == null) ? null : (string[])IsRestrictionValid(content.conditions, RestrictionType.Disable) });
                             anotherNewButton.Clicked += (sender, args) =>
                             {
                                 Button selectedButton = (Button)sender as Button;
@@ -292,6 +419,14 @@ namespace LightScout
                                     selectedButton.BackgroundColor = (Color)converter.ConvertFromInvariantString("#4594f5");
                                     selectedButton.TextColor = (Color)converter.ConvertFromInvariantString("Color.White");
                                     selectedButton.Text = fields[selectUID].value.ToString();
+                                    if (singleRestrictionMapping[selectUID].enable != null)
+                                    {
+                                        TryUpdateElements(singleRestrictionMapping[selectUID].enable, ControlStatus.ENABLED);
+                                    }
+                                    if (singleRestrictionMapping[selectUID].disable != null)
+                                    {
+                                        TryUpdateElements(singleRestrictionMapping[selectUID].enable, ControlStatus.DISABLED);
+                                    }
                                 }
                                 else
                                 {
@@ -301,6 +436,14 @@ namespace LightScout
                                     selectedButton.TextColor = (Color)converter.ConvertFromInvariantString("#4594f5");
                                     
                                     selectedButton.Text = fields[selectUID].value.ToString();
+                                    if (singleRestrictionMapping[selectUID].enable != null)
+                                    {
+                                        TryUpdateElements(singleRestrictionMapping[selectUID].enable, ControlStatus.DISABLED);
+                                    }
+                                    if (singleRestrictionMapping[selectUID].disable != null)
+                                    {
+                                        TryUpdateElements(singleRestrictionMapping[selectUID].enable, ControlStatus.ENABLED);
+                                    }
                                 }
                             };
                             inputContent.Children.Add(anotherNewButton);
@@ -350,8 +493,8 @@ namespace LightScout
                             bool inCols = true;
                             int numButtons = 0;
                             int numCharacters = 0;
-                            
-                            singleRestrictionMapping.Add(content.uniqueId.ToString(), new SingleControlRestriction());
+
+                            singleRestrictionMapping.Add(content.uniqueID.ToString(), new SingleControlRestriction() { enable = (IsRestrictionValid(content.conditions, RestrictionType.Enable) == null) ? null : (string[])IsRestrictionValid(content.conditions, RestrictionType.Enable), disable = (IsRestrictionValid(content.conditions, RestrictionType.Disable) == null) ? null : (string[])IsRestrictionValid(content.conditions, RestrictionType.Disable) });
                             foreach (var choice in content.conditions.options)
                             {
                                 numButtons += 1;
@@ -408,7 +551,10 @@ namespace LightScout
                                         buttonHighlight.TextColor = (Color)converter.ConvertFromInvariantString("Color.White");
                                         fields[selectUID].value = clicked.Text;
                                     }
-
+                                    if (singleRestrictionMapping[selectUID].enable != null)
+                                    {
+                                        TryUpdateElements(singleRestrictionMapping[selectUID].enable, ControlStatus.ENABLED);
+                                    }
 
                                 };
                                 inputContent.Children.Add(newButton, col, row);
@@ -457,7 +603,7 @@ namespace LightScout
                                     upButton.IsEnabled = false;
                                 }
                             }
-                            singleRestrictionMapping.Add(content.uniqueId.ToString(), new SingleControlRestriction() { max = IsRestrictionValid(content.conditions, RestrictionType.Max) == null ? null : int.Parse(IsRestrictionValid(content.conditions, RestrictionType.Max).ToString()), min = IsRestrictionValid(content.conditions, RestrictionType.Min) == null ? null : int.Parse(IsRestrictionValid(content.conditions, RestrictionType.Min).ToString()), secondsElapsed = IsRestrictionValid(content.conditions, RestrictionType.SecondsElapsed) == null ? null : int.Parse(IsRestrictionValid(content.conditions, RestrictionType.SecondsElapsed).ToString()) });
+                            singleRestrictionMapping.Add(content.uniqueId.ToString(), new SingleControlRestriction() { max = IsRestrictionValid(content.conditions, RestrictionType.Max) == null ? null : int.Parse(IsRestrictionValid(content.conditions, RestrictionType.Max).ToString()), min = IsRestrictionValid(content.conditions, RestrictionType.Min) == null ? null : int.Parse(IsRestrictionValid(content.conditions, RestrictionType.Min).ToString()), secondsElapsed = IsRestrictionValid(content.conditions, RestrictionType.SecondsElapsed) == null ? null : int.Parse(IsRestrictionValid(content.conditions, RestrictionType.SecondsElapsed).ToString()), enable = (IsRestrictionValid(content.conditions, RestrictionType.Enable) == null) ? null : (string[])IsRestrictionValid(content.conditions, RestrictionType.Enable), disable = (IsRestrictionValid(content.conditions, RestrictionType.Disable) == null) ? null : (string[])IsRestrictionValid(content.conditions, RestrictionType.Disable) });
                             stepperValue.TextChanged += async (sender, args) =>
                             {
                                 
@@ -710,6 +856,7 @@ namespace LightScout
                         case "dropdown":
                             Picker newPicker = new Picker() { TextColor = (Color)converter.ConvertFromInvariantString("#4594f5"), FontAttributes = FontAttributes.Bold, ClassId = uniqueId, HorizontalTextAlignment=TextAlignment.Center };
                             newPicker.Title = "Select an Option";
+                            singleRestrictionMapping.Add(content.uniqueID.ToString(), new SingleControlRestriction() { enable = (IsRestrictionValid(content.conditions, RestrictionType.Enable) == null) ? null : (string[])IsRestrictionValid(content.conditions, RestrictionType.Enable), disable = (IsRestrictionValid(content.conditions, RestrictionType.Disable) == null) ? null : (string[])IsRestrictionValid(content.conditions, RestrictionType.Disable) });
                             if (IsRestrictionValid(content.conditions, RestrictionType.Start) != null)
                             {
                                 if (content.conditions.start.ToString() == "disable")

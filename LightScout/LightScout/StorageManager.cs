@@ -220,7 +220,6 @@ namespace LightScout
                  }
               ]
            },
-         'contents':[
            {
               'type':'parent',
               'prettyName':'Cargo Balls Low',
@@ -549,6 +548,18 @@ namespace LightScout
                     Schemas = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Schema>>(existingData);
                     if (Schemas.FindAll(s => s.Id == "abcdef01").Count < 1)
                     {
+                        Schemas.Add(new Schema()
+                        {
+                            Id = "abcdef01",
+                            GotAt = DateTime.Now,
+                            UsedFor = "Rapid React",
+                            Name = "Rapid React",
+                            JSONData = TestSchemaString
+                        });
+                    }
+                    else
+                    {
+                        Schemas.RemoveAll(s => s.Id == "abcdef01");
                         Schemas.Add(new Schema()
                         {
                             Id = "abcdef01",

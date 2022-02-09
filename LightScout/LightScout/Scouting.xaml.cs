@@ -50,7 +50,8 @@ namespace LightScout
             Max,
             Min,
             SecondsElapsed,
-            GroupLock
+            GroupLock,
+            Start
         }
         public static object IsRestrictionValid(dynamic obj, RestrictionType type)
         {
@@ -58,6 +59,16 @@ namespace LightScout
             dynamic toReturn = null;
             switch (type)
             {
+                case RestrictionType.Start:
+                    try
+                    {
+                        toReturn = obj.max.ToString();
+                    }
+                    catch(Exception e)
+                    {
+                        return null;
+                    }
+                    break;
                 case RestrictionType.Max:
                     try
                     {
@@ -124,6 +135,12 @@ namespace LightScout
                         case "timer":
                             Button anotherButton = new Button() { Text = "Hasn't Happened", IsEnabled = true, CornerRadius = 8, BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Transparent"), BorderColor = (Color)converter.ConvertFromInvariantString("#4594f5"), BorderWidth = 4, TextColor = (Color)converter.ConvertFromInvariantString("#4594f5"), ClassId = uniqueId, Padding = new Thickness(6, 4) };
                             fields[uniqueId].controls.Add(anotherButton);
+                            if (IsRestrictionValid(content.conditions, RestrictionType.Start) != null)
+                            {
+                                if(content.conditions.groupLock.ToString() == "disable"){
+                                    anotherButton.IsEnabled = false;
+                                }
+                            }
                             anotherButton.Clicked += (sender, args) =>
                             {
                                 Button selectedButton = (Button)sender as Button;
@@ -258,6 +275,12 @@ namespace LightScout
                             Button anotherNewButton = new Button() { Text = content.conditions.options[0].ToString(), IsEnabled = true, CornerRadius = 8, BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Transparent"), BorderColor = (Color)converter.ConvertFromInvariantString("#4594f5"), BorderWidth = 4, TextColor = (Color)converter.ConvertFromInvariantString("#4594f5"), ClassId = uniqueId, Padding = new Thickness(6, 4) };
                             fields[uniqueId].value = content.conditions.options[0].ToString();
                             fields[uniqueId].controls.Add(anotherNewButton);
+                            if (IsRestrictionValid(content.conditions, RestrictionType.Start) != null)
+                            {
+                                if(content.conditions.groupLock.ToString() == "disable"){
+                                    anotherNewButton.IsEnabled = false;
+                                }
+                            }
                             anotherNewButton.Clicked += (sender, args) =>
                             {
                                 Button selectedButton = (Button)sender as Button;
@@ -352,6 +375,12 @@ namespace LightScout
                                 }
                                
                                 Button newButton = new Button() { Text = choice.ToString(), IsEnabled = true, CornerRadius = 8, BackgroundColor = (Color)converter.ConvertFromInvariantString("Color.Transparent"), BorderColor = (Color)converter.ConvertFromInvariantString("#4594f5"), BorderWidth = 4, TextColor = (Color)converter.ConvertFromInvariantString("#4594f5"), ClassId = uniqueId, Padding = new Thickness(6,4) };
+                                if (IsRestrictionValid(content.conditions, RestrictionType.Start) != null)
+                            {
+                                if(content.conditions.groupLock.ToString() == "disable"){
+                                    newButton.IsEnabled = false;
+                                }
+                            }
                                 if(!inCols && row == 0)
                                 {
                                     newButton.Margin = new Thickness(0, 10, 0, 0);
@@ -419,6 +448,14 @@ namespace LightScout
                             if (IsRestrictionValid(content.conditions, RestrictionType.GroupLock) != null)
                             {
                                 ((MultiControlRestriction)multiRestrictionMapping[content.conditions.groupLock.ToString()]).valuePairs.Add(content.uniqueId.ToString(), null);
+                            }
+                            if (IsRestrictionValid(content.conditions, RestrictionType.Start) != null)
+                            {
+                                if(content.conditions.groupLock.ToString() == "disable"){
+                                    downButton.IsEnabled = false;
+                                    stepperValue.IsEnabled = false;
+                                    upButton.IsEnabled = false;
+                                }
                             }
                             singleRestrictionMapping.Add(content.uniqueId.ToString(), new SingleControlRestriction() { max = IsRestrictionValid(content.conditions, RestrictionType.Max) == null ? null : int.Parse(IsRestrictionValid(content.conditions, RestrictionType.Max).ToString()), min = IsRestrictionValid(content.conditions, RestrictionType.Min) == null ? null : int.Parse(IsRestrictionValid(content.conditions, RestrictionType.Min).ToString()), secondsElapsed = IsRestrictionValid(content.conditions, RestrictionType.SecondsElapsed) == null ? null : int.Parse(IsRestrictionValid(content.conditions, RestrictionType.SecondsElapsed).ToString()) });
                             stepperValue.TextChanged += async (sender, args) =>

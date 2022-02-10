@@ -333,13 +333,17 @@ namespace LightScout
            {
               'type':'timer',
               'prettyName':'Went for Hangar',
-              'uniqueId':'hangar_tried'
+              'uniqueId':'hangar_tried',
+                'conditions' : {
+                    'enable': ['rungSuccessful', 'rungLevel']
+                }
            },
             {
                'type':'toggle',
                'prettyName':'Completed Rung',
                'uniqueId':'rungSuccessful',
                'conditions':{
+                    'start' : 'disable',
                   'options':[
                      'Not Successful',
                      'Successful'
@@ -351,6 +355,7 @@ namespace LightScout
                'prettyName':'Rung Level',
                'uniqueId':'rungLevel',
                'conditions':{
+                    'start' : 'disable',
                   'options':[
                      'N/A',
                      'Low',

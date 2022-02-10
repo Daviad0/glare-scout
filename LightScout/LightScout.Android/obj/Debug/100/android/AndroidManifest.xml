@@ -5,7 +5,7 @@
     Changes to this file may cause incorrect behavior and will be lost if
     the contents are regenerated.
 -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.team862.lightscout" android:installLocation="preferExternal" android:versionCode="4" android:versionName="1.2.5">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.team862.lightscout" android:installLocation="preferExternal" android:versionCode="5" android:versionName="1.2.6">
   <uses-sdk android:minSdkVersion="22" android:targetSdkVersion="29" />
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-feature android:name="android.hardware.usb.host" />
@@ -20,6 +20,8 @@
   <uses-permission android:name="android.permission.VIBRATE" />
   <uses-permission android:name="android.permission.CAMERA" />
   <uses-feature android:name="android.hardware.usb.accessory" />
+  <uses-feature android:name="android.hardware.location.gps" android:required="false" />
+  <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
   <application android:name="android.app.Application" android:allowBackup="true" android:appComponentFactory="androidx.core.app.CoreComponentFactory" android:debuggable="true" android:extractNativeLibs="true" android:icon="@drawable/lslogof" android:label="LightScout.Android" android:roundIcon="@drawable/lslogof">
     <activity android:name="crc642c62280bb41d5e97.MainActivity" android:configChanges="orientation|screenSize" android:icon="@drawable/lslogof" android:label="Glare" android:theme="@style/Theme.Splash">
       <intent-filter>

@@ -293,7 +293,7 @@ namespace LightScout
                  },
                   {
                    'type':'text',
-                   'prettyName':'Please only track the number of CARGO balls that this robot blocked successfully and unsuccessfully',
+                   'prettyName':'Please only track the number of CARGO balls that this robot prevented another one from scoring (both successfully and unsuccessfully)',
                    'uniqueId':'defenseBlock_Label'
                 },
                   {

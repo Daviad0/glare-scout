@@ -807,6 +807,7 @@ namespace LightScout
         public bool Completed;
         public bool Audited;
         public List<string> AssistedBy;
+        public string ScoutedBy;
     }
     public class ActionLog
     {

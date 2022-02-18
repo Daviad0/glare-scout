@@ -385,6 +385,7 @@ namespace LightScout
             if (ApplicationDataHandler.Schemas.Find(el => el.Id == CurrentMatchSelected.Schema) != null)
             {
                 start_ScoutConfirm.IsEnabled = false;
+                start_ScoutPicker.SelectedIndex = -1;
                 start_MatchNumber.Text = "Match " + CurrentMatchSelected.Number.ToString();
                 start_TeamNumber.Text = "Team " + CurrentMatchSelected.TeamIdentifier.ToString();
                 start_TeamName.Text = CurrentMatchSelected.TeamName.ToString();
@@ -408,7 +409,6 @@ namespace LightScout
             }
 
         }
-
         private async void closeMatchPage(object sender, EventArgs e)
         {
             var converter = new ColorTypeConverter();
@@ -444,7 +444,7 @@ namespace LightScout
             start_Loading.IsVisible = true;
             await start_Loading.FadeTo(1, 250, Easing.CubicInOut);
             start_StartContainer.IsVisible = false;
-
+            CurrentMatchSelected.ScoutedBy = selectedUser.Name;
             //ma.IsVisible = true;
             Navigation.PushAsync(new Scouting(CurrentMatchSelected));
         }

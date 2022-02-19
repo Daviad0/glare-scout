@@ -1,1 +1,1 @@
-<resources><string name="Hello">Hello World, Click Me!</string><string name="ApplicationName">$projectname$</string></resources>
+<resources><string name="hello">Hello World, Click Me!</string><string name="app_name">PanCardView.Droid</string></resources>

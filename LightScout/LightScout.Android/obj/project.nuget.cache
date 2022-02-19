@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "qFYjMnilYNEX8/NiwPd/M72CKeYFplG/TwrLVDfbu17AZxZ0wFAHmg+PZmSxeTbo4Tp/y/P32cBoMGUMmVFz7w==",
+  "dgSpecHash": "EesK+FOZsNdZdk4AotGIMbHOLgiSsCWOffpkti3XL0HXdx8UqKqkCDqoGvq8Xk2UzPuoWUnwV1e1pEreiNazJw==",
   "success": true,
   "projectFilePath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout.Android\\LightScout.Android.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\djree\\.nuget\\packages\\akavache\\7.3.1\\akavache.7.3.1.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\akavache.core\\7.3.1\\akavache.core.7.3.1.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\akavache.sqlite3\\7.3.1\\akavache.sqlite3.7.3.1.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\cardsview\\2.8.0\\cardsview.2.8.0.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\fastandroidcamera\\2.0.0\\fastandroidcamera.2.0.0.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\lusovu.xamarinusbserialforandroid\\0.2.3\\lusovu.xamarinusbserialforandroid.0.2.3.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

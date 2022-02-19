@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using LightScout.CustomControllers;
 using LightScout.Models;
 using Newtonsoft.Json.Linq;
+using PanCardView;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -203,6 +204,8 @@ namespace LightScout
             }
             
         }
+
+        private List<ScrollView> swipeMenus = new List<ScrollView>();
         public async Task<bool> deeperSchemaLevel(dynamic starter)
         {
             
@@ -983,6 +986,7 @@ namespace LightScout
                     await deeperSchemaLevel(content);
                 }
             }
+
             return true;
         }
         protected override async void OnAppearing()
@@ -999,7 +1003,16 @@ namespace LightScout
             {
                 StackLayout newElement = new StackLayout() { ClassId = category.uniqueId };
                 // create top grid or label depending on if it's needed due to "expectedTime" property
-                if(category.expectedStart != null)
+                StackLayout toLayIn = new StackLayout();
+                var cv = new CardsView();
+                
+                var sl = new ScrollView() { VerticalScrollBarVisibility = ScrollBarVisibility.Always };
+                toLayIn = new StackLayout() { Padding = new Thickness(0,0,0,40) };
+                sl.Content = toLayIn;
+
+                swipeMenus.Add(sl);
+                
+                if (category.expectedStart != null)
                 {
                     Grid categoryHeader = new Grid() { ColumnDefinitions = { new ColumnDefinition { Width = GridLength.Auto }, new ColumnDefinition { Width = GridLength.Auto } }, Margin = new Thickness(0, 30, 0, 0), HorizontalOptions = LayoutOptions.Center };
                     Label categoryLabel = new Label() { Text = category.prettyName, FontSize = 28, FontAttributes = FontAttributes.Bold, HorizontalOptions = LayoutOptions.Center, TextColor = (Color)converter.ConvertFromInvariantString("#0F3F8C") };
@@ -1009,22 +1022,31 @@ namespace LightScout
                     
                     
                     categoryHeader.Children.Add(categoryStartFrame, 1, 0);*/
+                    
+                    
+
+
+
                     categoryHeader.Children.Add(categoryLabel, 0, 0);
-                    mainParent.Children.Add(categoryHeader);
+                    toLayIn.Children.Add(categoryHeader);
                 }
                 else
                 {
                     Label categoryLabel = new Label() { Text = category.prettyName, FontSize = 28, FontAttributes = FontAttributes.Bold, HorizontalOptions = LayoutOptions.Center, TextColor = (Color)converter.ConvertFromInvariantString("#0F3F8C"), Margin = new Thickness(0, 30, 0, 0) };
-                    mainParent.Children.Add(categoryLabel);
+                    toLayIn.Children.Add(categoryLabel);
                 }
                 
                 dynamicLayouts.Add(category.uniqueId.ToString(), newElement);
                 
-                mainParent.Children.Add(newElement);
+                toLayIn.Children.Add(newElement);
+                
                 // recursion until all of the separate items are finally added to the Dictionary and list
                 await deeperSchemaLevel(category);
+                //swipeMenus.Add(cv);
+
                 Console.WriteLine("Category " + category.uniqueId.ToString() + " finished!");
             }
+            swipeView.ItemsSource = swipeMenus;
             bar_MatchNumber.Text = "Match " + CurrentDataEntry.Number.ToString();
             bar_TeamNumber.Text = CurrentDataEntry.TeamIdentifier.ToString();
             StartTimer();
@@ -1201,6 +1223,11 @@ namespace LightScout
             }
             
 
+        }
+
+        private void swipeView_ItemSwiped(CardsView view, PanCardView.EventArgs.ItemSwipedEventArgs args)
+        {
+            Console.WriteLine("SWIPED!");
         }
     }
 }

@@ -56,6 +56,17 @@
           "lib/monoandroid10.0/Akavache.Sqlite3.dll": {}
         }
       },
+      "CardsView/2.8.0": {
+        "type": "package",
+        "compile": {
+          "lib/MonoAndroid10/PanCardView.Droid.dll": {},
+          "lib/MonoAndroid10/PanCardView.dll": {}
+        },
+        "runtime": {
+          "lib/MonoAndroid10/PanCardView.Droid.dll": {},
+          "lib/MonoAndroid10/PanCardView.dll": {}
+        }
+      },
       "FastAndroidCamera/2.0.0": {
         "type": "package",
         "compile": {
@@ -2210,6 +2221,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "CardsView": "2.8.0",
           "Microsoft.CSharp": "4.7.0",
           "Newtonsoft.Json": "13.0.1",
           "PCLStorage": "1.0.2",
@@ -2335,6 +2347,33 @@
         "lib/xamarinmac20/Akavache.Sqlite3.xml",
         "lib/xamarintvos10/Akavache.Sqlite3.dll",
         "lib/xamarintvos10/Akavache.Sqlite3.xml"
+      ]
+    },
+    "CardsView/2.8.0": {
+      "sha512": "lkJM6FyUeE+txnryCuctWexn/8dkA7mXlnzrbxJ27ucsXKgJVQTmVwxRtUT411YTZizIg4kzCPUQpRvcz9dukQ==",
+      "type": "package",
+      "path": "cardsview/2.8.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "cardsview.2.8.0.nupkg.sha512",
+        "cardsview.nuspec",
+        "images/Cardsview-logotype-main.png",
+        "lib/MonoAndroid10/PanCardView.Droid.dll",
+        "lib/MonoAndroid10/PanCardView.dll",
+        "lib/Xamarin.Mac20/PanCardView.dll",
+        "lib/Xamarin.iOS10/PanCardView.dll",
+        "lib/Xamarin.iOS10/PanCardView.iOS.dll",
+        "lib/XamarinTVOS/PanCardView.dll",
+        "lib/net45/PanCardView.dll",
+        "lib/net46/PanCardView.dll",
+        "lib/netstandard1.0/PanCardView.dll",
+        "lib/netstandard2.0/PanCardView.dll",
+        "lib/tizen40/PanCardView.Tizen.dll",
+        "lib/tizen40/PanCardView.dll",
+        "lib/uap/PanCardView.dll",
+        "lib/win81/PanCardView.dll",
+        "lib/wpa81/PanCardView.dll"
       ]
     },
     "FastAndroidCamera/2.0.0": {
@@ -5278,6 +5317,7 @@
   },
   "projectFileDependencyGroups": {
     "MonoAndroid,Version=v10.0": [
+      "CardsView >= 2.8.0",
       "LightScout >= 1.2.5",
       "LusoVU.XamarinUsbSerialForAndroid >= 0.2.3",
       "Microsoft.CSharp >= 4.7.0",
@@ -5300,6 +5340,7 @@
   },
   "packageFolders": {
     "C:\\Users\\djree\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
@@ -5313,10 +5354,12 @@
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
         "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
         "C:\\Users\\djree\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -5340,6 +5383,10 @@
     "frameworks": {
       "monoandroid10.0": {
         "dependencies": {
+          "CardsView": {
+            "target": "Package",
+            "version": "[2.8.0, )"
+          },
           "LusoVU.XamarinUsbSerialForAndroid": {
             "target": "Package",
             "version": "[0.2.3, )"

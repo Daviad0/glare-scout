@@ -6,7 +6,7 @@ namespace LightScout.Models
         public int? max;
         public int? min;
         public int? secondsElapsed;
-        public string[]? enable;
-        public string[]? disable;
+        public string[] enable;
+        public string[] disable;
     }
 }

@@ -441,10 +441,19 @@ namespace LightScout.Droid
                         
                         break;
                     case "C401":
-                        Console.WriteLine("(c401) Add user");
-                        ApplicationDataHandler.Users.Add(JsonConvert.DeserializeObject<Scouter>(item.latestData));
-                        ApplicationDataHandler.Instance.SaveUsers();
-                        MessagingCenter.Send("MasterPage", "UsersChanged", "hola");
+                        try
+                        {
+                            Console.WriteLine("(c401) Add user");
+                            ApplicationDataHandler.Users.Add(JsonConvert.DeserializeObject<Scouter>(item.latestData));
+                            ApplicationDataHandler.Instance.SaveUsers();
+                            MessagingCenter.Send("MasterPage", "UsersChanged", "hola");
+                        }
+                        catch(Exception e)
+                        {
+                            MessagingCenter.Send("MasterPage", "DialogBox", e.ToString());
+                        }
+                        MessagingCenter.Send("MasterPage", "DialogBox", "DONE ADDING USER");
+
                         break;
                     case "C402":
                         Console.WriteLine("(c402) Remove user");
@@ -458,7 +467,6 @@ namespace LightScout.Droid
                         var doThisUser = ApplicationDataHandler.Users.Single(d => d.Id == userToUpdate.Id);
                         doThisUser.Name = userToUpdate.Name;
                         doThisUser.Score = userToUpdate.Score;
-                        doThisUser.LastUsed = userToUpdate.LastUsed;
                         doThisUser.Banned = userToUpdate.Banned;
                         ApplicationDataHandler.Instance.SaveUsers();
                         MessagingCenter.Send("MasterPage", "UsersChanged", "hola");
@@ -477,7 +485,6 @@ namespace LightScout.Droid
                             var doThisUserToo = ApplicationDataHandler.Users.Single(d => d.Id == user.Id);
                             doThisUserToo.Name = user.Name;
                             doThisUserToo.Score = user.Score;
-                            doThisUserToo.LastUsed = user.LastUsed;
                             doThisUserToo.Banned = user.Banned;
                         }
                         ApplicationDataHandler.Instance.SaveUsers();

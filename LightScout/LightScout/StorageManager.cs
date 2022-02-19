@@ -491,6 +491,14 @@ namespace LightScout
             if (existingData == "" || existingData == null)
             {
                 Users = new List<Scouter>();
+                Users.Clear();
+                Users.Add(new Scouter()
+                {
+                    Name = "Gigawatt",
+                    Score = 0,
+                    Id = "uwuowo123",
+                    Banned = false
+                });
             }
             else
             {
@@ -502,17 +510,17 @@ namespace LightScout
                 catch (Exception e)
                 {
                     Users = new List<Scouter>();
+                    Users.Clear();
+                    Users.Add(new Scouter()
+                    {
+                        Name = "Gigawatt",
+                        Score = 0,
+                        Id = "uwuowo123",
+                        Banned = false
+                    });
                 }
             }
-            Users.Clear();
-            Users.Add(new Scouter()
-            {
-                Name = "Gigawatt",
-                Score = 0,
-                Id = "uwuowo123",
-                Banned = false,
-                LastUsed = DateTime.Now
-            });
+            
             existingData = await StorageManager.GetData("competitions");
             if (existingData == "" || existingData == null)
             {
@@ -762,7 +770,6 @@ namespace LightScout
         [JsonProperty("_id")]
         public string Id { get; set; }
         public int Score { get; set; }
-        public DateTime LastUsed { get; set; }
         public bool Banned { get; set; }
     }
     public class Competition

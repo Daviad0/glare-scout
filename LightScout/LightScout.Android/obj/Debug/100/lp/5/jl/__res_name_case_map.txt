@@ -1,1 +1,1 @@
-Values/Strings.xml;values/strings.xml
+values/strings.xml;values/strings.xml

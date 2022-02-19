@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "fjfgJyKpJpVf5HlnFfsOTpP07j9p3Dnj8LDoUF8sIntTbDQPIWFBRl8h+xY0fNObuz8Gg/c9VK4UBprsaXhoyw==",
+  "dgSpecHash": "QvmZkQ7czFsFCfgkAXHAz9WSsA+a/xM6ZkJkSE1K9XwU1DZmkKVru9PC8seIQJfqVINTgeORZSsQ72OMidC5fg==",
   "success": true,
   "projectFilePath": "C:\\Users\\djree\\source\\repos\\lightscoutx\\LightScout\\LightScout\\LightScout.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\djree\\.nuget\\packages\\akavache\\7.3.1\\akavache.7.3.1.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\akavache.core\\7.3.1\\akavache.core.7.3.1.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\akavache.sqlite3\\7.3.1\\akavache.sqlite3.7.3.1.nupkg.sha512",
+    "C:\\Users\\djree\\.nuget\\packages\\cardsview\\2.8.0\\cardsview.2.8.0.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\microsoft.bcl\\1.1.6\\microsoft.bcl.1.1.6.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\microsoft.bcl.async\\1.0.165\\microsoft.bcl.async.1.0.165.nupkg.sha512",
     "C:\\Users\\djree\\.nuget\\packages\\microsoft.bcl.build\\1.0.10\\microsoft.bcl.build.1.0.10.nupkg.sha512",

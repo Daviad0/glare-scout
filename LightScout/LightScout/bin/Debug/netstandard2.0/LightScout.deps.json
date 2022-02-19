@@ -9,6 +9,7 @@
     ".NETStandard,Version=v2.0/": {
       "LightScout/1.2.5": {
         "dependencies": {
+          "CardsView": "2.8.0",
           "Microsoft.CSharp": "4.7.0",
           "NETStandard.Library": "2.0.3",
           "Newtonsoft.Json": "13.0.1",
@@ -68,6 +69,14 @@
           "lib/netstandard2.0/Akavache.Sqlite3.dll": {
             "assemblyVersion": "7.3.0.0",
             "fileVersion": "7.3.1.19305"
+          }
+        }
+      },
+      "CardsView/2.8.0": {
+        "runtime": {
+          "lib/netstandard2.0/PanCardView.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
           }
         }
       },
@@ -466,6 +475,13 @@
       "sha512": "sha512-RJ7pH6YOG8TqbneMWlaoX4/xE50iUo6eMnB6u4GGoH+5VCxNz5dIzim3k92ca33o7qLtpnFPVp6vWP8jlmytFg==",
       "path": "akavache.sqlite3/7.3.1",
       "hashPath": "akavache.sqlite3.7.3.1.nupkg.sha512"
+    },
+    "CardsView/2.8.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lkJM6FyUeE+txnryCuctWexn/8dkA7mXlnzrbxJ27ucsXKgJVQTmVwxRtUT411YTZizIg4kzCPUQpRvcz9dukQ==",
+      "path": "cardsview/2.8.0",
+      "hashPath": "cardsview.2.8.0.nupkg.sha512"
     },
     "Microsoft.Bcl/1.1.6": {
       "type": "package",

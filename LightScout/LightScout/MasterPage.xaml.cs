@@ -115,8 +115,9 @@ namespace LightScout
 
 
             });
-            MessagingCenter.Subscribe<string, string>("MasterPage", "UsersChanged", (sender, message) =>
+            MessagingCenter.Subscribe<string, string>("MasterPage", "UsersChanged", async (sender, message) =>
             {
+                await Task.Delay(2000);
                 Device.BeginInvokeOnMainThread(() =>
                 {
 

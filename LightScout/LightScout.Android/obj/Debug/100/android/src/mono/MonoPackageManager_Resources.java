@@ -11,6 +11,8 @@ public class MonoPackageManager_Resources {
 		"LightScout.dll",
 		"Newtonsoft.Json.Bson.dll",
 		"Newtonsoft.Json.dll",
+		"PanCardView.dll",
+		"PanCardView.Droid.dll",
 		"PCLStorage.Abstractions.dll",
 		"PCLStorage.dll",
 		"Plugin.BLE.Abstractions.dll",

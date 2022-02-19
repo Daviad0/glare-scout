@@ -985,15 +985,15 @@ public final class R {
 		public static final int abc_shareactionprovider_share_with = 0x7f0e001a;
 		public static final int abc_shareactionprovider_share_with_application = 0x7f0e001b;
 		public static final int abc_toolbar_collapse_description = 0x7f0e001c;
-		public static final int copy = 0x7f0e0024;
-		public static final int expand_button_title = 0x7f0e0027;
-		public static final int not_set = 0x7f0e0059;
-		public static final int preference_copied = 0x7f0e0060;
-		public static final int search_menu_title = 0x7f0e0061;
-		public static final int status_bar_notification_info_overflow = 0x7f0e0062;
-		public static final int summary_collapsed_preference_list = 0x7f0e0063;
-		public static final int v7_preference_off = 0x7f0e0064;
-		public static final int v7_preference_on = 0x7f0e0065;
+		public static final int copy = 0x7f0e0025;
+		public static final int expand_button_title = 0x7f0e0028;
+		public static final int not_set = 0x7f0e005b;
+		public static final int preference_copied = 0x7f0e0062;
+		public static final int search_menu_title = 0x7f0e0063;
+		public static final int status_bar_notification_info_overflow = 0x7f0e0064;
+		public static final int summary_collapsed_preference_list = 0x7f0e0065;
+		public static final int v7_preference_off = 0x7f0e0066;
+		public static final int v7_preference_on = 0x7f0e0067;
 	}
 	public static final class style {
 		public static final int AlertDialog_AppCompat = 0x7f0f0000;

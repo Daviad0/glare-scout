@@ -119,8 +119,22 @@
                 
             </StackLayout>
             <Grid AbsoluteLayout.LayoutBounds="0, 1, .4, .06" AbsoluteLayout.LayoutFlags="All" x:Name="elapsedContainer">
-                <Frame Grid.Column="0" Grid.Row="0" BackgroundColor="#2A7AFA" CornerRadius="16" Padding="12,4" x:Name="elapsedFrame1" HorizontalOptions="Start" VerticalOptions="End" Margin="10,0,0,10">
+                <Frame Grid.Column="0" Grid.Row="0" BackgroundColor="#2A7AFA" CornerRadius="16" Padding="12,4" x:Name="elapsedFrame1" HorizontalOptions="Start" VerticalOptions="End" Margin="10,0,0,10" IsVisible="False">
                     <Label x:Name="elapsed1" TextColor="White" Text="0:00" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Frame>
+                <!--<Frame Grid.Column="0" Grid.Row="0" BackgroundColor="#0F3F8C" CornerRadius="16" Padding="12,4" x:Name="elapsedFrame2" HorizontalOptions="Start" VerticalOptions="End" Margin="10,0,0,10" Opacity="0">
+                    <Label x:Name="elapsed2" TextColor="White" Text="0:00" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </Frame>-->
+            </Grid>
+            <Grid AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" x:Name="startContainer">
+                <Frame Grid.Column="0" Grid.Row="0" BackgroundColor="Black" Opacity="0.5">
+                    
+                </Frame>
+                <Frame Grid.Column="0" Grid.Row="0" BackgroundColor="#2A7AFA" HorizontalOptions="Center" VerticalOptions="Center" Padding="60, 8" CornerRadius="20">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="StartActually"/>
+                    </Frame.GestureRecognizers>
+                    <Label TextColor="White" Text="Go" FontSize="60" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold"/>
                 </Frame>
                 <!--<Frame Grid.Column="0" Grid.Row="0" BackgroundColor="#0F3F8C" CornerRadius="16" Padding="12,4" x:Name="elapsedFrame2" HorizontalOptions="Start" VerticalOptions="End" Margin="10,0,0,10" Opacity="0">
                     <Label x:Name="elapsed2" TextColor="White" Text="0:00" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center"/>

@@ -1229,5 +1229,12 @@ namespace LightScout
         {
             Console.WriteLine("SWIPED!");
         }
+
+        private void StartActually(object sender, EventArgs e)
+        {
+            elapsedFrame1.IsVisible = true;
+            startContainer.IsVisible = false;
+            startForm = DateTime.Now;
+        }
     }
 }

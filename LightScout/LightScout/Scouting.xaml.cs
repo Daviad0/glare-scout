@@ -1211,6 +1211,8 @@ namespace LightScout
                 ApplicationDataHandler.AvailableEntries.Single(f => f.Id == CurrentDataEntry.Id).LastEdited = DateTime.Now;
                 ApplicationDataHandler.AvailableEntries.Single(f => f.Id == CurrentDataEntry.Id).Data = exportedData;
                 ApplicationDataHandler.AvailableEntries.Single(f => f.Id == CurrentDataEntry.Id).Completed = true;
+
+                ApplicationDataHandler.AwaitingSubmission.Add(ApplicationDataHandler.AvailableEntries.Single(f => f.Id == CurrentDataEntry.Id));
                 await ApplicationDataHandler.Instance.SaveMatches();
 
 

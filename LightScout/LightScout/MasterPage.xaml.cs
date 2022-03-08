@@ -566,7 +566,7 @@ namespace LightScout
                         eventType = "Clearing all Data"
                     });
                     debug_cleardata.IsEnabled = false;
-                    bool wasSuccessful = await ApplicationDataHandler.Instance.ClearAllData();
+                    bool wasSuccessful = await ApplicationDataHandler.Instance.ClearAllData(false);
                     if (wasSuccessful)
                     {
                         await ApplicationDataHandler.Instance.InitializeData();

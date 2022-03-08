@@ -231,6 +231,9 @@ namespace LightScout.Droid
                     case "0999":
                         Console.WriteLine("(0999) Data from central: " + item.protocolIn);
                         break;
+                    case "A001":
+                        Console.WriteLine("(a001) Removing everything...");
+                        ApplicationDataHandler.Instance.ClearAllData(true);
                     case "A101":
                         Console.WriteLine("(a101) This should lock tablet");
                         ApplicationDataHandler.CurrentApplicationData.Locked = true;
@@ -596,6 +599,11 @@ namespace LightScout.Droid
                         UpdateNotification(JsonConvert.SerializeObject(listWithEmptyData), item.protocolIn, item.protocolOut);
                         break;
                     case "c202":
+                        UpdateNotification(JsonConvert.SerializeObject(ApplicationDataHandler.AwaitingSubmission), item.protocolIn, item.protocolOut);
+                        ApplicationDataHandler.AwaitingSubmission.Clear();
+                        ApplicationDataHandler.Instance.SaveMatches();
+                        break;
+                    case "c203":
                         UpdateNotification(JsonConvert.SerializeObject(ApplicationDataHandler.AllEntries), item.protocolIn, item.protocolOut);
                         break;
                     case "c301":

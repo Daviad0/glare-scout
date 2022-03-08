@@ -397,6 +397,7 @@ namespace LightScout
         public static List<Competition> Competitions;
         public static List<Schema> Schemas;
         public static List<Log> Logs;
+        public static List<DataEntry> AwaitingSubmission;
         public async Task CompileDiagnostics()
         {
             var newestDiagnosticData = new DiagnosticReport();
@@ -404,6 +405,8 @@ namespace LightScout
         }
         public async Task InitializeData()
         {
+
+    
             var existingData = await StorageManager.GetData("app_data");
             if (existingData == "" || existingData == null)
             {
@@ -422,6 +425,25 @@ namespace LightScout
                 }
             }
             //await StorageManager.DeleteData("matches");
+
+            existingData = await StorageManager.GetData("awaiting");
+            if (existingData == "" || existingData == null)
+            {
+                AwaitingSubmission = new List<DataEntry>();
+                // handle maybe start screen of tablet!
+            }
+            else
+            {
+                try
+                {
+                    AwaitingSubmission = Newtonsoft.Json.JsonConvert.DeserializeObject<List<DataEntry>>(existingData);
+                }
+                catch (Exception e)
+                {
+                    AwaitingSubmission = new List<DataEntry>();
+                }
+            }
+
             existingData = await StorageManager.GetData("matches");
 
             if (existingData == "" || existingData == null)
@@ -655,9 +677,9 @@ namespace LightScout
                 AvailableEntries = AllEntries;
             }
         }
-        public async Task<bool> ClearAllData()
+        public async Task<bool> ClearAllData(bool OR)
         {
-            if (CurrentApplicationData.Debugging)
+            if (CurrentApplicationData.Debugging || OR)
             {
                 // WARNING: TO BE ONLY USED IN DEBUG MODE
                 await StorageManager.SetData("app_data", "");
@@ -665,6 +687,7 @@ namespace LightScout
                 await StorageManager.SetData("schemas", "");
                 await StorageManager.SetData("competitions", "");
                 await StorageManager.SetData("matches", "");
+                await StorageManager.SetData("awaiting", "");
                 //await StorageManager.SetData("logs", "");
                 return true;
             }
@@ -706,6 +729,8 @@ namespace LightScout
             // need to update into the already existing ones
             var dataToPut = Newtonsoft.Json.JsonConvert.SerializeObject(AvailableEntries);
             await StorageManager.SetData("matches", dataToPut);
+            dataToPut = Newtonsoft.Json.JsonConvert.SerializeObject(AwaitingSubmission);
+            await StorageManager.SetData("awaiting", dataToPut);
         }
         public async Task SaveLogs()
         {

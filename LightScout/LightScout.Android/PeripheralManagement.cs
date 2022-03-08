@@ -234,6 +234,8 @@ namespace LightScout.Droid
                     case "A001":
                         Console.WriteLine("(a001) Removing everything...");
                         ApplicationDataHandler.Instance.ClearAllData(true);
+                        
+                        break;
                     case "A101":
                         Console.WriteLine("(a101) This should lock tablet");
                         ApplicationDataHandler.CurrentApplicationData.Locked = true;

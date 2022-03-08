@@ -136,10 +136,16 @@
                     </Frame.GestureRecognizers>
                     <Label TextColor="White" Text="Go" FontSize="60" HorizontalOptions="Center" VerticalOptions="Center" FontAttributes="Bold"/>
                 </Frame>
+                <Label Grid.Column="0" Grid.Row="0" TextColor="White" Text="Back" FontSize="24" HorizontalOptions="Start" VerticalOptions="Start" FontAttributes="Bold" Margin="20,20,0,0">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="exitPhaseSkip"/>
+                    </Label.GestureRecognizers>
+                </Label>
                 <!--<Frame Grid.Column="0" Grid.Row="0" BackgroundColor="#0F3F8C" CornerRadius="16" Padding="12,4" x:Name="elapsedFrame2" HorizontalOptions="Start" VerticalOptions="End" Margin="10,0,0,10" Opacity="0">
                     <Label x:Name="elapsed2" TextColor="White" Text="0:00" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center"/>
                 </Frame>-->
             </Grid>
+            
             <Grid AbsoluteLayout.LayoutBounds="0, 1, 1, .24" AbsoluteLayout.LayoutFlags="All" TranslationY="200" x:Name="disabledMenu" IsVisible="False">
                 <Frame BackgroundColor="#2A7AFA" CornerRadius="8" Padding="12,20,12,30">
                     <StackLayout Margin="0,0,0,10" VerticalOptions="Center">

@@ -682,15 +682,20 @@ namespace LightScout
             if (CurrentApplicationData.Debugging || OR)
             {
                 // WARNING: TO BE ONLY USED IN DEBUG MODE
-                await StorageManager.SetData("app_data", "");
+                //await StorageManager.SetData("app_data", "");
                 await StorageManager.SetData("users", "");
                 await StorageManager.SetData("schemas", "");
                 await StorageManager.SetData("competitions", "");
                 await StorageManager.SetData("matches", "");
                 await StorageManager.SetData("awaiting", "");
                 //await StorageManager.SetData("logs", "");
+                if (OR)
+                {
+                    await InitializeData();
+                }
                 return true;
             }
+            
             return false;
 
         }

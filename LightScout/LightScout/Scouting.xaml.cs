@@ -1067,6 +1067,11 @@ namespace LightScout
             }
             
         }
+        private async void exitPhaseSkip(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new MasterPage());
+
+        }
         private async void toggleDisabled(object sender, EventArgs e)
         {
             if (disabled)

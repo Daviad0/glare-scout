@@ -258,11 +258,11 @@ namespace LightScout
 
             try
             {
-                match_SchemaName.Text = ApplicationDataHandler.Schemas.Single(c => c.Id == CurrentMatchSelected.Schema).Name;
+                match_SchemaName.Text = ApplicationDataHandler.Schemas.Single(c => c.Id == CurrentMatchSelected.Schema).Name + " @ " + CurrentMatchSelected.Competition;
             }
             catch (Exception e)
             {
-                match_SchemaName.Text = CurrentMatchSelected.Schema;
+                match_SchemaName.Text = "[Improper Schema] @ " + CurrentMatchSelected.Competition;
             }
 
 

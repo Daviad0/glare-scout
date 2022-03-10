@@ -91,7 +91,7 @@
                             </Image.GestureRecognizers>
                         </Image>
                     </Grid>
-                    <Frame BorderColor="Gray" CornerRadius="16" Margin="10,5,10,0" Padding="10">
+                    <Frame BorderColor="Gray" CornerRadius="16" Margin="10,5,10,0" Padding="20">
                         <StackLayout Spacing="0">
                             <Grid Margin="10,5,10,0">
                                 <Grid.ColumnDefinitions>
@@ -99,38 +99,38 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <StackLayout Grid.Column="0">
-                                    <Label Text="Team 862" FontSize="18" x:Name="match_TeamIdentifier" FontAttributes="Bold"/>
+                                    <Label Text="Team 862" FontSize="24" x:Name="match_TeamIdentifier" FontAttributes="Bold"/>
                                     <Label Text="Lightning Robotics" FontSize="14" Margin="0,-5,0,0" x:Name="match_TeamName"/>
-                                    <Label Text="Playing with 1023, 254" FontSize="14" Margin="0,-5,0,0" x:Name="match_AssistedBy" FontAttributes="Italic"/>
                                 </StackLayout>
                                 <Label Grid.Column="1" Text="Red 3" TextColor="Red" VerticalOptions="Center" FontAttributes="Bold" HorizontalOptions="End" FontSize="18" x:Name="match_Position"/>
                             </Grid>
-                            <Label Text="Infinite Recharge" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,30,0,30" FontSize="18" x:Name="match_SchemaName"/>
+                            <Label Text="Infinite Recharge" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,30,0,40" FontSize="18" x:Name="match_SchemaName"/>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Frame BackgroundColor="#00D974" CornerRadius="16" Grid.Column="0" Padding="20,4" VerticalOptions="Center" HorizontalOptions="Center" x:Name="match_StatusContainer">
-                                    <Label TextColor="White" Text="Completed at 4:59 PM" FontSize="12" x:Name="match_StatusLabel"/>
+                                <Frame BackgroundColor="#00D974" CornerRadius="8" Grid.Column="0" Padding="20,10" VerticalOptions="Center" HorizontalOptions="Start" x:Name="match_StatusContainer">
+                                    <Label TextColor="White" Text="Completed at 4:59 PM" FontAttributes="Bold" FontSize="12" x:Name="match_StatusLabel"/>
                                 </Frame>
+
                                 <Grid Grid.Column="1">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="2*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Frame BackgroundColor="Transparent" IsVisible="False" BorderColor="#2A7AFA" Grid.Column="0" CornerRadius="8" Padding="5" x:Name="matchEdit">
+                                    <Frame BackgroundColor="Transparent" IsVisible="False" BorderColor="#2A7AFA" Grid.Column="0" CornerRadius="8" Padding="10" x:Name="matchEdit">
                                         <Frame.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="openEditPage"/>
                                         </Frame.GestureRecognizers>
                                         <Label HorizontalOptions="Center" VerticalOptions="Center" Text="&#xeae8;" TextColor="#2A7AFA" x:Name="matchEditLabel" FontFamily="{StaticResource IconFont}"/>
                                     </Frame>
-                                    <Frame BackgroundColor="Transparent" IsVisible="False" BorderColor="#2A7AFA" Grid.Column="1" CornerRadius="8" Padding="5">
+                                    <Frame BackgroundColor="Transparent" IsVisible="False" BorderColor="#2A7AFA" Grid.Column="1" CornerRadius="8" Padding="10">
 
                                         <Label HorizontalOptions="Center" VerticalOptions="Center" Text="&#xee09;" TextColor="#2A7AFA"  FontFamily="{StaticResource IconFont}"/>
                                     </Frame>
-                                    <Frame BackgroundColor="Transparent" BorderColor="#2A7AFA" Grid.Column="2" CornerRadius="8" Padding="5" x:Name="matchGo">
+                                    <Frame BackgroundColor="Transparent" BorderColor="#2A7AFA" Grid.Column="2" CornerRadius="8" Padding="10" x:Name="matchGo">
                                         <Frame.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="openMatchPage"/>
                                         </Frame.GestureRecognizers>
@@ -143,7 +143,7 @@
                         </StackLayout>
 
                     </Frame>
-                    <Frame BorderColor="Gray" CornerRadius="16" Margin="10,10,10,0" Padding="10" x:Name="announcement_Containment">
+                    <Frame BorderColor="Gray" CornerRadius="16" Margin="10,10,10,0" Padding="20" x:Name="announcement_Containment">
                         <StackLayout Margin="5">
                             <Label Text="Important Announcement" FontAttributes="Bold" FontSize="18" HorizontalOptions="Start" x:Name="announcement_Title"/>
                             <Label Text="This is a message, however it could actually be a quite long message depending on how many parts I decide to add to it. Hey look, below is the time that this was recieved at!" HorizontalOptions="Start" x:Name="announcement_Content"/>
@@ -151,7 +151,7 @@
                         </StackLayout>
 
                     </Frame>
-                    <Frame BorderColor="Gray" CornerRadius="16" Margin="10,10,10,0" Padding="10" x:Name="completion_Container">
+                    <Frame BorderColor="Gray" CornerRadius="16" Margin="10,10,10,0" Padding="20" x:Name="completion_Container">
                         <StackLayout Margin="5">
                             <Label Text="Jackson, MI Qualifying Competition" FontAttributes="Bold" FontSize="18" HorizontalOptions="Center" x:Name="completion_Name"/>
                             <Label Text="22 / 99" FontAttributes="Bold" FontSize="30" HorizontalOptions="Center" x:Name="completion_Progress"/>

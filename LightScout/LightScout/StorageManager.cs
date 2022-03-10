@@ -527,7 +527,7 @@ namespace LightScout
                 try
                 {
                     Users = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Scouter>>(existingData);
-
+                    Users.Sort((x, y) => x.Name.CompareTo(y.Name));
                 }
                 catch (Exception e)
                 {

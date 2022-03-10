@@ -5,7 +5,7 @@
     Changes to this file may cause incorrect behavior and will be lost if
     the contents are regenerated.
 -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.team862.lightscout" android:installLocation="preferExternal" android:versionCode="13" android:versionName="1.4.4">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.team862.lightscout" android:installLocation="preferExternal" android:versionCode="14" android:versionName="1.4.5">
   <uses-sdk android:minSdkVersion="22" android:targetSdkVersion="29" />
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-feature android:name="android.hardware.usb.host" />

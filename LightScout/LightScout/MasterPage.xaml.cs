@@ -169,111 +169,126 @@ namespace LightScout
         }
         private async void UpdateUsers()
         {
-            start_ScoutPicker.ItemsSource = ApplicationDataHandler.Users;
+
+            await Device.InvokeOnMainThreadAsync(async () =>
+            {
+                start_ScoutPicker.ItemsSource = ApplicationDataHandler.Users;
+            });
+            
         }
         private async void UpdateAnnouncementContainer()
         {
-            ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement = new Announcement();
-            ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Title = "Hey Strategy!";
-            ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Data = "Welcome to Glare, the scouting app for anything that you want! Currently, this app is experimental and some things haven't been patched up completely yet. Just bear with it for a little bit as the final testing is being done! To actually scout, you must have the Glare Desktop Client to load the matches and schemas onto the tablet.";
-            ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.GotAt = DateTime.Now;
-            ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.ActiveUntil = DateTime.MaxValue;
-            if (ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement == null)
+            await Device.InvokeOnMainThreadAsync(async () =>
             {
-                announcement_Containment.IsVisible = false;
-            }
-            else
-            {
-                if (ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.ActiveUntil > DateTime.Now)
+                if(ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement == null)
+                {
+                    ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement = new Announcement();
+                    ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.GotAt = DateTime.Now;
+                }
+                
+                ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Title = "Announcement";
+                
+                
+                ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.ActiveUntil = DateTime.MaxValue;
+                if (ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Data == null || ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Data == "")
+                {
+                    announcement_Containment.IsVisible = false;
+                }
+                else
                 {
                     announcement_Containment.IsVisible = true;
                     announcement_Title.Text = ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Title;
                     announcement_Content.Text = ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Data;
                     announcement_Time.Text = ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.GotAt.ToShortTimeString();
-                }
-                else
-                {
-                    announcement_Containment.IsVisible = false;
-                }
 
-            }
+                }
+            });
+            
         }
         private async void UpdateProgressContainer()
         {
-            try
+            await Device.InvokeOnMainThreadAsync(async () =>
             {
-                ApplicationDataHandler.CurrentApplicationData.CurrentCompetition = ApplicationDataHandler.Competitions.First().Id;
-                ApplicationDataHandler.Instance.SaveAppData();
-                if (ApplicationDataHandler.AvailableEntries.Count(e => e.Competition == ApplicationDataHandler.CurrentApplicationData.CurrentCompetition) == 0)
+                try
+                {
+                    ApplicationDataHandler.CurrentApplicationData.CurrentCompetition = ApplicationDataHandler.Competitions.First().Id;
+                    ApplicationDataHandler.Instance.SaveAppData();
+                    if (ApplicationDataHandler.AvailableEntries.Count(e => e.Competition == ApplicationDataHandler.CurrentApplicationData.CurrentCompetition) == 0)
+                    {
+                        completion_Container.IsVisible = false;
+                    }
+                    else
+                    {
+                        completion_Container.IsVisible = true;
+                        completion_Name.Text = ApplicationDataHandler.Competitions.Single(e => e.Id == ApplicationDataHandler.CurrentApplicationData.CurrentCompetition).Name;
+                        completion_Progress.Text = ApplicationDataHandler.AvailableEntries.Where(e => e.Competition == ApplicationDataHandler.CurrentApplicationData.CurrentCompetition).Count(f => f.Completed).ToString() + " / " + ApplicationDataHandler.AvailableEntries.Count(e => e.Competition == ApplicationDataHandler.CurrentApplicationData.CurrentCompetition);
+                        // there are no comps in the device
+
+
+                    }
+                }
+                catch (Exception e)
                 {
                     completion_Container.IsVisible = false;
                 }
-                else
-                {
-                    completion_Container.IsVisible = true;
-                    completion_Name.Text = ApplicationDataHandler.Competitions.Single(e => e.Id == ApplicationDataHandler.CurrentApplicationData.CurrentCompetition).Name;
-                    completion_Progress.Text = ApplicationDataHandler.AvailableEntries.Where(e => e.Competition == ApplicationDataHandler.CurrentApplicationData.CurrentCompetition).Count(f => f.Completed).ToString() + " / " + ApplicationDataHandler.AvailableEntries.Count(e => e.Competition == ApplicationDataHandler.CurrentApplicationData.CurrentCompetition);
-                    // there are no comps in the device
-
-
-                }
-            }
-            catch (Exception e)
-            {
-                completion_Container.IsVisible = false;
-            }
+            });
+            
 
         }
         private async void UpdateMatchContainer()
         {
-            CurrentMatch.Text = "Match " + CurrentMatchSelected.Number.ToString();
-            Left.IsEnabled = CurrentMatchIndex == 0 ? false : true;
-            Left.Opacity = CurrentMatchIndex == 0 ? .1 : 1;
-            Right.IsEnabled = CurrentMatchIndex == ApplicationDataHandler.AvailableEntries.Count - 1 ? false : true;
-            Right.Opacity = CurrentMatchIndex == ApplicationDataHandler.AvailableEntries.Count - 1 ? .1 : 1;
+            await Device.InvokeOnMainThreadAsync(async () =>
+            {
+                CurrentMatch.Text = "Match " + CurrentMatchSelected.Number.ToString();
+                Left.IsEnabled = CurrentMatchIndex == 0 ? false : true;
+                Left.Opacity = CurrentMatchIndex == 0 ? .1 : 1;
+                Right.IsEnabled = CurrentMatchIndex == ApplicationDataHandler.AvailableEntries.Count - 1 ? false : true;
+                Right.Opacity = CurrentMatchIndex == ApplicationDataHandler.AvailableEntries.Count - 1 ? .1 : 1;
 
-            match_TeamIdentifier.Text = "Team " + CurrentMatchSelected.TeamIdentifier;
-            match_TeamName.Text = CurrentMatchSelected.TeamName;
-            match_Position.Text = CurrentMatchSelected.Position;
-            // check which color it should be
-            if (CurrentMatchSelected.Position.ToLower().Contains("red"))
-            {
-                match_Position.TextColor = (Color)converter.ConvertFromInvariantString("Color.Red");
-            }
-            else if (CurrentMatchSelected.Position.ToLower().Contains("blue"))
-            {
-                match_Position.TextColor = (Color)converter.ConvertFromInvariantString("Color.Blue");
-            }
-            else
-            {
-                match_Position.TextColor = (Color)converter.ConvertFromInvariantString("Color.Green");
-            }
+                match_TeamIdentifier.Text = "Team " + CurrentMatchSelected.TeamIdentifier;
+                match_TeamName.Text = CurrentMatchSelected.TeamName;
+                match_Position.Text = CurrentMatchSelected.Position;
+                // check which color it should be
+                if (CurrentMatchSelected.Position.ToLower().Contains("red"))
+                {
+                    match_Position.TextColor = (Color)converter.ConvertFromInvariantString("Color.Red");
+                }
+                else if (CurrentMatchSelected.Position.ToLower().Contains("blue"))
+                {
+                    match_Position.TextColor = (Color)converter.ConvertFromInvariantString("Color.Blue");
+                }
+                else
+                {
+                    match_Position.TextColor = (Color)converter.ConvertFromInvariantString("Color.Green");
+                }
 
-            var assistedByString = "";
-            foreach (string s in CurrentMatchSelected.AssistedBy)
-            {
-                assistedByString += s + " ";
-            }
-            match_AssistedBy.Text = assistedByString == "" ? "" : "Assisted by " + assistedByString;
+                var assistedByString = "";
+                foreach (string s in CurrentMatchSelected.AssistedBy)
+                {
+                    assistedByString += s + " ";
+                }
+                //match_AssistedBy.Text = assistedByString == "" ? "" : "Assisted by " + assistedByString;
 
-            try
-            {
-                match_SchemaName.Text = ApplicationDataHandler.Schemas.Single(c => c.Id == CurrentMatchSelected.Schema).Name + " @ " + CurrentMatchSelected.Competition;
-            }
-            catch (Exception e)
-            {
-                match_SchemaName.Text = "[Improper Schema] @ " + CurrentMatchSelected.Competition;
-            }
+                try
+                {
+                    match_SchemaName.Text = ApplicationDataHandler.Schemas.Single(c => c.Id == CurrentMatchSelected.Schema).Name + " @ " + CurrentMatchSelected.Competition;
+                }
+                catch (Exception e)
+                {
+                    match_SchemaName.Text = "[Improper Schema] @ " + CurrentMatchSelected.Competition;
+                }
 
 
-            if (!(CurrentMatchSelected.Completed || CurrentMatchSelected.Audited))
-                match_StatusContainer.IsVisible = false;
-            else
-            {
-                match_StatusContainer.IsVisible = true;
-                match_StatusContainer.BackgroundColor = CurrentMatchSelected.Audited ? (Color)converter.ConvertFromInvariantString("#2e85b8") : (Color)converter.ConvertFromInvariantString("#00D974");
-                match_StatusLabel.Text = CurrentMatchSelected.Audited ? "This Match was Audited" : "This Match was Completed";
-            }
+                if (!(CurrentMatchSelected.Completed || CurrentMatchSelected.Audited))
+                    match_StatusContainer.IsVisible = false;
+                else
+                {
+                    match_StatusContainer.IsVisible = true;
+                    match_StatusContainer.BackgroundColor = CurrentMatchSelected.Audited ? (Color)converter.ConvertFromInvariantString("#2e85b8") : (Color)converter.ConvertFromInvariantString("#00D974");
+                    match_StatusLabel.Text = CurrentMatchSelected.Audited ? "This Match was Audited" : "This Match was Completed";
+                }
+            });
+            
         }
         private async void expandMenu_Clicked(object sender, EventArgs e)
         {

@@ -503,10 +503,7 @@ namespace LightScout.Droid
                         break;
                     case "C431":
                         Console.WriteLine("(c431) Change announcement");
-                        var announcementModel = JsonConvert.DeserializeObject<Announcement>(item.latestData);
-                        ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Title = announcementModel.Title;
-                        ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Data = announcementModel.Data;
-                        ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.ActiveUntil = announcementModel.ActiveUntil;
+                        ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.Data = item.latestData;
                         ApplicationDataHandler.CurrentApplicationData.CurrentAnnouncement.GotAt = DateTime.Now;
                         ApplicationDataHandler.Instance.SaveAppData();
                         MessagingCenter.Send("MasterPage", "AnnouncementChanged", "hola");

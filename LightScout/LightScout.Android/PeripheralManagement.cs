@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Android.App;
@@ -49,6 +50,7 @@ namespace LightScout.Droid
         public string protocolIn;
         public string protocolOut;
         public int offset;
+        public string checksum;
     }
     public class NotifyingDevice
     {
@@ -106,8 +108,12 @@ namespace LightScout.Droid
             try
             {
                 ServerManagement.CurrentRequestId = requestId;
-                var header = BitConverter.ToString(value.Take(16).ToArray()).Replace("-", string.Empty);
+                var header = BitConverter.ToString(value.Take(19).ToArray()).Replace("-", string.Empty);
                 var communicationId = header.Substring(24, 8);
+                var checksum = header.Substring(32, 6);
+
+                Console.WriteLine(checksum);
+
                 var deviceId = header.Substring(4, 6);
                 var protocolIn = header.Substring(10, 4);
                 var protocolOut = header.Substring(14, 4);
@@ -132,7 +138,7 @@ namespace LightScout.Droid
                 }
                 else
                 {
-                    ServerManagement.QueueIn.Add(new QueueItemIn() { communicationId = communicationId, deviceId = deviceId, protocolIn = protocolIn, protocolOut = protocolOut, latestData = data, latestHeader = header, isEnded = isEnded, numMessages = 1, offset = offset });
+                    ServerManagement.QueueIn.Add(new QueueItemIn() { communicationId = communicationId, deviceId = deviceId, protocolIn = protocolIn, protocolOut = protocolOut, latestData = data, latestHeader = header, isEnded = isEnded, numMessages = 1, offset = offset, checksum = checksum });
                     
                 }
                 if (ServerManagement.CurrentNotificationTo != null && device.Address == ServerManagement.CurrentNotificationTo.Device.Address)
@@ -215,10 +221,36 @@ namespace LightScout.Droid
             ServerManagement.Server.SendResponse(device, ServerManagement.CurrentRequestId, GattStatus.Success, Encoding.ASCII.GetBytes("AAA").ToArray().Length, Encoding.ASCII.GetBytes("AAA").ToArray());
             base.OnNotificationSent(device, status);
         }*/
+
+        public string CreateMD5Hash(string input)
+        {
+            // Step 1, calculate MD5 hash from input
+            MD5 md5 = System.Security.Cryptography.MD5.Create();
+            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+            byte[] hashBytes = md5.ComputeHash(inputBytes);
+
+            // Step 2, convert byte array to hex string
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hashBytes.Length; i++)
+            {
+                sb.Append(hashBytes[i].ToString("X2"));
+            }
+            return sb.ToString();
+        }
         public void CheckIfFinished(QueueItemIn item)
         {
+            
+
+
             if (item.isEnded)
             {
+                var givenCS = item.checksum;
+                var gottenCS = CreateMD5Hash(item.latestData).Substring(0, 6);
+                if (givenCS.Equals(gottenCS))
+                {
+                    Console.WriteLine("THEY ARE THE SAME");
+                }
+
                 // first do what was told to do
                 switch (item.protocolIn)
                 {

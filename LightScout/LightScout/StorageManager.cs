@@ -398,6 +398,13 @@ namespace LightScout
         public static List<Schema> Schemas;
         public static List<Log> Logs;
         public static List<DataEntry> AwaitingSubmission;
+        public enum ClearDataType
+        {
+            Data,
+            Entries,
+            All,
+            None
+        }
         public async Task CompileDiagnostics()
         {
             var newestDiagnosticData = new DiagnosticReport();
@@ -677,17 +684,40 @@ namespace LightScout
                 AvailableEntries = AllEntries;
             }
         }
-        public async Task<bool> ClearAllData(bool OR)
+        public async Task<bool> ClearAllData(bool OR, ClearDataType type)
         {
             if (CurrentApplicationData.Debugging || OR)
             {
                 // WARNING: TO BE ONLY USED IN DEBUG MODE
-                //await StorageManager.SetData("app_data", "");
-                await StorageManager.SetData("users", "");
-                await StorageManager.SetData("schemas", "");
-                await StorageManager.SetData("competitions", "");
-                await StorageManager.SetData("matches", "");
-                await StorageManager.SetData("awaiting", "");
+                //
+                if(type == ClearDataType.All)
+                {
+                    await StorageManager.SetData("users", "");
+                    await StorageManager.SetData("schemas", "");
+                    await StorageManager.SetData("matches", "");
+                    await StorageManager.SetData("competitions", "");
+                    await StorageManager.SetData("awaiting", "");
+                    await StorageManager.SetData("app_data", "");
+                }
+                else if(type == ClearDataType.Data)
+                {
+                    await StorageManager.SetData("users", "");
+                    await StorageManager.SetData("schemas", "");
+                    await StorageManager.SetData("matches", "");
+                    await StorageManager.SetData("competitions", "");
+                    await StorageManager.SetData("awaiting", "");
+                }
+                else if(type == ClearDataType.Entries)
+                {
+                    await StorageManager.SetData("matches", "");
+                    await StorageManager.SetData("awaiting", "");
+                }
+                
+                
+                
+                
+                
+                
                 //await StorageManager.SetData("logs", "");
                 if (OR)
                 {

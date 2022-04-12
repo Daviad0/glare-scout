@@ -236,10 +236,10 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="4*"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Text="&#xf01e;" FontFamily="{StaticResource IconFont}" FontSize="60" TextColor="Red"/>
+                            <Label Grid.Column="0" Text="&#xf01e;" FontFamily="{StaticResource IconFont}" FontSize="60" TextColor="#2a7afa"/>
                             <StackLayout Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center">
-                                <Label Text="USB" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" TextColor="DarkRed"/>
-                                <Label Text="Not Yet Implemented" FontSize="16" HorizontalOptions="Center" TextColor="DarkRed"/>
+                                <Label Text="USB" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" TextColor="#0f3f8c"/>
+                                <Label Text="Fully Operational" FontSize="16" HorizontalOptions="Center" TextColor="#0f3f8c"/>
                             </StackLayout>
                         </Grid>
                     </Frame>

@@ -6,6 +6,11 @@ namespace LightScout
 {
     public interface USBCommunication
     {
+        void StartChecking();
+
+        bool CheckForConnection();
+
+       
         void SendData(string data);
     }
 }

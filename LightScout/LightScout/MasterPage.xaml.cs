@@ -51,11 +51,27 @@ namespace LightScout
             {
                 DependencyService.Get<BLEPeripheral>().StartAdvertising("a3db5ad7-ac7b-4a48-b4e0-13f7c087194d", "DT1");
             });
-            
-            
+            Task.Run(() =>
+            {
+                DependencyService.Get<USBCommunication>().StartChecking();
+            });
+
+
             await ApplicationDataHandler.Instance.SaveUsers();
             Initialized = true;
         }
+    }
+    public enum CCMessageType
+    {
+        USBStarted,
+        USBGot,
+        USBError,
+        ShowDialog
+    }
+    public class CCMessage
+    {
+        public CCMessageType type;
+        public object data;
     }
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MasterPage : ContentPage
@@ -73,6 +89,16 @@ namespace LightScout
         }
         protected override void OnAppearing()
         {
+
+            MessagingCenter.Subscribe<string, CCMessage>("MasterPage", "Message", async (sender, message) =>
+            {
+                switch (message.type)
+                {
+                    case CCMessageType.USBStarted:
+                        Console.WriteLine("USB Service has started!");
+                        break;
+                }
+            });
 
             MessagingCenter.Subscribe<string, string>("MasterPage", "DataGot", (sender, message) =>
             {
@@ -92,8 +118,9 @@ namespace LightScout
 
 
             });
-            MessagingCenter.Subscribe<string, string>("MasterPage", "MatchesChanged", (sender, message) =>
+            MessagingCenter.Subscribe<string, string>("MasterPage", "MatchesChanged", async (sender, message) =>
             {
+                await Task.Delay(4000);
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     await ApplicationDataHandler.Instance.GetAvailableMatches();
@@ -104,8 +131,9 @@ namespace LightScout
 
 
             });
-            MessagingCenter.Subscribe<string, string>("MasterPage", "AnnouncementChanged", (sender, message) =>
+            MessagingCenter.Subscribe<string, string>("MasterPage", "AnnouncementChanged", async (sender, message) =>
             {
+                await Task.Delay(4000);
                 Device.BeginInvokeOnMainThread(async () =>
                 {
 
@@ -117,7 +145,7 @@ namespace LightScout
             });
             MessagingCenter.Subscribe<string, string>("MasterPage", "UsersChanged", async (sender, message) =>
             {
-                await Task.Delay(2000);
+                await Task.Delay(4000);
                 Device.BeginInvokeOnMainThread(() =>
                 {
 
@@ -316,6 +344,10 @@ namespace LightScout
         };
         private async void changeMenuPage(object sender, EventArgs e)
         {
+            Task.Run(() =>
+            {
+                DependencyService.Get<USBCommunication>().StartChecking();
+            });
             Frame clickedObj = (Frame)sender as Frame;
             Grid pageAlready = this.FindByName<Grid>(currentPage);
             Grid newPage = this.FindByName<Grid>(clickedObj.ClassId);

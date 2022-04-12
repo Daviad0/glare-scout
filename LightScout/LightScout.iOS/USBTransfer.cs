@@ -17,6 +17,11 @@ namespace LightScout.iOS
 {
     public class USBTransfer : USBCommunication
     {
+        public bool CheckForConnection()
+        {
+            throw new NotImplementedException();
+        }
+
         public void SendData(string rawstring)
         {
 
@@ -61,6 +66,12 @@ namespace LightScout.iOS
             }, socket);*/
 
         }
+
+        public void StartChecking()
+        {
+            throw new NotImplementedException();
+        }
+
         public void USBCallBack(IAsyncResult result)
         {
 

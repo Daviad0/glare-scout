@@ -625,6 +625,10 @@ namespace LightScout.Droid
                         USBContext.ready = false;
 
                         break;
+                    case 3:
+                        sendBack = "3:HOLD";
+                        Console.WriteLine("HOLD");
+                        break;
                     default:
                         sendBack = "9:INVALID";
                         Console.WriteLine("Invalid Phase");
